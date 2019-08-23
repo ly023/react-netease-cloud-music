@@ -1,0 +1,137 @@
+@mixin background-position($x, $y) {
+  background-position: $x $y;
+}
+
+.foot-bar {
+  position: relative;
+  height: 148px;
+  overflow: hidden;
+  border-top: 1px solid #d3d3d3;
+  background: #f2f2f2;
+}
+
+.wrapper {
+  width: 980px;
+  margin: 0 auto;
+}
+
+.copy {
+  float: left;
+  width: 520px;
+  padding-top: 15px;
+  line-height: 24px;
+}
+
+.link {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.copy-line {
+  margin: 0 8px 0 10px;
+  color: #c2c2c2;
+}
+
+.copy-sep-company {
+  margin-right: 14px;
+}
+
+.copy-sep-email {
+  margin-left: 14px;
+  color: #333;
+}
+
+.color-1 {
+  color: #999;
+}
+
+.color-2 {
+  color: #666;
+}
+
+.enter {
+  width: 330px;
+  margin-top: 21px;
+
+  li {
+    float: left;
+    width: 60px;
+    height: 70px;
+    text-align: center;
+    color: #666;
+
+    &:not(:first-child) {
+      margin-left: 30px;
+    }
+  }
+}
+
+.logo {
+  display: block;
+  width: 50px;
+  height: 45px;
+  margin: 0 auto;
+  text-indent: -9999px;
+  background: url(~assets/images/foot_enter.png) no-repeat;
+  background-size: 110px 450px;
+}
+
+.logo-auth {
+  @include background-position(-63px, -101px);
+}
+
+.logo-musician {
+  @include background-position(0, 0);
+}
+
+.logo-topic {
+  @include background-position(0, -80px);
+}
+
+.logo-media {
+  @include background-position(0, 0);
+}
+
+.logo-reward {
+  @include background-position(-60px, -50px);
+}
+
+.logo-cash {
+  @include background-position(0, -101px);
+}
+
+.logo-title {
+  display: inline-block;
+  margin: 5px 5px 0;
+  width: 52px;
+  height: 14px;
+  text-indent: -9999px;
+  background: url(~assets/images/foot_enter_tt.png) no-repeat;
+  background-size: 180px 100px;
+}
+
+.logo-title-auth {
+  background-position: -1px -91px;
+}
+
+.logo-title-musician {
+  background-position: 0 0;
+}
+
+.logo-title-cash {
+  background-position: -1px -72px;
+}
+
+.logo-title-reward {
+  background-position: 0 -54px;
+}
+
+
+
+
+
+
+

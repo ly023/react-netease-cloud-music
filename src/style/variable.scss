@@ -1,0 +1,91 @@
+// 背景色
+$bg-color: #F5F5F5;
+
+// 主题色 深
+$primary-color: #C10D0C;
+
+// 主题色 浅
+$light-primary-color: #C20C0C;
+
+
+// 单行省略
+%text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+// break-word
+%break-word {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+%button {
+  display: inline-block;
+  height: 31px;
+  line-height: 31px;
+  padding: 0 5px 0 0;
+  overflow: hidden;
+  vertical-align: top;
+  text-align: center;
+  cursor: pointer;
+  background: url(~assets/images/button2.png) no-repeat 0 9999px;
+}
+
+%button-i {
+  @extend %button;
+  white-space: nowrap;
+  font-style: normal;
+}
+
+%white-button {
+  @extend %button;
+  background-position: right -100px;
+
+  &:hover {
+    background-position: right -182px;
+
+    i {
+      background-position: 0 -141px;
+    }
+  }
+}
+
+%white-button-i {
+  @extend %button;
+  padding: 0 15px 0 20px;
+  font-style: normal;
+  background-position: 0 -59px;
+}
+
+%u-button {
+  float: left;
+  height: 31px;
+  line-height: 30px;
+  min-width: 23px;
+  cursor: pointer;
+  background: url(~assets/images/button2.png) no-repeat 0 9999px;
+}
+
+%u-button-i {
+  @extend %u-button;
+  padding: 0 5px 0 0;
+  white-space: nowrap;
+  font-style: normal;
+}
+
+%title {
+  position: relative;
+  height: 34px;
+  border-bottom: 2px solid #c20c0c;
+}
+
+%title-h3 {
+  float: left;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 28px;
+}

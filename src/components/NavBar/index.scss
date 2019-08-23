@@ -1,0 +1,381 @@
+$nav-border-color: #202020;
+
+@mixin link-color {
+  color: #CCC;
+}
+
+@mixin link-hover-color {
+  color: #FFF;
+}
+
+%icon {
+  background: url(~assets/images/toplist.png) no-repeat 0 9999px;
+}
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10000;
+  min-height: 70px;
+  width: 100%;
+  background-color: #242424;
+}
+
+.cont {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+.logo,
+.search,
+.video-contribution,
+.login,
+.tag-hot {
+  background: url(~assets/images/topbar.png) no-repeat 0 9999px;
+}
+
+.logo {
+  float: left;
+  width: 176px;
+  height: 69px;
+  background-position: 0 0;
+}
+
+.logo-text {
+  display: inline-block;
+  text-indent: -9999px;
+}
+
+.link-list {
+  padding: 0;
+  margin: 0;
+
+  .link-item {
+    float: left;
+    font-size: 14px;
+  }
+
+}
+
+.link {
+  display: inline-block;
+  position: relative;
+  line-height: 70px;
+  padding: 0 19px;
+  @include link-color;
+
+  &:hover,
+  &.link-active {
+    background-color: #000;
+    @include link-hover-color;
+    text-decoration: none;
+  }
+
+  &.link-active {
+    &::after {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      border-width: 6px 6px;
+      border-style: solid;
+      border-color: transparent transparent $light-primary-color transparent;
+      content: ''
+    }
+  }
+}
+
+.tag-hot {
+  display: block;
+  position: absolute;
+  top: 21px;
+  left: 100px;
+  width: 28px;
+  height: 19px;
+  background-position: -190px 0;
+}
+
+.search {
+  float: right;
+  width: 158px;
+  height: 32px;
+  margin-top: 19px;
+  background: {
+    color: #FFF;
+    position: 0 -99px;
+  };
+  border-radius: 32px;
+}
+
+.search-cont {
+  display: block;
+  position: relative;
+  margin: 8px 0 0 30px;
+}
+
+.input {
+  position: absolute;
+  line-height: 16px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: #9b9b9b;
+  }
+}
+
+.video-creator {
+  float: right;
+  width: 90px;
+  height: 32px;
+  margin: 19px 0 0 12px;
+  box-sizing: border-box;
+  line-height: 33px;
+  border: 1px solid #4F4F4F;
+  border-radius: 20px;
+  @include link-color;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #ccc;
+  }
+}
+
+.video-contribution {
+  &:hover {
+    background-position: -100px -140px;
+    @include link-hover-color;
+    text-decoration: none;
+  }
+}
+
+.login-badge {
+  position: absolute;
+  top: -5px;
+  left: 20px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  line-height: 16px;
+  font-size: 12px;
+  white-space: nowrap;
+  background-color: $light-primary-color;
+  border: 1px solid #242424;
+  color: #fff;
+  text-align: center;
+}
+
+.login {
+  float: right;
+  position: relative;
+  height: 45px;
+  padding: 7px 0 0;
+
+  &:hover {
+    .login-cont {
+      display: block;
+    }
+  }
+
+  .login-status {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 13px 22px 20px 20px;
+
+    .arrow {
+      position: absolute;
+      border: {
+        width: 7px 6px;
+        style: solid;
+        color: #454545 transparent transparent transparent;
+      }
+      top: 26px;
+      right: 0;
+    }
+
+    &.avatar {
+      img {
+        border-radius: 50%;
+      }
+    }
+
+    &.login-text {
+      display: inline-block;
+      line-height: 30px;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .login-cont {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: -44px;
+    width: 158px;
+    background-color: #2B2B2B;
+    border: {
+      width: 0 1px 1px;
+      style: solid;
+      color: $nav-border-color;
+      radius: 4px;
+    }
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.5);
+
+    .arrow {
+      position: absolute;
+      border: {
+        width: 7px 6px;
+        style: solid;
+        color: transparent transparent #2B2B2B transparent;
+      }
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .login-list {
+    border-top: 1px solid $nav-border-color;
+
+    .login-item {
+      position: relative;
+      line-height: 39px;
+      padding-left: 24px;
+      border-radius: 4px;
+      @include link-color;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #353535;
+        @include link-hover-color;
+      }
+
+      & > a {
+        @include link-color;
+        text-decoration: none;
+
+        &:hover {
+          @include link-hover-color;
+        }
+      }
+
+      .login-badge {
+        top: 7px;
+        left: 110px;
+      }
+
+      .login-icon {
+        float: left;
+        width: 18px;
+        height: 18px;
+        margin: 9px 10px 0 0;
+        @extend %icon;
+
+        &.login-icon-home {
+          background-position: 0 -80px;
+        }
+
+        &.login-icon-msg {
+          background-position: -20px -120px;
+        }
+
+        &.login-icon-level {
+          background-position: 0 -100px;
+        }
+
+        &.login-icon-member {
+          background-position: 0 -221px;
+          margin-top: 9px;
+        }
+
+        &.login-icon-setting {
+          background-position: 0 -140px;
+        }
+
+        &.login-icon-verify {
+          background-position: -20px -142px;
+        }
+
+        &.login-icon-logout {
+          background-position: 0 -200px;
+        }
+      }
+    }
+  }
+}
+
+.sub-nav-wrapper {
+  clear: both;
+  z-index: 90;
+  padding: 3px 0;
+  box-sizing: border-box;
+  background-color: $light-primary-color;
+  border-bottom: 1px solid #a40011;
+}
+
+.sub-nav {
+  width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.sub-nav-list {
+  float: left;
+  padding-left: 180px;
+}
+
+.sub-nav-item,
+.sub-nav-item a {
+  float: left;
+  text-align: center;
+}
+
+.sub-nav-item {
+  padding: 4px 0;
+
+  .sub-nav-active em {
+    background-color: #9B0909;
+    border-radius: 20px;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  em {
+    position: relative;
+    display: inline-block;
+    height: 20px;
+    margin: 0 17px;
+    padding: 0 13px;
+    line-height: 21px;
+
+    font-style: normal;
+
+    i {
+      position: absolute;
+      top: 2px;
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: url(~assets/images/white-r-icon.png);
+      background-size: cover;
+    }
+  }
+}
+

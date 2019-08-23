@@ -1,0 +1,10 @@
+
+.field {
+  &.has-error {
+    & > input {
+      border: none;
+    }
+
+    border: 1px solid $light-primary-color;
+  }
+}
