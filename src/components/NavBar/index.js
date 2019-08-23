@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
+import LoginPopover from 'components/LoginPopover'
 import {LOGIN_MODE} from 'constants/login'
 import styles from './index.scss'
 
@@ -89,7 +90,7 @@ export default class NavBar extends React.Component {
     }
 
     render() {
-        const {style} = this.state
+        const {style, loginVisible, loginMode} = this.state
         const {user: {isLogin, userInfo}} = this.props
 
         // todo 未读通知数
@@ -207,6 +208,7 @@ export default class NavBar extends React.Component {
                         </div>
                     </div>
                 </div>
+                { isLogin ? null : <LoginPopover visible={loginVisible} mode={loginMode} onCancel={this.handleCancel}/>}
             </>
         )
     }

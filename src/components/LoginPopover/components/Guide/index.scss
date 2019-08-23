@@ -1,0 +1,51 @@
+
+.login-guide {
+  width: 224px;
+  padding: 0 35px 3px 40px;
+  border-right: 1px dotted #CCC;
+}
+
+.login-guide-other {
+  float: left;
+  padding: 3px 0 3px 39px;
+  margin-top: -15px;
+}
+
+.login-guide-platform {
+  height: 120px;
+  background: url(~assets/images/platform.png) no-repeat 13px 0;
+}
+
+
+.login-guide-item {
+  margin-top: 15px;
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    width: 38px;
+    height: 38px;
+    margin-right: 14px;
+    background: url(~assets/images/logo.png) no-repeat 0 9999px;
+  }
+
+  .login-guide-item-wechat {
+    background-position: -150px -670px;
+  }
+
+  .login-guide-item-qq {
+    background-position: -190px -670px;
+  }
+
+  .login-guide-item-blog {
+    background-position: -231px -670px;
+  }
+
+  .login-guide-item-email {
+    background-position: -271px -670px;
+  }
+}

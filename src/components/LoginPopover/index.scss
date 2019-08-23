@@ -1,0 +1,198 @@
+.login-mode {
+  padding: 0 19px;
+  height: 48px;
+  line-height: 48px;
+  border-top: 1px solid #c6c6c6;
+  border-radius: 0 0 4px 4px;
+  background-color: #f7f7f7;
+  margin: 40px 0 -40px;
+
+  .sign-up-guide,
+  .login-link-primary {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .login-link-primary {
+    color: #0c72c3;
+  }
+
+  .sign-up-guide {
+    color: #999;
+  }
+}
+
+.login-btn,
+.sign-up-btn {
+  @extend %button;
+  width: 215px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.login-btn > i,
+.sign-up-btn > i {
+  @extend %button-i;
+  width: 180px;
+  padding: 0 15px 0 20px;
+  color: #fff;
+}
+
+.login-btn {
+  background-position: right -428px;
+
+  &:hover {
+    background-position: right -510px;
+
+    > i {
+      background-position: 0 -469px;
+    }
+  }
+
+  > i {
+    background-position: 0 -387px;
+  }
+
+}
+
+.sign-up-btn {
+  background-position: right -100px;
+
+  > i {
+    color: #333;
+    background-position: 0 -59px;
+  }
+
+  &:hover {
+    background-position: right -182px;
+
+    > i {
+      background-position: 0 -141px;
+    }
+  }
+
+}
+
+.login-sign-up,
+.login-mobile,
+.login-email,
+.login-reset {
+  margin: -10px auto 0;
+  padding: 0 0 3px;
+  width: 220px;
+}
+
+.login-phone-wrapper {
+  position: relative;
+  z-index: 10;
+  height: 30px;
+  margin: 0;
+  border: 1px solid #cdcdcd;
+  border-radius: 2px;
+}
+
+.login-code-current {
+  position: relative;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 18px 0 5px;
+  border-right: 1px solid #cdcdcd;
+}
+
+.login-code-options {
+  position: absolute;
+  top: 31px;
+  left: -1px;
+  width: 100%;
+  height: 128px;
+  border: 1px solid #CDCDCD;
+  border-top: none;
+  background-color: #FFF;
+  overflow: auto;
+}
+
+.login-code-item {
+  overflow: hidden;
+  padding: 0 10px 0 7px;
+  height: 32px;
+  line-height: 32px;
+  color: #333;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #EAEAEA;
+  }
+}
+
+.login-icon {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.login-arrow {
+  position: absolute;
+  top: 14px;
+  right: 7px;
+  width: 7px;
+  height: 4px;
+  background: url(~assets/images/icon2.png) no-repeat -260px -450px;
+}
+
+.login-input-wrapper {
+  overflow: hidden;
+}
+
+.login-input {
+  width: 206px;
+  height: 19px;
+  line-height: 19px;
+  padding: 5px 6px 6px;
+  border: 1px solid #cdcdcd;
+  border-radius: 2px;
+}
+
+.login-phone-number {
+  border: none;
+}
+
+.login-error {
+  height: auto;
+  line-height: 18px;
+  margin-top: 5px;
+
+  > i {
+    width: 14px;
+    height: 14px;
+    margin: 0 8px 0 0;
+    background: url(~assets/images/icon.png) no-repeat -50px -270px;
+  }
+}
+
+.error-msg {
+  color: $light-primary-color;
+}
+
+.login-option {
+  margin: 15px 0 10px;
+
+  > label,
+  .login-option-link {
+    color: #666;
+  }
+
+  .login-option-link {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+
+  input {
+    margin: 0 12px 0 0;
+    vertical-align: middle;
+  }
+}
