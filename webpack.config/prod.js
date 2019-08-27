@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const config = require('./config');
 const baseConfig = require('./base');
@@ -18,7 +19,6 @@ module.exports = merge(baseConfig, {
             '@babel/polyfill',
             './src/index.js'
         ],
-        vendor: ['react', 'lodash']
     },
     optimization: {
         splitChunks: {
@@ -31,47 +31,6 @@ module.exports = merge(baseConfig, {
             }
         }
     },
-    // optimization: {
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             default: false,
-    //             styles: {
-    //                 name: 'styles',
-    //                 test: /\.(css|scss)$/,
-    //                 chunks: 'all',
-    //                 priority: 0,
-    //                 minChunks: 2,
-    //                 enforce: true,
-    //             },
-    //             vendors: {
-    //                 chunks: 'initial',
-    //                 name: 'vendors',
-    //                 test: /[\\/]node_modules[\\/]/,
-    //                 priority: -10,
-    //                 enforce: true,
-    //             },
-    //             vendorsAsync: {
-    //                 chunks: 'async',
-    //                 name: true,
-    //                 test: /[\\/]node_modules[\\/]/,
-    //                 priority: -20,
-    //                 minSize: 30000,
-    //                 reuseExistingChunk: true,
-    //             },
-    //             vendorsAsyncCommon: {
-    //                 chunks: 'async',
-    //                 name: true,
-    //                 minChunks: 2,
-    //                 priority: -30,
-    //                 minSize: 30000,
-    //                 reuseExistingChunk: true,
-    //             },
-    //         }
-    //     },
-    //     runtimeChunk: {
-    //         name: 'runtimeChunk',
-    //     }
-    // },
     output: {
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
         filename: 'js/[name].[chunkhash:8].js', // 出口文件名
@@ -125,5 +84,7 @@ module.exports = merge(baseConfig, {
         }),
         // 为组件和模块分配ID，将最短ID分配给频率高的模块
         new webpack.optimize.OccurrenceOrderPlugin(),
+        //
+        new LodashModuleReplacementPlugin()
     ]
 })

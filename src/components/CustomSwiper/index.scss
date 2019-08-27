@@ -1,0 +1,58 @@
+
+%swiper-icon {
+  background: url(~assets/images/banner.png) no-repeat 0 9999px;
+}
+
+%swiper-button {
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -31px;
+  width: 37px;
+  height: 63px;
+  text-indent: -9999px;
+}
+
+:global {
+  .swiper-container {
+    overflow: visible;
+  }
+
+  .swiper-pagination-bullet {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    @extend %swiper-icon;
+    background-position: 3px -343px;
+    cursor: pointer;
+  }
+
+  .swiper-pagination-bullet-active {
+    @extend %swiper-icon;
+    background-position: -16px -343px;
+  }
+
+  .swiper-button-prev {
+    @extend %swiper-icon;
+    @extend %swiper-button;
+    left: -68px;
+    background-position: 0 -360px;
+
+    &:hover {
+      background-position: 0 -430px;
+    }
+  }
+
+  .swiper-button-next {
+    @extend %swiper-icon;
+    @extend %swiper-button;
+    right: -68px;
+    background-position: 0 -508px;
+
+    &:hover {
+      background-position: 0 -578px;
+    }
+  }
+}
+

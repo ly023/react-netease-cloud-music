@@ -17,7 +17,7 @@ $nav-border-color: #202020;
   top: 0;
   right: 0;
   left: 0;
-  z-index: 10000;
+  z-index: 9999;
   min-height: 70px;
   width: 100%;
   background-color: #242424;
@@ -321,7 +321,7 @@ $nav-border-color: #202020;
 .sub-nav-wrapper {
   clear: both;
   z-index: 90;
-  padding: 3px 0;
+  padding: 2px 0;
   box-sizing: border-box;
   background-color: $light-primary-color;
   border-bottom: 1px solid #a40011;

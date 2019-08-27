@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import Popover from 'components/Popover'
+import Modal from 'components/Modal'
 import {LOGIN_MODE} from 'constants/login'
 import {requestMobileLogin} from 'actions/user'
 import Guide from './components/Guide'
@@ -14,7 +14,7 @@ import './index.scss'
 @connect(({user}) => ({
     user,
 }))
-export default class LoginPopover extends React.PureComponent {
+export default class LoginModal extends React.PureComponent {
 
     static propTypes = {
         visible: PropTypes.bool,
@@ -107,10 +107,10 @@ export default class LoginPopover extends React.PureComponent {
         const {mode} = this.state
 
         return (
-            <Popover {...this.props} title={this.getTitle(mode)}>
+            <Modal {...this.props} title={this.getTitle(mode)}>
                 {this.getRenderMode(mode)}
                 {this.getRenderModeTip(mode)}
-            </Popover>
+            </Modal>
         )
     }
 }

@@ -26,7 +26,6 @@ module.exports = {
                     'thread-loader',
                     'babel-loader',
                 ],
-                // exclude: /node_modules\/(?!(dom7|swiper)\/).*/,
                 exclude: /node_modules/
             },
             {
@@ -63,25 +62,12 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'images/',  // 路径要与output.publicPath结合
-                            name: '[name].[ext]?[hash:8]'
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
+                test: /\.(png|jpe?g|gif|svg)$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 8192,
-                    outputPath: 'fonts/',
-                    name: '[name].[ext]?[hash:8]',
-                    prefix: 'font'
+                    outputPath: 'images/',  // 路径要与output.publicPath结合
+                    limit: 8192, // 小于8k base64
+                    name: '[hash:8]-[name].[ext]?[hash:8]',
                 }
             }
         ]
@@ -89,7 +75,6 @@ module.exports = {
     resolve: {
         alias: {
             'react-dom': '@hot-loader/react-dom',
-
             actions: path.join(config.root, 'src/actions'),
             assets: path.join(config.root, 'src/assets'),
             api: path.join(config.root, 'src/api'),

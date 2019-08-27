@@ -1,5 +1,5 @@
 import React from 'react'
-import FeedbackPopover from 'components/FeedbackPopover'
+import FeedbackModal from 'components/FeedbackModal'
 import './index.scss'
 
 export default class FooterBar extends React.Component {
@@ -68,7 +68,7 @@ export default class FooterBar extends React.Component {
                         </li>
                     </ul>
                 </div>
-                <FeedbackPopover visible={feedbackVisible} onCancel={this.hideFeedback}/>
+                <FeedbackModal visible={feedbackVisible} onCancel={this.hideFeedback}/>
             </div>
         )
     }

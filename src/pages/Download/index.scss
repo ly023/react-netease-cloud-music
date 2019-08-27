@@ -1,0 +1,322 @@
+.banner-wrapper {
+  width: 100%;
+  background: #222 url(./images/bg.png) no-repeat center 0;
+  background-size: cover;
+}
+
+.banner {
+  position: relative;
+  padding: 83px 0 112px;
+  width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .clients-wrapper {
+    :global {
+      .rc-tooltip .rc-tooltip-content .rc-tooltip-arrow {
+        top: -8px;
+        border-width: 0 10px 10px;
+      }
+    }
+  }
+}
+
+.clients {
+  padding: 20px 0 0 10px;
+  width: 276px;
+  height: 250px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.client {
+  float: left;
+  display: block;
+  width: 113px;
+  height: 45px;
+  margin: 0 0 10px 10px;
+  color: #333;
+  font-family: PingFangSC-Regular, sans-serif;
+  font-size: 12px;
+  line-height: 45px;
+  background: rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+
+  em {
+    font-style: normal;
+  }
+}
+
+.client:hover {
+  background-position: 0 -50px;
+  text-decoration: none;
+}
+
+.client > i {
+  float: left;
+  width: 26px;
+  height: 26px;
+  margin: 10px 10px 0;
+}
+
+.client.client-aos > i {
+  background: url(images/clients/aos.png) no-repeat 50%;
+  background-size: 100% 100%;
+}
+
+.client.client-ios > i {
+  background: url(images/clients/ios.png) no-repeat 50%;
+  background-size: 100% 100%;
+}
+
+.client.client-mac > i {
+  background: url(images/clients/mac.png) no-repeat 50%;
+  background-size: 100% 100%;
+}
+
+.client.client-pc > i {
+  background: url(images/clients/pc.png) no-repeat 50%;
+  background-size: 100% 100%;
+}
+
+.client.client-linux > i {
+  background: url(images/clients/linux.png) no-repeat 50%;
+  background-size: 100% 100%;
+}
+
+.download {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+
+  .icon-download {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 20px;
+    margin-right: 6px;
+    background: url(./images/download.png) no-repeat;
+    background-size: contain;
+    vertical-align: text-bottom;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.pc {
+  display: inline-block;
+  width: 556px;
+  height: 100%;
+  text-align: center;
+
+  img {
+    width: 464px;
+    height: 273px;
+  }
+}
+
+.mobile {
+  position: relative;
+  display: inline-block;
+  margin-left: 220px;
+  width: 300px;
+  height: 100%;
+  text-align: center;
+
+  img {
+    width: 246px;
+    height: 273px;
+  }
+
+  .mobile-download {
+    position: relative;
+
+    :global {
+      .rc-tooltip .rc-tooltip-content .rc-tooltip-arrow {
+        bottom: 12px;
+        border-width: 10px 10px 0;
+      }
+    }
+  }
+}
+
+.banner-title {
+  margin-bottom: 22px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  opacity: 0.8;
+  color: #FFFFFF;
+}
+
+.type {
+  width: 100%;
+  margin: 20px auto;
+  font-size: 16px;
+  color: #eee;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  .icon {
+    float: left;
+    width: 24px;
+    height: 24px;
+
+    &.icon-mac {
+      margin-right: 11px;
+      background: url(./images/mac.png) no-repeat 50%;
+      background-size: contain;
+    }
+
+    &.icon-win {
+      margin: 0 11px 0 30px;
+      background: url(./images/windows.png) no-repeat 50%;
+      background-size: contain;
+    }
+
+    &.icon-ios {
+      margin-right: 11px;
+      background: url(./images/ios.png) no-repeat 50%;
+      background-size: contain;
+    }
+
+    &.icon-android {
+      margin: 0 11px 0 30px;
+      background: url(./images/android.png) no-repeat 50%;
+      background-size: contain;
+    }
+
+  }
+}
+
+.download-btn {
+  width: 300px;
+  height: 65px;
+  margin: 0 auto;
+  border-radius: 65px;
+  background-color: #fff;
+  color: #D10000;
+  font-size: 22px;
+  line-height: 65px;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: content-box;
+  user-select: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.code-icon {
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  margin-right: 3px;
+  background: url(./images/ncode.png) no-repeat center;
+  background-size: contain;
+  vertical-align: -3px;
+}
+
+.code,
+.mobile-code {
+  padding: 16px 18px 9px;
+  background: #FFF;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.code {
+  position: fixed;
+  z-index: 10;
+  right: 22px;
+  top: 395px;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.mobile-code {
+  margin-bottom: 20px;
+  img {
+    width: 164px;
+    height: 164px;
+  }
+
+  p {
+    margin-top: 7px;
+    font-size: 14px;
+  }
+}
+
+.cont {
+  background: #FFF;
+  height: 437px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.wrapper {
+  width: 982px;
+  margin: 0 auto;
+}
+
+.title {
+  padding: 45px 0 5px 0;
+  font-size: 40px;
+  font-weight: normal;
+  font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+}
+
+.des {
+  line-height: 24px;
+  font-size: 16px;
+  color: #666;
+
+  > em {
+    color: #cc0000;
+    font-style: normal;
+  }
+}
+
+.cont-1 .wrapper {
+  padding-top: 120px;
+}
+
+.cont-2 {
+  padding-top: 106px;
+  background: #f8f8f8;
+}
+
+.cont-3 {
+  padding-top: 72px;
+}
+
+.cont-4 {
+  padding-top: 95px;
+  background: #f8f8f8;
+}
+
+.cont-5 {
+  padding-top: 53px;
+}
+
+
+

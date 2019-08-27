@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Popover from 'components/Popover'
+import Modal from 'components/Modal'
 import './index.scss'
 
-export default class FeedbackPopover extends React.PureComponent {
+export default class FeedbackModal extends React.PureComponent {
 
     static propTypes = {
         visible: PropTypes.bool,
@@ -69,7 +69,7 @@ export default class FeedbackPopover extends React.PureComponent {
         const {errorMsg} = this.state
 
         return (
-            <Popover {...this.props} title="意见反馈">
+            <Modal {...this.props} title="意见反馈">
                 <div styleName="feedback">
                     <p>任何产品中的问题，欢迎反馈给我们</p>
                     <div styleName="feedback-area">
@@ -100,7 +100,7 @@ export default class FeedbackPopover extends React.PureComponent {
                         ><i>取 消</i></a>
                     </div>
                 </div>
-            </Popover>
+            </Modal>
         )
     }
 }

@@ -1,9 +1,10 @@
-.not-found {
+
+.not-found-wrapper {
   min-width: 982px;
   background-color: $bg-color;
 }
 
-.not-found-wrapper {
+.not-found {
   padding: 165px 0 166px;
   text-align: center;
   background-color: #FFF;
@@ -18,7 +19,7 @@
 
 .not-found-note {
   margin-top: 35px;
-  font-size: 18px;
-  font-family: "Microsoft Yahei";
   color: #666;
+  font-size: 18px;
+  font-family: "Microsoft Yahei", sans-serif;
 }

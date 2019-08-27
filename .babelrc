@@ -70,7 +70,8 @@
         "handleMissingStyleName": "warn",
         "autoResolveMultipleImports": true
       }
-    ]
+    ],
+    "lodash"
   ],
   "env": {
     "development": {

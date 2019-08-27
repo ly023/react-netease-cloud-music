@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
-import LoginPopover from 'components/LoginPopover'
+import LoginModal from 'components/LoginModal'
 import {LOGIN_MODE} from 'constants/login'
 import styles from './index.scss'
 
@@ -177,7 +177,7 @@ export default class NavBar extends React.Component {
                                         </div>
                                     </div>
                                     : <div styleName="login">
-                                        <span className="link" styleName="login-status login-text">登录<i styleName="arrow"/></span>
+                                        <span className="link" styleName="login-status login-text" onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录<i styleName="arrow"/></span>
                                         <div styleName="login-cont">
                                             <i styleName="arrow"/>
                                             <ul styleName="login-list">
@@ -208,7 +208,7 @@ export default class NavBar extends React.Component {
                         </div>
                     </div>
                 </div>
-                { isLogin ? null : <LoginPopover visible={loginVisible} mode={loginMode} onCancel={this.handleCancel}/>}
+                { isLogin ? null : <LoginModal visible={loginVisible} mode={loginMode} onCancel={this.handleCancel}/>}
             </>
         )
     }
