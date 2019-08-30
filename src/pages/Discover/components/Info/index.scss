@@ -1,0 +1,243 @@
+
+// 登录
+.sign-in {
+  height: 126px;
+  padding-top: 0;
+  @extend %background-index;
+  background-position: 0 0;
+}
+
+.sign-in-text {
+  width: 205px;
+  margin: 0 auto;
+  padding: 16px 0;
+  line-height: 22px;
+  color: #666;
+}
+
+
+.sign-in-btn {
+  display: block;
+  width: 100px;
+  height: 31px;
+  line-height: 31px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 0 #8a060b;
+  @extend %background-index;
+  background-position: 0 -195px;
+  cursor: pointer;
+
+  &:hover {
+    background-position: -110px -195px;
+    text-decoration: none;
+  }
+}
+
+// 个人信息
+.my-info {
+  height: 165px;
+  padding-top: 20px;
+  background: url(~assets/images/index.png) no-repeat 0 -270px;
+
+  .base {
+    .avatar {
+      float: left;
+      width: 80px;
+      height: 80px;
+      margin-left: 20px;
+      padding: 2px;
+      background: #fff;
+      border: 1px solid #dadada;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .meta {
+      float: left;
+      width: 115px;
+      margin-left: 18px;
+
+      .nickname {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        @extend %text-ellipsis;
+      }
+
+      .level {
+        display: inline-block;
+        height: 17px;
+        margin-top: 5px;
+        overflow: hidden;
+        padding-left: 25px;
+        line-height: 18px;
+        color: #999;
+        font-weight: bold;
+        font-style: italic;
+        background: url(~assets/images/icon2.png) no-repeat -130px -64px;
+        text-decoration: none;
+
+        i {
+          float: right;
+          width: 8px;
+          height: 17px;
+          display: inline-block;
+          overflow: hidden;
+          vertical-align: middle;
+          background: url(~assets/images/icon2.png) no-repeat  -192px -64px;
+        }
+      }
+
+      .checkin-btn {
+        position: relative;
+        display: inline-block;
+        margin-top: 10px;
+        height: 31px;
+        line-height: 31px;
+        padding: 0 5px 0 0;
+        text-align: center;
+
+        > span {
+          display: inline-block;
+          padding: 0 15px 0 20px;
+          height: 31px;
+          line-height: 31px;
+        }
+      }
+
+      .point-popover {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        padding: 0 10px;
+        font-size: 12px;
+        background-color: #FFFBE5;
+        border: 2px solid #ffd700;
+        border-radius: 4px;
+        color: #666;
+        opacity: 0;
+        visibility: hidden;
+
+        &.fade {
+          animation: fade 2s linear;
+        }
+
+        @keyframes fade {
+          0%, 50% {
+            visibility: visible;
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+            visibility: hidden;
+          }
+        }
+
+        .point-popover-arrow {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          top: -20px;
+          border-width: 10px 8px;
+          border-style: solid;
+          border-color: transparent transparent #ffd700 transparent;
+
+          &::after {
+            position: absolute;
+            top: -5px;
+            left: -6px;
+            border-width: 8px 6px;
+            border-style: solid;
+            border-color: transparent transparent #fff transparent;
+
+            content: '';
+          }
+        }
+
+        .point-popover-content {
+
+        }
+
+        .point {
+          color: $primary-color;
+          margin: 0 5px;
+        }
+      }
+
+
+      .checkin-disabled {
+        background: url(~assets/images/button2.png) no-repeat right -346px;
+        color: #bebebe;
+
+        > span {
+          color: #bebebe;
+          background: url(~assets/images/button2.png) no-repeat 0 -305px;
+        }
+      }
+
+      .checkin {
+        background: url(~assets/images/button2.png) no-repeat right -428px;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+          background-position: right -510px;
+
+          > span {
+            background-position: 0 -469px;
+          }
+        }
+
+        > span {
+          width: 60px;
+          pointer-events: none;
+          cursor: pointer;
+          background: url(~assets/images/button2.png) no-repeat 0 -387px;
+        }
+      }
+    }
+  }
+
+
+  .summary {
+    margin: 22px 0 0 20px;
+    overflow: hidden;
+
+    li {
+      float: left;
+      height: 40px;
+      padding: 0 18px 0 0;
+
+      + li {
+        padding-left: 18px;
+      }
+
+      &:not(:last-child) {
+        border-right: 1px solid #e4e4e4;
+      }
+
+      a {
+        text-decoration: none;
+        color: #666;
+
+        &:hover {
+          color: #0c73c2;
+        }
+      }
+    }
+
+    strong {
+      display: block;
+      font-size: 20px;
+      font-weight: normal;
+    }
+  }
+
+
+}
+

@@ -115,11 +115,11 @@ export default class Mobile extends React.PureComponent {
         return (
             <div styleName="login-mobile">
                 <FormItem classname={styles["login-phone-wrapper"]} error={getFieldError('phone')}>
-                    <a styleName="login-code-current" href={null}
+                    <span styleName="login-code-current"
                         onClick={() => this.setAreaCodeSelectVisible(!areaCodeSelectVisible)}>
                         <span>+{countryCode}</span>
                         <span styleName="login-icon login-arrow"/>
-                    </a>
+                    </span>
                     <div styleName="login-input-wrapper">
                         {
                             getFieldDecorator('phone', {

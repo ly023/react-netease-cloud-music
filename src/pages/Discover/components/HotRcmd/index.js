@@ -1,0 +1,62 @@
+import React from 'react'
+import {Link} from 'react-router-dom'
+import {formatNumber} from 'utils'
+import {requestPersonalized} from 'services/playlist'
+
+import './index.scss'
+
+export default class HotRcmd extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            personalized: []
+        }
+        this.mounted = false
+    }
+
+    componentDidMount() {
+        this.mounted = true
+        this.fetchPersonalized()
+    }
+
+    componentWillUnmount() {
+        this.mounted = false
+    }
+    
+    fetchPersonalized = () => {
+        requestPersonalized({limit: 8}).then((res) => {
+            if(this.mounted) {
+                this.setState({
+                    personalized: res.result
+                })
+            }
+        })
+    }
+
+    render() {
+        const {personalized} = this.state
+
+        return (
+            <ul styleName='list'>
+                {
+                    personalized.map((item) => {
+                        return <li key={item.id} styleName='item'>
+                            <div styleName='cover'>
+                                <img src={item.picUrl}/>
+                                <Link to={`/playlist?id=${item.id}`} styleName='mask'/>
+                                <div styleName='bottom'>
+                                    <span className='fl' styleName='icon-headset'/>
+                                    <span className='fl' styleName='play-num'>{formatNumber(item.playCount)}</span>
+                                    <span className='fr' styleName='icon-play'/>
+                                </div>
+                            </div>
+                            <p>
+                                <Link to='' styleName='des' alt={item.name}>{item.name}</Link>
+                            </p>
+                        </li>
+                    })
+                }
+            </ul>
+        )
+    }
+}

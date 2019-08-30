@@ -1,0 +1,118 @@
+
+.wrapper {
+  position: relative;
+  padding: 0 28px;
+  margin: 20px 0 38px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $bg-color;
+  border: 1px solid #d3d3d3;
+}
+
+.list-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.list {
+  margin: 28px 0 6px;
+
+  .item {
+    position: relative;
+    display: inline-block;
+    width: 118px!important;
+    height: 150px;
+    font-size: 0;
+
+    .cover {
+      position: relative;
+      width: 118px;
+      height: 100px;
+      margin-bottom: 7px;
+
+      .mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        @extend %background-cover;
+        background-position: 0 -570px;
+      }
+
+      img {
+        width: 100px;
+      }
+
+      .play-icon {
+        display: none;
+        position: absolute;
+        right: 24px;
+        bottom: 6px;
+        width: 22px;
+        height: 22px;
+        @extend %background-icon-all;
+        background-position: 0 -85px;
+      }
+
+      &:hover {
+        .play-icon {
+          display: inline-block;
+
+          &:hover {
+            background-position: 0 -110px;
+          }
+        }
+      }
+    }
+
+    .title,
+    .name {
+      display: block;
+      width: 90%;
+      @extend %text-ellipsis;
+      font-size: 12px;
+    }
+
+    .title {
+      color: #000;
+    }
+
+    .name {
+      color: #666;
+    }
+  }
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 71px;
+  width: 17px;
+  height: 17px;
+  @extend %background-index;
+  cursor: pointer;
+  outline: none;
+}
+
+.prev {
+  left: 4px;
+  background-position: -260px -75px;
+
+  &:hover {
+    background-position: -280px -75px;
+  }
+
+}
+
+.next {
+  right: 4px;
+  background-position: -300px -75px;
+
+  &:hover {
+    background-position: -320px -75px;
+  }
+}
+

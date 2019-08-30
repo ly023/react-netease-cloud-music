@@ -14,16 +14,9 @@ module.exports = {
                 test: /\.jsx?$/,
                 // enforce: 'pre', // ESLint 优先级高于其他 JS 相关的 loader
                 loader: isDevelopment ? [
-                    {
-                        loader: 'thread-loader',
-                        options: {
-                            poolTimeout: Infinity
-                        }
-                    },
                     'babel-loader',
                     'eslint-loader',
                 ] : [
-                    'thread-loader',
                     'babel-loader',
                 ],
                 exclude: /node_modules/

@@ -1,0 +1,88 @@
+import React from 'react'
+import {Link} from 'react-router-dom'
+import {requestRankList} from 'services/toplist'
+
+import './index.scss'
+
+export default class Rank extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            rankList: []
+        }
+    }
+
+    componentDidMount() {
+        this.fetchRankList()
+    }
+
+    fetchRankList = async () => {
+        try {
+            const {playlist: soaringRank} = await requestRankList({idx: 3})
+            const {playlist: newRank} = await requestRankList({idx: 0})
+            const {playlist: hotRank} = await requestRankList({idx: 2})
+            this.setState({
+                rankList: [soaringRank, newRank, hotRank]
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    render() {
+        const {rankList} = this.state
+
+        return (
+            <div styleName="wrapper">
+                {
+                    rankList.map((rank) => {
+                        return <div key={rank.id} styleName='column'>
+                            <div styleName='top'>
+                                <a styleName='cover'>
+                                    <img className='fl'
+                                        src={rank.coverImgUrl}
+                                        alt={rank.name}
+                                    />
+                                </a>
+                                <div styleName='text'>
+                                    <a href={null}><h3>{rank.name}</h3></a>
+                                    <div styleName='top-btns'>
+                                        <a href={null} styleName='icon top-play-icon'
+                                            title="播放">播放</a>
+                                        <a href={null} styleName='icon top-subscribe-icon'
+                                            title="收藏">收藏</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul styleName='list'>
+                                {
+                                    rank.tracks && rank.tracks.slice(0, 10).map((track, idx) => {
+                                        let no = idx + 1
+                                        return <li key={track.id}
+                                            styleName={`item${no % 2 === 1 ? ' item-event' : ''}`}>
+                                            <span
+                                                styleName={`no ${no <= 3 ? 'no-top' : ''}`}>{no}</span>
+                                            <Link to={`song/${track.id}`}
+                                                styleName='item-name'>{track.name}</Link>
+                                            <div styleName='item-operation'>
+                                                <a href={null} title={'播放'}
+                                                    styleName='icon play-icon'/>
+                                                <a href={null} title={'添加到播放列表'}
+                                                    styleName='icon add-icon'/>
+                                                <a href={null} title={'收藏'}
+                                                    styleName='icon subscribe-icon'/>
+                                            </div>
+                                        </li>
+                                    })
+                                }
+                                <li styleName="item-more">
+                                    <a href={null} styleName="item-all">查看全部></a>
+                                </li>
+                            </ul>
+                        </div>
+                    })
+                }
+            </div>
+        )
+    }
+}

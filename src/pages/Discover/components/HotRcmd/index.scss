@@ -1,0 +1,78 @@
+
+.list {
+  margin: 20px 0 0 -42px;
+}
+
+.item {
+  float: left;
+  position: relative;
+  width: 140px;
+  height: 204px;
+  margin: 0 0 30px 42px;
+}
+
+.cover {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  color: #ccc;
+
+  img {
+    max-width: 100%;
+  }
+
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: 0 0;
+    @extend %background-cover;
+  }
+
+  .bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 27px;
+    background-position: 0 -537px;
+    @extend %background-cover;
+    color: #ccc;
+
+    .icon-headset {
+      width: 14px;
+      height: 11px;
+      margin: 9px 5px 8px 10px;
+      @extend %background-icon-all;
+      background-position: 0 -24px;
+    }
+
+    .icon-play {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+      width: 16px;
+      height: 17px;
+      background-position: 0 0;
+      @extend %background-icon-all;
+      cursor: pointer;
+
+      &:hover {
+        background-position: 0 -60px;
+      }
+    }
+
+    .play-num {
+      margin: 8px 0 0 0;
+    }
+  }
+}
+
+.des {
+  display: inline-block;
+  margin: 8px 0 0;
+  color: #000;
+  font-size: 14px;
+}

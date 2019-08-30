@@ -1,0 +1,199 @@
+// 榜单
+
+.wrapper {
+  overflow: hidden;
+  margin: 20px 0 0;
+  background-color: $bg-color;
+  border: 1px solid #d3d3d3;
+}
+
+.column {
+  float: left;
+  width: 228px;
+  background-color: #F4F4F4;
+  border-right: 1px solid #d3d3d3;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+
+.icon {
+  display: inline-block;
+  text-indent: -9999px;
+  @extend %background-index;
+  cursor: pointer;
+}
+
+.play-icon,
+.add-icon,
+.subscribe-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.play-icon {
+  background-position: -267px -268px;
+
+  &:hover {
+    background-position: -267px -288px;
+  }
+}
+
+.add-icon {
+  @extend %background-icon;
+  background-position: 0 -700px;
+
+  &:hover {
+    background-position: -22px -700px;
+  }
+}
+
+.subscribe-icon {
+  background-position: -297px -268px;
+
+  &:hover {
+    background-position: -297px -288px;
+  }
+}
+
+.top {
+  height: 100px;
+  padding: 20px 0 0 20px;
+
+  .cover {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 80px;
+    height: 80px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      @extend %background-cover;
+      background-position: -145px -57px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .text {
+    float: left;
+    width: 116px;
+    margin: 6px 0 0 10px;
+
+    .top-btns {
+      margin-top: 10px;
+
+      .top-play-icon,
+      .top-subscribe-icon {
+        width: 22px;
+        height: 22px;
+        margin-right: 10px;
+      }
+
+      .top-play-icon {
+        background-position: -267px -205px;
+
+        &:hover {
+          background-position: -267px -235px;
+        }
+      }
+
+      .top-subscribe-icon {
+        background-position: -300px -205px;
+
+        &:hover {
+          background-position: -300px -235px;
+        }
+      }
+    }
+  }
+}
+
+.list {
+
+  .item-more {
+    padding-right: 32px;
+    line-height: 32px;
+    text-align: right;
+    background-color: #E8E8E8;
+
+    .item-all {
+      height: 32px;
+      color: #000;
+      font-size: 12px;
+    }
+  }
+}
+
+.item {
+  padding-left: 20px;
+  overflow: hidden;
+  line-height: 32px;
+
+  &.item-event {
+    background-color: #E8E8E8;
+  }
+
+  .item-operation {
+    display: none;
+  }
+
+  .no {
+    float: left;
+    width: 35px;
+    height: 32px;
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+
+    &.no-top {
+      color: $primary-color;
+    }
+  }
+
+  .item-name {
+    float: left;
+    width: 170px;
+    height: 32px;
+    color: #000;
+    font-size: 12px;
+    @extend %text-ellipsis;
+  }
+
+  &:hover {
+    .item-name {
+      width: 96px;
+    }
+
+    .item-operation {
+      display: inline-block;
+
+      .play-icon,
+      .add-icon,
+      .subscribe-icon {
+        position: relative;
+        top: 4px;
+      }
+
+      .play-icon {
+        margin-right: 8px;
+      }
+
+      .add-icon {
+        top: 6px;
+        margin: 2px 8px 0 0;
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
 import LoginModal from 'components/LoginModal'
 import {LOGIN_MODE} from 'constants/login'
+import emitter from 'utils/eventEmitter'
 import styles from './index.scss'
 
 @withRouter
@@ -21,12 +22,19 @@ export default class NavBar extends React.Component {
 
     componentDidMount() {
         this.setNavHeight()
+        this.eventEmitter = emitter.on('login', (mode = LOGIN_MODE.GUIDE.TYPE) => {
+            this.handleLogin(mode)
+        })
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.location.pathname !== this.props.location.pathname) {
             this.setNavHeight()
         }
+    }
+
+    componentWillUnmount() {
+        emitter.removeEventListener(this.eventEmitter)
     }
 
     setNavHeight = () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import Page from 'components/Page'
 import './index.scss'
 
-const NotFound = (
+const NotFound = () => (
     <Page showBackTop={false}>
         <div styleName="not-found-wrapper">
             <div styleName="not-found">

@@ -7,6 +7,22 @@ $primary-color: #C10D0C;
 // 主题色 浅
 $light-primary-color: #C20C0C;
 
+// 背景图标
+%background-index {
+  background: url(~assets/images/index.png) no-repeat 0 9999px;
+}
+
+%background-cover {
+  background: url(~assets/images/coverall.png) no-repeat;
+}
+
+%background-icon-all {
+  background: url(~assets/images/iconall.png) no-repeat;
+}
+
+%background-icon {
+  background: url(~assets/images/icon.png) no-repeat 0 9999px;
+}
 
 // 单行省略
 %text-ellipsis {
