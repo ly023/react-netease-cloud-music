@@ -2,11 +2,12 @@
 :global {
 
   #root {
-
+    height: 100%;
   }
 
   body {
     min-width: 1100px;
+    overflow: hidden;
     background-color: $bg-color;
     font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
   }

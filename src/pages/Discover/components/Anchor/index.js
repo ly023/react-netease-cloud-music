@@ -1,8 +1,11 @@
+/**
+ * 热门主播
+ */
 import React from 'react'
 import {Link} from 'react-router-dom'
 import './index.scss'
 
-export default class Anchor extends React.PureComponent {
+export default class Anchor extends React.Component {
     // todo
     render() {
         return (

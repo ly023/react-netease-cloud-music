@@ -8,7 +8,7 @@ import styles from '../../index.scss'
 import './index.scss'
 
 @createForm()
-export default class Mobile extends React.PureComponent {
+export default class Mobile extends React.Component {
     static propTypes = {
         form: formShape,
         onLogin: PropTypes.func,

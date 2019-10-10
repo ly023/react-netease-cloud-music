@@ -1,0 +1,425 @@
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+.wrapper,
+.song-source,
+.collect,
+.share,
+.setting,
+.volume-current,
+.volume-ctrl,
+.volume-icon,
+.order,
+.shuffle,
+.loop,
+.playlist-icon,
+.lock-icon,
+.lock {
+  @extend %background-playbar;
+}
+
+.icon {
+  float: left;
+  @include size(25px, 25px);
+}
+
+.wrapper {
+  position: fixed;
+  left: 0;
+  @include size(100%, auto);
+  zoom: 1;
+  z-index: 999;
+  background: {
+    position: 0 0;
+    repeat: repeat-x;
+  };
+  cursor: pointer;
+}
+
+.wrapper.locked {
+  bottom: 0;
+}
+
+.wrapper.unlock {
+  bottom: -46px;
+}
+
+.cont {
+  position: relative;
+  @include size(980px, 48px);
+  margin: 6px auto 0;
+  z-index: 15;
+}
+
+.btn {
+  float: left;
+  width: 137px;
+  margin-top: 6px;
+
+  a {
+    float: left;
+    @extend %background-playbar;
+  }
+
+  > a {
+
+    text-indent: -9999px;
+    cursor: pointer;
+  }
+
+  .prev,
+  .next {
+    @include size(28px, 28px);
+    margin: 5px 8px 0;
+  }
+
+  .play,
+  .pause {
+    @include size(36px, 36px);
+  }
+
+  .prev {
+    background-position: 0 -130px;
+
+    &:hover {
+      background-position: -30px -130px;
+    }
+  }
+
+  .next {
+    background-position: -80px -130px;
+
+    &:hover {
+      background-position: -110px -130px;
+    }
+  }
+
+  .play {
+    background-position: 0 -165px;
+
+    &:hover {
+      background-position: -40px -165px;
+    }
+  }
+
+  .pause {
+    background-position: 0 -204px;
+
+    &:hover {
+      background-position: -40px -204px;
+    }
+  }
+
+}
+
+.cover {
+  float: left;
+  position: relative;
+  @include size(34px, 34px);
+  margin: 6px 15px 0 0;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    @include size(34px, 35px);
+    background-position: 0 -80px;
+  }
+}
+
+.song-info {
+  height: 28px;
+  line-height: 28px;
+}
+
+.song-name,
+.singer {
+  float: left;
+}
+
+.song-name {
+  max-width: 300px;
+  color: #e8e8e8;
+  @extend %text-ellipsis;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.singer {
+  display: inline-block;
+  max-width: 220px;
+  margin-left: 15px;
+  color: #9b9b9b;
+  @extend %text-ellipsis;
+
+  a {
+    color: #9b9b9b;
+  }
+}
+
+.song-source {
+  display: inline-block;
+  @include size(14px, 15px);
+  margin: 7px 0 0 13px;
+  background-position: -110px -103px;
+
+  &:hover {
+    background-position: -130px -103px;
+  }
+}
+
+.progress {
+  float: left;
+  position: relative;
+  width: 608px;
+}
+
+.progress-cont {
+  position: relative;
+  width: 493px;
+  background: url(~assets/images/statbar.png) no-repeat 0 0;
+}
+
+.progress-cont,
+.ready,
+.current {
+  height: 9px;
+  border-radius: 6px;
+}
+
+
+.dot,
+.volume-dot {
+  background: url(~assets/images/iconall.png) no-repeat;
+}
+
+.dot {
+  position: absolute;
+  top: -7px;
+  @include size(22px, 22px);
+  margin-left: -11px;
+  background-position: 0 -250px;
+  cursor: pointer;
+
+  :hover {
+    background-position: 0 -280px;
+  }
+}
+
+.loading {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: url(~assets/images/loading.gif);
+
+  &.hidden {
+    visibility: hidden;
+  }
+
+  &.visible {
+    visibility: visible;
+  }
+}
+
+.ready,
+.current {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.ready {
+  background-color: #535353;
+}
+
+.current {
+  background-color: #C51219;
+}
+
+.time {
+  float: left;
+  margin: 25px 0 0 -102px;
+  color: #797979;
+
+  > em {
+    color: #A1A1A1;
+    font-style: normal;
+  }
+}
+
+.operation {
+  float: left;
+  position: relative;
+  text-indent: -9999px;
+  margin: 12px 6px 0 0;
+}
+
+.collect {
+  background-position: -88px -163px;
+
+  &:hover {
+    background-position: -88px -189px;
+  }
+}
+
+.share {
+  background-position: -114px -163px;
+
+  &:hover {
+    background-position: -114px -189px;
+  }
+}
+
+.setting {
+  float: left;
+  position: relative;
+  width: 113px;
+  padding: 12px 2px 0 13px;
+  background-position: -147px -238px;
+}
+
+.volume {
+  position: relative;
+  z-index: 9999;
+}
+
+.volume-sound {
+  background-position: -2px -248px;
+
+  &:hover {
+    background-position: -31px -248px;
+  }
+}
+
+.volume-mute {
+  background-position: -104px -69px;
+
+  &:hover {
+    background-position: -126px -69px;
+  }
+}
+
+.volume-ctrl {
+  position: absolute;
+  left: -2px;
+  bottom: 11px;
+  @include size(32px, 113px);
+  background-position: 0 -503px;
+}
+
+.volume-line {
+  position: absolute;
+  top: 7px;
+  left: 14px;
+  @include size(4px, 93px);
+  padding: 4px 0;
+}
+
+.volume-current {
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 4px;
+  background-position: -40px bottom;
+}
+
+.volume-dot {
+  position: absolute;
+  left: -7px;
+  @include size(18px, 20px);
+  background-position: -40px -250px;
+  cursor: pointer;
+
+  &:hover {
+    background-position: -40px -280px;
+  }
+}
+
+.mode {
+  text-indent: -9999px;
+}
+
+.order {
+  background-position: -3px -344px;
+
+  &:hover {
+    background-position: -33px -344px;
+  }
+}
+
+
+.shuffle {
+  background-position: -66px -248px;
+
+  &:hover {
+    background-position: -93px -248px;
+  }
+}
+
+
+.loop {
+  background-position: -66px -344px;
+
+  &:hover {
+    background-position: -93px -344px;
+  }
+}
+
+.playlist-icon {
+  display: block;
+  width: 38px;
+  padding-left: 21px;
+  line-height: 27px;
+  text: {
+    align: center;
+    shadow: 0 1px 0 #080707;
+  }
+  background-position: -42px -68px;
+  color: #666;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background-position: -42px -98px;
+  }
+
+}
+
+.lock {
+  position: absolute;
+  top: -14px;
+  right: 15px;
+  @include size(52px, 67px);
+  background-position: 0 -380px;
+}
+
+.lock-icon {
+  display: block;
+  @include size(18px, 18px);
+  margin: 6px 0 0 17px;
+}
+
+.locked .lock-icon {
+  background-position: -100px -380px;
+
+  &:hover {
+    background-position: -100px -400px;
+  }
+}
+
+
+.unlock .lock-icon {
+  background-position: -80px -380px;
+
+  &:hover {
+    background-position: -80px -400px;
+  }
+}

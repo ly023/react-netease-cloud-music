@@ -10,7 +10,7 @@ import styles from './index.scss'
 @connect(({user}) => ({
     user,
 }))
-export default class NavBar extends React.Component {
+class NavBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -97,6 +97,10 @@ export default class NavBar extends React.Component {
         this.navRef = el
     }
 
+    getNavBarHeight = () => {
+        return this.state.style.height
+    }
+
     render() {
         const {style, loginVisible, loginMode} = this.state
         const {user: {isLogin, userInfo}} = this.props
@@ -105,7 +109,7 @@ export default class NavBar extends React.Component {
         const unreadCount = 0
 
         return (
-            <>
+            <div ref={this.props.innerRef}>
                 <div style={style}>
                     <div styleName="wrapper" ref={this.setNavRef}>
                         <div styleName="cont">
@@ -217,7 +221,9 @@ export default class NavBar extends React.Component {
                     </div>
                 </div>
                 { isLogin ? null : <LoginModal visible={loginVisible} mode={loginMode} onCancel={this.handleCancel}/>}
-            </>
+            </div>
         )
     }
 }
+
+export default React.forwardRef((props, ref) => <NavBar innerRef={ref} {...props} />)

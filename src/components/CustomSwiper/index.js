@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Swiper from 'swiper/dist/js/swiper.js'
-import 'swiper/dist/css/swiper.min.css'
+import Swiper from 'swiper'
+import 'swiper/css/swiper.min.css'
 import './index.scss'
 
-export default class CustomSwiper extends React.PureComponent {
+export default class CustomSwiper extends React.Component {
     static propTypes = {
         slides: PropTypes.array,
         showNavigation: PropTypes.bool,
@@ -44,7 +44,6 @@ export default class CustomSwiper extends React.PureComponent {
         this.swiper = new Swiper(this.containerRef, {
             autoplay: {
                 delay: 3000,
-                stopOnLastSlide: false,
                 disableOnInteraction: false // 操作swiper之后自动切换不会停止
             },
             effect: 'fade',

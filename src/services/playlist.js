@@ -15,3 +15,8 @@ export async function requestHotCategory(params) {
 export async function requestPersonalized(params) {
     return request(`${API.personalized.url}${params ? `?${stringify(params)}` : ''}`)
 }
+
+
+export async function requestDetail(params) {
+    return request(`${API.detail.url}?${stringify(params)}`)
+}

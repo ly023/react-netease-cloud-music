@@ -55,6 +55,7 @@
         height: 22px;
         @extend %background-icon-all;
         background-position: 0 -85px;
+        cursor: pointer;
       }
 
       &:hover {

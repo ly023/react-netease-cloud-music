@@ -1,0 +1,25 @@
+
+.empty {
+  padding-top: 85px;
+  text-align: center;
+  line-height: 43px;
+  color: #aaa;
+
+  a {
+    color: #aaa;
+    text-decoration: underline;
+  }
+}
+
+.icon-face {
+  float: none;
+  display: inline-block;
+  position: relative;
+  top: -4px;
+  width: 36px;
+  height: 29px;
+  margin-right: 3px;
+  @extend %background-playlist;
+  background-position: -138px 0;
+  vertical-align: middle;
+}

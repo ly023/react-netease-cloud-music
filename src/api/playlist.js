@@ -1,3 +1,6 @@
+/**
+ * 歌单
+ */
 import config from 'config'
 
 export default {
@@ -7,6 +10,10 @@ export default {
     },
     personalized: {
         url: `${config.apiHost}/api/personalized`,
+        type: 'GET'
+    },
+    detail: {
+        url: `${config.apiHost}/api/playlist/detail`,
         type: 'GET'
     }
 }

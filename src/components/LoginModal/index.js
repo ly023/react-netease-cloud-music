@@ -14,7 +14,7 @@ import './index.scss'
 @connect(({user}) => ({
     user,
 }))
-export default class LoginModal extends React.PureComponent {
+export default class LoginModal extends React.Component {
 
     static propTypes = {
         visible: PropTypes.bool,

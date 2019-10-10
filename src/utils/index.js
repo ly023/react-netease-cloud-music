@@ -4,7 +4,7 @@
  */
 export function getCsrfToken() {
     const csrf = (/__csrf=[^;]+;?/i).exec(document.cookie)
-    if(csrf) {
+    if (csrf) {
         return csrf[0].replace(/__csrf=|;/g, '')
     }
 }
@@ -26,11 +26,32 @@ export function formatNumber(number) {
 }
 
 /**
+ * 格式化时长
+ * @param ms
+ * @returns {string}
+ */
+export function formatDuration(ms) {
+    if (!ms) {
+        return '00:00'
+    }
+    const seconds = Math.floor(ms / 1000)
+    let minute = Math.floor(seconds / 60)
+    let second = seconds % 60
+    if (minute < 10) {
+        minute = '0' + minute
+    }
+    if (second < 10) {
+        second = '0' + second
+    }
+    return `${minute}:${second}`
+}
+
+/**
  * 设置localStorage
  * @param key
  * @param value
  */
-export function setLocalStorage (key, value) {
+export function setLocalStorage(key, value) {
     window.localStorage.setItem(key, JSON.stringify(value));
 }
 
@@ -39,12 +60,12 @@ export function setLocalStorage (key, value) {
  * @param key
  * @returns {null|any}
  */
-export function getLocalStorage (key) {
-    let value = window.localStorage.getItem(key);
-    if(value === undefined){
-        return null;
+export function getLocalStorage(key) {
+    let value = window.localStorage.getItem(key)
+    if (value === undefined) {
+        return null
     }
-    return JSON.parse(value);
+    return JSON.parse(value)
 }
 
 
@@ -53,19 +74,14 @@ export function isValidMobileNumber(value) {
 }
 
 /**
- * 获取相对于整个文档的X坐标
- * @param e
- * @returns {number}
+ * 获取缩略图
+ * @param url
+ * @param size
+ * @returns {string}
  */
-export function getMousePageX (e) {
-    return e.pageX
-}
-
-/**
- * 获取相对于整个文档的Y坐标
- * @param e
- * @returns {number}
- */
-export function getMousePageY (e) {
-    return e.pageY
+export function getThumbnail(url, size = 256) {
+    if (url) {
+        return `${url}?param=${size}y${size}`
+    }
+    return ''
 }

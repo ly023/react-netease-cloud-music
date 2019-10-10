@@ -4,7 +4,7 @@ import './index.scss'
 
 const EDGE = 20
 
-export default class Modal extends React.PureComponent {
+export default class Modal extends React.Component {
 
     static propTypes = {
         visible: PropTypes.bool,
@@ -71,11 +71,9 @@ export default class Modal extends React.PureComponent {
             return
         }
 
-        this.endPosX = e.clientX
-        this.endPosY = e.clientY
-
-        let moveX = this.endPosX - this.startPosX
-        let moveY = this.endPosY - this.startPosY
+        // end position - start position
+        let moveX = e.clientX - this.startPosX
+        let moveY = e.clientY - this.startPosY
 
         this.setState({
             style: {
@@ -106,7 +104,6 @@ export default class Modal extends React.PureComponent {
     setPopoverRef = (el) => {
         this.popoverRef = el
     }
-
 
     render() {
         const {visible, title, children} = this.props

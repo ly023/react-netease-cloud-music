@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Modal from 'components/Modal'
 import './index.scss'
 
-export default class VersionModal extends React.PureComponent {
+export default class VersionModal extends React.Component {
 
     static propTypes = {
         visible: PropTypes.bool,

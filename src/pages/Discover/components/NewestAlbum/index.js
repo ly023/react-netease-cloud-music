@@ -1,7 +1,11 @@
+/**
+ * 新碟上架
+ */
 import React from 'react'
 import {requestNewestAlbum} from 'services/album'
-import Swiper from 'swiper/dist/js/swiper.js'
-import 'swiper/dist/css/swiper.min.css'
+import Swiper from 'swiper'
+
+import 'swiper/css/swiper.min.css'
 import './index.scss'
 
 export default class NewestAlbum extends React.Component {
@@ -70,7 +74,7 @@ export default class NewestAlbum extends React.Component {
                                                 alt={item.name}
                                             />
                                             <a styleName='mask'/>
-                                            <a styleName='icon play-icon'/>
+                                            <a styleName='play-icon'/>
                                         </div>
                                         <a styleName='title'>{item.name}</a>
                                         <a styleName='name'>{item.artist && item.artist.name}</a>

@@ -1,11 +1,16 @@
+/**
+ * 热门推荐
+ */
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Play from 'components/Play'
+import {PLAY_TYPE} from 'constants/play'
 import {formatNumber} from 'utils'
 import {requestPersonalized} from 'services/playlist'
 
 import './index.scss'
 
-export default class HotRcmd extends React.PureComponent {
+export default class HotRcmd extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -47,7 +52,9 @@ export default class HotRcmd extends React.PureComponent {
                                 <div styleName='bottom'>
                                     <span className='fl' styleName='icon-headset'/>
                                     <span className='fl' styleName='play-num'>{formatNumber(item.playCount)}</span>
-                                    <span className='fr' styleName='icon-play'/>
+                                    <Play type={PLAY_TYPE.PLAYLIST.TYPE} id={item.id}>
+                                        <span className='fr' styleName='icon-play'/>
+                                    </Play>
                                 </div>
                             </div>
                             <p>

@@ -24,6 +24,14 @@ $light-primary-color: #C20C0C;
   background: url(~assets/images/icon.png) no-repeat 0 9999px;
 }
 
+%background-playlist {
+  background: url(~assets/images/playlist.png) no-repeat 0 9999px;
+}
+
+%background-playbar {
+  background: url(~assets/images/playbar.png) no-repeat 0 9999px;
+}
+
 // 单行省略
 %text-ellipsis {
   overflow: hidden;

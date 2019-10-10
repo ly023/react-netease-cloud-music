@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import './index.scss'
 import {requestArtist} from "services/artist";
 
-export default class Singer extends React.PureComponent {
+export default class Singer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {

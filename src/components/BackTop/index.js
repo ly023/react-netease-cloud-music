@@ -4,7 +4,7 @@ import './index.scss'
 
 const Threshold = 10
 
-export default class BackTop extends React.PureComponent {
+export default class BackTop extends React.Component {
 
     static propTypes = {
         scrollStep: PropTypes.number,

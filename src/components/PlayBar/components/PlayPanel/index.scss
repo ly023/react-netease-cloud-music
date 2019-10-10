@@ -1,0 +1,166 @@
+
+.panel {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 986px;
+  height: 300px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  width: 986px;
+  height: 260px;
+  overflow: hidden;
+  background: url(~assets/images/playlist-bg.png) repeat-y -1014px 0;
+  opacity: .8;
+}
+
+.img-bg {
+  position: absolute;
+  left: 2px;
+  width: 980px;
+  height: auto;
+}
+
+.title {
+  position: relative;
+  height: 40px;
+  text-align: center;
+  background-color: #141414;
+
+  h4 {
+    display: inline-block;
+    width: 346px;
+    color: #e2e2e2;
+    font-size: 14px;
+    line-height: 40px;
+    @extend %text-ellipsis;
+  }
+}
+
+.song-list-wrapper,
+.lyric-wrapper {
+  float: left;
+  position: relative;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 260px;
+  background: #121212;
+  opacity: .5;
+}
+
+.song-list-wrapper {
+  width: 555px;
+
+  .title {
+    width: 100%;
+    border-radius: 5px 0 0;
+    border-right: 1px solid #2c2c2c;
+
+    h4 {
+      padding-left: 30px;
+    }
+  }
+}
+
+.song-list {
+  position: relative;
+  z-index: 2;
+}
+
+.operation {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}
+
+.add-all,
+.clear {
+  height: 15px;
+  line-height: 15px;
+  color: #ccc;
+  cursor: pointer;
+
+  &:hover {
+    color: #e2e2e2;
+  }
+
+  i {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+    @extend %background-playlist;
+  }
+}
+
+.add-all {
+  i {
+    background-position: -24px 0;
+  }
+
+  &:hover {
+    i {
+      background-position: -24px -20px;
+    }
+  }
+}
+
+
+.line {
+  margin: 0 10px;
+  height: 15px;
+  border-left: 1px solid #000;
+  border-right: 1px solid #2c2c2c;
+}
+
+.clear {
+  i {
+    width: 13px;
+    background-position: -51px 0;
+  }
+
+  &:hover {
+    i {
+      background-position: -51px -20px;
+    }
+  }
+}
+
+
+.lyric-wrapper {
+  .title {
+    width: 430px;
+    border-radius: 0 5px 0 0;
+    text-align: center;
+  }
+}
+
+.lyric {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  text-indent: -999px;
+  cursor: pointer;
+  @extend %background-playlist;
+  background-position: -195px 9px;
+}

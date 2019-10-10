@@ -1,10 +1,15 @@
+/**
+ *  榜单
+ */
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Play from 'components/Play'
+import {PLAY_TYPE} from 'constants/play'
 import {requestRankList} from 'services/toplist'
 
 import './index.scss'
 
-export default class Rank extends React.PureComponent {
+export default class Rank extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -24,9 +29,7 @@ export default class Rank extends React.PureComponent {
             this.setState({
                 rankList: [soaringRank, newRank, hotRank]
             })
-        } catch (e) {
-            console.log(e)
-        }
+        } catch (e) {}
     }
 
     render() {
@@ -47,10 +50,23 @@ export default class Rank extends React.PureComponent {
                                 <div styleName='text'>
                                     <a href={null}><h3>{rank.name}</h3></a>
                                     <div styleName='top-btns'>
-                                        <a href={null} styleName='icon top-play-icon'
-                                            title="播放">播放</a>
-                                        <a href={null} styleName='icon top-subscribe-icon'
-                                            title="收藏">收藏</a>
+                                        <Play
+                                            type={PLAY_TYPE.PLAYLIST.TYPE}
+                                            id={rank.id}
+                                        >
+                                            <a
+                                                href={null}
+                                                styleName='icon top-play-icon'
+                                                title="播放"
+                                            >播放</a>
+                                        </Play>
+                                        <a
+                                            href={null}
+                                            styleName='icon top-subscribe-icon'
+                                            title="收藏"
+                                        >
+                                            收藏
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -65,8 +81,16 @@ export default class Rank extends React.PureComponent {
                                             <Link to={`song/${track.id}`}
                                                 styleName='item-name'>{track.name}</Link>
                                             <div styleName='item-operation'>
-                                                <a href={null} title={'播放'}
-                                                    styleName='icon play-icon'/>
+                                                <Play
+                                                    type={PLAY_TYPE.SINGLE.TYPE}
+                                                    id={track.id}
+                                                >
+                                                    <a
+                                                        href={null}
+                                                        title={'播放'}
+                                                        styleName='icon play-icon'
+                                                    />
+                                                </Play>
                                                 <a href={null} title={'添加到播放列表'}
                                                     styleName='icon add-icon'/>
                                                 <a href={null} title={'收藏'}

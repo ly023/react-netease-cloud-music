@@ -1,3 +1,6 @@
+/**
+ * 发现音乐-推荐
+ */
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -38,9 +41,9 @@ export default class Discover extends React.Component {
         requestDiscoverBanners().then((res) => {
             this.setState({
                 banners: res.banners.map((v) => {
-                    // todo 不同类型
+                    // todo 不同类型轮播图
                     if(v.targetType === 1) {
-                        return <a href={`/song/${v.targetId}`}>
+                        return <a style={{display: 'inline-block'}} href={`/song/${v.targetId}`}>
                             <img src={v.imageUrl} alt=""/>
                         </a>
                     }
@@ -104,7 +107,7 @@ export default class Discover extends React.Component {
                             </section>
                             {/* 个性化推荐 */}
                             {
-                                userId ?  <section className='clearfix' styleName='personalized-rcmd'>
+                                userId ?  <section className='clearfix'>
                                     <div styleName='title'>
                                         <Link className='fl' styleName='title-text' to=''>个性化推荐</Link>
                                     </div>

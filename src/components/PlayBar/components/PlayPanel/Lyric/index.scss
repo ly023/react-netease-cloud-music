@@ -1,0 +1,74 @@
+.lyric-wrapper {
+  line-height: 23px;
+  @extend %break-word;
+
+}
+
+.ask-icon {
+  position: absolute;
+  right: 25px;
+  top: 12px;
+  cursor: pointer;
+  z-index: 5;
+
+  span {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    @extend %background-playlist;
+    background-position: 0 -50px;
+
+    &:hover {
+      background-position: -24px -50px;
+    }
+  }
+}
+
+.report-popover {
+  position: absolute;
+  right: 12px;
+  top: 40px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .75);
+  width: 81px;
+  z-index: 5;
+  text-align: center;
+
+  a {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    color: #666;
+    background: #ebebeb;
+    text-shadow: 0 1px 0 #fff;
+  }
+}
+
+.no-lyric {
+  padding-top: 98px;
+  text-align: center;
+  color: #999;
+
+  a {
+    margin-left: 12px;
+    color: #c2c2c2;
+  }
+}
+
+.lyric {
+  margin: 20px 0;
+  overflow: hidden;
+
+  p {
+    color: #989898;
+    word-wrap: break-word;
+    text-align: center;
+    line-height: 32px;
+    min-height: 32px;
+    transition: color 0.7s linear;
+
+    a {
+      color: #c2c2c2;
+    }
+  }
+}

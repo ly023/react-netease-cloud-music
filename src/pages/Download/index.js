@@ -1,3 +1,6 @@
+/**
+ * 下载客户端
+ */
 import React from 'react'
 import Page from 'components/Page'
 import Popover from 'components/Popover'
@@ -56,7 +59,7 @@ const clients = [
     }
 ]
 
-export default class Download extends React.PureComponent {
+export default class Download extends React.Component {
     constructor(props) {
         super(props)
         this.state = {

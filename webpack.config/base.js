@@ -108,7 +108,9 @@ module.exports = {
             generateStatsFile: false, // 是否生成stats.json文件
             statsFilename: 'stats.json',
             logLevel: 'info'
-        })
+        }),
+
+        // 优化构建输出界面
     ]
 };
 

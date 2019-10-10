@@ -5,7 +5,7 @@ import '../../index.scss'
 import './index.scss'
 
 
-export default class Guide extends React.PureComponent {
+export default class Guide extends React.Component {
 
     static propTypes = {
         changeMode: PropTypes.func,
