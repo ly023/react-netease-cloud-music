@@ -1,7 +1,6 @@
 .lyric-wrapper {
   line-height: 23px;
   @extend %break-word;
-
 }
 
 .ask-icon {
@@ -66,6 +65,12 @@
     line-height: 32px;
     min-height: 32px;
     transition: color 0.7s linear;
+
+    &.active {
+      color: #fff;
+      font-size: 14px;
+      transition: color 0.7s linear;
+    }
 
     a {
       color: #c2c2c2;

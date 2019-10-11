@@ -9,7 +9,7 @@ import emitter from 'utils/eventEmitter'
 import {PLAY_MODE} from 'constants/play'
 import {setLocalStorage, getLocalStorage, formatDuration, getThumbnail} from 'utils'
 import {setUserTrackQueue, setUserPlaySetting, setUserShuffle} from 'actions/user'
-import {getArtists} from 'utils/song'
+import {isShuffleMode, getArtists} from 'utils/song'
 import PlayPanel from './components/PlayPanel'
 
 import './index.scss'
@@ -33,16 +33,14 @@ export default class PlayBar extends React.PureComponent {
         this.state = {
             playPanelVisible: false,
 
-            playSetting: this.getDefaultPlaySetting(),
             playBarStyle: {},
-            trackQueue: [],
 
             loading: false,
             isPlaying: false,
             readyPercent: 0,
             playedPercent: 0,
             playedTime: 0,
-            progressLength: 0,
+            playedLength: 0,
 
             volumeVisible: false,
             volumeLength: 0,
@@ -66,15 +64,17 @@ export default class PlayBar extends React.PureComponent {
         this.isDragProgress = false
         this.startProgressX = 0
         this.endProgressX = 0
-        this.endProgressLength = 0
+        this.endPlayedLength = 0
         this.progressWidth = 0
     }
 
     componentDidMount() {
         this.getInitialSetting()
 
-        this.playEventEmitter = emitter.on('play', ({trackQueue, index, hasChangeTrackQueue}) => {
-            this.autoPlay = true
+        this.playEventEmitter = emitter.on('play', ({trackQueue, index, hasChangeTrackQueue, autoPlay}) => {
+            if (autoPlay) {
+                this.autoPlay = true
+            }
             this.play(trackQueue, index, hasChangeTrackQueue)
         })
 
@@ -100,19 +100,19 @@ export default class PlayBar extends React.PureComponent {
         const localPlaySetting = getLocalStorage('playSetting')
         if (localPlaySetting) {
             playSetting = localPlaySetting
+            this.props.dispatch(setUserPlaySetting(playSetting))
         } else {
-            playSetting = this.getDefaultPlaySetting()
+            playSetting = this.props.user.playSetting
+            setLocalStorage('playSetting', playSetting)
         }
-        setLocalStorage('playSetting', playSetting)
-        this.props.dispatch(setUserPlaySetting(playSetting))
         const localTrackQueue = getLocalStorage('trackQueue')
         if (localTrackQueue) {
             trackQueue = localTrackQueue
+            this.props.dispatch(setUserTrackQueue(trackQueue))
         } else {
             trackQueue = []
+            setLocalStorage('trackQueue', trackQueue)
         }
-        setLocalStorage('trackQueue', trackQueue)
-        this.props.dispatch(setUserTrackQueue(trackQueue))
 
         // audio事件监听
         this.audioListener()
@@ -122,53 +122,39 @@ export default class PlayBar extends React.PureComponent {
             const {id} = song
             this.fetchSongUrl(id)
         }
-
         // 随机播放模式，初始化随机播放索引
-        if(playSetting.mode === PLAY_MODE.SHUFFLE) {
-            const {index} = playSetting
-            const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
-            indexes.splice(index, 1)
-            const shuffle = [index].concat(_.shuffle(indexes))
-            this.props.dispatch(setUserShuffle(shuffle))
+        if(isShuffleMode(playSetting)) {
+            this.createShuffle(playSetting.index, trackQueue)
         }
-
-        this.setState({
-            trackQueue,
-            playSetting
-        })
     }
 
-    getDefaultPlaySetting = () => {
-        return {
-            index: 0,
-            isLocked: false,
-            mode: PLAY_MODE.ORDER,
-            autoPlay: false,
-            volume: 0.8
-        }
+    createShuffle = (index, trackQueue) => {
+        const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
+        indexes.splice(index, 1)
+        const shuffle = [index].concat(_.shuffle(indexes))
+        this.props.dispatch(setUserShuffle(shuffle))
     }
 
     play = (trackQueue, index, hasChangeTrackQueue) => {
         if(hasChangeTrackQueue) {
             this.props.dispatch(setUserTrackQueue(trackQueue))
             setLocalStorage('trackQueue', trackQueue)
-            this.setState({
-                trackQueue,
-            })
         }
         // index: 当前播放的index
-        const playSetting = {...this.state.playSetting, index: index}
+        const playSetting = {...this.props.user.playSetting, index: index}
         this.props.dispatch(setUserPlaySetting(playSetting))
         setLocalStorage('playSetting', playSetting)
 
         // 暂停上一个音频, 重置播放进度条，重置加载进度
-        this.audio.pause()
+        if(!this.audio.paused) {
+            this.audio.pause()
+        }
         this.setState({
             isPlaying: false,
             readyPercent: 0,
             playedPercent: 0,
             playedTime: 0,
-            progressLength: 0,
+            playedLength: 0,
         })
 
         // 根据歌曲id请求歌曲url
@@ -179,10 +165,6 @@ export default class PlayBar extends React.PureComponent {
                 this.fetchSongUrl(id)
             }
         }
-
-        this.setState({
-            playSetting
-        })
     }
 
     fetchSongUrl = (id) => {
@@ -243,6 +225,7 @@ export default class PlayBar extends React.PureComponent {
         this.playListener()
         this.pauseListener()
         this.endedListener()
+        this.errorListener()
     }
 
     loadstartListener = () => {
@@ -252,10 +235,6 @@ export default class PlayBar extends React.PureComponent {
             this.setState({
                 loading: true
             })
-
-            // if (!this.audio.paused) {
-            //     this.playedInterval()
-            // }
         })
     }
 
@@ -296,7 +275,6 @@ export default class PlayBar extends React.PureComponent {
             this.setState({
                 isPlaying: true,
             })
-
         })
     }
 
@@ -315,29 +293,38 @@ export default class PlayBar extends React.PureComponent {
             this.setState({
                 isPlaying: false
             })
-            const {trackQueue} = this.state
-            const nextIndex = this.getNextIndex(true)
-            this.play(trackQueue, nextIndex)
+            // 当前正在播放，加载下一个
+            if(this.autoPlay) {
+                const {trackQueue} = this.props.user
+                const nextIndex = this.getNextIndex(true)
+                this.play(trackQueue, nextIndex)
+            }
+        })
+    }
+
+    errorListener = () => {
+        this.audio.addEventListener('error', () => {
+
         })
     }
 
     /** 点击上一首 */
     handlePlayPrev = () => {
-        const {trackQueue} = this.state
+        const {trackQueue} = this.props.user
         const prevIndex = this.getPrevIndex()
         this.play(trackQueue, prevIndex)
     }
 
     /** 点击下一首 */
     handlePlayNext = () => {
-        const {trackQueue} = this.state
+        const {trackQueue} = this.props.user
         const nextIndex = this.getNextIndex(false)
         this.play(trackQueue, nextIndex)
     }
 
     /** 获取前一个播放的队列索引 */
     getPrevIndex = () => {
-        const {trackQueue, playSetting} = this.state
+        const {trackQueue, playSetting} = this.props.user
         const {mode, index} = playSetting
         let prevIndex = index
         if (mode === PLAY_MODE.LOOP || mode === PLAY_MODE.ORDER) { // 单曲循环和顺序播放
@@ -350,7 +337,7 @@ export default class PlayBar extends React.PureComponent {
             const shuffleIndex = shuffle.findIndex((v) => v === index)
             let prevShuffleIndex = shuffleIndex - 1
             if(prevShuffleIndex < 0) {
-                prevShuffleIndex = shuffle[shuffle.length - 1]
+                prevShuffleIndex = shuffle.length - 1
             }
             prevIndex = shuffle[prevShuffleIndex]
         }
@@ -359,7 +346,7 @@ export default class PlayBar extends React.PureComponent {
 
     /** 获取后一个播放的队列索引 */
     getNextIndex = (autoPlay) => {
-        const {trackQueue, playSetting} = this.state
+        const {trackQueue, playSetting} = this.props.user
         const {mode, index} = playSetting
         let nextIndex = index
         if (mode === PLAY_MODE.LOOP) { // 单曲循环
@@ -398,6 +385,11 @@ export default class PlayBar extends React.PureComponent {
     playPanelItem = (trackQueue, index) => {
         this.autoPlay = true
         this.play(trackQueue, index)
+        // 随机模式下手动点击播放，重新计算shuffle
+        const {playSetting} = this.props.user
+        if(isShuffleMode(playSetting)) {
+            this.createShuffle(index, trackQueue)
+        }
     }
 
     handleSwitchPlayPanel = () => {
@@ -409,7 +401,7 @@ export default class PlayBar extends React.PureComponent {
     }
 
     showPlayBar = () => {
-        const {playSetting} = this.state
+        const {playSetting} = this.props.user
 
         if (playSetting.isLocked) {
             return
@@ -434,7 +426,7 @@ export default class PlayBar extends React.PureComponent {
     }
 
     hidePlayBar = () => {
-        const {playSetting} = this.state
+        const {playSetting} = this.props.user
 
         if (playSetting.isLocked) {
             return
@@ -459,14 +451,10 @@ export default class PlayBar extends React.PureComponent {
     }
 
     handleLock = () => {
-        this.setState((prevState) => {
-            let playSetting = {...prevState.playSetting}
-            playSetting.isLocked = !playSetting.isLocked
-
-            setLocalStorage('playSetting', playSetting)
-
-            return {playSetting}
-        })
+        let playSetting = {...this.props.user.playSetting}
+        playSetting.isLocked = !playSetting.isLocked
+        this.props.dispatch(setUserPlaySetting(playSetting))
+        setLocalStorage('playSetting', playSetting)
     }
 
     handleProgressClick = (e) => {
@@ -476,15 +464,15 @@ export default class PlayBar extends React.PureComponent {
         const boundingClientRect = this.progressRef.getBoundingClientRect()
         const {left} = boundingClientRect
         const clientX = e.clientX
-        const progressLength = clientX - left
+        const playedLength = clientX - left
 
-        const played = progressLength / this.progressWidth
+        const played = playedLength / this.progressWidth
         const playedPercent = (played * 100).toFixed(2)
 
         this.seekPlay(played)
 
         this.setState({
-            progressLength,
+            playedLength,
             playedPercent: playedPercent,
         })
     }
@@ -493,9 +481,10 @@ export default class PlayBar extends React.PureComponent {
         if (!this.getSong()) {
             return
         }
+
         this.startProgressX = e.clientX
         this.isDragProgress = true
-        this.endProgressLength = this.state.progressLength
+        this.endPlayedLength = this.state.playedLength
         this.bindProgressEvent()
     }
 
@@ -514,19 +503,20 @@ export default class PlayBar extends React.PureComponent {
         }
         this.endProgressX = e.clientX
         let moveX = this.endProgressX - this.startProgressX
-        let progressLength = this.endProgressLength + moveX
-        if (progressLength > this.progressWidth) {
-            progressLength = this.progressWidth
-        } else if (progressLength < 0) {
-            progressLength = 0
+        let playedLength = this.endPlayedLength + moveX
+        if (playedLength > this.progressWidth) {
+            playedLength = this.progressWidth
+        } else if (playedLength < 0) {
+            playedLength = 0
         }
-        const played = progressLength / this.progressWidth
+
+        const played = playedLength / this.progressWidth
         const playedPercent = (played * 100).toFixed(2)
 
         this.seekPlay(played)
 
         this.setState({
-            progressLength: progressLength,
+            playedLength: playedLength,
             playedPercent: playedPercent,
         })
     }
@@ -551,11 +541,13 @@ export default class PlayBar extends React.PureComponent {
             this.audio.fastSeek(currentTime)
         } else {
             // 回到缓冲的最大位置处
-            const endBufferedTime = buffered.end(buffered.length - 1)
-            if (currentTime > endBufferedTime) {
-                this.audio.currentTime = endBufferedTime
-            } else {
-                this.audio.currentTime = currentTime
+            if(buffered.length) {
+                const endBufferedTime = buffered.end(buffered.length - 1)
+                if (currentTime > endBufferedTime) {
+                    this.audio.currentTime = endBufferedTime
+                } else {
+                    this.audio.currentTime = currentTime
+                }
             }
         }
         this.setState({
@@ -578,7 +570,8 @@ export default class PlayBar extends React.PureComponent {
                 volumeVisible: !prevState.volumeVisible
             }
         }, () => {
-            const {volumeVisible, playSetting} = this.state
+            const {playSetting} = this.props.user
+            const {volumeVisible} = this.state
             if (volumeVisible) {
                 const volumeLength = playSetting.volume * this.volumeHeight
                 this.setVolumeStyle(volumeLength)
@@ -619,7 +612,7 @@ export default class PlayBar extends React.PureComponent {
         if (!this.isDragVolume) {
             return
         }
-        const playSetting = {...this.state.playSetting}
+        const playSetting = {...this.props.user.playSetting}
         this.endVolumeY = e.clientY
         let moveY = this.startVolumeY - this.endVolumeY
         let volumeLength = this.endVolumeLength + moveY
@@ -634,10 +627,9 @@ export default class PlayBar extends React.PureComponent {
             volume = parseFloat(Number(volumeLength / this.volumeHeight).toFixed(1))
         }
         playSetting.volume = volume
-        this.setState({playSetting})
         this.setVolumeStyle(volumeLength)
         this.setVolume(volume)
-        setUserPlaySetting(playSetting)
+        this.props.dispatch(setUserPlaySetting(playSetting))
         setLocalStorage('playSetting', playSetting)
     }
 
@@ -657,16 +649,21 @@ export default class PlayBar extends React.PureComponent {
 
     /** 更改播放模式 */
     changeMode = () => {
-        let playSetting = {...this.state.playSetting}
+        let playSetting = {...this.props.user.playSetting}
         let modes = Object.keys(PLAY_MODE).map((k) => PLAY_MODE[k])
-        let currentIndex = modes.indexOf(playSetting.mode)
-        if (currentIndex < modes.length - 1) {
-            ++currentIndex
+        let currentModeIndex = modes.indexOf(playSetting.mode)
+        if (currentModeIndex < modes.length - 1) {
+            ++currentModeIndex
         } else {
-            currentIndex = 0
+            currentModeIndex = 0
         }
-        playSetting.mode = modes[currentIndex]
-        this.setState({playSetting})
+        const currentMode = modes[currentModeIndex]
+        // 切换为随机模式，计算shuffle
+        if(currentMode === PLAY_MODE.SHUFFLE) {
+            this.createShuffle(playSetting.index, this.props.user.trackQueue)
+        }
+        playSetting.mode = modes[currentModeIndex]
+        this.props.dispatch(setUserPlaySetting(playSetting))
         setLocalStorage('playSetting', playSetting)
     }
 
@@ -682,7 +679,7 @@ export default class PlayBar extends React.PureComponent {
     }
 
     getSong = () => {
-        const {playSetting, trackQueue} = this.state
+        const {playSetting, trackQueue} = this.props.user
         return trackQueue[playSetting.index]
     }
 
@@ -703,25 +700,19 @@ export default class PlayBar extends React.PureComponent {
     }
 
     render() {
+        const {trackQueue, playSetting} = this.props.user
+
         const {
             playBarStyle,
-
             playPanelVisible,
-
-            playSetting,
-            trackQueue,
-
             loading,
             isPlaying,
             readyPercent,
             playedPercent,
             playedTime,
-
             volumeVisible,
             volumeLength,
             volumeDotStyle,
-
-
         } = this.state
 
         const song = this.getSong() || {}
@@ -766,6 +757,7 @@ export default class PlayBar extends React.PureComponent {
                     >
                         <div styleName="song-info">
                             <Link to={`/song/${song.id}`} styleName="song-name">{song.name}</Link>
+                            {song.mvid ? <Link to={`/mv/${song.mvid}`} styleName="mv"/> : null}
                             {
                                 Array.isArray(song.artists)
                                     ? <div styleName="singer" title={getArtists(song.artists)}>

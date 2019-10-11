@@ -1,12 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import emitter from 'utils/eventEmitter'
+import {setUserPlaySetting, setUserShuffle, setUserTrackQueue} from 'actions/user'
 import {getThumbnail} from 'utils'
+import {isShuffleMode} from 'utils/song'
 import SongList from './SongList'
 import Lyric from './Lyric'
 
 import './index.scss'
 
+@connect(({user}) => ({
+    user,
+}))
 export default class PlayPanel extends React.Component {
 
     static propTypes = {
@@ -48,24 +54,85 @@ export default class PlayPanel extends React.Component {
 
     handleRemove = (id) => {
         const {trackQueue, index: playIndex} = this.props
+        const {playSetting} = this.props.user
         let deleteIndex = 0
-        let newPlayIndex = playIndex
         const newTrackQueue = trackQueue.filter((track, i) => {
             if (track.id === id) {
                 deleteIndex = i
             }
             return track.id !== id
         })
-
-        if (deleteIndex < playIndex) {
-            // 重新计算当前的播放index
-            newPlayIndex = playIndex - 1
+        // 列表为空
+        if (!newTrackQueue.length) {
+            // 随机模式下清空shuffle
+            if (isShuffleMode(playSetting)) {
+                this.props.dispatch(setUserShuffle([]))
+            }
+            emitter.emit('play', {
+                trackQueue: [],
+                index: 0,
+                hasChangeTrackQueue: true
+            })
+            return
         }
-        emitter.emit('play', {
-            trackQueue: newTrackQueue,
-            index: newPlayIndex,
-            hasChangeTrackQueue: true
-        })
+        // 删除的是当前定位的歌曲
+        let newPlayIndex
+        if (deleteIndex === playIndex) {
+            if (deleteIndex !== trackQueue.length - 1) {
+                newPlayIndex = playIndex
+            } else {
+                // 如果删除的是最后一行
+                newPlayIndex = playIndex - 1 >= 0 ? playIndex - 1 : 0
+            }
+            const emitData = {
+                trackQueue: newTrackQueue,
+                index: newPlayIndex,
+                hasChangeTrackQueue: true
+            }
+            emitter.emit('play', emitData)
+        } else {
+            newPlayIndex = playIndex
+            if (deleteIndex < playIndex) {
+                // 重新计算当前的播放index
+                newPlayIndex = playIndex - 1
+            }
+            const newPlaySetting = {
+                ...playSetting,
+                index: newPlayIndex
+            }
+            this.props.dispatch(setUserTrackQueue(newTrackQueue))
+            this.props.dispatch(setUserPlaySetting(newPlaySetting))
+        }
+        // 随机模式下，重新计算shuffle
+        if (isShuffleMode(playSetting)) {
+            const shuffle = [...this.props.user.shuffle]
+            const deletedShuffleIndex = shuffle.findIndex(v => v === deleteIndex)
+
+            const restShuffle = shuffle
+                .filter((v) => {
+                    return v !== deleteIndex
+                })
+                .map((v) => {
+                    if (v > deleteIndex) {
+                        return v - 1
+                    }
+                    return v
+                })
+
+            let newShuffle = []
+            for (let i = 0; i < restShuffle.length; i++) {
+                const v = restShuffle[i]
+                if(v !== newPlayIndex) {
+                    if(i !== deletedShuffleIndex) {
+                        newShuffle.push(v)
+                    } else {
+                        newShuffle.push(newPlayIndex)
+                        newShuffle.push(v)
+                    }
+                }
+            }
+            this.props.dispatch(setUserShuffle(newShuffle))
+        }
     }
 
     // 取当前播放的歌曲作为背景图

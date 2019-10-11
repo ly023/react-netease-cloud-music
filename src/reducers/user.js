@@ -1,10 +1,21 @@
 import {SET_USER_INFO, SET_USER_PLAY_SETTING, SET_USER_PLAYLIST, SET_USER_SHUFFLE} from 'actions/actionTypes'
+import {PLAY_MODE} from 'constants/play'
+
+function getDefaultPlaySetting() {
+    return {
+        index: 0,
+        isLocked: false,
+        mode: PLAY_MODE.ORDER,
+        autoPlay: false,
+        volume: 0.8
+    }
+}
 
 const initialState = {
     isLogin: false,
     userInfo: {},
     trackQueue: [],
-    playSetting: {},
+    playSetting: getDefaultPlaySetting(),
     shuffle: [],
 }
 

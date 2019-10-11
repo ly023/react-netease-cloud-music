@@ -5,6 +5,7 @@
 
 .wrapper,
 .song-source,
+.mv,
 .collect,
 .share,
 .setting,
@@ -49,7 +50,7 @@
 .cont {
   position: relative;
   @include size(980px, 48px);
-  margin: 6px auto 0;
+  margin: 5px auto 0;
   z-index: 15;
 }
 
@@ -171,6 +172,19 @@
 
   &:hover {
     background-position: -130px -103px;
+  }
+}
+
+.mv {
+  display: inline-block;
+  float: left;
+  width: 19px;
+  height: 17px;
+  margin: 6px 0 0 3px;
+  background-position: 0 -57px;
+
+  &:hover {
+    background-position: -20px -57px;
   }
 }
 

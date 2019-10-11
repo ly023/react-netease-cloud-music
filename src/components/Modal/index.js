@@ -8,6 +8,8 @@ export default class Modal extends React.Component {
 
     static propTypes = {
         visible: PropTypes.bool,
+        title: PropTypes.string,
+        onCancel: PropTypes.func,
     }
 
     static defaultProps = {
@@ -98,7 +100,8 @@ export default class Modal extends React.Component {
     }
 
     close = () => {
-        this.props.onCancel && this.props.onCancel()
+        const {onCancel} = this.props
+        onCancel && onCancel()
     }
 
     setPopoverRef = (el) => {

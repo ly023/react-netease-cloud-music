@@ -2,8 +2,10 @@
  * 新碟上架
  */
 import React from 'react'
-import {requestNewestAlbum} from 'services/album'
 import Swiper from 'swiper'
+import {requestNewestAlbum} from 'services/album'
+import {PLAY_TYPE} from 'constants/play'
+import Play from 'components/Play'
 
 import 'swiper/css/swiper.min.css'
 import './index.scss'
@@ -38,9 +40,6 @@ export default class NewestAlbum extends React.Component {
                     this.initSwiper()
                 })
             })
-            .catch((err) => {
-                console.log(err)
-            })
     }
 
     initSwiper = () => {
@@ -67,14 +66,16 @@ export default class NewestAlbum extends React.Component {
                         <div className="swiper-wrapper" styleName="list">
                             {
                                 newestAlbum.map((item, index) => {
-                                    return <div key={index} className="swiper-slide" styleName='item' ref={this.setRollerItemRef}>
+                                    return <div key={index} className="swiper-slide" styleName='item'>
                                         <div styleName='cover'>
                                             <img
                                                 src={item.picUrl}
                                                 alt={item.name}
                                             />
                                             <a styleName='mask'/>
-                                            <a styleName='play-icon'/>
+                                            <Play id={item.id} type={PLAY_TYPE.ALBUM.TYPE}>
+                                                <a styleName='play-icon'/>
+                                            </Play>
                                         </div>
                                         <a styleName='title'>{item.name}</a>
                                         <a styleName='name'>{item.artist && item.artist.name}</a>

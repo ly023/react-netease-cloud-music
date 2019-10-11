@@ -8,3 +8,7 @@ import API from 'api/album'
 export async function requestNewestAlbum(params) {
     return request(`${API.newest.url}${params ? `?${stringify(params)}` : ''}`)
 }
+
+export async function requestDetail(params) {
+    return request(`${API.detail.url}?${stringify(params)}`)
+}

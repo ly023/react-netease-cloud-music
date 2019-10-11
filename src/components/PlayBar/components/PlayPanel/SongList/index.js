@@ -132,7 +132,7 @@ export default class SongList extends React.Component {
                                             onClick={() => this.handlePlay(idx)}
                                         >
                                             <div styleName="arrow-play-icon"/>
-                                            <div styleName="name">{idx}{item.name}</div>
+                                            <div styleName="name">{item.name}</div>
                                             <div styleName="operation">
                                                 <span
                                                     styleName="icon delete-icon"
@@ -144,7 +144,7 @@ export default class SongList extends React.Component {
                                                 <span styleName="icon share-icon">分享</span>
                                                 <span styleName="icon add-icon">收藏</span>
                                             </div>
-                                            <div styleName="artists" titlr={getArtists(artists)}>
+                                            <div styleName="artists" title={getArtists(artists)}>
                                                 {
                                                     artists.map((artist, i) => {
                                                         return <span key={artist.id}><Link
@@ -153,7 +153,7 @@ export default class SongList extends React.Component {
                                                 }
                                             </div>
                                             <span styleName="duration">{formatDuration(item.duration)}</span>
-                                            <span styleName="link"><a>来源</a></span>
+                                            <span styleName="link"><Link to="/">来源</Link></span>
                                         </li>
                                     })
                                 }
