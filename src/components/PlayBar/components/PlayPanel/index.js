@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import emitter from 'utils/eventEmitter'
-import {setUserPlaySetting, setUserShuffle, setUserTrackQueue} from 'actions/user'
+import {setUserPlayInfo} from 'actions/user'
 import {getThumbnail} from 'utils'
 import {isShuffleMode} from 'utils/song'
 import SongList from './SongList'
@@ -66,7 +66,7 @@ export default class PlayPanel extends React.Component {
         if (!newTrackQueue.length) {
             // 随机模式下清空shuffle
             if (isShuffleMode(playSetting)) {
-                this.props.dispatch(setUserShuffle([]))
+                this.props.dispatch(setUserPlayInfo({shuffle: []}))
             }
             emitter.emit('play', {
                 trackQueue: [],
@@ -100,8 +100,10 @@ export default class PlayPanel extends React.Component {
                 ...playSetting,
                 index: newPlayIndex
             }
-            this.props.dispatch(setUserTrackQueue(newTrackQueue))
-            this.props.dispatch(setUserPlaySetting(newPlaySetting))
+            this.props.dispatch(setUserPlayInfo({
+                trackQueue: newTrackQueue,
+                playSetting: newPlaySetting
+            }))
         }
         // 随机模式下，重新计算shuffle
         if (isShuffleMode(playSetting)) {
@@ -131,7 +133,7 @@ export default class PlayPanel extends React.Component {
                     }
                 }
             }
-            this.props.dispatch(setUserShuffle(newShuffle))
+            this.props.dispatch(setUserPlayInfo({shuffle: newShuffle}))
         }
     }
 
@@ -143,7 +145,7 @@ export default class PlayPanel extends React.Component {
     }
 
     render() {
-        const {visible, trackQueue, index} = this.props
+        const {visible, trackQueue, index, user} = this.props
         const panelStyle = visible ? {} : {height: 0}
         const height = 260
 
@@ -183,7 +185,7 @@ export default class PlayPanel extends React.Component {
                     </div>
                     <div styleName="lyric">
                         <div styleName="mask"/>
-                        <Lyric height={height} songId={trackQueue[index]?.id}/>
+                        <Lyric visible={visible} height={height} songId={trackQueue[index]?.id} currentTime={user.currentPlayedTime}/>
                     </div>
                 </div>
             </div>

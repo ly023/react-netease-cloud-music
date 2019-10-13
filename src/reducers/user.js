@@ -1,4 +1,4 @@
-import {SET_USER_INFO, SET_USER_PLAY_SETTING, SET_USER_PLAYLIST, SET_USER_SHUFFLE} from 'actions/actionTypes'
+import {SET_USER_INFO, SET_USER_PLAY_INFO} from 'actions/actionTypes'
 import {PLAY_MODE} from 'constants/play'
 
 function getDefaultPlaySetting() {
@@ -17,6 +17,9 @@ const initialState = {
     trackQueue: [],
     playSetting: getDefaultPlaySetting(),
     shuffle: [],
+    isPlaying: false,
+    isDragProgress: false,
+    currentPlayedTime: 0,
 }
 
 export default function user(state = initialState, action) {
@@ -38,20 +41,10 @@ export default function user(state = initialState, action) {
                 isLogin: true,
                 userInfo: {}
             }
-        case SET_USER_PLAYLIST:
+        case SET_USER_PLAY_INFO:
             return {
                 ...state,
-                trackQueue: action.trackQueue
-            }
-        case SET_USER_PLAY_SETTING:
-            return {
-                ...state,
-                playSetting: action.playSetting
-            }
-        case SET_USER_SHUFFLE:
-            return {
-                ...state,
-                shuffle: action.shuffle
+                ...action
             }
         default:
             return state

@@ -26,6 +26,13 @@
   @include size(25px, 25px);
 }
 
+.volume-icon,
+.loop,
+.playlist-icon,
+.lock-icon {
+  cursor: pointer;
+}
+
 .wrapper {
   position: fixed;
   left: 0;
@@ -36,7 +43,6 @@
     position: 0 0;
     repeat: repeat-x;
   };
-  cursor: pointer;
 }
 
 .wrapper.locked {
@@ -219,9 +225,8 @@
   @include size(22px, 22px);
   margin-left: -11px;
   background-position: 0 -250px;
-  cursor: pointer;
 
-  :hover {
+  &:hover {
     background-position: 0 -280px;
   }
 }

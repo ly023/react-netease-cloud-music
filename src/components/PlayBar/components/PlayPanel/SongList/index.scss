@@ -1,9 +1,13 @@
 
+.wrapper {
+}
+
 .item {
   position: relative;
   height: 28px;
   padding: 0 6px 0 10px;
   line-height: 28px;
+  cursor: pointer;
 
   &.active {
     background-color: rgba(0, 0, 0, 0.3);

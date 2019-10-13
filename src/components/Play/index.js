@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import _ from 'lodash'
 import emitter from 'utils/eventEmitter'
 import {PLAY_TYPE} from 'constants/play'
-import {setUserShuffle} from 'actions/user'
+import {setUserPlayInfo} from 'actions/user'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
 import {requestDetail as requestSongDetail} from 'services/song'
 import {requestDetail as requestAlbumDetail} from 'services/album'
@@ -75,7 +75,7 @@ export default class Play extends React.PureComponent {
                             restShuffle.push(newTrackIndex)
                             const newRestShuffle = _.shuffle(restShuffle)
                             const newShuffle = shuffle.slice(0, shuffleIndex + 1).concat(newRestShuffle)
-                            this.props.dispatch(setUserShuffle(newShuffle))
+                            this.props.dispatch(setUserPlayInfo({shuffle: newShuffle}))
                         }
                     }
                 } else {
@@ -156,7 +156,7 @@ export default class Play extends React.PureComponent {
         const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
         indexes.splice(startIndex, 1)
         const shuffle = [startIndex].concat(_.shuffle(indexes))
-        this.props.dispatch(setUserShuffle(shuffle))
+        this.props.dispatch(setUserPlayInfo({shuffle}))
     }
 
     render() {

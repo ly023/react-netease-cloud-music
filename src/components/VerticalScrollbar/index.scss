@@ -12,8 +12,7 @@
 }
 
 .thumb-vertical {
-  position: relative;
-  display: block;
+  position: absolute;
   left: 0;
   width: 4px;
   border-radius: 5px;
@@ -21,7 +20,12 @@
   background: #868686;
   border: 1px solid #a6a6a6;
   opacity: .8;
-  filter: Alpha(opacity=80)
+  filter: Alpha(opacity=80);
+
+  span {
+    position: relative;
+    display: inline-block;
+  }
 }
 
 .track-horizontal {

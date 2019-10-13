@@ -22,7 +22,7 @@ class NavBar extends React.Component {
 
     componentDidMount() {
         this.setNavHeight()
-        this.eventEmitter = emitter.on('login', (mode = LOGIN_MODE.GUIDE.TYPE) => {
+        emitter.on('login', (mode = LOGIN_MODE.GUIDE.TYPE) => {
             this.handleLogin(mode)
         })
     }
@@ -31,10 +31,6 @@ class NavBar extends React.Component {
         if (prevProps.location.pathname !== this.props.location.pathname) {
             this.setNavHeight()
         }
-    }
-
-    componentWillUnmount() {
-        emitter.removeEventListener(this.eventEmitter)
     }
 
     setNavHeight = () => {

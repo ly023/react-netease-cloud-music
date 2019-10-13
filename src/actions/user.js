@@ -2,8 +2,7 @@ import {
     REQUEST_MOBILE_LOGIN,
     REQUEST_LOGIN_STATUS,
     SET_USER_INFO,
-    SET_USER_PLAYLIST,
-    SET_USER_PLAY_SETTING, SET_USER_SHUFFLE
+    SET_USER_PLAY_INFO,
 } from 'actions/actionTypes'
 
 export function requestMobileLogin(payload, success, fail) {
@@ -28,23 +27,9 @@ export const setUserInfo = (userInfo) => {
     }
 }
 
-export const setUserTrackQueue = (trackQueue) => {
+export const setUserPlayInfo = (info) => {
     return {
-        type: SET_USER_PLAYLIST,
-        trackQueue
-    }
-}
-
-export const setUserPlaySetting = (playSetting) => {
-    return {
-        type: SET_USER_PLAY_SETTING,
-        playSetting
-    }
-}
-
-export const setUserShuffle = (shuffle) => {
-    return {
-        type: SET_USER_SHUFFLE,
-        shuffle
+        type: SET_USER_PLAY_INFO,
+        ...info
     }
 }

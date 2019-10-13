@@ -31,7 +31,7 @@ export function formatNumber(number) {
  * @returns {string}
  */
 export function formatDuration(ms) {
-    if (!ms) {
+    if (!ms || ms <= 0) {
         return '00:00'
     }
     const seconds = Math.floor(ms / 1000)
@@ -76,12 +76,24 @@ export function isValidMobileNumber(value) {
 /**
  * 获取缩略图
  * @param url
- * @param size
+ * @param width
+ * @param height
  * @returns {string}
  */
-export function getThumbnail(url, size = 256) {
+export function getThumbnail(url, width = 256, height) {
     if (url) {
-        return `${url}?param=${size}y${size}`
+        return `${url}?param=${width}y${height || width}`
     }
     return ''
+}
+
+/**
+ * 禁用文本选择
+ */
+export function disableTextSelection () {
+    if (document.selection) {
+        document.selection.empty()
+    } else {
+        window.getSelection().removeAllRanges()
+    }
 }
