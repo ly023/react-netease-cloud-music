@@ -1,5 +1,6 @@
 
 export default {
+    ENTER: 13, // enter
     SPACE: 32, // 空格
     F7: 118,
     F8: 119,

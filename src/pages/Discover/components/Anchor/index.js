@@ -5,7 +5,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './index.scss'
 
-export default class Anchor extends React.Component {
+export default class Anchor extends React.PureComponent {
     // todo
     render() {
         return (

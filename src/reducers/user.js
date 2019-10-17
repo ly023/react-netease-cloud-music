@@ -6,7 +6,6 @@ function getDefaultPlaySetting() {
         index: 0,
         isLocked: false,
         mode: PLAY_MODE.ORDER,
-        autoPlay: false,
         volume: 0.8
     }
 }

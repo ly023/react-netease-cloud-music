@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Modal from 'components/Modal'
 import {LOGIN_MODE} from 'constants/login'
@@ -11,9 +10,6 @@ import Mobile from './components/Mobile'
 import './index.scss'
 
 @withRouter
-@connect(({user}) => ({
-    user,
-}))
 export default class LoginModal extends React.Component {
 
     static propTypes = {

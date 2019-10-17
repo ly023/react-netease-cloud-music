@@ -11,22 +11,23 @@ import VerticalScrollbar from 'components/VerticalScrollbar'
 import './index.scss'
 
 const DEFAULT_SECOND = -1
-// const DELAYED_MILLISECONDS = 100 // 延迟执行的毫秒数
 const DURATION = 1000 // 动画执行时间
 
-@connect(({user}) => ({user}))
+@connect(({user}) => ({
+    isDragProgress: user.isDragProgress,
+    isPlaying: user.isPlaying,
+    currentPlayedTime: user.currentPlayedTime
+}))
 export default class Lyric extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
         height: PropTypes.number,
         songId: PropTypes.number,
-        currentTime: PropTypes.number,
     }
 
     static defaultProps = {
         visible: false,
         height: 260,
-        currentTime: DEFAULT_SECOND
     }
 
     constructor(props) {
@@ -35,7 +36,8 @@ export default class Lyric extends React.Component {
             lyric: {},
             reportPopoverVisible: false
         }
-        this.requestId = 0
+        this.requestedSongId = 0
+        this.requestAnimationFrameId = 0
     }
 
     componentDidMount() {
@@ -45,14 +47,21 @@ export default class Lyric extends React.Component {
         }
     }
 
+    shouldComponentUpdate(nextProps) {
+        return nextProps.visible
+    }
+
     componentDidUpdate(prevProps) {
-        const {visible, songId, currentTime, user} = this.props
-        if (songId && songId !== prevProps.songId) {
+        const {visible, songId, isDragProgress} = this.props
+        if (visible && songId && (songId !== prevProps.songId || this.requestedSongId !== songId)) {
             this.fetchLyric(songId)
             return
         }
-        if (visible && !user.isDragProgress && currentTime !== prevProps.currentTime) {
-            this.scrollToCurrentTime()
+        if(this.requestedSongId === songId) {
+            // 非拖拽/有歌词/有歌词时间，才滚动
+            if (!isDragProgress && this.hasLyric && this.hasTime) {
+                this.scrollToCurrentTime()
+            }
         }
     }
 
@@ -73,7 +82,7 @@ export default class Lyric extends React.Component {
             const {convertedLyric} = this
             if (convertedLyric) {
                 const seconds = Object.keys(convertedLyric).map(key => convertedLyric[key].second)
-                const currentTime = this.props.user.currentPlayedTime
+                const currentTime = this.props.currentPlayedTime
                 let activeTime
                 for (let i = 0; i < seconds.length; i++) {
                     const time = seconds[i]
@@ -111,26 +120,26 @@ export default class Lyric extends React.Component {
                             intervalScrollTop += intervalHeight
                             if (intervalScrollTop >= scrollTop) {
                                 intervalScrollTop = scrollTop
-                                window.cancelAnimationFrame(this.requestId)
+                                window.cancelAnimationFrame(this.requestAnimationFrameId)
                             } else {
-                                this.requestId = window.requestAnimationFrame(scrollDown)
+                                this.requestAnimationFrameId = window.requestAnimationFrame(scrollDown)
                             }
                             this.scrollbarRef.scrollTop(intervalScrollTop)
                         }
-                        this.requestId = window.requestAnimationFrame(scrollDown)
+                        this.requestAnimationFrameId = window.requestAnimationFrame(scrollDown)
                     } else {
                         // 向上滚动
                         const scrollUp = () => {
                             intervalScrollTop -= intervalHeight
                             if (intervalScrollTop <= scrollTop) {
                                 intervalScrollTop = scrollTop
-                                window.cancelAnimationFrame(this.requestId)
+                                window.cancelAnimationFrame(this.requestAnimationFrameId)
                             } else {
-                                this.requestId = window.requestAnimationFrame(scrollUp)
+                                this.requestAnimationFrameId = window.requestAnimationFrame(scrollUp)
                             }
                             this.scrollbarRef.scrollTop(intervalScrollTop)
                         }
-                        this.requestId = window.requestAnimationFrame(scrollUp)
+                        this.requestAnimationFrameId = window.requestAnimationFrame(scrollUp)
                     }
                 }
             }
@@ -141,6 +150,7 @@ export default class Lyric extends React.Component {
         requestLyric({id: id})
             .then((res) => {
                 if (this.mounted && res) {
+                    this.requestedSongId = id
                     this.setState({
                         lyric: res
                     })
@@ -248,6 +258,7 @@ export default class Lyric extends React.Component {
         if (!this.props.songId) {
             return ''
         }
+        this.hasLyric = false
         if (lyric && Object.keys(lyric).length) {
             const {nolyric, tlyric = {}, lrc = {}} = lyric
             if (nolyric) {
@@ -259,6 +270,7 @@ export default class Lyric extends React.Component {
                     <a>求歌词</a>
                 </div>
             }
+            this.hasLyric = true
             return this.getLyricElement(lyric)
         }
         return ''
@@ -266,7 +278,7 @@ export default class Lyric extends React.Component {
 
     getLyricElement = (lyric) => {
         let lyricElement = []
-        let hasTime = false
+        this.hasTime = false
         const convertedLyric = this.getLyric(lyric)
         this.convertedLyric = convertedLyric
         convertedLyric.forEach((item, index) => {
@@ -274,15 +286,14 @@ export default class Lyric extends React.Component {
             let innerTime = origin.second
             let originLyrics = origin.lyrics
             if (innerTime !== DEFAULT_SECOND) {
-                hasTime = true
+                this.hasTime = true
             }
 
             // 拖拽播放条时不改变
-            const {user} = this.props
-            const currentTime = this.props.user.currentPlayedTime
-            const activeTime = user.isDragProgress ? this.prevActiveTime : currentTime
+            const {isDragProgress, isPlaying, currentPlayedTime: currentTime} = this.props
+            const activeTime = isDragProgress ? this.prevActiveTime : currentTime
             let styleName = ''
-            if (user.isPlaying || (activeTime !== DEFAULT_SECOND && activeTime !== 0)) {
+            if (isPlaying || (activeTime !== DEFAULT_SECOND && activeTime !== 0)) {
                 const nextItem = convertedLyric[index + 1]
                 if (activeTime >= innerTime) {
                     if (index === convertedLyric.length - 1) {
@@ -328,7 +339,7 @@ export default class Lyric extends React.Component {
                 })
             }
         })
-        if (!hasTime) {
+        if (!this.hasTime) {
             lyricElement.unshift(<p key="tip">*该歌词不支持自动滚动* <a>求滚动歌词</a></p>)
         }
         return lyricElement

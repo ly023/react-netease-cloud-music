@@ -8,7 +8,7 @@ import Empty from './Empty'
 
 import './index.scss'
 
-export default class SongList extends React.Component {
+export default class SongList extends React.PureComponent {
     static propTypes = {
         height: PropTypes.number,
         trackQueue: PropTypes.array,
@@ -56,7 +56,7 @@ export default class SongList extends React.Component {
             let scrollTop = 0
             const {height, index} = this.props
             if (this.itemRef) {
-                const itemHeight = parseInt(window.getComputedStyle(this.itemRef, null).height, 10)
+                const itemHeight = this.itemRef.offsetHeight
                 const perPageLines = Math.floor(height / itemHeight)
                 const halfLines = Math.ceil(perPageLines / 2)
                 const offsetLines = (index + 1) - halfLines <= 0 ? 0 : ((index + 1) - halfLines)
@@ -73,7 +73,7 @@ export default class SongList extends React.Component {
             let scrollTop = 0
             const {trackQueue, height, index} = this.props
             if (this.itemRef) {
-                const itemHeight = parseInt(window.getComputedStyle(this.itemRef, null).height, 10)
+                const itemHeight = this.itemRef.offsetHeight
                 const perPageLines = Math.floor(height / itemHeight)
                 const currentScrollTop = this.scrollbarRef.getScrollTop()
                 if(index === 0) {

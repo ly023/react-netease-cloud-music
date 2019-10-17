@@ -40,7 +40,7 @@ export default class BackTop extends React.Component {
             clearTimeout(this.timeoutTimer)
         }
 
-        this.timeoutTimer = setTimeout(()=>{
+        this.timeoutTimer = window.setTimeout(()=>{
             const pageYOffset = window.pageYOffset
             if(pageYOffset >= Threshold) {
                 this.setState({

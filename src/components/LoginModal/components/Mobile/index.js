@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import areaCode from 'constants/areaCode'
 import FormItem from 'components/FormItem'
 import {createForm, formShape} from 'rc-form'
+import KEY_CODE from 'constants/keyCode'
 import {isValidMobileNumber} from 'utils'
 import styles from '../../index.scss'
 import './index.scss'
@@ -13,11 +14,6 @@ export default class Mobile extends React.Component {
         form: formShape,
         onLogin: PropTypes.func,
         afterLogin: PropTypes.func,
-    }
-
-    static defaultProps = {
-        onLogin: () => {},
-        afterLogin: () => {}
     }
 
     constructor(props) {
@@ -71,13 +67,14 @@ export default class Mobile extends React.Component {
 
     handleEnterKey = (e) => {
         const keyCode = e.nativeEvent.which || e.nativeEvent.keyCode
-        if(keyCode === 13){
+        if(keyCode === KEY_CODE.ENTER){
             this.handleSubmit()
         }
     }
 
     handleSubmit = () => {
-        this.props.form.validateFields({first: true}, (errors, values) => {
+        const {form, onLogin, afterLogin} = this.props
+        form.validateFields({first: true}, (errors, values) => {
 
             if (!errors) {
                 this.setState({responseError: ''})
@@ -91,10 +88,10 @@ export default class Mobile extends React.Component {
 
                 this.setState({loading: true})
 
-                this.props.onLogin(payload,
+                onLogin && onLogin(payload,
                     () => {
                         this.setState({loading: false})
-                        this.props.afterLogin()
+                        afterLogin && afterLogin()
                     },
                     (error) => {
                         this.setState({loading: false})

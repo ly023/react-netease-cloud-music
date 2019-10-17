@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './index.scss'
 
-const EDGE = 20
+const EDGE = 0
 
 export default class Modal extends React.Component {
 
@@ -24,14 +24,13 @@ export default class Modal extends React.Component {
     }
 
     componentDidMount() {
-
     }
 
     componentDidUpdate(prevProps) {
         if (!prevProps.visible && this.props.visible) {
-            const {clientWidth, clientHeight} = this.popoverRef
-            this.popoverClientWidth = clientWidth
-            this.popoverClientHeight = clientHeight
+            const {clientWidth: modalClientWidth, clientHeight: modalClientHeight} = this.modalRef
+            this.modalClientWidth = modalClientWidth
+            this.modalClientHeight = modalClientHeight
             this.setPosition()
         }
     }
@@ -40,16 +39,12 @@ export default class Modal extends React.Component {
 
     }
 
-    getCenterPosition = () => {
-        const {clientWidth, clientHeight} = document.documentElement
-        const top = (clientHeight - this.popoverClientHeight) / 2
-        const left = (clientWidth - this.popoverClientWidth) / 2
-        return {top, left}
-    }
-
     setPosition = () => {
+        const {clientWidth, clientHeight} = document.documentElement
+        const top = (clientHeight - this.modalClientHeight) / 2
+        const left = (clientWidth - this.modalClientWidth) / 2
         this.setState({
-            style: this.getCenterPosition()
+            style: this.getRightPosition(top, left)
         })
     }
 
@@ -60,9 +55,9 @@ export default class Modal extends React.Component {
 
         this.startPosX = e.clientX
         this.startPosY = e.clientY
-        let popup = window.getComputedStyle(this.popoverRef)
-        this.top = parseInt(popup.top, 10)
-        this.left = parseInt(popup.left, 10)
+        let rectObj = this.modalRef.getBoundingClientRect()
+        this.top = rectObj.top
+        this.left = rectObj.left
         this.isDrag = true
 
         this.bindEvent()
@@ -77,12 +72,31 @@ export default class Modal extends React.Component {
         let moveX = e.clientX - this.startPosX
         let moveY = e.clientY - this.startPosY
 
+        let styleTop = this.top + moveY
+        let styleLeft = this.left + moveX
+
         this.setState({
-            style: {
-                top: this.top + moveY,
-                left: Math.max(this.left + moveX, EDGE)
-            }
+            style: this.getRightPosition(styleTop, styleLeft)
         })
+    }
+
+    getRightPosition = (top, left) => {
+        const {clientWidth, clientHeight} = document.documentElement
+        const maxTop = clientHeight - this.modalClientHeight - EDGE
+        const maxLeft = clientWidth - this.modalClientWidth - EDGE
+
+        if (top < EDGE) {
+            top = EDGE
+        } else if (top > maxTop) {
+            top = maxTop
+        }
+
+        if (left < EDGE) {
+            left = EDGE
+        } else if (left > maxLeft) {
+            left = maxLeft
+        }
+        return {top, left}
     }
 
     bindEvent = (remove) => {
@@ -104,8 +118,8 @@ export default class Modal extends React.Component {
         onCancel && onCancel()
     }
 
-    setPopoverRef = (el) => {
-        this.popoverRef = el
+    setModalRef = (el) => {
+        this.modalRef = el
     }
 
     render() {
@@ -114,7 +128,7 @@ export default class Modal extends React.Component {
 
         return (
             <>
-                <div ref={this.setPopoverRef} styleName="popover" className={visible ? null : "hide"} style={style}>
+                <div ref={this.setModalRef} styleName="popover" className={visible ? null : "hide"} style={style}>
                     <div
                         styleName="popover-bar"
                         onMouseDown={this.handleMouseDown}

@@ -19,7 +19,7 @@ import Anchor from './components/Anchor'
 import styles from './index.scss'
 
 @connect(({user}) => ({
-    user,
+    userInfo: user.userInfo || {},
 }))
 export default class Discover extends React.Component {
     constructor(props) {
@@ -41,7 +41,7 @@ export default class Discover extends React.Component {
         requestDiscoverBanners().then((res) => {
             this.setState({
                 banners: res.banners.map((v) => {
-                    // todo 不同类型轮播图
+                    // todo 轮播图不同类型
                     if(v.targetType === 1) {
                         return <a style={{display: 'inline-block'}} href={`/song/${v.targetId}`}>
                             <img src={v.imageUrl} alt=""/>
@@ -66,7 +66,7 @@ export default class Discover extends React.Component {
 
     render() {
         const {banners, hotCategory} = this.state
-        const userId = this.props.user?.userInfo?.profile?.userId
+        const userId = this.props.userInfo.profile?.userId
 
         return (
             <Page>

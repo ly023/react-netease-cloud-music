@@ -3,13 +3,14 @@
  */
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Add from 'components/Add'
 import Play from 'components/Play'
 import {PLAY_TYPE} from 'constants/play'
 import {requestRankList} from 'services/toplist'
 
 import './index.scss'
 
-export default class Rank extends React.Component {
+export default class Rank extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -29,7 +30,8 @@ export default class Rank extends React.Component {
             this.setState({
                 rankList: [soaringRank, newRank, hotRank]
             })
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     render() {
@@ -91,8 +93,13 @@ export default class Rank extends React.Component {
                                                         styleName='icon play-icon'
                                                     />
                                                 </Play>
-                                                <a href={null} title={'添加到播放列表'}
-                                                    styleName='icon add-icon'/>
+                                                <Add type={PLAY_TYPE.SINGLE.TYPE} id={track.id}>
+                                                    <a
+                                                        href={null}
+                                                        title={'添加到播放列表'}
+                                                        styleName='icon add-icon'
+                                                    />
+                                                </Add>
                                                 <a href={null} title={'收藏'}
                                                     styleName='icon subscribe-icon'/>
                                             </div>

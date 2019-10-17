@@ -1,6 +1,5 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化资源分析
 
 const config = require('./config');
@@ -19,7 +18,8 @@ module.exports = {
                 ] : [
                     'babel-loader',
                 ],
-                exclude: /node_modules/
+                // exclude: /node_modules\/(?!(dom7|swiper)\/).*/,
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
@@ -86,20 +86,9 @@ module.exports = {
         extensions: ['.js', '.json', '.jsx'], // 省略后缀名
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            filename: path.join(config.root, 'dist/index.html'),  // 生成的html存放路径，相对于path
-            template: path.join(config.root, 'index.html'), // 模板文件
-            inject: 'body', // js的script注入到body底部
-            favicon: path.join(config.root, 'src/assets/favicon.ico'), // favicon路径
-            minify: {    // 压缩HTML文件
-                removeComments: true,    // 移除HTML中的注释
-                collapseWhitespace: false    // 删除空白符与换行符
-            }
-        }),
-
         new BundleAnalyzerPlugin({
-            // analyzerMode: 'server',
-            analyzerMode: 'disabled',
+            analyzerMode: 'server',
+            // analyzerMode: 'disabled',
             analyzerHost: '127.0.0.1',
             analyzerPort: 8888,
             reportFilename: 'report.html',
@@ -109,8 +98,6 @@ module.exports = {
             statsFilename: 'stats.json',
             logLevel: 'info'
         }),
-
-        // 优化构建输出界面
     ]
 };
 

@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import Page from 'components/Page'
-import Popover from 'components/Popover'
+import Popover from './components/Popover'
 import VersionModal from './components/VersionModal'
 
 import './index.scss'

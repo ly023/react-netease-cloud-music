@@ -11,7 +11,8 @@ import Lyric from './Lyric'
 import './index.scss'
 
 @connect(({user}) => ({
-    user,
+    playSetting: user.playSetting,
+    shuffle: user.shuffle
 }))
 export default class PlayPanel extends React.Component {
 
@@ -45,6 +46,11 @@ export default class PlayPanel extends React.Component {
     }
 
     handleClear = () => {
+        // 随机模式下清空shuffle
+        const {playSetting} = this.props
+        if (isShuffleMode(playSetting)) {
+            this.props.dispatch(setUserPlayInfo({shuffle: []}))
+        }
         emitter.emit('play', {
             trackQueue: [],
             index: 0,
@@ -54,7 +60,7 @@ export default class PlayPanel extends React.Component {
 
     handleRemove = (id) => {
         const {trackQueue, index: playIndex} = this.props
-        const {playSetting} = this.props.user
+        const {playSetting} = this.props
         let deleteIndex = 0
         const newTrackQueue = trackQueue.filter((track, i) => {
             if (track.id === id) {
@@ -107,7 +113,7 @@ export default class PlayPanel extends React.Component {
         }
         // 随机模式下，重新计算shuffle
         if (isShuffleMode(playSetting)) {
-            const shuffle = [...this.props.user.shuffle]
+            const shuffle = [...this.props.shuffle]
             const deletedShuffleIndex = shuffle.findIndex(v => v === deleteIndex)
 
             const restShuffle = shuffle
@@ -145,7 +151,7 @@ export default class PlayPanel extends React.Component {
     }
 
     render() {
-        const {visible, trackQueue, index, user} = this.props
+        const {visible, trackQueue, index} = this.props
         const panelStyle = visible ? {} : {height: 0}
         const height = 260
 
@@ -185,7 +191,7 @@ export default class PlayPanel extends React.Component {
                     </div>
                     <div styleName="lyric">
                         <div styleName="mask"/>
-                        <Lyric visible={visible} height={height} songId={trackQueue[index]?.id} currentTime={user.currentPlayedTime}/>
+                        <Lyric visible={visible} height={height} songId={trackQueue[index]?.id}/>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import './index.scss'
-import {requestArtist} from "services/artist";
+import {requestArtist} from 'services/artist'
 
-export default class Singer extends React.Component {
+import './index.scss'
+
+export default class Singer extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {

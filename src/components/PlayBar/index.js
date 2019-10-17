@@ -13,29 +13,28 @@ import {setUserPlayInfo} from 'actions/user'
 import {isShuffleMode, getArtists} from 'utils/song'
 import PlayPanel from './components/PlayPanel'
 
+
 import './index.scss'
 
 const SHOW_BOTTOM = 0
 const HIDE_BOTTOM = -47
 const TIMEOUT = 500
-const PLAYED_INTERVAL = 200
+const PLAYED_INTERVAL = 250
+const TIP_TIMEOUT = 2000
 const INTERVAL = {
     SHOW: 10,
     HIDE: 3,
     TIME: 20
 }
 
-@connect(({user}) => ({
-    user,
-}))
+@connect(({user}) => ({user}))
 export default class PlayBar extends React.PureComponent {
     constructor(props) {
         super(props)
 
         this.state = {
-            playPanelVisible: false,
-
             playBarStyle: {},
+            playPanelVisible: false,
 
             loading: false,
             readyPercent: 0,
@@ -46,6 +45,7 @@ export default class PlayBar extends React.PureComponent {
             volumeLength: 0,
             volumeDotStyle: {},
 
+            addedTipVisible: false
         }
 
         this.timeoutId = 0
@@ -65,30 +65,27 @@ export default class PlayBar extends React.PureComponent {
         this.endProgressX = 0
         this.endPlayedLength = 0
         this.progressWidth = 0
+
+        this.tipTimeout = 0
     }
 
     componentDidMount() {
         this.getInitialSetting()
 
-        emitter.on('play', ({trackQueue, index, hasChangeTrackQueue, autoPlay}) => {
-            if (autoPlay) {
-                this.autoPlay = true
-            }
-            this.play(trackQueue, index, hasChangeTrackQueue)
-        })
+        emitter.on('play', this.emitterOnPlay)
 
-        emitter.on('close', () => {
-            if (this.state.playPanelVisible) {
-                this.setState({playPanelVisible: false})
-            }
-        })
+        emitter.on('close', this.emitterOnClose)
 
-        this.volumeHeight = parseInt(window.getComputedStyle(this.volumeLineRef).height, 10)
-        this.volumeDotR = parseInt(window.getComputedStyle(this.volumeDotRef).height, 10) / 2
+        emitter.on('add', this.emitterOnAdd)
+
         this.progressWidth = this.progressRef.offsetWidth
     }
 
     componentWillUnmount() {
+        window.clearTimeout(this.timeoutId)
+        window.clearInterval(this.songPlayedIntervalId)
+        emitter.removeListener('play', this.emitterOnPlay)
+        emitter.removeListener('close', this.emitterOnClose)
     }
 
     getInitialSetting = () => {
@@ -111,10 +108,6 @@ export default class PlayBar extends React.PureComponent {
             setLocalStorage('trackQueue', trackQueue)
         }
 
-        // 事件监听
-        this.keyEventListener()
-        this.audioListener()
-
         // 初始化播放进度条
         const song = trackQueue[playSetting.index]
         if (song) {
@@ -126,6 +119,10 @@ export default class PlayBar extends React.PureComponent {
         if (isShuffleMode(playSetting)) {
             this.createShuffle(playSetting.index, trackQueue)
         }
+
+        // 事件监听
+        this.keyEventListener()
+        this.audioListener()
     }
 
     createShuffle = (index, trackQueue) => {
@@ -133,6 +130,29 @@ export default class PlayBar extends React.PureComponent {
         indexes.splice(index, 1)
         const shuffle = [index].concat(_.shuffle(indexes))
         this.props.dispatch(setUserPlayInfo({shuffle}))
+    }
+
+    emitterOnPlay = ({trackQueue, index, hasChangeTrackQueue, autoPlay}) => {
+        if (autoPlay) {
+            this.autoPlay = true
+        }
+        this.play(trackQueue, index, hasChangeTrackQueue)
+    }
+
+    emitterOnClose = () => {
+        if (this.state.playPanelVisible) {
+            this.setState({playPanelVisible: false})
+        }
+    }
+
+    emitterOnAdd = () => {
+        this.setState({addedTipVisible: true})
+        if (this.tipTimeout) {
+            window.clearTimeout(this.tipTimeout)
+        }
+        this.tipTimeout = setTimeout(() => {
+            this.setState({addedTipVisible: false})
+        }, TIP_TIMEOUT)
     }
 
     play = (trackQueue, index, hasChangeTrackQueue) => {
@@ -311,7 +331,7 @@ export default class PlayBar extends React.PureComponent {
 
     errorListener = () => {
         this.audio.addEventListener('error', () => {
-
+            // 音频错误
         })
     }
 
@@ -439,7 +459,7 @@ export default class PlayBar extends React.PureComponent {
             return
         }
 
-        this.timeoutId = setTimeout(() => {
+        this.timeoutId = window.setTimeout(() => {
             let timer = setInterval(() => {
                 let bottom = this.state.playBarStyle.bottom || 0
 
@@ -532,13 +552,9 @@ export default class PlayBar extends React.PureComponent {
         const {duration, buffered} = this.audio
         let currentTime = played * duration
 
-        // 清除当前播放计时
+        // 清除当前播放interval id
         if (this.songPlayedIntervalId) {
             window.clearInterval(this.songPlayedIntervalId)
-        }
-
-        if (!this.audio.paused) {
-            this.playedInterval()
         }
 
         // 音频跳跃播放
@@ -557,6 +573,10 @@ export default class PlayBar extends React.PureComponent {
             }
         }
         this.props.dispatch(setUserPlayInfo({currentPlayedTime: currentTime}))
+
+        if (!this.audio.paused) {
+            this.playedInterval()
+        }
     }
 
     handleProgressMouseUp = () => {
@@ -574,10 +594,14 @@ export default class PlayBar extends React.PureComponent {
                 volumeVisible: !prevState.volumeVisible
             }
         }, () => {
-            const {playSetting} = this.props.user
-            const {volumeVisible} = this.state
-            if (volumeVisible) {
-                const volumeLength = playSetting.volume * this.volumeHeight
+            if (this.state.volumeVisible) {
+                if (!this.volumeDotR) {
+                    this.volumeDotR = this.volumeDotRef.offsetHeight / 2
+                }
+                if (!this.volumeHeight) {
+                    this.volumeHeight = parseInt(window.getComputedStyle(this.volumeLineRef).height, 10)
+                }
+                const volumeLength = this.props.user.playSetting.volume * this.volumeHeight
                 this.setVolumeStyle(volumeLength)
             }
         })
@@ -588,7 +612,20 @@ export default class PlayBar extends React.PureComponent {
     }
 
     setVolumeStyle = (volumeLength) => {
-        let volumeTop = parseFloat(Number(Math.min(this.volumeHeight - volumeLength, this.volumeHeight - this.volumeDotR)).toFixed(1))
+        const offset = 4
+        const maxTop = this.volumeHeight - (this.volumeDotR - offset) * 2
+        let volumeTop
+        if (!volumeLength) {
+            volumeTop = maxTop
+        } else {
+            volumeTop = this.volumeHeight - volumeLength - (this.volumeDotR - offset) * 2
+        }
+        if (volumeTop < -offset) {
+            volumeTop = -offset
+        }
+        if (volumeTop > maxTop) {
+            volumeTop = maxTop
+        }
         const volumeDotStyle = {top: `${volumeTop}px`}
         this.setState({
             volumeLength,
@@ -621,6 +658,7 @@ export default class PlayBar extends React.PureComponent {
         this.endVolumeY = e.clientY
         let moveY = this.startVolumeY - this.endVolumeY
         let volumeLength = this.endVolumeLength + moveY
+
         let volume = playSetting.volume
         if (volumeLength >= this.volumeHeight) {
             volume = 1
@@ -629,7 +667,7 @@ export default class PlayBar extends React.PureComponent {
             volume = 0
             volumeLength = 0
         } else {
-            volume = parseFloat(Number(volumeLength / this.volumeHeight).toFixed(1))
+            volume = volumeLength / this.volumeHeight
         }
         playSetting.volume = volume
         this.setVolumeStyle(volumeLength)
@@ -716,6 +754,7 @@ export default class PlayBar extends React.PureComponent {
             volumeVisible,
             volumeLength,
             volumeDotStyle,
+            addedTipVisible,
         } = this.state
 
         const song = this.getSong() || {}
@@ -834,7 +873,8 @@ export default class PlayBar extends React.PureComponent {
                         <div styleName="mode" onClick={this.changeMode}>
                             {this.getRenderMode(playSetting.mode)}
                         </div>
-                        <div styleName="icon playlist-icon" onClick={this.handleSwitchPlayPanel}>
+                        <div id="playlist-icon" styleName="icon playlist-icon" onClick={this.handleSwitchPlayPanel}>
+                            <div style={{display: addedTipVisible ? 'block' : 'none'}} styleName="added-to-playlist">已添加到播放列表</div>
                             {trackQueue.length}
                         </div>
                     </div>

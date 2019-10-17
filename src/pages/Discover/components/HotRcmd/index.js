@@ -10,7 +10,7 @@ import {requestPersonalized} from 'services/playlist'
 
 import './index.scss'
 
-export default class HotRcmd extends React.Component {
+export default class HotRcmd extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {

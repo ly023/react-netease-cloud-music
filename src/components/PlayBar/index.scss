@@ -336,16 +336,15 @@
 
 .volume-line {
   position: absolute;
-  top: 7px;
+  bottom: 10px;
   left: 14px;
   @include size(4px, 93px);
-  padding: 4px 0;
 }
 
 .volume-current {
   position: absolute;
   left: 0;
-  bottom: 4px;
+  bottom: 0;
   width: 4px;
   background-position: -40px bottom;
 }
@@ -410,6 +409,20 @@
     background-position: -42px -98px;
   }
 
+  .added-to-playlist {
+    position: absolute;
+    top: -51px;
+    left: 0;
+    clear: both;
+    width: 152px;
+    height: 49px;
+    @extend %background-playbar;
+    background-position: 0 -287px;
+    text-align: center;
+    color: #fff;
+    line-height: 37px;
+    white-space: nowrap;
+  }
 }
 
 .lock {

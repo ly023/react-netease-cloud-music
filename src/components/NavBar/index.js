@@ -3,12 +3,14 @@ import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
 import LoginModal from 'components/LoginModal'
 import {LOGIN_MODE} from 'constants/login'
+import KEY_CODE from 'constants/keyCode'
 import emitter from 'utils/eventEmitter'
 import styles from './index.scss'
 
 @withRouter
 @connect(({user}) => ({
-    user,
+    isLogin: user.isLogin,
+    userInfo: user.userInfo,
 }))
 class NavBar extends React.Component {
     constructor(props) {
@@ -34,7 +36,7 @@ class NavBar extends React.Component {
     }
 
     setNavHeight = () => {
-        const navHeight = parseInt(window.getComputedStyle(this.navRef, null).getPropertyValue('height'), 10)
+        const navHeight = this.navRef.offsetHeight
         if (navHeight) {
             this.setState({
                 style: {height: navHeight}
@@ -56,8 +58,8 @@ class NavBar extends React.Component {
     }
 
     handleEnterKey = (e) => {
-        const keyCode = e.nativeEvent.which || e.nativeEvent.keyCode
-        if(keyCode === 13){
+        const keyCode = e.nativeEvent.which || e.nativeEvent.which
+        if(keyCode === KEY_CODE.ENTER){
         }
     }
 
@@ -99,7 +101,7 @@ class NavBar extends React.Component {
 
     render() {
         const {style, loginVisible, loginMode} = this.state
-        const {user: {isLogin, userInfo}} = this.props
+        const {isLogin, userInfo} = this.props
 
         // todo 未读通知数
         const unreadCount = 0

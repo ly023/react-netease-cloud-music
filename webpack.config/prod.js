@@ -8,6 +8,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 
 const config = require('./config');
 const baseConfig = require('./base');
@@ -33,7 +34,7 @@ module.exports = merge(baseConfig, {
     },
     output: {
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
-        filename: 'js/[name].[chunkhash:8].js', // 出口文件名
+        filename: 'js/[name].[hash:8].js', // 出口文件名
         publicPath: '/'
     },
     devtool: 'cheap-module-source-map',
@@ -82,9 +83,19 @@ module.exports = merge(baseConfig, {
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ['dist'],
         }),
+        new HtmlWebpackPlugin({
+            filename: path.join(config.root, 'dist/index.html'),  // 生成的html存放路径，相对于path
+            template: path.join(config.root, 'index.html'), // 模板文件
+            inject: 'body', // js的script注入到body底部
+            favicon: path.join(config.root, 'src/assets/favicon.ico'), // favicon路径
+            minify: {    // 压缩HTML文件
+                removeComments: true,    // 移除HTML中的注释
+                collapseWhitespace: false    // 删除空白符与换行符
+            }
+        }),
         // 为组件和模块分配ID，将最短ID分配给频率高的模块
         new webpack.optimize.OccurrenceOrderPlugin(),
         //
-        new LodashModuleReplacementPlugin()
+        new LodashModuleReplacementPlugin(),
     ]
 })

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 
 const config = require('./config');
 const baseConfig = require('./base');
@@ -34,6 +35,12 @@ module.exports = merge(baseConfig, {
         }
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            filename: path.join(config.root, 'dist/index.html'),  // 生成的html存放路径，相对于path
+            template: path.join(config.root, 'index.html'), // 模板文件
+            inject: 'body', // js的script注入到body底部
+            favicon: path.join(config.root, 'src/assets/favicon.ico'), // favicon路径
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ]
 });

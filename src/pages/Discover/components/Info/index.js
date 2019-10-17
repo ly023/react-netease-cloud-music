@@ -5,7 +5,7 @@ import emitter from 'utils/eventEmitter'
 import {requestDetail, requestDailySignIn} from 'services/user'
 import './index.scss'
 
-export default class Info extends React.Component {
+export default class Info extends React.PureComponent {
 
     static propTypes = {
         userId: PropTypes.number,

@@ -3,14 +3,14 @@
  */
 import React from 'react'
 import Swiper from 'swiper'
-import {requestNewestAlbum} from 'services/album'
 import {PLAY_TYPE} from 'constants/play'
 import Play from 'components/Play'
+import {requestNewestAlbum} from 'services/album'
 
-import 'swiper/css/swiper.min.css'
+import 'swiper/dist/css/swiper.css'
 import './index.scss'
 
-export default class NewestAlbum extends React.Component {
+export default class NewestAlbum extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -49,10 +49,12 @@ export default class NewestAlbum extends React.Component {
             loop: true,
             spaceBetween: 10,
             speed: 1000,
-            navigation: {
-                nextEl: '#roller-next',
-                prevEl: '#roller-prev',
-            },
+            prevButton:'#roller-prev',
+            nextButton:'#roller-next',
+            // navigation: {
+            //     nextEl: '#roller-next',
+            //     prevEl: '#roller-prev',
+            // },
         })
     }
 
