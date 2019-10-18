@@ -20,11 +20,11 @@ export default class Info extends React.PureComponent {
             detail: null
         }
 
-        this.mounted = false
+        this._isMounted = false
     }
 
     componentDidMount() {
-        this.mounted = true
+        this._isMounted = true
     }
 
     componentDidUpdate(prevProps) {
@@ -34,14 +34,14 @@ export default class Info extends React.PureComponent {
             this.setState({detailLoading: true})
             requestDetail({uid: userId})
                 .then((res) => {
-                    if (this.mounted) {
+                    if (this._isMounted) {
                         this.setState({
                             detail: res
                         })
                     }
                 })
                 .finally(() => {
-                    if (this.mounted) {
+                    if (this._isMounted) {
                         this.setState({detailLoading: false})
                     }
                 })
@@ -49,7 +49,7 @@ export default class Info extends React.PureComponent {
     }
 
     componentWillUnmount() {
-        this.mounted = false
+        this._isMounted = false
     }
 
     handleCheckIn = () => {
@@ -67,7 +67,7 @@ export default class Info extends React.PureComponent {
 
         requestDailySignIn(body)
             .then((res) => {
-                if (this.mounted) {
+                if (this._isMounted) {
                     this.setState((prevState) => {
                         let detail = {...prevState.detail}
                         detail.pcSign = true
@@ -85,7 +85,7 @@ export default class Info extends React.PureComponent {
                 console.log(err, err.msg)
             })
             .finally(() => {
-                if (this.mounted) {
+                if (this._isMounted) {
                     this.setState({
                         dailySignInLoading: false
                     })

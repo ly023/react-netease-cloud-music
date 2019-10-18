@@ -23,22 +23,22 @@ export default class PersonalizedRcmd extends React.PureComponent {
         this.state = {
             playlist: []
         }
-        this.mounted = false
+        this._isMounted = false
     }
 
     componentDidMount() {
-        this.mounted = true
+        this._isMounted = true
         this.fetchRcmdPlaylist()
     }
 
     componentWillUnmount() {
-        this.mounted = false
+        this._isMounted = false
     }
 
     fetchRcmdPlaylist = () => {
         requestRcmdPlaylist()
             .then((res) => {
-                if (this.mounted) {
+                if (this._isMounted) {
                     this.setState({
                         playlist: res.recommend.splice(0, 3)
                     })

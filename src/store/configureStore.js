@@ -4,7 +4,7 @@ import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
 // import logger from 'redux-logger'
 import AppReducer from 'reducers'
 
-// applyMiddleware: Redux 的原生方法，将所有中间件组成一个数组，依次执行
+// applyMiddleware: Redux提供的方法，将所有中间件组成一个数组，依次执行
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -21,6 +21,7 @@ export default function configureStore() {
     return {
         ...createStore(
             AppReducer,
+            // 忽略preloadedState
             // mount it on the Store
             composeWithDevTools(applyMiddleware(...middlewares))
         ),

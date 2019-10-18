@@ -59,7 +59,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     outputPath: 'images/',  // 路径要与output.publicPath结合
-                    limit: 8192, // 小于8k base64
+                    limit: 8192, // 小于8k转成base64嵌入到js或css中，减少加载次数
                     name: '[hash:8]-[name].[ext]?[hash:8]',
                 }
             }
@@ -87,8 +87,8 @@ module.exports = {
     },
     plugins: [
         new BundleAnalyzerPlugin({
-            analyzerMode: 'server',
-            // analyzerMode: 'disabled',
+            // analyzerMode: 'server',
+            analyzerMode: 'disabled',
             analyzerHost: '127.0.0.1',
             analyzerPort: 8888,
             reportFilename: 'report.html',

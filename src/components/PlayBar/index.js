@@ -13,7 +13,6 @@ import {setUserPlayInfo} from 'actions/user'
 import {isShuffleMode, getArtists} from 'utils/song'
 import PlayPanel from './components/PlayPanel'
 
-
 import './index.scss'
 
 const SHOW_BOTTOM = 0

@@ -17,10 +17,11 @@ module.exports = merge(baseConfig, {
     },
     output: {
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
-        filename: '[name].bundle.js',  // 出口文件名
-        chunkFilename: '[chunkhash].bundle.js', // 设置按需加载后的chunk名字
+        filename: '[name].[hash:8].bundle.js',  // 列在entry中，打包后输出的文件的名称
+        chunkFilename: '[name].[chunkhash:8].chunk.js', // 未列在entry中，却又需要被打包出来的文件的名称（通常是要懒加载的文件）
         publicPath: '/'
     },
+    devtool: 'cheap-module-eval-source-map',
     devServer: {
         hot: true,
         port: config.port,
@@ -41,6 +42,12 @@ module.exports = merge(baseConfig, {
             inject: 'body', // js的script注入到body底部
             favicon: path.join(config.root, 'src/assets/favicon.ico'), // favicon路径
         }),
-        new webpack.HotModuleReplacementPlugin()
+
+        // 热替换
+        new webpack.HotModuleReplacementPlugin(),
+
+        // 在热加载时直接返回更新文件名，而不是文件的id。
+        new webpack.NamedModulesPlugin(),
+
     ]
 });

@@ -11,16 +11,16 @@ export default class Singer extends React.PureComponent {
             artists: []
         }
 
-        this.mounted = false
+        this._isMounted = false
     }
 
     componentDidMount() {
-        this.mounted = true
+        this._isMounted = true
         this.fetchArtist()
     }
 
     componentWillUnmount() {
-        this.mounted = false
+        this._isMounted = false
     }
 
     fetchArtist = () => {

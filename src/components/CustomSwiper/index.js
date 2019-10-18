@@ -41,7 +41,6 @@ export default class CustomSwiper extends React.PureComponent {
     }
 
     initSwiper = () => {
-
         this.swiper = new Swiper(this.containerRef, {
             autoplay: 3000,
             autoplayDisableOnInteraction: false, // 操作swiper之后自动切换不会停止

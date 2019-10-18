@@ -41,7 +41,7 @@ export default class Lyric extends React.Component {
     }
 
     componentDidMount() {
-        this.mounted = true
+        this._isMounted = true
         if (this.verticalScrollbarRef) {
             this.scrollbarRef = this.verticalScrollbarRef.getScrollbarRef()
         }
@@ -66,7 +66,7 @@ export default class Lyric extends React.Component {
     }
 
     componentWillUnmount() {
-        this.mounted = false
+        this._isMounted = false
     }
 
     setVerticalScrollbarRef = (ref) => {
@@ -149,7 +149,7 @@ export default class Lyric extends React.Component {
     fetchLyric = (id) => {
         requestLyric({id: id})
             .then((res) => {
-                if (this.mounted && res) {
+                if (this._isMounted && res) {
                     this.requestedSongId = id
                     this.setState({
                         lyric: res

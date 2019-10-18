@@ -16,21 +16,21 @@ export default class HotRcmd extends React.PureComponent {
         this.state = {
             personalized: []
         }
-        this.mounted = false
+        this._isMounted = false
     }
 
     componentDidMount() {
-        this.mounted = true
+        this._isMounted = true
         this.fetchPersonalized()
     }
 
     componentWillUnmount() {
-        this.mounted = false
+        this._isMounted = false
     }
     
     fetchPersonalized = () => {
         requestPersonalized({limit: 8}).then((res) => {
-            if(this.mounted) {
+            if(this._isMounted) {
                 this.setState({
                     personalized: res.result
                 })
