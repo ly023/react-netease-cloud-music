@@ -1,0 +1,132 @@
+
+.item {
+  padding: 15px 0;
+  border-top: 1px dotted #ccc;
+
+  &:hover {
+    .text .delete,
+    .text .delete + .space {
+      display: inline-block;
+    }
+  }
+}
+
+.avatar {
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+
+.text {
+  margin-left: 60px;
+
+  .nickname {
+    color: #0c73c2;
+  }
+
+  .comment,
+  .replied {
+    color: #666;
+
+    a {
+      margin-right: 5px;
+      color: #0c73c2;
+    }
+
+    img {
+      vertical-align: middle;
+    }
+  }
+
+  .expression {
+    margin-top: 5px;
+  }
+
+  .comment {
+    word-break: break-all;
+    line-height: 20px;
+  }
+
+  .replied {
+    position: relative;
+    margin-top: 10px;
+    padding: 8px 19px;
+    line-height: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #dedede;
+
+    &::before,
+    &::after {
+      position: absolute;
+      border-style: solid;
+      content: '';
+    }
+
+    &::before {
+      top: -13px;
+      left: 16px;
+      border-width: 6px 5px;
+      border-color: transparent transparent #dedede transparent;
+    }
+
+    &::after {
+      top: -10px;
+      left: 17px;
+      border-width: 5px 4px;
+      border-color: transparent transparent #f4f4f4 transparent;
+    }
+  }
+
+  .feedback {
+    margin-top: 15px;
+    text-align: right;
+    user-select: none;
+  }
+
+  .like {
+    cursor: pointer;
+
+    i {
+      display: inline-block;
+      margin: -4px 5px 0 0;
+      width: 15px;
+      height: 14px;
+      vertical-align: -2px;
+      @extend %background-icon2;
+      background-position: -150px 0;
+    }
+
+    &.liked i {
+      background-position: -170px 0;
+    }
+  }
+
+  .space {
+    margin: 0 8px;
+    color: #ccc;
+  }
+
+  .delete {
+    display: none;
+
+    + .space {
+      display: none;
+    }
+  }
+
+  .delete,
+  .reply {
+    color: #666;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .time {
+    float: left;
+    margin: 0;
+    color: #999;
+  }
+}

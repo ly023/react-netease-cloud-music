@@ -59,8 +59,9 @@ export default class Add extends React.PureComponent {
             } else {
                 const res = await requestSongDetail({ids: id})
                 const song = res?.songs?.[0] || {}
+                const privilege = res?.privileges?.[0] || {}
 
-                if (hasPrivilege(song.privilege)) {
+                if (hasPrivilege(privilege)) {
                     emitter.emit('add')
                     hasChangeTrackQueue = true
                     const track = this.formatTrack(song)

@@ -1,4 +1,4 @@
-import {SET_USER_INFO, SET_USER_PLAY_INFO} from 'actions/actionTypes'
+import {SET_USER_COMMENT_INFO, SET_USER_INFO, SET_USER_PLAY_INFO} from 'actions/actionTypes'
 import {PLAY_MODE} from 'constants/play'
 
 function getDefaultPlaySetting() {
@@ -13,12 +13,17 @@ function getDefaultPlaySetting() {
 const initialState = {
     isLogin: false,
     userInfo: {},
+
     trackQueue: [],
     playSetting: getDefaultPlaySetting(),
     shuffle: [],
     isPlaying: false,
     isDragProgress: false,
     currentPlayedTime: 0,
+
+    follows: [],
+
+    activeCommentId: 0,
 }
 
 export default function user(state = initialState, action) {
@@ -30,9 +35,7 @@ export default function user(state = initialState, action) {
                 return {
                     ...state,
                     isLogin: true,
-                    userInfo: {
-                        profile: userInfo.profile
-                    }
+                    userInfo: userInfo.profile || {}
                 }
             }
             return {
@@ -41,6 +44,11 @@ export default function user(state = initialState, action) {
                 userInfo: {}
             }
         case SET_USER_PLAY_INFO:
+            return {
+                ...state,
+                ...action
+            }
+        case SET_USER_COMMENT_INFO:
             return {
                 ...state,
                 ...action

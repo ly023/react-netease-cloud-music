@@ -1,0 +1,83 @@
+
+.pagination {
+  margin: 20px 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 160%;
+  user-select: none;
+}
+
+.page {
+  display: inline-block;
+  margin: 0 1px 0 2px;
+  padding: 0 8px;
+  height: 22px;
+  vertical-align: middle;
+  text-align: left;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  line-height: 22px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #666;
+  }
+
+  &.active {
+    @extend %background-button;
+    background-position: 0 -650px;
+    border-color: #A2161B;
+    color: #fff;
+    cursor: default;
+  }
+}
+
+.prev,
+.next {
+  padding: 0;
+  width: 69px;
+  height: 24px;
+  line-height: 24px;
+  @extend %background-button;
+
+  &:hover {
+    border-color: #ccc;
+  }
+
+  &.disabled,
+  &.disabled:hover {
+    color: #cacaca;
+    cursor: default;
+  }
+}
+
+.prev {
+  width: 47px;
+  padding-left: 22px;
+  background-position: 0 -560px;
+
+  &:hover {
+    background-position: 0 -590px;
+  }
+
+  &.disabled,
+  &.disabled:hover {
+    background-position: 0 -620px;
+  }
+}
+
+.next {
+  width: 57px;
+  padding-left: 12px;
+  background-position: -75px -560px;
+
+  &:hover {
+    background-position: -75px -590px
+  }
+
+  &.disabled,
+  &.disabled:hover {
+    background-position: -75px -620px;
+  }
+}

@@ -5,6 +5,7 @@ import emitter from 'utils/eventEmitter'
 import {setUserPlayInfo} from 'actions/user'
 import {getThumbnail} from 'utils'
 import {isShuffleMode} from 'utils/song'
+import {CONTENT_HEIGHT} from '../../constants'
 import SongList from './SongList'
 import Lyric from './Lyric'
 
@@ -153,7 +154,6 @@ export default class PlayPanel extends React.Component {
     render() {
         const {visible, trackQueue, index} = this.props
         const panelStyle = visible ? {} : {height: 0}
-        const height = 260
 
         return (
             <div styleName="panel" style={panelStyle}>
@@ -162,7 +162,7 @@ export default class PlayPanel extends React.Component {
                     style={{top: "-360px"}}
                     src={this.getPanelBackgroundImage()}
                 />
-                <div styleName="content"/>
+                <div styleName="content" style={{height: CONTENT_HEIGHT}}/>
                 <div styleName="song-list-wrapper">
                     <div styleName="title">
                         <h4>播放列表({trackQueue.length})</h4>
@@ -173,10 +173,10 @@ export default class PlayPanel extends React.Component {
                         </div>
                     </div>
                     <div styleName="song-list">
-                        <div styleName="mask"/>
+                        <div styleName="mask" style={{height: CONTENT_HEIGHT}}/>
                         <SongList
                             visible={visible}
-                            height={height}
+                            height={CONTENT_HEIGHT}
                             trackQueue={trackQueue}
                             index={index}
                             onPlay={this.handlePlay}
@@ -191,7 +191,7 @@ export default class PlayPanel extends React.Component {
                     </div>
                     <div styleName="lyric">
                         <div styleName="mask"/>
-                        <Lyric visible={visible} height={height} songId={trackQueue[index]?.id}/>
+                        <Lyric visible={visible} height={CONTENT_HEIGHT} songId={trackQueue[index]?.id}/>
                     </div>
                 </div>
             </div>

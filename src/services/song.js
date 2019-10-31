@@ -15,3 +15,8 @@ export async function requestResource(params) {
 export async function requestLyric(params) {
     return request(`${API.lyric.url}?${stringify(params)}`)
 }
+
+// 相似歌曲
+export async function requestSimilar(params) {
+    return request(`${API.similar.url}?${stringify(params)}`)
+}

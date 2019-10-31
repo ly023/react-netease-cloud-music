@@ -23,3 +23,5 @@ export const FEE_TYPE = {
     FEE: [1, 4], // 收费
     FREE: [0, 8], // 免费
 }
+
+export const DEFAULT_SECOND = -1

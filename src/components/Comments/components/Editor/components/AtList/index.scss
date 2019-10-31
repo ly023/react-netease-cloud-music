@@ -1,0 +1,32 @@
+
+.wrapper {
+  position: absolute;
+  width: 165px;
+  border: 1px solid #cdcdcd;
+  padding: 10px 0 0 0;
+  background-color: #fff;
+  z-index: 100;
+  cursor: default;
+  user-select: none;
+}
+
+.tip {
+  padding: 0 0 8px 11px;
+}
+
+.list {
+  outline: none;
+}
+
+.item {
+  padding: 4px 0 4px 11px;
+  margin-bottom: 7px;
+  max-width: 156px;
+  @extend %text-ellipsis;
+  cursor: pointer;
+
+  &:hover,
+  &.active {
+    background-color: #eee;
+  }
+}

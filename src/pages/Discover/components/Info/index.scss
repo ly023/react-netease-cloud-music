@@ -167,17 +167,20 @@
 
 
       .checkin-disabled {
-        background: url(~assets/images/button2.png) no-repeat right -346px;
+        @extend %background-button2;
+        background-position: right -346px;
         color: #bebebe;
 
         > span {
           color: #bebebe;
-          background: url(~assets/images/button2.png) no-repeat 0 -305px;
+          @extend %background-button2;
+          background-position:  0 -305px;
         }
       }
 
       .checkin {
-        background: url(~assets/images/button2.png) no-repeat right -428px;
+        @extend %background-button2;
+        background-position: right -428px;
         color: #fff;
         cursor: pointer;
 
@@ -193,7 +196,8 @@
           width: 60px;
           pointer-events: none;
           cursor: pointer;
-          background: url(~assets/images/button2.png) no-repeat 0 -387px;
+          @extend %background-button2;
+          background-position: 0 -387px;
         }
       }
     }

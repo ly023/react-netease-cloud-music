@@ -15,5 +15,8 @@ export default {
     lyric: {
         url: `${config.apiHost}/api/lyric`,
         type: 'GET'
+    },
+    similar: {
+        url: `${config.apiHost}/api/simi/song`
     }
 }

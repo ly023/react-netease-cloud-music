@@ -19,7 +19,12 @@ export default class Rank extends React.PureComponent {
     }
 
     componentDidMount() {
+        this._isMounted = true
         this.fetchRankList()
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
     }
 
     fetchRankList = async () => {
@@ -27,11 +32,12 @@ export default class Rank extends React.PureComponent {
             const {playlist: soaringRank} = await requestRankList({idx: 3})
             const {playlist: newRank} = await requestRankList({idx: 0})
             const {playlist: hotRank} = await requestRankList({idx: 2})
-            this.setState({
-                rankList: [soaringRank, newRank, hotRank]
-            })
-        } catch (e) {
-        }
+            if(this._isMounted) {
+                this.setState({
+                    rankList: [soaringRank, newRank, hotRank]
+                })
+            }
+        } catch (e) {}
     }
 
     render() {

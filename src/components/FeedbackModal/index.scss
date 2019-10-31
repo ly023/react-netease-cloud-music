@@ -7,7 +7,7 @@
   vertical-align: top;
   text-align: center;
   cursor: pointer;
-  background: url(~assets/images/button2.png) no-repeat 0 9999px;
+  @extend %background-button2;
 }
 
 .feedback {

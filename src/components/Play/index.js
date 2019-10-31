@@ -60,7 +60,9 @@ export default class Play extends React.PureComponent {
             } else {
                 const res = await requestSongDetail({ids: id})
                 const song = res?.songs?.[0] || {}
-                if (hasPrivilege(song.privilege)) {
+                const privilege = res?.privileges?.[0] || {}
+
+                if (hasPrivilege(privilege)) {
                     const track = this.formatTrack(song)
                     trackQueue = localTrackQueue.concat([track])
                     index = trackQueue.length - 1
@@ -114,6 +116,8 @@ export default class Play extends React.PureComponent {
                 emitPlay = false
             }
         }
+
+
         if (emitPlay) {
             const emitData = {
                 trackQueue: trackQueue,

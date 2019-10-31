@@ -16,6 +16,10 @@ export async function requestEmailLogin(body) {
     })
 }
 
+export async function requestLogout() {
+    return request(API.logout.url)
+}
+
 export async function requestLoginStatus() {
     return request(API.loginStatus.url)
 }
@@ -37,4 +41,8 @@ export async function requestDailySignIn(body) {
 
 export async function requestPlaylist(params) {
     return request(`${API.playlist.url}?${stringify(params)}`)
+}
+
+export async function requestFollows(params) {
+    return request(`${API.follows.url}?${stringify(params)}`)
 }

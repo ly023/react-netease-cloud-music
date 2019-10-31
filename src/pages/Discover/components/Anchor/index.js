@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import './index.scss'
 
 export default class Anchor extends React.PureComponent {
-    // todo
+    // todo 热门主播
     render() {
         return (
             <section styleName="wrapper">

@@ -5,8 +5,11 @@ import VerticalScrollbar from 'components/VerticalScrollbar'
 import {formatDuration} from 'utils'
 import {getArtists} from 'utils/song'
 import Empty from './Empty'
+import {CONTENT_HEIGHT} from '../../../constants'
 
 import './index.scss'
+
+const ITEM_HEIGHT = 28
 
 export default class SongList extends React.PureComponent {
     static propTypes = {
@@ -18,7 +21,7 @@ export default class SongList extends React.PureComponent {
     }
 
     static defaultProps = {
-        height: 260,
+        height: CONTENT_HEIGHT,
         trackQueue: [],
         index: 0,
     }
@@ -43,10 +46,6 @@ export default class SongList extends React.PureComponent {
         }
     }
 
-    setItemRef = (el) => {
-        this.itemRef = el
-    }
-
     setVerticalScrollbarRef = (ref) => {
         this.verticalScrollbarRef = ref
     }
@@ -55,15 +54,14 @@ export default class SongList extends React.PureComponent {
         if (this.scrollbarRef) {
             let scrollTop = 0
             const {height, index} = this.props
-            if (this.itemRef) {
-                const itemHeight = this.itemRef.offsetHeight
-                const perPageLines = Math.floor(height / itemHeight)
-                const halfLines = Math.ceil(perPageLines / 2)
-                const offsetLines = (index + 1) - halfLines <= 0 ? 0 : ((index + 1) - halfLines)
-                if (index >= halfLines + 1) {
-                    scrollTop = itemHeight * offsetLines
-                }
+
+            const perPageLines = Math.floor(height / ITEM_HEIGHT)
+            const halfLines = Math.ceil(perPageLines / 2)
+            const offsetLines = (index + 1) - halfLines <= 0 ? 0 : ((index + 1) - halfLines)
+            if (index >= halfLines + 1) {
+                scrollTop = ITEM_HEIGHT * offsetLines
             }
+
             this.scrollbarRef.scrollTop(scrollTop)
         }
     }
@@ -72,27 +70,25 @@ export default class SongList extends React.PureComponent {
         if (this.scrollbarRef) {
             let scrollTop = 0
             const {trackQueue, height, index} = this.props
-            if (this.itemRef) {
-                const itemHeight = this.itemRef.offsetHeight
-                const perPageLines = Math.floor(height / itemHeight)
-                const currentScrollTop = this.scrollbarRef.getScrollTop()
-                if(index === 0) {
-                    scrollTop = 0
-                } else if(index === trackQueue.length - 1) {
-                    scrollTop = this.scrollbarRef.getScrollHeight() - height
-                } else {
-                    const currentPageStartIndex = Math.ceil(currentScrollTop / itemHeight)
-                    const currentPageEndIndex = Math.floor((currentScrollTop + height) / itemHeight) - 1
 
-                    // 如果index在可见范围内，就不进行定位
-                    if (index <= currentPageEndIndex && index >= currentPageStartIndex) {
-                        return
-                    }
-                    if (index <= currentPageStartIndex - 1) {  // 上
-                        scrollTop = itemHeight * index
-                    } else if (index >= currentPageEndIndex + 1) {  // 下
-                        scrollTop = itemHeight * (index - (perPageLines - 1))
-                    }
+            const perPageLines = Math.floor(height / ITEM_HEIGHT)
+            const currentScrollTop = this.scrollbarRef.getScrollTop()
+            if(index === 0) {
+                scrollTop = 0
+            } else if(index === trackQueue.length - 1) {
+                scrollTop = this.scrollbarRef.getScrollHeight() - height
+            } else {
+                const currentPageStartIndex = Math.ceil(currentScrollTop / ITEM_HEIGHT)
+                const currentPageEndIndex = Math.floor((currentScrollTop + height) / ITEM_HEIGHT) - 1
+
+                // 如果index在可见范围内，就不进行定位
+                if (index <= currentPageEndIndex && index >= currentPageStartIndex) {
+                    return
+                }
+                if (index <= currentPageStartIndex - 1) {  // 上
+                    scrollTop = ITEM_HEIGHT * index
+                } else if (index >= currentPageEndIndex + 1) {  // 下
+                    scrollTop = ITEM_HEIGHT * (index - (perPageLines - 1))
                 }
             }
             this.scrollbarRef.scrollTop(scrollTop)
@@ -126,7 +122,6 @@ export default class SongList extends React.PureComponent {
                                     trackQueue.map((item, idx) => {
                                         const {artists = []} = item
                                         return <li
-                                            ref={this.setItemRef}
                                             key={`${item.id}-${idx}`}
                                             styleName={`item${idx === index ? " active" : ''}`}
                                             onClick={() => this.handlePlay(idx)}

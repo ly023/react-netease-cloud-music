@@ -5,6 +5,8 @@ import LoginModal from 'components/LoginModal'
 import {LOGIN_MODE} from 'constants/login'
 import KEY_CODE from 'constants/keyCode'
 import emitter from 'utils/eventEmitter'
+import {requestLogout} from 'services/user'
+
 import styles from './index.scss'
 
 @withRouter
@@ -59,8 +61,17 @@ class NavBar extends React.Component {
 
     handleEnterKey = (e) => {
         const keyCode = e.nativeEvent.which || e.nativeEvent.which
-        if(keyCode === KEY_CODE.ENTER){
+        if (keyCode === KEY_CODE.ENTER) {
         }
+    }
+
+    handleLogout = () => {
+        requestLogout()
+            .then((res) => {
+                if (res.code === 200) {
+                    window.location.href = '/'
+                }
+            })
     }
 
     getRenderSubNav = () => {
@@ -150,7 +161,7 @@ class NavBar extends React.Component {
                                 isLogin
                                     ? <div styleName="login">
                                         <div styleName="login-status avatar">
-                                            <img src={userInfo?.profile?.avatarUrl} alt="头像"/><i styleName="arrow"/>
+                                            <img src={userInfo?.avatarUrl} alt="头像"/><i styleName="arrow"/>
                                             {unreadCount ? <i styleName="login-badge">{unreadCount}</i> : null}
                                         </div>
                                         <div styleName="login-cont">
@@ -158,11 +169,12 @@ class NavBar extends React.Component {
                                             <ul styleName="login-list">
                                                 <li styleName="login-item">
                                                     <i styleName="login-icon login-icon-home"/>
-                                                    <Link to={`/user/home/${userInfo?.profile?.userId}`} href={null}>我的主页</Link>
+                                                    <Link to={`/user/home/${userInfo?.userId}`} href={null}>我的主页</Link>
                                                 </li>
                                                 <li styleName="login-item">
                                                     <i styleName="login-icon login-icon-msg"/>
-                                                    <a href={null}>我的消息{unreadCount ? <span styleName="login-badge">{unreadCount}</span> : null}</a>
+                                                    <a href={null}>我的消息{unreadCount ?
+                                                        <span styleName="login-badge">{unreadCount}</span> : null}</a>
                                                 </li>
                                                 <li styleName="login-item">
                                                     <i styleName="login-icon login-icon-level"/><a href={null}>我的等级</a>
@@ -180,27 +192,34 @@ class NavBar extends React.Component {
                                                 </li>
                                             </ul>
                                             <ul styleName="login-list">
-                                                <li styleName="login-item">
+                                                <li styleName="login-item" onClick={this.handleLogout}>
                                                     <i styleName="login-icon login-icon-logout"/>退出
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                     : <div styleName="login">
-                                        <span className="link" styleName="login-status login-text" onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录<i styleName="arrow"/></span>
+                                        <span className="link" styleName="login-status login-text"
+                                            onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录<i
+                                                styleName="arrow"/></span>
                                         <div styleName="login-cont">
                                             <i styleName="arrow"/>
                                             <ul styleName="login-list">
-                                                <li styleName="login-item" onClick={() => this.handleLogin(LOGIN_MODE.MOBILE.TYPE)}>手机号登录</li>
+                                                <li styleName="login-item"
+                                                    onClick={() => this.handleLogin(LOGIN_MODE.MOBILE.TYPE)}>手机号登录
+                                                </li>
                                                 <li styleName="login-item"><a href={null}>微信登录</a></li>
                                                 <li styleName="login-item"><a href={null}>QQ登录</a></li>
                                                 <li styleName="login-item"><a href={null}>新浪微博登录</a></li>
-                                                <li styleName="login-item" onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}>网易邮箱账号登录</li>
+                                                <li styleName="login-item"
+                                                    onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}>网易邮箱账号登录
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                             }
-                            <a href='https://music.163.com/login?targetUrl=%2Fst/creator' target='_blank' styleName="video-creator">创作者中心</a>
+                            <a href='https://music.163.com/login?targetUrl=%2Fst/creator' target='_blank'
+                                styleName="video-creator">创作者中心</a>
                             <div styleName="search">
                                 <div styleName="search-cont">
                                     <input
@@ -218,7 +237,7 @@ class NavBar extends React.Component {
                         </div>
                     </div>
                 </div>
-                { isLogin ? null : <LoginModal visible={loginVisible} mode={loginMode} onCancel={this.handleCancel}/>}
+                {isLogin ? null : <LoginModal visible={loginVisible} mode={loginMode} onCancel={this.handleCancel}/>}
             </div>
         )
     }

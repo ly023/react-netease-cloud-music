@@ -67,30 +67,27 @@ export default class CustomSwiper extends React.PureComponent {
 
         return (
             <>
-                {
-                    <div className={`swiper-container ${containerClassName}`}  ref={(el) => {
-                        this.containerRef = el
-                    }}>
-                        <div className="swiper-wrapper">
-                            {
-                                slides.map((node, i) => {
-                                    return <div key={i} className="swiper-slide">
-                                        {node}
-                                    </div>
-                                })
-                            }
-                        </div>
-                        <div className="swiper-pagination"/>
+                <div className={`swiper-container ${containerClassName}`}  ref={(el) => {
+                    this.containerRef = el
+                }}>
+                    <div className="swiper-wrapper">
                         {
-                            showNavigation ? <>
-                                <div className="swiper-button-prev"/>
-                                <div className="swiper-button-next"/>
-                            </> : null
+                            slides.map((node, i) => {
+                                return <div key={i} className="swiper-slide">
+                                    {node}
+                                </div>
+                            })
                         }
                     </div>
+                    <div className="swiper-pagination"/>
+                </div>
+                {
+                    showNavigation ? <>
+                        <div className="swiper-button-prev"/>
+                        <div className="swiper-button-next"/>
+                    </> : null
                 }
             </>
-
         )
     }
 }

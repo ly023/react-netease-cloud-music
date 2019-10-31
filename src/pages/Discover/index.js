@@ -66,7 +66,7 @@ export default class Discover extends React.Component {
 
     render() {
         const {banners, hotCategory} = this.state
-        const userId = this.props.userInfo.profile?.userId
+        const userId = this.props.userInfo?.userId
 
         return (
             <Page>

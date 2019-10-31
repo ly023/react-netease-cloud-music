@@ -9,6 +9,10 @@ export default {
         url: `${config.apiHost}/api/login`,
         type: 'POST'
     },
+    logout: {
+        url: `${config.apiHost}/api/logout`,
+        type: 'POST'
+    },
     // 登录状态
     loginStatus: {
         url: `${config.apiHost}/api/login/status`,
@@ -31,6 +35,11 @@ export default {
     // 用户歌单
     playlist: {
         url: `${config.apiHost}/api/user/playlist`,
+        type: 'GET'
+    },
+    // 用户关注列表
+    follows: {
+        url: `${config.apiHost}/api/user/follows`,
         type: 'GET'
     }
 }

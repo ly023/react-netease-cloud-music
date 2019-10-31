@@ -10,6 +10,7 @@ export default hot(() => <Switch>
             const {requiresAuth} = meta
             const option = {key, exact, path, routes}
 
+            // 需要登录验证的路由
             return requiresAuth
                 ? <PrivateRoute {...option} component={Component}/>
                 : <Route

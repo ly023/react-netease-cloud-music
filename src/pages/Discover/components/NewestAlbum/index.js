@@ -19,6 +19,7 @@ export default class NewestAlbum extends React.PureComponent {
     }
 
     componentDidMount() {
+        this._isMounted = true
         this.fetchNewestAlbum()
         if (this.swiper) {
             this.swiper.destroy()
@@ -26,6 +27,7 @@ export default class NewestAlbum extends React.PureComponent {
     }
 
     componentWillUnmount() {
+        this._isMounted = false
         if (this.swiper) {
             this.swiper.destroy()
         }
@@ -34,11 +36,13 @@ export default class NewestAlbum extends React.PureComponent {
     fetchNewestAlbum = () => {
         requestNewestAlbum()
             .then((res) => {
-                this.setState({
-                    newestAlbum: Array.isArray(res.albums) ? res.albums.slice(0, 10) : []
-                }, () => {
-                    this.initSwiper()
-                })
+                if(this._isMounted) {
+                    this.setState({
+                        newestAlbum: Array.isArray(res.albums) ? res.albums.slice(0, 10) : []
+                    }, () => {
+                        this.initSwiper()
+                    })
+                }
             })
     }
 

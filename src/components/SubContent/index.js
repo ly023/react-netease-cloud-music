@@ -1,5 +1,6 @@
 import React from 'react'
 import Routes from 'router'
+import ScrollToTop from './components/scrollToTop'
 
 import './index.scss'
 
@@ -35,11 +36,18 @@ export default class SubContent extends React.Component {
             }
     }
 
+    setRef = (el) => {
+        this.containerRef = el
+    }
+
     render() {
+
         return (
-            <div styleName="sub-content" style={{height: this.props.height}}>
-                <Routes/>
-            </div>
+            <ScrollToTop containerRef={this.containerRef}>
+                <div styleName="sub-content" style={{height: this.props.height}} ref={this.setRef}>
+                    <Routes/>
+                </div>
+            </ScrollToTop>
         )
     }
 }

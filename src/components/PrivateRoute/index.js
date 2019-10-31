@@ -7,10 +7,9 @@ export default function PrivateRoute({component: Component, ...rest}) {
     @withRouter
     class Authentication extends React.Component {
 
-        isLogin = async () => {
+        isLogin = () => {
             const csrfToken = getCsrfToken()
             if (!csrfToken) {
-                console.log('csrfToken', csrfToken)
                 return false
             }
         }
@@ -29,8 +28,8 @@ export default function PrivateRoute({component: Component, ...rest}) {
         }
     }
 
-    const AuthenticationContainer = connect(state => ({
-        isLogin: state.user.isLogin
+    const AuthenticationContainer = connect(({user}) => ({
+        isLogin: user.isLogin
     }))(Authentication)
 
     return <AuthenticationContainer />

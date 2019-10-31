@@ -1,12 +1,13 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
 import Loadable from 'react-loadable'
-import PageLoading from 'components/PageLoading'
 
 // import asyncComponent from './asyncComponent'
 // const importPages = file => asyncComponent(() => import(`pages/${file}`))
 
 const importViews = file => import(`pages/${file}`)
+
+const Loading = () => null
 
 export default [
     {
@@ -21,7 +22,7 @@ export default [
         exact: true,
         component: Loadable({
             loader: () => importViews('Discover'),
-            loading: PageLoading,
+            loading: Loading,
         }),
     },
     {
@@ -29,7 +30,7 @@ export default [
         name: '朋友',
         component: Loadable({
             loader: () => importViews('Friend'),
-            loading: PageLoading,
+            loading: Loading,
         }),
     },
     {
@@ -37,7 +38,7 @@ export default [
         name: '下载客户端',
         component: Loadable({
             loader: () => importViews('Download'),
-            loading: PageLoading,
+            loading: Loading,
         }),
     },
     {
@@ -45,7 +46,7 @@ export default [
         name: '歌曲',
         component: Loadable({
             loader: () => importViews('Song'),
-            loading: PageLoading,
+            loading: Loading,
         }),
     },
     {
@@ -53,7 +54,15 @@ export default [
         name: '我的主页',
         component: Loadable({
             loader: () => importViews('UserHome'),
-            loading: PageLoading,
+            loading: Loading,
+        }),
+    },
+    {
+        path: '/user/update/:id',
+        name: '修改',
+        component: Loadable({
+            loader: () => importViews('UserUpdate'),
+            loading: Loading
         }),
         meta: {
             requiresAuth: true
@@ -63,7 +72,7 @@ export default [
         path: '*',
         component: Loadable({
             loader: () => importViews('404'),
-            loading: PageLoading,
+            loading: Loading,
         }),
     },
 ]

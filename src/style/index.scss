@@ -44,6 +44,11 @@
     padding: 0;
   }
 
+  textarea {
+    resize: none;
+    overflow: auto;
+  }
+
   .link {
     color: #787878;
 
@@ -118,6 +123,7 @@
       padding: 20px 40px 40px 30px;
       float: right;
       width: 270px;
+      box-sizing: border-box;
     }
   }
 

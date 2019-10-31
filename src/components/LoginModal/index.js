@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
 import Modal from 'components/Modal'
 import {LOGIN_MODE} from 'constants/login'
 import {requestMobileLogin} from 'actions/user'
@@ -10,6 +11,7 @@ import Mobile from './components/Mobile'
 import './index.scss'
 
 @withRouter
+@connect()
 export default class LoginModal extends React.Component {
 
     static propTypes = {
@@ -44,7 +46,6 @@ export default class LoginModal extends React.Component {
 
     mobileLogin = (payload, success, fail) => {
         this.props.dispatch(requestMobileLogin(payload, success, fail))
-
     }
 
     afterLogin = () => {

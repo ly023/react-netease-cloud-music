@@ -1,0 +1,77 @@
+.wrapper {
+
+}
+
+.title {
+  height: 33px;
+  border-bottom: 2px solid #c20c0c;
+
+  h3 {
+    float: left;
+    font-size: 20px;
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    line-height: 28px;
+  }
+
+  .count {
+    float: left;
+    margin: 9px 0 0 20px;
+    color: #666;
+  }
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.avatar {
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+
+.editor-wrapper {
+  margin-bottom: 20px;
+}
+
+.editor {
+  position: relative;
+  margin-left: 64px;
+
+  &::before,
+  &::after {
+    position: absolute;
+    border-style: solid;
+    content: '';
+  }
+
+  &::before {
+    top: 16px;
+    left: -17px;
+    border-width: 6px 9px;
+    border-color: transparent #cdcdcd transparent transparent;
+  }
+
+  &::after {
+    top: 17px;
+    left: -14.5px;
+    border-width: 5px 8px;
+    border-color: transparent #fff transparent transparent;
+  }
+}
+
+.sub-title {
+  position: relative;
+  top: 1px;
+  height: 20px;
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.hot-comment {
+  margin-bottom: 30px;
+}
+
+.pagination {
+  margin: 0 -20px;
+}
+

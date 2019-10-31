@@ -1,7 +1,13 @@
-import {FEE_TYPE, PLAY_MODE} from 'constants/play'
+import {FEE_TYPE, PLAY_MODE, DEFAULT_SECOND} from 'constants/play'
 
 export function hasPrivilege(privilege = {}) {
-    return !(FEE_TYPE.FEE.includes(privilege.fee) && privilege.payed === 0)
+    if(privilege.st === 0) {
+        if(FEE_TYPE.FEE.includes(privilege.fee)){
+            return privilege.payed !== 0
+        }
+        return true
+    }
+    return false
 }
 
 export function isShuffleMode(playSetting) {
@@ -14,4 +20,109 @@ export function getArtists(artists = []) {
         return text += `${artist.name}${i !== artists.length - 1 ? '/' : ''}`
     })
     return text
+}
+
+export function getLyricLines(lyric, timePattern) {
+    const times = lyric.match(timePattern)
+    if (times) {
+        const lyrics = lyric.split(timePattern).slice(1)
+        return times.map((time, i) => {
+            const text = lyrics[i].replace('\n', '')
+            return `${time}${text}`
+        })
+    }
+    const lyrics = lyric.replace(/(\n)+/g, '\n').split('\n')
+    return lyrics.map((text) => {
+        return text.replace('\n', '')
+    })
+}
+
+export function getSecond(parts) {
+    return Number(parts[1] || 0) * 60 + Number(parts[2] || 0) + Number(parts[3] || 0)
+}
+
+export function formatLyric(lines, timePattern) {
+    let formattedLyric = {}
+    let prevSecond
+    let nextSecond
+    lines.forEach((item, i) => {
+        // [mm:ss.fff]转秒数
+        const parts = item.match(timePattern)
+        if (parts) {
+            const time = parts[0]
+            const second = getSecond(parts)
+            const lyric = item.replace(timePattern, '')
+            const nextParts = i !== lines.length - 1 && lines[i + 1].match(timePattern)
+            nextSecond = i !== nextParts && getSecond(nextParts)
+
+            // 纠正
+            if ((second && second >= prevSecond && second <= nextSecond) || lyric) {
+                let lyrics = []
+
+                if (formattedLyric[time]) {
+                    lyrics = formattedLyric[time].lyrics.concat([lyric])
+                } else {
+                    lyrics = [lyric]
+                }
+                prevSecond = second
+                formattedLyric[time] = {
+                    second: second,
+                    lyrics: lyrics
+                }
+            }
+        } else {
+            formattedLyric[-i] = {
+                second: DEFAULT_SECOND,
+                lyrics: [item]
+            }
+        }
+    })
+    return formattedLyric
+}
+
+export function getLyric(lyricData) {
+    if (lyricData && Object.keys(lyricData)) {
+        const timeGroupPattern = /\[(\d{2}):(\d{2})(\.\d{1,3})*\]/
+        const timePattern = /\[\d{2}:\d{2}[\.\d{1,3}]*\]/g
+        const {tlyric, lrc} = lyricData
+        let originLyricLines = []
+        let transformLyricLines = []
+        let lyric = []
+
+        if (tlyric && tlyric.lyric) {
+            transformLyricLines = getLyricLines(tlyric.lyric, timePattern)
+        }
+        if (lrc && lrc.lyric) {
+            originLyricLines = getLyricLines(lrc.lyric, timePattern)
+        }
+
+        let transformLyric = formatLyric(transformLyricLines, timeGroupPattern)
+        let originLyric = formatLyric(originLyricLines, timeGroupPattern)
+
+        Object.keys(originLyric).forEach((key) => {
+            let temp
+            const originObj = originLyric[key]
+            const transformObj = transformLyric[key]
+
+            // 原歌词与翻译合并
+            if (transformObj) {
+                temp = {
+                    origin: originObj,
+                    transform: transformObj
+                }
+            } else {
+                temp = {
+                    origin: originObj
+                }
+            }
+            if (temp) {
+                lyric.push({
+                    second: temp.origin.second,
+                    ...temp
+                })
+            }
+        })
+        return lyric
+    }
+    return []
 }

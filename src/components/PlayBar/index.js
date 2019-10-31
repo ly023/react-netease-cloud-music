@@ -8,9 +8,10 @@ import _ from 'lodash'
 import emitter from 'utils/eventEmitter'
 import {PLAY_MODE} from 'constants/play'
 import KEY_CODE from 'constants/keyCode'
-import {setLocalStorage, getLocalStorage, formatDuration, getThumbnail, disableTextSelection} from 'utils'
 import {setUserPlayInfo} from 'actions/user'
+import {setLocalStorage, getLocalStorage, formatDuration, getThumbnail, disableTextSelection, click} from 'utils'
 import {isShuffleMode, getArtists} from 'utils/song'
+import {isPlaying} from './utils'
 import PlayPanel from './components/PlayPanel'
 
 import './index.scss'
@@ -25,6 +26,7 @@ const INTERVAL = {
     HIDE: 3,
     TIME: 20
 }
+const VOLUME_DOM_ID = 'play-bar-volume'
 
 @connect(({user}) => ({user}))
 export default class PlayBar extends React.PureComponent {
@@ -69,22 +71,30 @@ export default class PlayBar extends React.PureComponent {
     }
 
     componentDidMount() {
+        document.addEventListener('click', this.handleDocumentClick)
+
         this.getInitialSetting()
 
         emitter.on('play', this.emitterOnPlay)
-
         emitter.on('close', this.emitterOnClose)
-
         emitter.on('add', this.emitterOnAdd)
 
         this.progressWidth = this.progressRef.offsetWidth
     }
 
     componentWillUnmount() {
+        document.removeEventListener('click', this.handleDocumentClick)
+
         window.clearTimeout(this.timeoutId)
         window.clearInterval(this.songPlayedIntervalId)
         emitter.removeListener('play', this.emitterOnPlay)
         emitter.removeListener('close', this.emitterOnClose)
+    }
+
+    handleDocumentClick = (e) => {
+        click(e, VOLUME_DOM_ID, ()=>{
+            this.setState({volumeVisible: false})
+        })
     }
 
     getInitialSetting = () => {
@@ -164,7 +174,7 @@ export default class PlayBar extends React.PureComponent {
         setLocalStorage('playSetting', playSetting)
 
         // 暂停上一个音频, 重置播放进度条，重置加载进度
-        if (!this.audio.paused) {
+        if (isPlaying(this.audio)) {
             this.audio.pause()
         }
         this.props.dispatch(setUserPlayInfo({
@@ -262,8 +272,6 @@ export default class PlayBar extends React.PureComponent {
 
     loadstartListener = () => {
         this.audio.addEventListener('loadstart', () => {
-            // console.log('loadstart')
-
             this.setState({
                 loading: true
             })
@@ -272,8 +280,6 @@ export default class PlayBar extends React.PureComponent {
 
     loadedListener = () => {
         this.audio.addEventListener('loadeddata', () => {
-            // console.log('loadeddata')
-
             if (this.autoPlay) {
                 this.playAudio()
             }
@@ -286,7 +292,6 @@ export default class PlayBar extends React.PureComponent {
 
     progressListener = () => {
         this.audio.addEventListener('progress', () => {
-            // console.log('progress')
             const {buffered, duration} = this.audio
 
             if (buffered.length) {
@@ -300,8 +305,6 @@ export default class PlayBar extends React.PureComponent {
 
     playListener = () => {
         this.audio.addEventListener('play', () => {
-            // console.log('play')
-
             this.props.dispatch(setUserPlayInfo({isPlaying: true}))
             this.playedInterval()
         })
@@ -399,12 +402,12 @@ export default class PlayBar extends React.PureComponent {
     }
 
     handlePlay = () => {
-        if (this.audio.paused) {
-            this.autoPlay = true
-            this.playAudio()
-        } else {
+        if(isPlaying(this.audio)) {
             this.autoPlay = false
             this.audio.pause()
+        } else {
+            this.autoPlay = true
+            this.playAudio()
         }
     }
 
@@ -573,7 +576,7 @@ export default class PlayBar extends React.PureComponent {
         }
         this.props.dispatch(setUserPlayInfo({currentPlayedTime: currentTime}))
 
-        if (!this.audio.paused) {
+        if (isPlaying(this.audio)) {
             this.playedInterval()
         }
     }
@@ -839,17 +842,16 @@ export default class PlayBar extends React.PureComponent {
                     <div styleName="setting">
                         <div styleName="volume">
                             {/* 音量图标 */}
-                            <div onClick={this.handleVolumeControl}>
+                            <div id={`${VOLUME_DOM_ID}-icon`} onClick={this.handleVolumeControl}>
                                 {
                                     playSetting.volume
-                                        ?
-                                        <span styleName="icon volume-icon volume-sound"/>
-                                        :
-                                        <span styleName="icon volume-icon volume-mute"/>
+                                        ? <span styleName="icon volume-icon volume-sound"/>
+                                        : <span styleName="icon volume-icon volume-mute"/>
                                 }
                             </div>
                             {/* 音量控制 */}
                             <div
+                                id={VOLUME_DOM_ID}
                                 style={{display: volumeVisible ? 'inline-block' : 'none'}}
                                 styleName="volume-ctrl"
                             >

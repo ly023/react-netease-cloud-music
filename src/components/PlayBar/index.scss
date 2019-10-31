@@ -38,7 +38,7 @@
   left: 0;
   @include size(100%, auto);
   zoom: 1;
-  z-index: 999;
+  z-index: 998;
   background: {
     position: 0 0;
     repeat: repeat-x;
@@ -307,7 +307,7 @@
 
 .volume {
   position: relative;
-  z-index: 9999;
+  z-index: 998;
 }
 
 .volume-sound {

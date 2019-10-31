@@ -7,10 +7,12 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {requestLyric} from 'services/song'
 import VerticalScrollbar from 'components/VerticalScrollbar'
+import {DEFAULT_SECOND} from 'constants/play'
+import {getLyric} from 'utils/song'
+import {CONTENT_HEIGHT} from '../../../constants'
 
 import './index.scss'
 
-const DEFAULT_SECOND = -1
 const DURATION = 1000 // 动画执行时间
 
 @connect(({user}) => ({
@@ -27,7 +29,7 @@ export default class Lyric extends React.Component {
 
     static defaultProps = {
         visible: false,
-        height: 260,
+        height: CONTENT_HEIGHT,
     }
 
     constructor(props) {
@@ -79,9 +81,8 @@ export default class Lyric extends React.Component {
 
     scrollToCurrentTime = () => {
         if (this.scrollbarRef) {
-            const {convertedLyric} = this
-            if (convertedLyric) {
-                const seconds = Object.keys(convertedLyric).map(key => convertedLyric[key].second)
+            if (this.convertedLyric) {
+                const seconds = Object.keys(this.convertedLyric).map(key => this.convertedLyric[key].second)
                 const currentTime = this.props.currentPlayedTime
                 let activeTime
                 for (let i = 0; i < seconds.length; i++) {
@@ -159,101 +160,6 @@ export default class Lyric extends React.Component {
             })
     }
 
-    getLyricLines = (lyric, timePattern) => {
-        const times = lyric.match(timePattern)
-        if (times) {
-            const lyrics = lyric.split(timePattern).slice(1)
-            return times.map((time, i) => {
-                const text = lyrics[i].replace('\n', '')
-                return `${time}${text}`
-            })
-        }
-        const lyrics = lyric.replace(/(\n)+/g, '\n').split('\n')
-        return lyrics.map((text) => {
-            return text.replace('\n', '')
-        })
-    }
-
-    formatLyric = (lines, timePattern) => {
-        let formattedLyric = {}
-        lines.forEach((item, i) => {
-            // [mm:ss.fff]转秒数
-            const parts = item.match(timePattern)
-            if (parts) {
-                const time = parts[0]
-                const second = Number(parts[1] || 0) * 60 + Number(parts[2] || 0) + Number(parts[3] || 0)
-                const lyric = item.replace(timePattern, '')
-
-                if (second || lyric) {
-                    let lyrics = []
-
-                    if (formattedLyric[time]) {
-                        lyrics = formattedLyric[time].lyrics.concat([lyric])
-                    } else {
-                        lyrics = [lyric]
-                    }
-                    formattedLyric[time] = {
-                        second: second,
-                        lyrics: lyrics
-                    }
-                }
-            } else {
-                formattedLyric[-i] = {
-                    second: DEFAULT_SECOND,
-                    lyrics: [item]
-                }
-            }
-        })
-        return formattedLyric
-    }
-
-    getLyric = (lyricData) => {
-        if (lyricData && Object.keys(lyricData)) {
-            const timeGroupPattern = /\[(\d{2}):(\d{2})(\.\d{1,3})*\]/
-            const timePattern = /\[\d{2}:\d{2}[\.\d{1,3}]*\]/g
-            const {tlyric, lrc} = lyricData
-            let originLyricLines = []
-            let transformLyricLines = []
-            let lyric = []
-
-            if (tlyric && tlyric.lyric) {
-                transformLyricLines = this.getLyricLines(tlyric.lyric, timePattern)
-            }
-            if (lrc && lrc.lyric) {
-                originLyricLines = this.getLyricLines(lrc.lyric, timePattern)
-            }
-
-            let transformLyric = this.formatLyric(transformLyricLines, timeGroupPattern)
-            let originLyric = this.formatLyric(originLyricLines, timeGroupPattern)
-
-            Object.keys(originLyric).forEach((key) => {
-                let temp
-                const originObj = originLyric[key]
-                const transformObj = transformLyric[key]
-
-                // 原歌词与翻译合并
-                if (transformObj) {
-                    temp = {
-                        origin: originObj,
-                        transform: transformObj
-                    }
-                } else {
-                    temp = {
-                        origin: originObj
-                    }
-                }
-                if (temp) {
-                    lyric.push({
-                        second: temp.origin.second,
-                        ...temp
-                    })
-                }
-            })
-            return lyric
-        }
-        return []
-    }
-
     getRenderLyric = (lyric) => {
         if (!this.props.songId) {
             return ''
@@ -266,7 +172,7 @@ export default class Lyric extends React.Component {
             }
             if (!tlyric.lyric && !lrc.lyric) {
                 return <div styleName="no-lyric">
-                    <span className="s-fc4">暂时没有歌词</span>
+                    <span>暂时没有歌词</span>
                     <a>求歌词</a>
                 </div>
             }
@@ -279,7 +185,7 @@ export default class Lyric extends React.Component {
     getLyricElement = (lyric) => {
         let lyricElement = []
         this.hasTime = false
-        const convertedLyric = this.getLyric(lyric)
+        const convertedLyric = getLyric(lyric)
         this.convertedLyric = convertedLyric
         convertedLyric.forEach((item, index) => {
             const {origin, transform} = item

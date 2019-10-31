@@ -24,12 +24,24 @@ $light-primary-color: #C20C0C;
   background: url(~assets/images/icon.png) no-repeat 0 9999px;
 }
 
+%background-icon2 {
+  background: url(~assets/images/icon2.png) no-repeat 0 9999px;
+}
+
 %background-playlist {
   background: url(~assets/images/playlist.png) no-repeat 0 9999px;
 }
 
 %background-playbar {
   background: url(~assets/images/playbar.png) no-repeat 0 9999px;
+}
+
+%background-button {
+  background: url(~assets/images/button.png) no-repeat 0 9999px;
+}
+
+%background-button2 {
+  background: url(~assets/images/button2.png) no-repeat 0 9999px;
 }
 
 // 单行省略
@@ -56,7 +68,7 @@ $light-primary-color: #C20C0C;
   vertical-align: top;
   text-align: center;
   cursor: pointer;
-  background: url(~assets/images/button2.png) no-repeat 0 9999px;
+  @extend %background-button2;
 }
 
 %button-i {
@@ -91,7 +103,7 @@ $light-primary-color: #C20C0C;
   line-height: 30px;
   min-width: 23px;
   cursor: pointer;
-  background: url(~assets/images/button2.png) no-repeat 0 9999px;
+  @extend %background-button2;
 }
 
 %u-button-i {
@@ -112,4 +124,11 @@ $light-primary-color: #C20C0C;
   font-size: 20px;
   font-weight: normal;
   line-height: 28px;
+}
+
+%title-underline-h3 {
+  height: 23px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  color: #333;
 }

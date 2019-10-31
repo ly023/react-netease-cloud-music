@@ -1,0 +1,50 @@
+.wrapper {
+  position: fixed;
+  display: inline-block;
+  top: 160px;
+  left: 0;
+  z-index: 9999;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  color: #333;
+  font-size: 12px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.notice {
+  display: inline-block;
+  padding: 16px;
+  min-width: 278px;
+  background-color: #fff;
+  border: 1px solid #cdcdcd;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.8);
+  pointer-events: all;
+}
+
+.icon,
+.content {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  @extend %background-icon2;
+
+  &.success-icon {
+    background-position: 1px -449px;
+  }
+
+  &.error-icon {
+    background-position: -29px -449px;
+  }
+}
+
+.content {
+  margin-left: 12px;
+}

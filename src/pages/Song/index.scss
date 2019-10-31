@@ -1,0 +1,357 @@
+.info {
+  overflow: hidden;
+}
+
+.cover-wrapper {
+  float: left;
+  width: 206px;
+  margin-right: -226px;
+}
+
+.cover {
+  position: relative;
+  width: 198px;
+  height: 198px;
+
+  img {
+    width: 130px;
+    height: 130px;
+    margin: 34px;
+  }
+
+  &::after {
+    position: absolute;
+    width: 206px;
+    height: 205px;
+    top: -4px;
+    left: -4px;
+    background: url(~assets/images/coverall.png) no-repeat -140px -580px;
+    content: '';
+  }
+}
+
+.out-chain {
+  margin-top: 20px;
+  text-align: center;
+
+  i {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    @extend %background-icon;
+    background-position: -34px -863px;
+  }
+
+  a {
+    color: #0c73c2;
+    text-decoration: underline;
+  }
+
+}
+
+.content {
+  float: right;
+  width: 414px;
+}
+
+.label,
+.vip-label {
+  float: left;
+}
+
+.label {
+  width: 54px;
+  height: 24px;
+  margin-top: 4px;
+  @extend %background-icon;
+  background-position: 0 -463px;
+}
+
+.vip-label {
+  height: 27px;
+  width: 75px;
+  color: #fff;
+  background: url(~assets/images/label.png) center;
+  background-size: 100% 100%;
+  margin-top: 3px;
+  font-size: 13px;
+  line-height: 25px;
+  padding-left: 8px;
+  box-sizing: border-box;
+}
+
+.title {
+  margin-left: 64px;
+  position: relative;
+  font-size: 24px;
+
+  .alias {
+    margin: 1px 0 5px;
+    color: #bababa;
+    font-size: 14px;
+  }
+
+  &.vip-title {
+    margin-left: 80px;
+  }
+}
+
+.mv-link {
+  i {
+    display: inline-block;
+    margin-left: 7px;
+    width: 21px;
+    height: 18px;
+    @extend %background-icon;
+    background-position: 0 -18px;
+  }
+}
+
+.desc {
+  margin: 10px 0;
+  color: #999;
+
+  a {
+    color: #0c73c2;
+  }
+
+  span {
+    color: #333;
+  }
+}
+
+.operation {
+  margin: 0 -10px 25px 0;
+  overflow: hidden;
+  user-select: none;
+
+  .vip-play {
+    float: left;
+    margin-right: 4px;
+    padding: 0 5px 0 0;
+    width: 100px;
+    height: 32px;
+    background: url(~assets/images/vip-play.png) center;
+    background-size: 100% 100%;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+
+    i {
+      @extend %button-i;
+      padding: 0 15px 0 30px;
+      color: #fff;
+    }
+  }
+
+  .btn-play {
+    float: left;
+    @extend %background-button2;
+    background-position: right -428px;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      background-position: right -510px;
+
+      i {
+        background-position: 0 -469px;
+      }
+
+      em {
+        background-position: -28px -1622px
+      }
+    }
+
+    i {
+      @extend %button-i;
+      padding: 0 7px 0 8px;
+      color: #fff;
+      background-position: 0 -387px;
+
+      em {
+        float: left;
+        width: 20px;
+        height: 18px;
+        margin: 6px 2px 2px 0;
+        @extend %background-button2;
+        background-position: 0 -1622px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .btn-play-disabled {
+    float: left;
+    padding: 0 5px 0 0;
+    margin-right: 6px;
+    font-family: simsun, \5b8b\4f53, sans-serif;
+    @extend %background-button2;
+    background-position: right -934px;
+
+    i {
+      @extend %u-button-i;
+      padding: 0 7px 0 36px;
+      color: #bebebe;
+      @extend %background-button2;
+      background-position: 0 -891px;
+      cursor: default;
+    }
+  }
+
+  .btn-add-play {
+    @extend %u-button;
+    margin: 0 5px 0 -3px;
+    padding: 0 8px 0 0;
+    background-position: 0 -1588px;
+
+    &:hover {
+      background-position: -40px -1588px;
+    }
+  }
+
+  .btn-add-favorite,
+  .btn-share,
+  .btn-download,
+  .btn-comment {
+    @extend %u-button;
+    margin-right: 6px;
+    padding: 0 5px 0 0;
+    background-position: right -1020px;
+
+    &:hover {
+      background-position: right -1106px;
+    }
+
+    i {
+      @extend %u-button-i;
+      padding: 0 2px 0 28px;
+    }
+  }
+
+  .btn-add-favorite {
+    i {
+      background-position: 0 -977px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -1063px;
+      }
+    }
+  }
+
+  .btn-share {
+    i {
+      background-position: 0 -1225px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -1268px;
+      }
+    }
+  }
+
+  .btn-download {
+    i {
+      background-position: 0 -2761px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -2805px;
+      }
+    }
+
+    &.btn-vip-download {
+      margin-right: 6px;
+      font-family: simsun, \5b8b\4f53 sans-serif;
+      background: url(~assets/images/vip-download.png) no-repeat center;
+      background-size: 100% 100%;
+
+      i {
+        background: transparent;
+      }
+    }
+  }
+
+  .btn-comment {
+    i {
+      background-position: 0 -1465px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -1508px;
+      }
+    }
+  }
+}
+
+.lyric-wrapper {
+  margin-top: 13px;
+  line-height: 23px;
+  @extend %break-word;
+}
+
+.no-lyric {
+  margin-top: 13px;
+  color: #666;
+}
+
+.lyric {
+  overflow: hidden;
+
+  &.fold {
+    height: 300px;
+
+    + .fold-ctrl i {
+      background-position: -65px -520px;
+    }
+  }
+
+  &.unfold {
+    height: auto;
+
+    + .fold-ctrl i {
+      background-position: -45px -520px
+    }
+  }
+}
+
+.fold-ctrl {
+  color: #0c73c2;
+  cursor: pointer;
+
+  i {
+    display: inline-block;
+    width: 11px;
+    height: 8px;
+    @extend %background-icon;
+  }
+}
+
+.lyric-user {
+  text-align: right;
+  margin-top: 48px;
+  line-height: 30px;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.lyric-report {
+  color: #999;
+}
+
+.lyric-user-info {
+  color: #666;
+
+  a {
+    color: #0c73c2;
+  }
+}

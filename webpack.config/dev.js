@@ -21,7 +21,6 @@ module.exports = merge(baseConfig, {
         chunkFilename: '[name].[chunkhash:8].chunk.js', // 未列在entry中，却又需要被打包出来的文件的名称（通常是要懒加载的文件）
         publicPath: '/'
     },
-    devtool: 'cheap-module-eval-source-map',
     devServer: {
         hot: true,
         port: config.port,

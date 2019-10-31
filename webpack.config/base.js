@@ -5,6 +5,10 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const config = require('./config');
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+function resolve(dir) {
+    return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
     context: config.root, // 绝对路径，webpack 编译时的基础目录，entry 会相对于此目录查找
     module: { // 配置loader
@@ -47,9 +51,7 @@ module.exports = {
                     {
                         loader: 'sass-resources-loader', // 实现全局scss变量
                         options: {
-                            resources: [
-                                path.resolve(config.root, 'src/style/variable.scss')
-                            ]
+                            resources: [resolve('src/style/variable.scss')]
                         }
                     }
                 ]
@@ -68,20 +70,20 @@ module.exports = {
     resolve: {
         alias: {
             'react-dom': '@hot-loader/react-dom',
-            actions: path.join(config.root, 'src/actions'),
-            assets: path.join(config.root, 'src/assets'),
-            api: path.join(config.root, 'src/api'),
-            components: path.join(config.root, 'src/components'),
-            config: path.join(config.root, 'src/config'),
-            constants: path.join(config.root, 'src/constants'),
-            reducers: path.join(config.root, 'src/reducers'),
-            router: path.join(config.root, 'src/router'),
-            sagas: path.join(config.root, 'src/sagas'),
-            services: path.join(config.root, 'src/services'),
-            store: path.join(config.root, 'src/store'),
-            style: path.join(config.root, 'src/style'),
-            utils: path.join(config.root, 'src/utils'),
-            pages: path.join(config.root, 'src/pages'),
+            actions: resolve('src/actions'),
+            assets: resolve('src/assets'),
+            api: resolve( 'src/api'),
+            components: resolve('src/components'),
+            config: resolve( 'src/config'),
+            constants: resolve('src/constants'),
+            reducers: resolve( 'src/reducers'),
+            router: resolve('src/router'),
+            sagas: resolve( 'src/sagas'),
+            services: resolve('src/services'),
+            store: resolve( 'src/store'),
+            style: resolve('src/style'),
+            utils: resolve( 'src/utils'),
+            pages: resolve('src/pages'),
         },
         extensions: ['.js', '.json', '.jsx'], // 省略后缀名
     },

@@ -1,0 +1,85 @@
+
+.text-wrapper {
+  position: relative;
+  padding-right: 14px;
+}
+
+.textarea {
+  position: relative;
+  padding: 5px 6px 6px;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #cdcdcd;
+  border-radius: 2px;
+  line-height: 19px;
+  word-break: break-all;
+
+  &.display {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    width: auto;
+    height: auto;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+}
+
+.mark {
+  display: inline-block;
+}
+
+.operation {
+  position: relative;
+  padding-top: 10px;
+
+  .icon {
+    display: inline-block;
+    float: left;
+    margin: 0 10px 0 0;
+    width: 18px;
+    height: 18px;
+    @extend %background-icon;
+    cursor: pointer;
+  }
+
+  .emoji-icon {
+    background-position: -40px -490px;
+  }
+
+  .at-icon {
+    background-position: -60px -490px;
+  }
+
+  .count {
+    float: right;
+    margin-right: 10px;
+    line-height: 25px;
+    color: #999;
+
+    &.error {
+      color: #c20c0c;
+    }
+  }
+
+  .submit {
+    float: right;
+    width: 46px;
+    height: 25px;
+    line-height: 25px;
+    @extend %background-button;
+    background-position: -84px -64px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+
+    &.loading,
+    &:hover {
+      background-position: -84px -94px;
+    }
+  }
+}
+
+

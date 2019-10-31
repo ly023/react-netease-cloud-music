@@ -15,5 +15,9 @@ export default {
     detail: {
         url: `${config.apiHost}/api/playlist/detail`,
         type: 'GET'
+    },
+    similar: {
+        url: `${config.apiHost}/api/simi/playlist`,
+        type: 'GET'
     }
 }

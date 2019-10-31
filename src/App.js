@@ -1,13 +1,14 @@
 import React from 'react'
-import {BrowserRouter} from 'react-router-dom'
 import {hot} from 'react-hot-loader/root'
 import {setConfig} from 'react-hot-loader'
+import {connect} from 'react-redux'
 import NavBar from 'components/NavBar'
 import SubContent from 'components/SubContent'
 import PlayBar from 'components/PlayBar'
 import {getCsrfToken} from 'utils'
 import {requestLoginStatus} from 'actions/user'
 
+@connect()
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -42,7 +43,7 @@ class App extends React.Component {
     }
 
     resize = () => {
-        if(this.resizeTimer) {
+        if (this.resizeTimer) {
             window.clearTimeout(this.resizeTimer)
         }
         this.resizeTimer = window.setTimeout(this.setSubContentHeight, 100)
@@ -52,13 +53,11 @@ class App extends React.Component {
         const {subContentHeight} = this.state
 
         return (
-            <BrowserRouter>
-                <>
-                    <NavBar ref={this.navBarRef}/>
-                    <SubContent height={subContentHeight}/>
-                    <PlayBar/>
-                </>
-            </BrowserRouter>
+            <>
+                <NavBar ref={this.navBarRef}/>
+                <SubContent height={subContentHeight}/>
+                <PlayBar/>
+            </>
         )
     }
 }
