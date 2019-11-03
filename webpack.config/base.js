@@ -76,6 +76,7 @@ module.exports = {
             components: resolve('src/components'),
             config: resolve( 'src/config'),
             constants: resolve('src/constants'),
+            hoc: resolve('src/hoc'),
             reducers: resolve( 'src/reducers'),
             router: resolve('src/router'),
             sagas: resolve( 'src/sagas'),

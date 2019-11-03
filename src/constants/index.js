@@ -1,5 +1,7 @@
 import defaultAvatar from 'assets/images/default-avatar.jpg'
 
+export const DEFAULT_DOCUMENT_TITLE = '网易云音乐'
+
 export const DEFAULT_AVATAR = defaultAvatar
 export const PAGINATION_LIMIT = 20
 

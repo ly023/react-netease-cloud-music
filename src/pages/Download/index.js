@@ -96,7 +96,7 @@ export default class Download extends React.Component {
         const {linuxVersionVisible} = this.state
 
         return (
-            <Page showBackTop={false}>
+            <Page title="下载网易云音乐iPhone、iPad、Mac、Android、WP、PC版客户端" showBackTop={false}>
                 <div styleName="banner-wrapper">
                     <div styleName="banner">
                         <div styleName="clients-wrapper" id="clients-wrapper">

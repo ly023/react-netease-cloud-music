@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Helmet} from 'react-helmet'
 import NProgress from 'nprogress'
+import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import FooterBar from 'components/FooterBar'
 import BackTop from 'components/BackTop'
 
@@ -10,11 +12,13 @@ import './index.scss'
 export default class Page extends React.Component {
 
     static propTypes = {
+        title: PropTypes.string,
         showFooter: PropTypes.bool,
         showBackTop: PropTypes.bool,
     }
 
     static defaultProps = {
+        title: DEFAULT_DOCUMENT_TITLE,
         showFooter: true,
         showBackTop: true
     }
@@ -43,10 +47,13 @@ export default class Page extends React.Component {
     }
 
     render() {
-        const {children, showFooter, showBackTop} = this.props
+        const {children, title, showFooter, showBackTop} = this.props
 
         return (
             <>
+                <Helmet>
+                    <title>{title}</title>
+                </Helmet>
                 {children}
                 {showFooter ? <FooterBar/> : null}
                 {showBackTop ? <BackTop/> : null}

@@ -45,11 +45,11 @@ export function formatLyric(lines, timePattern) {
     let formattedLyric = {}
     let prevSecond
     let nextSecond
+
     lines.forEach((item, i) => {
         // [mm:ss.fff]转秒数
         const parts = item.match(timePattern)
         if (parts) {
-            const time = parts[0]
             const second = getSecond(parts)
             const lyric = item.replace(timePattern, '')
             const nextParts = i !== lines.length - 1 && lines[i + 1].match(timePattern)
@@ -59,13 +59,13 @@ export function formatLyric(lines, timePattern) {
             if ((second && second >= prevSecond && second <= nextSecond) || lyric) {
                 let lyrics = []
 
-                if (formattedLyric[time]) {
-                    lyrics = formattedLyric[time].lyrics.concat([lyric])
+                if (formattedLyric[second]) {
+                    lyrics = formattedLyric[second].lyrics.concat([lyric])
                 } else {
                     lyrics = [lyric]
                 }
                 prevSecond = second
-                formattedLyric[time] = {
+                formattedLyric[second] = {
                     second: second,
                     lyrics: lyrics
                 }

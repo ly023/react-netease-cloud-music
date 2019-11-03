@@ -102,6 +102,7 @@ export default class Lyric extends React.Component {
                 if (typeof activeTime === 'undefined' || activeTime === this.prevActiveTime) {
                     return
                 }
+
                 const activeEle = document.querySelector(`.lyric-line[data-seconds="${activeTime}"]`)
                 if (activeEle) {
                     const activeEleHeight = activeEle.offsetHeight
@@ -198,14 +199,15 @@ export default class Lyric extends React.Component {
             // 拖拽播放条时不改变
             const {isDragProgress, isPlaying, currentPlayedTime: currentTime} = this.props
             const activeTime = isDragProgress ? this.prevActiveTime : currentTime
-            let styleName = ''
+
+            let isActive = false
             if (isPlaying || (activeTime !== DEFAULT_SECOND && activeTime !== 0)) {
                 const nextItem = convertedLyric[index + 1]
                 if (activeTime >= innerTime) {
                     if (index === convertedLyric.length - 1) {
-                        styleName = 'active'
+                        isActive = true
                     } else if (activeTime < nextItem.origin.second) {
-                        styleName = 'active'
+                        isActive = true
                     }
                 }
             }
@@ -221,7 +223,7 @@ export default class Lyric extends React.Component {
                     }
                     lyricElement.push(
                         <p className="lyric-line"
-                            styleName={styleName}
+                            styleName={isActive && i === originLyrics.length - 1 ? 'active' : ''}
                             key={`${innerTime}-${index}-${i}`}
                             data-seconds={innerTime}
                             dangerouslySetInnerHTML={{__html: innerText}}
@@ -234,7 +236,7 @@ export default class Lyric extends React.Component {
                     if (innerTime !== DEFAULT_SECOND || v) {
                         lyricElement.push(
                             <p className="lyric-line"
-                                styleName={styleName}
+                                styleName={isActive && i === originLyrics.length - 1 ? 'active' : ''}
                                 key={`${innerTime}-${index}-${i}`}
                                 data-seconds={innerTime}
                             >

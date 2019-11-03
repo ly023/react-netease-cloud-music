@@ -21,6 +21,7 @@ export default function ScrollToTop({children, containerRef}) {
     const {pathname} = useLocation()
 
     useEffect(() => {
+        // 页面回到顶部
         containerRef ? containerRef.scrollTop = 0 : window.scrollTop = 0
     }, [pathname])
 

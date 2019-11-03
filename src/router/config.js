@@ -1,6 +1,6 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
-import Loadable from 'react-loadable'
+import Loadable from '@loadable/component'
 
 // import asyncComponent from './asyncComponent'
 // const importPages = file => asyncComponent(() => import(`pages/${file}`))
@@ -20,49 +20,43 @@ export default [
         path: '/discover',
         name: '发现',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('Discover'),
-            loading: Loading,
+        component: Loadable(() => importViews('Discover'), {
+            fallback: <Loading/>
         }),
     },
     {
         path: '/friend',
         name: '朋友',
-        component: Loadable({
-            loader: () => importViews('Friend'),
-            loading: Loading,
+        component: Loadable(() => importViews('Friend'), {
+            fallback: <Loading/>
         }),
     },
     {
         path: '/download',
         name: '下载客户端',
-        component: Loadable({
-            loader: () => importViews('Download'),
-            loading: Loading,
+        component: Loadable(() => importViews('Download'), {
+            fallback: <Loading/>
         }),
     },
     {
         path: '/song/:id',
         name: '歌曲',
-        component: Loadable({
-            loader: () => importViews('Song'),
-            loading: Loading,
+        component: Loadable(() => importViews('Song'), {
+            fallback: <Loading/>
         }),
     },
     {
         path: '/user/home/:id',
         name: '我的主页',
-        component: Loadable({
-            loader: () => importViews('UserHome'),
-            loading: Loading,
+        component: Loadable(() => importViews('UserHome'), {
+            fallback: <Loading/>
         }),
     },
     {
         path: '/user/update/:id',
         name: '修改',
-        component: Loadable({
-            loader: () => importViews('UserUpdate'),
-            loading: Loading
+        component: Loadable(() => importViews('UserUpdate'), {
+            fallback: <Loading/>
         }),
         meta: {
             requiresAuth: true
@@ -70,9 +64,8 @@ export default [
     },
     {
         path: '*',
-        component: Loadable({
-            loader: () => importViews('404'),
-            loading: Loading,
+        component: Loadable(() => importViews('404'), {
+            fallback: <Loading/>
         }),
     },
 ]

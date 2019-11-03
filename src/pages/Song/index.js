@@ -5,6 +5,7 @@ import React, {Fragment} from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Page from 'components/Page'
+import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {FEE_TYPE, PLAY_TYPE} from 'constants/play'
 import Add from 'components/Add'
 import Play from 'components/Play'
@@ -12,7 +13,7 @@ import Comments from 'components/Comments'
 import {requestDetail, requestLyric, requestSimilar as requestSimilarSongs} from 'services/song'
 import {requestSimilar as requestSimilarPlaylists} from 'services/playlist'
 import emitter from 'utils/eventEmitter'
-import {getLyric} from 'utils/song'
+import {getArtists, getLyric} from 'utils/song'
 import Similar from './components/Similar'
 
 import './index.scss'
@@ -202,9 +203,10 @@ export default class Song extends React.Component {
         const lyricElement = this.getRenderLyric(lyric)
         const isVip = FEE_TYPE.FEE.includes(detail?.fee)
         const hasCopyright = detail?.privilege?.st === 0
+        const title = detail ? `${detail?.name || ''} - ${getArtists(detail?.ar)} - 单曲 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
 
         return (
-            <Page>
+            <Page title={title}>
                 <div className="main">
                     <div className="left-wrapper">
                         <div className="left">

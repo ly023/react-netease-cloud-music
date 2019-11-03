@@ -37,7 +37,6 @@ export default class Editor extends React.Component {
     static defaultProps = {
         follows: [],
         initialValue: '',
-        textBoxStyle: {},
         onRef() {
         },
         submitText: '评论',
@@ -86,7 +85,6 @@ export default class Editor extends React.Component {
 
     componentWillUnmount() {
         this.inputRef.removeEventListener('keydown', this.keyDownListener)
-        // 点击输入框，寻找光标所在位置
         this.inputRef.removeEventListener('click', this.clickListener)
     }
 
@@ -345,7 +343,6 @@ export default class Editor extends React.Component {
                 <div styleName="text-wrapper">
                     <textarea
                         ref={this.setInputRef}
-                        id="comment-at-list-input"
                         placeholder={placeholder}
                         styleName="textarea"
                         value={value}

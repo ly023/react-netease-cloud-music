@@ -26,7 +26,8 @@ const INTERVAL = {
     HIDE: 3,
     TIME: 20
 }
-const VOLUME_DOM_ID = 'play-bar-volume'
+
+const PLAY_BAR_DOM_ID = 'play-bar'
 
 @connect(({user}) => ({user}))
 export default class PlayBar extends React.PureComponent {
@@ -84,6 +85,7 @@ export default class PlayBar extends React.PureComponent {
 
     componentWillUnmount() {
         document.removeEventListener('click', this.handleDocumentClick)
+        document.removeEventListener('keydown', this.keyDownEventListener)
 
         window.clearTimeout(this.timeoutId)
         window.clearInterval(this.songPlayedIntervalId)
@@ -92,7 +94,8 @@ export default class PlayBar extends React.PureComponent {
     }
 
     handleDocumentClick = (e) => {
-        click(e, VOLUME_DOM_ID, ()=>{
+        click(e, PLAY_BAR_DOM_ID, ()=>{
+            this.setState({playPanelVisible: false})
             this.setState({volumeVisible: false})
         })
     }
@@ -251,12 +254,14 @@ export default class PlayBar extends React.PureComponent {
 
     /** 监听键盘事件 */
     keyEventListener = () => {
-        document.addEventListener('keydown', (e) => {
-            const {keyCode} = e
-            if (keyCode === KEY_CODE.F8) { // 暂停
-                this.handlePlay()
-            }
-        })
+        document.addEventListener('keydown', this.keyDownEventListener)
+    }
+
+    keyDownEventListener = (e) => {
+        const {keyCode} = e
+        if (keyCode === KEY_CODE.F8) { // 暂停
+            this.handlePlay()
+        }
     }
 
     /** 音频相关事件 */
@@ -763,6 +768,7 @@ export default class PlayBar extends React.PureComponent {
 
         return (
             <div
+                id={PLAY_BAR_DOM_ID}
                 ref={this.setPlayBarRef}
                 styleName={`wrapper ${playSetting.isLocked ? "locked" : "unlock"}`}
                 style={playBarStyle}
@@ -842,7 +848,7 @@ export default class PlayBar extends React.PureComponent {
                     <div styleName="setting">
                         <div styleName="volume">
                             {/* 音量图标 */}
-                            <div id={`${VOLUME_DOM_ID}-icon`} onClick={this.handleVolumeControl}>
+                            <div onClick={this.handleVolumeControl}>
                                 {
                                     playSetting.volume
                                         ? <span styleName="icon volume-icon volume-sound"/>
@@ -851,7 +857,6 @@ export default class PlayBar extends React.PureComponent {
                             </div>
                             {/* 音量控制 */}
                             <div
-                                id={VOLUME_DOM_ID}
                                 style={{display: volumeVisible ? 'inline-block' : 'none'}}
                                 styleName="volume-ctrl"
                             >
@@ -874,7 +879,7 @@ export default class PlayBar extends React.PureComponent {
                         <div styleName="mode" onClick={this.changeMode}>
                             {this.getRenderMode(playSetting.mode)}
                         </div>
-                        <div id="playlist-icon" styleName="icon playlist-icon" onClick={this.handleSwitchPlayPanel}>
+                        <div styleName="icon playlist-icon" onClick={this.handleSwitchPlayPanel}>
                             <div style={{display: addedTipVisible ? 'block' : 'none'}} styleName="added-to-playlist">已添加到播放列表</div>
                             {trackQueue.length}
                         </div>

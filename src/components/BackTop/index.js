@@ -30,9 +30,9 @@ export default class BackTop extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scroll)
         clearTimeout(this.timeoutTimer)
         clearInterval(this.intervalTimer)
+        window.removeEventListener('scroll', this.scroll)
     }
 
     scroll = () => {
