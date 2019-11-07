@@ -148,17 +148,15 @@ export default class Lyric extends React.Component {
         }
     }
 
-    fetchLyric = (id) => {
-        requestLyric({id: id})
-            .then((res) => {
-                if (this._isMounted && res) {
-                    this.requestedSongId = id
-                    this.setState({
-                        lyric: res
-                    })
-                    this.scrollToTop()
-                }
+    fetchLyric = async (id) => {
+        const res = await requestLyric({id: id})
+        if (this._isMounted) {
+            this.requestedSongId = id
+            this.setState({
+                lyric: res
             })
+            this.scrollToTop()
+        }
     }
 
     getRenderLyric = (lyric) => {

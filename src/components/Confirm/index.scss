@@ -1,0 +1,56 @@
+
+.content {
+  color: #333;
+  font-size: 14px;
+  text-align: center;
+}
+
+.buttons {
+  margin-top: 30px;
+  text-align: center;
+
+  .ok,
+  .cancel {
+    margin: 0 10px;
+    border: none;
+  }
+
+  .ok {
+    @extend %button;
+    background-position: right -428px;
+
+    i {
+      @extend %button-i;
+      background-position: 0 -387px;
+      padding: 0 15px 0 20px;
+      color: #fff;
+    }
+
+    &:hover {
+      background-position: right -510px;
+
+      > i {
+        background-position: 0 -469px;
+      }
+    }
+  }
+
+  .cancel {
+    @extend %white-button;
+    color: #333;
+    background-position: right -100px;
+
+    > i {
+      @extend %white-button-i;
+    }
+
+    &:hover {
+      background-position: right -182px;
+
+      > i {
+
+      }
+    }
+
+  }
+}

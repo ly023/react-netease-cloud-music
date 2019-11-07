@@ -77,7 +77,6 @@ export default class PlayBar extends React.PureComponent {
         this.getInitialSetting()
 
         emitter.on('play', this.emitterOnPlay)
-        emitter.on('close', this.emitterOnClose)
         emitter.on('add', this.emitterOnAdd)
 
         this.progressWidth = this.progressRef.offsetWidth
@@ -90,13 +89,14 @@ export default class PlayBar extends React.PureComponent {
         window.clearTimeout(this.timeoutId)
         window.clearInterval(this.songPlayedIntervalId)
         emitter.removeListener('play', this.emitterOnPlay)
-        emitter.removeListener('close', this.emitterOnClose)
     }
 
     handleDocumentClick = (e) => {
         click(e, PLAY_BAR_DOM_ID, ()=>{
-            this.setState({playPanelVisible: false})
-            this.setState({volumeVisible: false})
+            this.setState({
+                playPanelVisible: false,
+                volumeVisible: false
+            })
         })
     }
 
@@ -149,12 +149,6 @@ export default class PlayBar extends React.PureComponent {
             this.autoPlay = true
         }
         this.play(trackQueue, index, hasChangeTrackQueue)
-    }
-
-    emitterOnClose = () => {
-        if (this.state.playPanelVisible) {
-            this.setState({playPanelVisible: false})
-        }
     }
 
     emitterOnAdd = () => {

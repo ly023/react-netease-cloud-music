@@ -106,10 +106,6 @@ class NavBar extends React.Component {
         this.navRef = el
     }
 
-    getNavBarHeight = () => {
-        return this.state.style.height
-    }
-
     render() {
         const {style, loginVisible, loginMode} = this.state
         const {isLogin, userInfo} = this.props

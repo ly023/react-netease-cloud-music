@@ -1,5 +1,5 @@
 /**
- * 歌曲、歌单、专辑、mv评论
+ * 歌曲、歌单、专辑、mv...评论
  */
 import React from 'react'
 import {Link} from 'react-router-dom'
@@ -10,15 +10,16 @@ import {setUserCommentInfo} from 'actions/user'
 import {DEFAULT_AVATAR, PAGINATION_LIMIT} from 'constants'
 import Pagination from 'components/Pagination'
 import message from 'components/Message'
+import Confirm from 'components/Confirm'
 import {requestFollows} from 'services/user'
 import {
     requestMusicComments, requestPlaylistComments, requestAlbumComments, requestMVComments,
     comment, like
 } from 'services/comment'
 import {formatNumber, formatTimestamp, generateGuid, getThumbnail} from 'utils'
-import {msgToHtml} from './components/Editor/utils'
 import emitter from 'utils/eventEmitter'
 import Editor from './components/Editor'
+import {msgToHtml} from './components/Editor/utils'
 import ReplyEditor from './components/ReplyEditor'
 
 import './index.scss'
@@ -62,7 +63,7 @@ export default class Comments extends React.Component {
 
     static defaultProps = {
         type: Object.keys(COMMENT_TYPES)[0],
-        onRef(){}
+        onRef() {}
     }
 
     constructor(props) {
@@ -81,6 +82,8 @@ export default class Comments extends React.Component {
             current: 1, // 当前页码
             offset: 0, // 偏移量,
             replyVisible: false,
+            activeCommentId: 0,
+            confirmVisible: false,
             commentLoading: false,
             deleteLoading: false,
             likeLoading: false,
@@ -97,11 +100,11 @@ export default class Comments extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.id !== prevProps.id) {
+        if (this.props.id !== prevProps.id) {
             this.setState(this.getInitialState())
             this.fetchComments()
         }
-        if(this.props.isLogin && !prevProps.isLogin) {
+        if (this.props.isLogin && !prevProps.isLogin) {
             this.fetchFollows()
         }
     }
@@ -110,18 +113,16 @@ export default class Comments extends React.Component {
         this._isMounted = false
     }
 
-    fetchFollows = () => {
+    fetchFollows = async () => {
         const {userInfo: {userId}} = this.props
         if (userId) {
-            requestFollows({uid: userId})
-                .then((res) => {
-                    if (this._isMounted && res) {
-                        const follows = res.follow || []
-                        this.setState({
-                            follows: follows,
-                        })
-                    }
+            const res = await requestFollows({uid: userId})
+            if (this._isMounted && res) {
+                const follows = res.follow || []
+                this.setState({
+                    follows: follows,
                 })
+            }
         }
     }
 
@@ -131,7 +132,7 @@ export default class Comments extends React.Component {
             offset
         }
         this.requestFunc(params).then((res) => {
-            if (this._isMounted && res) {
+            if (this._isMounted) {
                 const {topComments = [], hotComments = [], comments = [], total = 0} = res
                 this.setState({
                     offset,
@@ -176,6 +177,10 @@ export default class Comments extends React.Component {
         this.editorRef = ref
     }
 
+    setReplyEditorRef = (ref) => {
+        this.replyEditorRef = ref
+    }
+
     focusEditor = () => {
         this.editorRef.focus()
         document.getElementById(`${this.domIdPrefix}-wrapper`).scrollIntoView()
@@ -206,7 +211,7 @@ export default class Comments extends React.Component {
             t: ACTION_TYPES.CREATE,
             content: content
         }
-        if(this.state.commentLoading) {
+        if (this.state.commentLoading) {
             return
         }
         this.setState({commentLoading: true})
@@ -218,7 +223,7 @@ export default class Comments extends React.Component {
                             total: prevState.total + 1,
                             comments: [res.comment].concat(prevState.comments)
                         }
-                    }, () =>{
+                    }, () => {
                         // 清空评论框
                         this.editorRef.clear()
                         // 定位到当前评论
@@ -230,12 +235,24 @@ export default class Comments extends React.Component {
                     })
                 }
             })
-            .finally(()=>{
+            .finally(() => {
                 this.setState({commentLoading: false})
             })
     }
 
-    handleDeleteComment = (commentId) => {
+    handleShowDeleteConfirm = (commentId) => {
+        this.setState({
+            activeCommentId: commentId,
+            confirmVisible: true
+        })
+    }
+
+    handleCancelDeleteConfirm = () => {
+        this.setState({confirmVisible: false})
+    }
+
+    handleDeleteComment = () => {
+        const commentId = this.state.activeCommentId
         const body = {
             ...this.getCommonBody(),
             t: ACTION_TYPES.DELETE,
@@ -251,6 +268,7 @@ export default class Comments extends React.Component {
                     this.setState((prevState) => {
                         const commentKey = this.getCommentKey(commentId)
                         return {
+                            confirmVisible: false,
                             [commentKey]: prevState[commentKey].filter((v) => v.commentId !== commentId),
                             total: commentKey === 'comments' ? prevState.total - 1 : prevState.total
                         }
@@ -266,7 +284,7 @@ export default class Comments extends React.Component {
     }
 
     handleLikeComment = (commentId, liked) => {
-        if(this.validateLogin()) {
+        if (this.validateLogin()) {
             const body = {
                 ...this.getCommonBody(),
                 cid: commentId,
@@ -297,27 +315,31 @@ export default class Comments extends React.Component {
 
     toggleReplyEditor = (commentId) => {
         if (this.validateLogin()) {
+            let visible
             if (this.props.activeCommentId !== commentId) {
                 this.props.dispatch(setUserCommentInfo({activeCommentId: commentId}))
-                this.setState({replyVisible: true})
+                visible = true
             } else {
-                this.setState((prevState) => {
-                    return {
-                        replyVisible: !prevState.replyVisible
-                    }
-                })
+                visible = !this.state.replyVisible
             }
+            this.setState({
+                replyVisible: visible
+            }, () => {
+                if (visible) {
+                    this.replyEditorRef.focus()
+                }
+            })
         }
     }
 
-    handleReplyComment = (commentId, content) => {
+    handleReplyComment = async (commentId, content) => {
         const body = {
             ...this.getCommonBody(),
             t: ACTION_TYPES.REPLAY,
             commentId: commentId,
             content: content,
         }
-        if(this.state.replyLoading) {
+        if (this.state.replyLoading) {
             return
         }
         this.setState({replyLoading: true})
@@ -349,27 +371,35 @@ export default class Comments extends React.Component {
         return userId === this.props.userInfo?.userId
     }
 
-    getRenderVip = (item={}) => {
+    getRenderVip = (item = {}) => {
         // todo 不完全正确
         const {userType = 0, vipRights = {}} = item?.user || {}
         const isAssociator = vipRights?.associator?.rights
+        const hasMusicPackage = vipRights?.musicPackage?.rights
         let userSuffix
         let vipSuffix
         // 用户类型
-        if(userType) {
-            if(userType === 4) {
+        if (userType) {
+            if (userType === 2) {
+                userSuffix = <span styleName="icon v-icon"/>
+            } else if (userType === 4) {
                 userSuffix = <span styleName="icon music-icon"/>
-            } else if(userType === 201) {
+            } else if (userType === 201) {
                 userSuffix = <span styleName="icon star-icon"/>
             }
         }
         // 是会员
-        if(isAssociator) {
+        if (isAssociator) {
             // 年会员
-            if(vipRights.redVipAnnualCount === 1) {
+            if (vipRights.redVipAnnualCount === 1) {
                 vipSuffix = <span styleName="vip-icon vip-year-icon"/>
             } else {
                 vipSuffix = <span styleName="vip-icon"/>
+            }
+        } else if (hasMusicPackage) {
+            // 音乐包
+            if (vipRights.musicPackage.vipCode === 220) {
+                vipSuffix = <span styleName="package-icon"/>
             }
         }
         return <>
@@ -433,7 +463,7 @@ export default class Comments extends React.Component {
                             <span styleName="time">{formatTimestamp(item?.time)}</span>
                             <div>
                                 {this.isAuthor(item?.user?.userId) ? <>
-                                    <span styleName="delete" onClick={() => this.handleDeleteComment(item.commentId)}>删除</span>
+                                    <span styleName="delete" onClick={() => this.handleShowDeleteConfirm(item.commentId)}>删除</span>
                                     <span styleName="space">|</span></> : null}
                                 <span styleName={`like${item?.liked ? ' liked' : ''}`} onClick={() => this.handleLikeComment(item.commentId, item?.liked)}>
                                     <i/>
@@ -446,6 +476,7 @@ export default class Comments extends React.Component {
                         {
                             replyVisible && activeCommentId === item.commentId
                                 ? <ReplyEditor
+                                    onRef={this.setReplyEditorRef}
                                     follows={follows}
                                     initialValue={`回复${item?.user?.nickname}:`}
                                     onSubmit={this.handleReplyComment}
@@ -465,57 +496,66 @@ export default class Comments extends React.Component {
         const {
             follows,
             topComments, hotComments, comments, total, current, offset,
+            confirmVisible,
             commentLoading,
         } = this.state
 
         return (
-            <div id={`${this.domIdPrefix}-wrapper`}>
-                <div styleName="title">
-                    <h3><span>评论</span></h3><span styleName="count">共{total}条评论</span>
-                </div>
-                <div styleName="content">
-                    <div styleName="editor-wrapper">
-                        <img
-                            styleName="avatar"
-                            src={isLogin ? userInfo?.avatarUrl : ''}
-                            alt="头像"
-                            onError={(e) => {
-                                e.target.src = DEFAULT_AVATAR
-                            }}
-                        />
-                        <div styleName="editor">
-                            <Editor onRef={this.setEditorRef} follows={follows} onSubmit={this.handleCreateComment} loading={commentLoading}/>
+            <>
+                <div id={`${this.domIdPrefix}-wrapper`}>
+                    <div styleName="title">
+                        <h3><span>评论</span></h3><span styleName="count">共{total}条评论</span>
+                    </div>
+                    <div styleName="content">
+                        <div styleName="editor-wrapper">
+                            <img
+                                styleName="avatar"
+                                src={isLogin ? userInfo?.avatarUrl : ''}
+                                alt="头像"
+                                onError={(e) => {
+                                    e.target.src = DEFAULT_AVATAR
+                                }}
+                            />
+                            <div styleName="editor">
+                                <Editor onRef={this.setEditorRef} follows={follows} onSubmit={this.handleCreateComment} loading={commentLoading}/>
+                            </div>
+                        </div>
+                        <div id={`${this.domIdPrefix}-content`}>
+                            {
+                                topComments.length ? <div>
+                                    <h4 styleName="sub-title">置顶评论</h4>
+                                    {this.getRenderComments(topComments)}
+                                </div> : null
+                            }
+                            {
+                                hotComments.length ? <div styleName="hot-comment">
+                                    {offset ? null : <h4 styleName="sub-title">精彩评论</h4>}
+                                    {this.getRenderComments(hotComments)}
+                                </div> : null
+                            }
+                            {
+                                comments.length ? <div id={`${this.domIdPrefix}-latest-content`}>
+                                    {current === 1 ? <h4 styleName="sub-title">最新评论({total})</h4> : null}
+                                    {this.getRenderComments(comments)}
+                                    <div styleName="pagination">
+                                        <Pagination
+                                            total={Math.ceil(total / PAGINATION_LIMIT)}
+                                            current={current}
+                                            onChange={this.handlePageChange}
+                                        />
+                                    </div>
+                                </div> : null
+                            }
                         </div>
                     </div>
-                    <div id={`${this.domIdPrefix}-content`}>
-                        {
-                            topComments.length ? <div>
-                                <h4 styleName="sub-title">置顶评论</h4>
-                                {this.getRenderComments(topComments)}
-                            </div> : null
-                        }
-                        {
-                            hotComments.length ? <div styleName="hot-comment">
-                                {offset ? null : <h4 styleName="sub-title">精彩评论</h4>}
-                                {this.getRenderComments(hotComments)}
-                            </div> : null
-                        }
-                        {
-                            comments.length ? <div id={`${this.domIdPrefix}-latest-content`}>
-                                {current === 1 ? <h4 styleName="sub-title">最新评论({total})</h4> : null}
-                                {this.getRenderComments(comments)}
-                                <div styleName="pagination">
-                                    <Pagination
-                                        total={Math.ceil(total / PAGINATION_LIMIT)}
-                                        current={current}
-                                        onChange={this.handlePageChange}
-                                    />
-                                </div>
-                            </div> : null
-                        }
-                    </div>
                 </div>
-            </div>
+                <Confirm
+                    visible={confirmVisible}
+                    content="确定删除评论？"
+                    onCancel={this.handleCancelDeleteConfirm}
+                    onOk={this.handleDeleteComment}
+                />
+            </>
         )
     }
 }

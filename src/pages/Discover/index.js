@@ -33,16 +33,22 @@ export default class Discover extends React.Component {
     }
 
     componentDidMount() {
+        this._isMounted = true
         this.fetchBanners()
         this.fetchHotCategory()
     }
 
-    fetchBanners = () => {
-        requestDiscoverBanners().then((res) => {
+    componentWillUnmount() {
+        this._isMounted = false
+    }
+
+    fetchBanners = async () => {
+        const res = await requestDiscoverBanners()
+        if (this._isMounted) {
             this.setState({
                 banners: res.banners.map((v) => {
                     // todo 轮播图不同类型
-                    if(v.targetType === 1) {
+                    if (v.targetType === 1) {
                         return <a style={{display: 'inline-block'}} href={`/song/${v.targetId}`}>
                             <img src={v.imageUrl} alt=""/>
                         </a>
@@ -50,18 +56,19 @@ export default class Discover extends React.Component {
                     return <img src={v.imageUrl} alt=""/>
                 })
             })
-        })
+        }
     }
 
-    fetchHotCategory = () => {
-        requestHotCategory().then((res) => {
+    fetchHotCategory = async () => {
+        const res = await requestHotCategory()
+        if (this._isMounted) {
             const tags = res.tags || []
             if (tags.length) {
                 this.setState({
                     hotCategory: tags.slice(0, 5)
                 })
             }
-        })
+        }
     }
 
     render() {

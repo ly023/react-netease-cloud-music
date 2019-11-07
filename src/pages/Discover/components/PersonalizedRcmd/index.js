@@ -35,15 +35,13 @@ export default class PersonalizedRcmd extends React.PureComponent {
         this._isMounted = false
     }
 
-    fetchRcmdPlaylist = () => {
-        requestRcmdPlaylist()
-            .then((res) => {
-                if (this._isMounted) {
-                    this.setState({
-                        playlist: res.recommend.splice(0, 3)
-                    })
-                }
+    fetchRcmdPlaylist = async () => {
+        const res = await requestRcmdPlaylist()
+        if (this._isMounted) {
+            this.setState({
+                playlist: res.recommend.splice(0, 3)
             })
+        }
     }
 
     handleDislike = () => {

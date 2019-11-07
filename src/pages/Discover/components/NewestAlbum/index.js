@@ -33,17 +33,15 @@ export default class NewestAlbum extends React.PureComponent {
         }
     }
 
-    fetchNewestAlbum = () => {
-        requestNewestAlbum()
-            .then((res) => {
-                if(this._isMounted) {
-                    this.setState({
-                        newestAlbum: Array.isArray(res.albums) ? res.albums.slice(0, 10) : []
-                    }, () => {
-                        this.initSwiper()
-                    })
-                }
+    fetchNewestAlbum = async () => {
+        const res = await requestNewestAlbum()
+        if(this._isMounted) {
+            this.setState({
+                newestAlbum: Array.isArray(res.albums) ? res.albums.slice(0, 10) : []
+            }, () => {
+                this.initSwiper()
             })
+        }
     }
 
     initSwiper = () => {

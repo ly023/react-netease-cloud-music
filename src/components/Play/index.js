@@ -33,18 +33,12 @@ export default class Play extends React.PureComponent {
         this.state = {}
     }
 
-    componentDidMount() {
-    }
-
     /**
      * 播放规则：
-     * 播放歌单和专辑，随机播放模式下也是从第一首个开始
+     * 播放歌单和专辑，随机播放模式下也是从第一首开始
      * 插入单曲，添加到播放列表尾部，随机播放模式下重新排列shuffle
      */
     handlePlay = async () => {
-        // 关闭面板
-        emitter.emit('close')
-
         const {type, id} = this.props
         const playSetting = this.props.playSetting || {}
         const localTrackQueue = this.props.trackQueue || []

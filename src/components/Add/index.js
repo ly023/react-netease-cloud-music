@@ -41,9 +41,6 @@ export default class Add extends React.PureComponent {
      * 添加规则：顺序添加，随机模式下重新排列shuffle
      */
     handleAdd = async () => {
-        // 关闭面板
-        emitter.emit('close')
-
         const {type, id} = this.props
         const playSetting = this.props.playSetting || {}
         const localTrackQueue = this.props.trackQueue || []

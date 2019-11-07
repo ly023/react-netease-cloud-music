@@ -82,8 +82,8 @@ export default class PlayPanel extends React.Component {
             })
             return
         }
-        // 删除的是当前定位的歌曲
         let newPlayIndex
+        // 删除的是当前定位的歌曲
         if (deleteIndex === playIndex) {
             if (deleteIndex !== trackQueue.length - 1) {
                 newPlayIndex = playIndex

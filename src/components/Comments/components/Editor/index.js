@@ -42,7 +42,7 @@ export default class Editor extends React.Component {
         submitText: '评论',
         onSubmit() {
         },
-        loading: false
+        loading: false,
     }
 
     constructor(props) {
@@ -89,7 +89,9 @@ export default class Editor extends React.Component {
     }
 
     focus = () => {
-        this.inputRef.focus()
+        // 光标在输入框内容末尾
+        const cursorStart = this.inputRef.value.length
+        this.setSelectionRange(cursorStart, cursorStart)
     }
 
     keyDownListener = (e) => {

@@ -23,13 +23,14 @@ export default class Singer extends React.PureComponent {
         this._isMounted = false
     }
 
-    fetchArtist = () => {
+    fetchArtist = async () => {
         const params = {limit: 5, cat: 5001} // 5001：入驻歌手
-        requestArtist(params).then((res) => {
+        const res = await requestArtist(params)
+        if(this._isMounted){
             this.setState({
                 artists: res.artists
             })
-        })
+        }
     }
 
     render() {

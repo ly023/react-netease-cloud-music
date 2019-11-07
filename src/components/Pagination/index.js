@@ -27,7 +27,7 @@ export default class Pagination extends React.PureComponent {
         const {current, total} = this.props
 
         if (total <= MAX_PAGE_COUNT) {
-            return this.getNumbers(MAX_PAGE_COUNT)
+            return this.getNumbers(total)
         }
         const half = Math.ceil(MAX_PAGE_COUNT / 2)
         if (current <= half && total - MAX_PAGE_COUNT > 1) {

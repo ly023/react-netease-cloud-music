@@ -21,7 +21,7 @@ class Notification extends React.Component {
     }
 
     static defaultProps = {
-        type: 'info',
+        type: 'success',
         duration: DEFAULT_DURATION,
         onClose() {
         },
@@ -83,24 +83,35 @@ class Notification extends React.Component {
     }
 }
 
+let wrapper
+
 const message = {
     open: (config) => {
-        const div = document.createElement('div')
+
+        function destroy(div) {
+            if(div){
+                // unmountComponentAtNode() https://reactjs.org/docs/react-dom.html#unmountcomponentatnode
+                ReactDOM.unmountComponentAtNode(div)
+                div.parentNode.removeChild(div)
+                wrapper = null
+            }
+        }
+
+        if(wrapper) {
+            destroy(wrapper)
+        }
+
+        wrapper = document.createElement('div')
         const {getContainer, ...props} = config || {}
 
         if (getContainer) {
             const root = getContainer()
-            root.appendChild(div)
+            root.appendChild(wrapper)
         } else {
-            document.body.appendChild(div)
+            document.body.appendChild(wrapper)
         }
 
-        function onClose() {
-            // unmountComponentAtNode() https://reactjs.org/docs/react-dom.html#unmountcomponentatnode
-            ReactDOM.unmountComponentAtNode(div)
-            div.parentNode.removeChild(div)
-        }
-        ReactDOM.render(<Notification {...props} onClose={onClose}/>, div)
+        ReactDOM.render(<Notification {...props} onClose={()=> destroy(wrapper)}/>, wrapper)
     },
     success: (config) => {
         message.open({...config, type: 'success'})

@@ -43,7 +43,7 @@ export default class Song extends React.Component {
     }
 
     componentDidMount() {
-        this.mounted = true
+        this._isMounted = true
         this.fetchData()
     }
 
@@ -55,7 +55,7 @@ export default class Song extends React.Component {
     }
 
     componentWillUnmount() {
-        this.mounted = false
+        this._isMounted = false
     }
 
     fetchData = () => {
@@ -68,51 +68,43 @@ export default class Song extends React.Component {
         }
     }
 
-    fetchDetail = (id) => {
-        requestDetail({ids: id})
-            .then((res) => {
-                if (this.mounted && res) {
-                    this.setState({
-                        detail: {
-                            ...res?.songs?.[0],
-                            privilege: res?.privileges?.[0]
-                        }
-                    })
+    fetchDetail = async (id) => {
+        const res = await requestDetail({ids: id})
+        if (this._isMounted) {
+            this.setState({
+                detail: {
+                    ...res?.songs?.[0],
+                    privilege: res?.privileges?.[0]
                 }
             })
+        }
     }
 
-    fetchLyric = (id) => {
-        requestLyric({id: id})
-            .then((res) => {
-                if (this.mounted && res) {
-                    this.setState({
-                        lyric: res
-                    })
-                }
+    fetchLyric = async (id) => {
+        const res = await requestLyric({id: id})
+        if (this._isMounted) {
+            this.setState({
+                lyric: res
             })
+        }
     }
 
-    fetchSimilarPlaylists = (id) => {
-        requestSimilarPlaylists({id: id})
-            .then((res) => {
-                if (this.mounted && res) {
-                    this.setState({
-                        similarPlaylists: res.playlists || []
-                    })
-                }
+    fetchSimilarPlaylists = async (id) => {
+        const res = await requestSimilarPlaylists({id: id})
+        if (this._isMounted) {
+            this.setState({
+                similarPlaylists: res.playlists || []
             })
+        }
     }
 
-    fetchSimilarSongs = (id) => {
-        requestSimilarSongs({id: id})
-            .then((res) => {
-                if (this.mounted && res) {
-                    this.setState({
-                        similarSongs: res.songs || []
-                    })
-                }
+    fetchSimilarSongs = async (id) => {
+        const res = await requestSimilarSongs({id: id})
+        if (this._isMounted) {
+            this.setState({
+                similarSongs: res.songs || []
             })
+        }
     }
 
     ctrlFold = () => {

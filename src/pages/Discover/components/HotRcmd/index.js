@@ -28,14 +28,13 @@ export default class HotRcmd extends React.PureComponent {
         this._isMounted = false
     }
     
-    fetchPersonalized = () => {
-        requestPersonalized({limit: 8}).then((res) => {
-            if(this._isMounted) {
-                this.setState({
-                    personalized: res.result
-                })
-            }
-        })
+    fetchPersonalized = async () => {
+        const res = await requestPersonalized({limit: 8})
+        if(this._isMounted) {
+            this.setState({
+                personalized: res.result
+            })
+        }
     }
 
     render() {
