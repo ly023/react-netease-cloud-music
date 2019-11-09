@@ -1,5 +1,6 @@
 
 export default {
+    TAB: 9, // tab键
     ENTER: 13, // enter
     SPACE: 32, // 空格
     LEFT: 37, // 左键

@@ -23,18 +23,21 @@ export function getArtists(artists = []) {
 }
 
 export function getLyricLines(lyric, timePattern) {
-    const times = lyric.match(timePattern)
-    if (times) {
-        const lyrics = lyric.split(timePattern).slice(1)
-        return times.map((time, i) => {
-            const text = lyrics[i].replace('\n', '')
-            return `${time}${text}`
+    if(lyric !== '\\') { // 修正
+        const times = lyric.match(timePattern)
+        if (times) {
+            const lyrics = lyric.split(timePattern).slice(1)
+            return times.map((time, i) => {
+                const text = lyrics[i].replace('\n', '')
+                return `${time}${text}`
+            })
+        }
+        const lyrics = lyric.replace(/(\n)+/g, '\n').split('\n')
+        return lyrics.map((text) => {
+            return text.replace('\n', '')
         })
     }
-    const lyrics = lyric.replace(/(\n)+/g, '\n').split('\n')
-    return lyrics.map((text) => {
-        return text.replace('\n', '')
-    })
+    return []
 }
 
 export function getSecond(parts) {
@@ -99,7 +102,9 @@ export function getLyric(lyricData) {
         let transformLyric = formatLyric(transformLyricLines, timeGroupPattern)
         let originLyric = formatLyric(originLyricLines, timeGroupPattern)
 
-        Object.keys(originLyric).forEach((key) => {
+        // 使用Object.keys会有key顺序问题
+        const orderKeys = (Object.keys(originLyric).map(Number)).sort((a, b) => a - b)
+        orderKeys.forEach((key) => {
             let temp
             const originObj = originLyric[key]
             const transformObj = transformLyric[key]
@@ -116,6 +121,7 @@ export function getLyric(lyricData) {
                 }
             }
             if (temp) {
+                // console.log('temp', temp, temp.origin.second)
                 lyric.push({
                     second: temp.origin.second,
                     ...temp

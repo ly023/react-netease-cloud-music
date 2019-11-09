@@ -97,36 +97,6 @@ $nav-border-color: #202020;
   background-position: -190px 0;
 }
 
-.search {
-  float: right;
-  width: 158px;
-  height: 32px;
-  margin-top: 19px;
-  background: {
-    color: #FFF;
-    position: 0 -99px;
-  };
-  border-radius: 32px;
-}
-
-.search-cont {
-  display: block;
-  position: relative;
-  margin: 8px 0 0 30px;
-}
-
-.input {
-  position: absolute;
-  line-height: 16px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-
-  &::placeholder {
-    color: #9b9b9b;
-  }
-}
-
 .video-creator {
   float: right;
   width: 90px;
@@ -190,17 +160,6 @@ $nav-border-color: #202020;
     width: 30px;
     height: 30px;
     padding: 13px 22px 20px 20px;
-
-    .arrow {
-      position: absolute;
-      border: {
-        width: 7px 6px;
-        style: solid;
-        color: #454545 transparent transparent transparent;
-      }
-      top: 26px;
-      right: 0;
-    }
 
     &.avatar {
       img {

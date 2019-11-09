@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import emitter from 'utils/eventEmitter'
+import {TIP_TIMEOUT} from 'constants'
 import {PLAY_MODE} from 'constants/play'
 import KEY_CODE from 'constants/keyCode'
 import {setUserPlayInfo} from 'actions/user'
@@ -20,7 +21,6 @@ const SHOW_BOTTOM = 0
 const HIDE_BOTTOM = -47
 const TIMEOUT = 500
 const PLAYED_INTERVAL = 250
-const TIP_TIMEOUT = 2000
 const INTERVAL = {
     SHOW: 10,
     HIDE: 3,

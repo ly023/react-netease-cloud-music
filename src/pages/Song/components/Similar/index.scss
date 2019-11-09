@@ -83,6 +83,10 @@
   float: left;
   width: 156px;
   line-height: 16px;
+
+  p {
+    @extend %text-ellipsis;
+  }
 }
 
 .operation {

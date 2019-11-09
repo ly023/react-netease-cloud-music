@@ -141,15 +141,20 @@ export default class Comments extends React.Component {
                 })
                 if (scroll) {
                     if (offset) {
-                        document.getElementById(`${this.domIdPrefix}-latest-content`).scrollIntoView()
+                        this.scrollIntoView(document.getElementById(`${this.domIdPrefix}-latest-content`))
                         return
                     }
-                    document.getElementById(`${this.domIdPrefix}-content`).scrollIntoView()
+                    this.scrollIntoView(document.getElementById(`${this.domIdPrefix}-content`))
                     return
                 }
                 this.setTotalComment(total)
             }
         })
+    }
+
+    scrollIntoView = (el) => {
+        const top = el.offsetTop - 110
+        window.scrollTo(0, top)
     }
 
     handlePageChange = (page) => {
@@ -183,7 +188,7 @@ export default class Comments extends React.Component {
 
     focusEditor = () => {
         this.editorRef.focus()
-        document.getElementById(`${this.domIdPrefix}-wrapper`).scrollIntoView()
+        this.scrollIntoView(document.getElementById(`${this.domIdPrefix}-wrapper`))
     }
 
     getCommentKey = (commentId) => {
@@ -227,7 +232,7 @@ export default class Comments extends React.Component {
                         // 清空评论框
                         this.editorRef.clear()
                         // 定位到当前评论
-                        document.getElementById(this.getItemDomId(res.comment.commentId)).scrollIntoView()
+                        this.scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)))
                         // 弹窗提示
                         message.success({
                             content: '评论成功'
@@ -354,7 +359,7 @@ export default class Comments extends React.Component {
                         }
                     }, () => {
                         // 定位到当前评论
-                        document.getElementById(this.getItemDomId(res.comment.commentId)).scrollIntoView()
+                        this.scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)))
                         this.props.dispatch(setUserCommentInfo({activeCommentId: 0}))
                         message.success({
                             content: '回复成功'
@@ -380,7 +385,7 @@ export default class Comments extends React.Component {
         let vipSuffix
         // 用户类型
         if (userType) {
-            if (userType === 2) {
+            if (userType === 2 || userType === 10) {
                 userSuffix = <span styleName="icon v-icon"/>
             } else if (userType === 4) {
                 userSuffix = <span styleName="icon music-icon"/>

@@ -1,13 +1,12 @@
 
 .back {
   position: fixed;
-  text-indent: -9999px;
+  bottom: 160px;
   left: 50%;
   margin-left: 500px;
-  bottom: 160px;
   width: 49px;
   height: 44px;
-  background: url(~assets/images/sprite.png) no-repeat 0 9999px;
-  background-position:  -265px -47px;
+  text-indent: -9999px;
+  background: url(~assets/images/sprite.png) no-repeat -265px -47px;
   cursor: pointer;
 }

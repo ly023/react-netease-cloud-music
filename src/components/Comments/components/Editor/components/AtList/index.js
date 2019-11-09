@@ -97,7 +97,7 @@ export default class AtList extends React.PureComponent {
         onChange && onChange(val)
     }
 
-    /** 监听键盘事件，注意需设置tabIndex */
+    /** 监听键盘事件*/
     keyDownListener = (e) => {
         const {keyCode} = e
         const {filterList, activeIndex: prevActiveIndex} = this.state
@@ -146,7 +146,7 @@ export default class AtList extends React.PureComponent {
             <p styleName="tip">{tip}</p>
             {
                 Array.isArray(filterList) && filterList.length
-                    ? <div styleName="list" tabIndex={0}>
+                    ? <div styleName="list">
                         {
                             filterList.map((item, index) => {
                                 return <div

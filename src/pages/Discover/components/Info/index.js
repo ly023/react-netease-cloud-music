@@ -5,7 +5,7 @@ import emitter from 'utils/eventEmitter'
 import {requestDetail, requestDailySignIn} from 'services/user'
 import './index.scss'
 
-export default class Info extends React.PureComponent {
+export default class Info extends React.Component {
 
     static propTypes = {
         userId: PropTypes.number,
@@ -30,7 +30,10 @@ export default class Info extends React.PureComponent {
     componentDidUpdate(prevProps) {
         const {userId} = this.props
         const {userId: prevUserId} = prevProps
-        if (userId && !prevUserId) {
+        if (this.state.detailLoading) {
+            return
+        }
+        if (userId && (!prevUserId || !this.state.detail)) {
             this.setState({detailLoading: true})
             requestDetail({uid: userId})
                 .then((res) => {

@@ -1,20 +1,16 @@
 
 :global {
 
-  #root {
-    height: 100%;
-  }
-
   body {
     min-width: 1100px;
-    overflow: hidden;
-    background-color: $bg-color;
+    overflow-x: hidden;
     font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    background-color: $bg-color;
   }
 
   body, textarea, select, input, button {
-    font-size: 12px;
     color: #333;
+    font-size: 12px;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-text-size-adjust: none;
     outline: none;

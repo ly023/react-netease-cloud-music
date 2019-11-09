@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
-import LoginModal from 'components/LoginModal'
 import {LOGIN_MODE} from 'constants/login'
-import KEY_CODE from 'constants/keyCode'
+import LoginModal from 'components/LoginModal'
 import emitter from 'utils/eventEmitter'
 import {requestLogout} from 'services/user'
+import SearchBar from './components/SearchBar'
 
 import styles from './index.scss'
 
@@ -14,7 +14,7 @@ import styles from './index.scss'
     isLogin: user.isLogin,
     userInfo: user.userInfo,
 }))
-class NavBar extends React.Component {
+export default class NavBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -57,12 +57,6 @@ class NavBar extends React.Component {
         this.setState({
             loginVisible: false,
         })
-    }
-
-    handleEnterKey = (e) => {
-        const keyCode = e.nativeEvent.which || e.nativeEvent.which
-        if (keyCode === KEY_CODE.ENTER) {
-        }
     }
 
     handleLogout = () => {
@@ -114,7 +108,7 @@ class NavBar extends React.Component {
         const unreadCount = 0
 
         return (
-            <div ref={this.props.innerRef}>
+            <>
                 <div style={style}>
                     <div styleName="wrapper" ref={this.setNavRef}>
                         <div styleName="cont">
@@ -157,7 +151,7 @@ class NavBar extends React.Component {
                                 isLogin
                                     ? <div styleName="login">
                                         <div styleName="login-status avatar">
-                                            <img src={userInfo?.avatarUrl} alt="头像"/><i styleName="arrow"/>
+                                            <img src={userInfo?.avatarUrl} alt="头像"/>
                                             {unreadCount ? <i styleName="login-badge">{unreadCount}</i> : null}
                                         </div>
                                         <div styleName="login-cont">
@@ -196,8 +190,7 @@ class NavBar extends React.Component {
                                     </div>
                                     : <div styleName="login">
                                         <span className="link" styleName="login-status login-text"
-                                            onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录<i
-                                                styleName="arrow"/></span>
+                                            onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录</span>
                                         <div styleName="login-cont">
                                             <i styleName="arrow"/>
                                             <ul styleName="login-list">
@@ -207,24 +200,14 @@ class NavBar extends React.Component {
                                                 <li styleName="login-item"><a href={null}>微信登录</a></li>
                                                 <li styleName="login-item"><a href={null}>QQ登录</a></li>
                                                 <li styleName="login-item"><a href={null}>新浪微博登录</a></li>
-                                                <li styleName="login-item"
-                                                    onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}>网易邮箱账号登录
+                                                <li styleName="login-item" onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}>网易邮箱账号登录
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                             }
-                            <a href='https://music.163.com/login?targetUrl=%2Fst/creator' target='_blank'
-                                styleName="video-creator">创作者中心</a>
-                            <div styleName="search">
-                                <div styleName="search-cont">
-                                    <input
-                                        placeholder="音乐/视频/电台/用户"
-                                        styleName="input"
-                                        onKeyPress={this.handleEnterKey}
-                                    />
-                                </div>
-                            </div>
+                            <a href='https://music.163.com/login?targetUrl=%2Fst/creator' target='_blank' styleName="video-creator">创作者中心</a>
+                            <SearchBar/>
                         </div>
                         <div styleName="sub-nav-wrapper">
                             <div styleName="sub-nav">
@@ -234,9 +217,8 @@ class NavBar extends React.Component {
                     </div>
                 </div>
                 {isLogin ? null : <LoginModal visible={loginVisible} mode={loginMode} onCancel={this.handleCancel}/>}
-            </div>
+            </>
         )
     }
 }
 
-export default React.forwardRef((props, ref) => <NavBar innerRef={ref} {...props} />)

@@ -6,20 +6,15 @@ import {requestLoginStatus} from 'actions/user'
 import NavBar from 'components/NavBar'
 import PlayBar from 'components/PlayBar'
 import Routes from 'router'
+import KEY_CODE from 'constants/keyCode'
 import {getCsrfToken} from 'utils'
 import ScrollToTop from 'utils/scrollToTop'
-
-import './App.scss'
 
 @connect()
 class App extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            subContentHeight: 0
-        }
-        this.resizeTimer = 0
-        this.navBarRef = React.createRef()
+        this.state = {}
     }
 
     componentDidMount() {
@@ -27,16 +22,14 @@ class App extends React.Component {
         if (csrfToken) {
             this.props.dispatch(requestLoginStatus())
         }
-        this.setSubContentHeight()
-        window.addEventListener('resize', this.resize)
         // requestAnimationFrame兼容
         this.setWindowRequestAnimationFrame()
         this.setWindowCancelAnimationFrame()
+        // 禁用tab键
+        this.disableTabKey()
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.resize)
-        window.clearTimeout(this.resizeTimer)
     }
 
     setWindowRequestAnimationFrame = () => {
@@ -63,36 +56,20 @@ class App extends React.Component {
             }
     }
 
-    setSubContentHeight = () => {
-        const navBar = this.navBarRef.current
-        const {clientHeight: documentClientHeight} = document.documentElement
-        const subContentHeight = navBar ? documentClientHeight - navBar.clientHeight : documentClientHeight
-        this.setState({
-            subContentHeight
+    disableTabKey = () => {
+        document.addEventListener('keydown', function (e) {
+            if(e.keyCode === KEY_CODE.TAB) {
+                e.preventDefault()
+            }
         })
     }
 
-    resize = () => {
-        if (this.resizeTimer) {
-            window.clearTimeout(this.resizeTimer)
-        }
-        this.resizeTimer = window.setTimeout(this.setSubContentHeight, 100)
-    }
-
-    setRef = (el) => {
-        this.containerRef = el
-    }
-
     render() {
-        const {subContentHeight} = this.state
-
         return (
             <>
-                <NavBar ref={this.navBarRef}/>
-                <ScrollToTop containerRef={this.containerRef}>
-                    <div styleName="sub-content" style={{height: subContentHeight}} ref={this.setRef}>
-                        <Routes/>
-                    </div>
+                <NavBar/>
+                <ScrollToTop>
+                    <Routes/>
                 </ScrollToTop>
                 <PlayBar/>
             </>
