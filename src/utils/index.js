@@ -69,10 +69,10 @@ export function formatDuration(ms) {
     let minute = Math.floor(seconds / 60)
     let second = seconds % 60
     if (minute < 10) {
-        minute = '0' + minute
+        minute = `0${minute}`
     }
     if (second < 10) {
-        second = '0' + second
+        second = `0${second}`
     }
     return `${minute}:${second}`
 }
@@ -241,4 +241,31 @@ export function generateGuid() {
         result = result + i
     }
     return result
+}
+
+/**
+ * 获取url参数
+ * @param name
+ * @returns {string}
+ */
+export function getUrlParameter(name) {
+    const key = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+    const regex = new RegExp('[\\?&]' + key + '=([^&#]*)')
+    const results = regex.exec(window.location.search)
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))
+}
+
+/**
+ * 替换url参数值
+ * @param url
+ * @param name
+ * @param replaceWith
+ * @returns {void | string}
+ */
+export function replaceUrlParamVal(url, name, replaceWith) {
+    if (!url) {
+        url = window.location.href
+    }
+    const reg = new RegExp('(' + name + '=)([^&]*)', 'gi')
+    return url.replace(reg, `${name}=${replaceWith}`)
 }

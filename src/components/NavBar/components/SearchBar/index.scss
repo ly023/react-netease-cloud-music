@@ -1,6 +1,5 @@
 
 .wrapper {
-  position: relative;
   float: right;
   width: 158px;
   height: 32px;
@@ -12,59 +11,24 @@
   border-radius: 32px;
 }
 
-.mv-support {
-  position: absolute;
-  top: 88px;
-  left: 16px;
-  width: 180px;
-  height: 40px;
-  line-height: 40px;
-  background-color: #fe5555;
-  color: #fff;
-  font-size: 16px;
-  text-align: center;
-  border-radius: 3px;
-
-  &::before,
-  &::after {
-    position: absolute;
-    background: #fe5555;
-    content: '';
-  }
+.search-bar {
+  position: relative;
+  padding: 8px 10px 0 30px;
 
   &::before {
-    top: -50px;
-    left: 88px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: url(~assets/images/topbar.png) no-repeat 0 -99px;
+    content: '';
   }
-
-  &::after {
-    top: -43px;
-    left: 91px;
-    width: 2px;
-    height: 45px;
-  }
-}
-
-.icon-search {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  background: url(~assets/images/topbar.png) no-repeat 0 -99px;
-}
-
-.search-cont {
-  position: relative;
-  padding: 8px 0 0 30px;
 }
 
 .input {
-  position: absolute;
-  line-height: 16px;
+  display: inline-block;
+  width: 100%;
   background-color: transparent;
   border: none;
   outline: none;
@@ -75,114 +39,8 @@
 }
 
 .layout {
-  position: absolute;
-  top: 40px;
+  position: relative;
+  top: 32px;
   left: 0;
-  z-index: 120;
-  width: 240px;
-  box-sizing: border-box;
-  border: 1px solid #bebebe;
-  border-radius: 4px;
-  background: #fff;
-  box-shadow: 0 4px 7px #555;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
 }
-
-.note {
-  padding: 11px 10px;
-  color: #666;
-  border-bottom: 1px solid #e2e2e2;
-
-  a {
-    color: #666;
-    text-decoration: none;
-
-    &.active,
-    &:focus,
-    &:hover {
-      background-color: #e2e2e2;
-    }
-
-  }
-}
-
-.item {
-
-  .label {
-    float: left;
-    width: 52px;
-    margin-right: -100px;
-    padding: 10px 0 0 10px;
-    line-height: 17px;
-    font-weight: normal;
-    border-right: 1px solid #e2e2e2;
-    user-select: none;
-  }
-
-  .icon {
-    float: left;
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: middle;
-    margin: 2px 4px 0 0;
-    width: 14px;
-    height: 15px;
-    @extend %background-icon;
-  }
-
-  .icon-songs {
-    background-position: -35px -300px;
-  }
-
-  .icon-artists {
-    background-position: -50px -300px;
-  }
-
-  .icon-albums {
-    background-position: -35px -320px;
-  }
-
-  .icon-mvs {
-    background-position: -60px -862px;
-  }
-
-  .icon-playlists {
-    background-position: -50px -320px;
-  }
-
-  .result {
-    margin-top: -1px;
-    margin-left: 62px;
-    padding: 6px 0 5px;
-    border-top: 1px solid #e2e2e2;
-    border-left: 1px solid #e2e2e2;
-
-    &.odd {
-      background-color: #f9f8f8;
-    }
-
-    li {
-      &.active,
-      a:hover {
-        background-color: #e3e5e7;
-        text-decoration: none;
-        cursor: pointer;
-      }
-    }
-
-    .keyword span {
-      color: #0c73c2;
-    }
-
-    a {
-      display: block;
-      @extend %text-ellipsis;
-      text-indent: 12px;
-      line-height: 24px;
-      color: #000;
-    }
-  }
-}
-
-
 

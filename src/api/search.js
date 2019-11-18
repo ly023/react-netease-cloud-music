@@ -5,4 +5,12 @@ export default {
         url: `${config.apiHost}/api/search/suggest`,
         type: 'GET'
     },
+    search: {
+        url: `${config.apiHost}/api/search`,
+        type: 'GET'
+    },
+    multimatch: {
+        url: `${config.apiHost}/api/search/multimatch`,
+        type: 'GET'
+    }
 }

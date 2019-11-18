@@ -117,7 +117,7 @@ export default class SongList extends React.PureComponent {
                 <VerticalScrollbar ref={this.setVerticalScrollbarRef}>
                     {
                         trackQueue.length
-                            ? <ul styleName="wrapper">
+                            ? <ul>
                                 {
                                     trackQueue.map((item, idx) => {
                                         const {artists = []} = item

@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import {PAGINATION_LIMIT} from 'constants'
 
 import './index.scss'
 
@@ -50,9 +51,10 @@ export default class Pagination extends React.PureComponent {
         const {current, total} = this.props
         const prevDisabled = current === 1
         const nextDisabled = current === total
+        const showPagination = total > 0 && total > 1
 
         return (
-            total > 0 ? <div styleName="pagination">
+            showPagination ? <div styleName="pagination">
                 <span
                     styleName={`page prev${prevDisabled ? ' disabled' : ''}`}
                     onClick={() => {

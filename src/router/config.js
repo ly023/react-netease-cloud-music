@@ -50,6 +50,14 @@ export default [
         }),
     },
     {
+        path: '/search',
+        name: '搜索',
+        component: Loadable({
+            loader: () => importViews('Search'),
+            loading: Loading,
+        }),
+    },
+    {
         path: '/user/home/:id',
         name: '我的主页',
         component: Loadable({

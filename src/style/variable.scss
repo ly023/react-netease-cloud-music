@@ -44,6 +44,9 @@ $light-primary-color: #C20C0C;
   background: url(~assets/images/button2.png) no-repeat 0 9999px;
 }
 
+%background-table {
+  background: url(~assets/images/table.png) no-repeat 0 9999px;
+}
 // 单行省略
 %text-ellipsis {
   overflow: hidden;

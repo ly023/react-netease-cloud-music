@@ -1,0 +1,117 @@
+
+.item {
+  padding: 10px 10px 8px 18px;
+  border: 1px solid #fff;
+  font-size: 12px;
+
+  &.even {
+    background: #f7f7f7;
+    border-color: #f7f7f7;
+  }
+
+  &:hover {
+    .operation {
+      visibility: visible;
+    }
+  }
+
+  .td {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 16px;
+    margin: 0 7px 0 0;
+    @extend %background-table;
+    cursor: pointer;
+
+    &.play-icon {
+      width: 17px;
+      height: 17px;
+      margin-top: -6px;
+      margin-right: 4px;
+      background-position: 0 -103px;
+
+      &:hover {
+        background-position: 0 -128px;
+      }
+    }
+
+    &.mv-icon {
+      width: 23px;
+      height: 17px;
+      margin-left: 4px;
+      background-position: 0 -151px;
+
+      &:hover {
+        background-position: -30px -151px;
+      }
+    }
+
+    &.add-icon {
+      width: 13px;
+      height: 13px;
+      margin-right: 8px;
+      margin-bottom: 3px;
+      @extend %background-icon;
+      background-position: 0 -700px;
+
+      &:hover {
+        background-position: -22px -700px;
+      }
+    }
+
+    &.favorite-icon {
+      margin-left: 0;
+      background-position: 0 -174px;
+
+      &:hover {
+        background-position: -20px -174px;
+      }
+    }
+
+    &.share-icon {
+      background-position: 0 -195px;
+
+      &:hover {
+        background-position: -20px -195px;
+      }
+    }
+
+    &.download-icon {
+      background-position: -81px -174px;
+
+      &:hover {
+        background-position: -104px -174px;
+      }
+    }
+  }
+
+
+  .name {
+    width: 370px;
+    @extend %text-ellipsis;
+  }
+
+  .operation {
+    visibility: hidden;
+  }
+
+  .artist {
+    width: 15%;
+    margin-right: 12px;
+    @extend %text-ellipsis;
+  }
+
+  .album {
+    width: 18%;
+    margin-right: 12px;
+    color: #666;
+    @extend %text-ellipsis;
+  }
+}
+

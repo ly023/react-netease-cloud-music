@@ -26,8 +26,8 @@ export default class FooterBar extends React.Component {
         const {feedbackVisible} = this.state
 
         return (
-            <div styleName='foot-bar'>
-                <div className='clearfix' styleName='wrapper'>
+            <div className="clearfix" styleName='foot-bar'>
+                <div styleName='wrapper'>
                     <div styleName='copy'>
                         <p>
                             <a href='https://music.163.com/html/web2/service.html' target='_blank' styleName='link color-1'>服务条款</a><span

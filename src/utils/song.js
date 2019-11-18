@@ -1,3 +1,4 @@
+import React from 'react'
 import {FEE_TYPE, PLAY_MODE, DEFAULT_SECOND} from 'constants/play'
 
 export function hasPrivilege(privilege = {}) {
@@ -20,6 +21,12 @@ export function getArtists(artists = []) {
         return text += `${artist.name}${i !== artists.length - 1 ? '/' : ''}`
     })
     return text
+}
+
+export function getRenderKeyword(text, keyword) {
+    const reg = new RegExp(keyword, 'gi')
+    const html = text.replace(reg, (p1) => `<span>${p1}</span>`)
+    return <span className="keyword" dangerouslySetInnerHTML={{__html: html}}/>
 }
 
 export function getLyricLines(lyric, timePattern) {

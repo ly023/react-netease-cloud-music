@@ -4,14 +4,13 @@
   body {
     min-width: 1100px;
     overflow-x: hidden;
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
     background-color: $bg-color;
   }
 
   body, textarea, select, input, button {
     color: #333;
     font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
     -webkit-text-size-adjust: none;
     outline: none;
   }
@@ -85,6 +84,10 @@
 
   .mt-20 {
     margin-top: 20px;
+  }
+
+  .keyword span {
+    color: #0c73c2;
   }
 
   .main {
