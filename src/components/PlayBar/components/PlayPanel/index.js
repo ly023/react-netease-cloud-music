@@ -6,8 +6,8 @@ import {setUserPlayInfo} from 'actions/user'
 import {getThumbnail} from 'utils'
 import {isShuffleMode} from 'utils/song'
 import {CONTENT_HEIGHT} from '../../constants'
-import SongList from './SongList'
-import Lyric from './Lyric'
+import SongList from './components/SongList'
+import Lyric from './components/Lyric'
 
 import './index.scss'
 

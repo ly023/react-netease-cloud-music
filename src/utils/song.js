@@ -15,6 +15,19 @@ export function isShuffleMode(playSetting) {
     return playSetting.mode === PLAY_MODE.SHUFFLE
 }
 
+export function formatTrack(song) {
+    return {
+        id: song.id,
+        name: song.name,
+        duration: song.dt, // 单位ms
+        album: song.al,
+        artists: song.ar,
+        mvid: song.mv || song.mvid, // mv id
+        privilege: song.privilege, // 特权
+        st: song.st, // 是否可用（有版权），不为0不可播放
+    }
+}
+
 export function getArtists(artists = []) {
     let text = ''
     artists.forEach((artist, i) => {
@@ -128,7 +141,6 @@ export function getLyric(lyricData) {
                 }
             }
             if (temp) {
-                // console.log('temp', temp, temp.origin.second)
                 lyric.push({
                     second: temp.origin.second,
                     ...temp

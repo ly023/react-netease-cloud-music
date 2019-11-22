@@ -1,0 +1,56 @@
+
+.list {
+  margin: 20px 0 0 -24px;
+}
+
+.item {
+  display: inline-block;
+  float: left;
+  width: 130px;
+  height: 154px;
+  padding: 0 0 30px 24px;
+  overflow: hidden;
+
+  img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+.cover {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  @extend %background-cover;
+  background-position: 0 -680px;
+}
+
+.meta {
+  margin-top: 8px;
+  overflow: hidden;
+
+  .name {
+    float: left;
+    color: #000;
+    max-width: 85%;
+    @extend %text-ellipsis;
+  }
+
+  .icon {
+    float: right;
+    width: 17px;
+    height: 18px;
+    @extend %background-icon;
+    background-position: 0 -740px;
+  }
+
+}
+

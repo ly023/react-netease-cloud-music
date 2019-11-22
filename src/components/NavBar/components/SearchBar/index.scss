@@ -11,36 +11,3 @@
   border-radius: 32px;
 }
 
-.search-bar {
-  position: relative;
-  padding: 8px 10px 0 30px;
-
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 24px;
-    height: 24px;
-    background: url(~assets/images/topbar.png) no-repeat 0 -99px;
-    content: '';
-  }
-}
-
-.input {
-  display: inline-block;
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  outline: none;
-
-  &::placeholder {
-    color: #9b9b9b;
-  }
-}
-
-.layout {
-  position: relative;
-  top: 32px;
-  left: 0;
-}
-

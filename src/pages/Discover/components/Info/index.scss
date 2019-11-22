@@ -1,4 +1,3 @@
-
 // 登录
 .sign-in {
   height: 126px;
@@ -14,7 +13,6 @@
   line-height: 22px;
   color: #666;
 }
-
 
 .sign-in-btn {
   display: block;
@@ -174,7 +172,7 @@
         > span {
           color: #bebebe;
           @extend %background-button2;
-          background-position:  0 -305px;
+          background-position: 0 -305px;
         }
       }
 
@@ -202,7 +200,6 @@
       }
     }
   }
-
 
   .summary {
     margin: 22px 0 0 20px;
@@ -237,7 +234,5 @@
       font-weight: normal;
     }
   }
-
-
 }
 

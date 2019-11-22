@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom'
 import VerticalScrollbar from 'components/VerticalScrollbar'
 import {formatDuration} from 'utils'
 import {getArtists} from 'utils/song'
-import Empty from './Empty'
-import {CONTENT_HEIGHT} from '../../../constants'
+import Empty from './components/Empty'
+import {CONTENT_HEIGHT} from '../../../../constants'
 
 import './index.scss'
 
@@ -157,7 +157,6 @@ export default class SongList extends React.PureComponent {
                     }
                 </VerticalScrollbar>
             </div>
-
         )
     }
 }

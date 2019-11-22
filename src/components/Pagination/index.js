@@ -3,7 +3,6 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import {PAGINATION_LIMIT} from 'constants'
 
 import './index.scss'
 

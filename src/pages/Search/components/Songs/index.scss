@@ -1,4 +1,8 @@
 
+.list {
+  margin-top: 20px;
+}
+
 .item {
   padding: 10px 10px 8px 18px;
   border: 1px solid #fff;
@@ -91,10 +95,13 @@
     }
   }
 
-
   .name {
     width: 370px;
     @extend %text-ellipsis;
+  }
+
+  .alias {
+    color: #aeaeae;
   }
 
   .operation {

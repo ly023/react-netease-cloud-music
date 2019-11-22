@@ -1,8 +1,10 @@
 import defaultAvatar from 'assets/images/default-avatar.jpg'
+import defaultArtistAvatar from 'assets/images/default-artist-avatar.jpeg'
 
 export const DEFAULT_DOCUMENT_TITLE = '网易云音乐'
 
 export const DEFAULT_AVATAR = defaultAvatar
+export const DEFAULT_ARTIST_AVATAR = defaultArtistAvatar
 export const PAGINATION_LIMIT = 20
 
 export const TIP_TIMEOUT = 2000 // ms
@@ -14,12 +16,12 @@ export const SEARCH_TYPE = {
     SONG: {
         TYPE: 1,
         TEXT: '单曲',
-        UNIT: '首'
+        UNIT: '首',
     },
     ARTIST: {
         TYPE: 100,
         TEXT: '歌手',
-        UNIT: '个'
+        UNIT: '个',
     },
     ALBUM: {
         TYPE: 10,

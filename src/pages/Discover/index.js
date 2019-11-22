@@ -5,9 +5,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Page from 'components/Page'
-import CustomSwiper from 'components/CustomSwiper'
-import {requestDiscoverBanners} from 'services/banners'
 import {requestHotCategory} from 'services/playlist'
+import Banner from './components/Banner'
 import NewestAlbum from './components/NewestAlbum'
 import HotRcmd from './components/HotRcmd'
 import PersonalizedRcmd from './components/PersonalizedRcmd'
@@ -16,47 +15,26 @@ import Info from './components/Info'
 import Singer from './components/Singer'
 import Anchor from './components/Anchor'
 
-import styles from './index.scss'
+import './index.scss'
 
 @connect(({user}) => ({
-    userInfo: user.userInfo || {},
+    isLogin: user.isLogin,
 }))
 export default class Discover extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            banners: [],
             hotCategory: [],
-            personalized: [],
-            artists: []
         }
     }
 
     componentDidMount() {
         this._isMounted = true
-        this.fetchBanners()
         this.fetchHotCategory()
     }
 
     componentWillUnmount() {
         this._isMounted = false
-    }
-
-    fetchBanners = async () => {
-        const res = await requestDiscoverBanners()
-        if (this._isMounted) {
-            this.setState({
-                banners: res.banners.map((v) => {
-                    // todo 轮播图不同类型
-                    if (v.targetType === 1) {
-                        return <a style={{display: 'inline-block'}} href={`/song/${v.targetId}`}>
-                            <img src={v.imageUrl} alt=""/>
-                        </a>
-                    }
-                    return <img src={v.imageUrl} alt=""/>
-                })
-            })
-        }
     }
 
     fetchHotCategory = async () => {
@@ -72,25 +50,12 @@ export default class Discover extends React.Component {
     }
 
     render() {
-        const {banners, hotCategory} = this.state
-        const userId = this.props.userInfo?.userId
+        const {hotCategory} = this.state
+        const {isLogin} = this.props
 
         return (
             <Page>
-                <section styleName='banner-wrapper'>
-                    <div styleName='banner'>
-                        <CustomSwiper
-                            slides={banners}
-                            showNavigation={true}
-                            containerClassName={styles['banner-container']}/>
-                        <div styleName='download'>
-                            <Link to='/download' hidefocus='true'>下载客户端</Link>
-                            <p>PC 安卓 iPhone WP iPad Mac 六大客户端</p>
-                            <span styleName='shadow-left'/>
-                            <span styleName='shadow-right'/>
-                        </div>
-                    </div>
-                </section>
+                <Banner/>
                 <div className='clearfix' styleName='main'>
                     <div styleName='left-wrapper'>
                         <div className='clearfix' styleName='left'>
@@ -114,11 +79,11 @@ export default class Discover extends React.Component {
                             </section>
                             {/* 个性化推荐 */}
                             {
-                                userId ?  <section className='clearfix'>
+                                isLogin ?  <section className='clearfix'>
                                     <div styleName='title'>
                                         <Link className='fl' styleName='title-text' to=''>个性化推荐</Link>
                                     </div>
-                                    <PersonalizedRcmd userId={userId}/>
+                                    <PersonalizedRcmd/>
                                 </section> : null
                             }
                             {/* 新碟上架 */}
@@ -141,7 +106,7 @@ export default class Discover extends React.Component {
                     </div>
                     <div styleName='right-wrapper'>
                         {/* 个人信息 */}
-                        <Info userId={userId}/>
+                        <Info/>
                         {/* 入驻歌手 */}
                         <Singer/>
                         {/* 热门主播 */}

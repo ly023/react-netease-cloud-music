@@ -9,7 +9,7 @@ import {requestLyric} from 'services/song'
 import VerticalScrollbar from 'components/VerticalScrollbar'
 import {DEFAULT_SECOND} from 'constants/play'
 import {getLyric} from 'utils/song'
-import {CONTENT_HEIGHT} from '../../../constants'
+import {CONTENT_HEIGHT} from '../../../../constants'
 
 import './index.scss'
 

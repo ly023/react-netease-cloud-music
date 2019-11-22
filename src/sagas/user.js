@@ -27,7 +27,9 @@ export function* emailLogin({payload, success, fail}) {
 export function* loginStatus() {
     try {
         const res = yield call(requestLoginStatus)
-        yield put(setUserInfo(res))
+        if(res.code === 200) {
+            yield put(setUserInfo(res))
+        }
     } catch (err) {
         console.log(err)
     }

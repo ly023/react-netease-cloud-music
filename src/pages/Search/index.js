@@ -14,6 +14,7 @@ import {getUrlParameter} from 'utils'
 import Loading from './components/Loading'
 import Empty from './components/Empty'
 import Songs from './components/Songs'
+import Artists from './components/Artists'
 
 import './index.scss'
 
@@ -25,15 +26,16 @@ function getUrlType() {
     return type
 }
 
-const LIMIT = 30
-
 @withRouter
 export default class SearchPage extends React.Component {
     constructor(props) {
         super(props)
+        const searchValue = getUrlParameter('s')
         this.state = {
             activeType: getUrlType(),
-            value: getUrlParameter('s'),
+            searchValue: searchValue,
+            value: searchValue,
+            limit: 0,
             offset: 0,
             total: 0,
             current: 1,
@@ -50,14 +52,16 @@ export default class SearchPage extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         const activeType = getUrlType()
-        const value = getUrlParameter('s')
-        const {activeType: prevActiveType, value: prevValue} = prevState
-
-        if (value !== prevValue || (activeType !== prevActiveType)) {
+        const searchValue = getUrlParameter('s')
+        const {activeType: prevActiveType, searchValue: prevSearchValue} = prevState
+        if (searchValue !== prevSearchValue || (activeType !== prevActiveType)) {
             this.setState({
                 activeType,
-                value
+                searchValue,
             }, () => {
+                if(searchValue !== prevSearchValue){
+                    this.setState({value: searchValue})
+                }
                 this.fetchData()
             })
         }
@@ -104,7 +108,11 @@ export default class SearchPage extends React.Component {
         this.setState({
             current: page
         })
-        this.fetchData((page - 1) * LIMIT, true)
+        this.fetchData((page - 1) * this.state.limit, true)
+    }
+
+    handleInputChange = (value) => {
+        this.setState({value})
     }
 
     handlePressEnter = () => {
@@ -115,20 +123,41 @@ export default class SearchPage extends React.Component {
         })
     }
 
-    fetchData = (offset = 0) => {
-        const {activeType, value} = this.state
+    getLimitFromType = (type) => {
+        switch (type) {
+            case SEARCH_TYPE.ARTIST.TYPE:
+            case SEARCH_TYPE.ALBUM.TYPE:
+                return 75
+            case SEARCH_TYPE.MV.TYPE:
+                return 20
+            default:
+                return 30
+        }
+    }
 
+    fetchData = (offset = 0) => {
+        const {activeType, searchValue, value} = this.state
+        const keywords = value && value.trim() ? value : searchValue
+        const limit = this.getLimitFromType(activeType)
         const params = {
+            limit,
             offset,
             type: activeType,
-            keywords: value
+            keywords
         }
         this.setState({loading: true})
         requestSearch(params)
             .then((res) => {
                 if (this._isMounted) {
                     const {result = {}} = res
-                    this.setState(this.parseData(activeType, result))
+                    this.setState({
+                        ...this.parseData(activeType, result),
+                        limit,
+                        offset,
+                    })
+                    if (value !== keywords) {
+                        this.setState({value: keywords})
+                    }
                 }
             })
             .finally(() => {
@@ -180,12 +209,14 @@ export default class SearchPage extends React.Component {
         switch (activeType) {
             case SEARCH_TYPE.SONG.TYPE:
                 return <Songs keyword={value} list={list}/>
+            case SEARCH_TYPE.ARTIST.TYPE:
+                return <Artists keyword={value} list={list}/>
             default:
         }
     }
 
     render() {
-        const {activeType, value, loading, list, total, current, recQuery} = this.state
+        const {activeType, searchValue, value, loading, list, limit, total, current, recQuery} = this.state
 
         return (
             <Page>
@@ -193,59 +224,53 @@ export default class SearchPage extends React.Component {
                     <div styleName="wrapper">
                         <div styleName="search-wrapper">
                             <Search
-                                key={value} // value变化重新渲染Search组件
-                                wrapperId="search-page"
-                                inputWrapper={<div styleName="search-bar"/>}
-                                input={<input styleName="input"/>}
-                                resultWrapper={<div styleName="layout"/>}
-                                defaultValue={value}
+                                type="pageSearch"
+                                value={value}
+                                onChange={this.handleInputChange}
                                 onPressEnter={this.handlePressEnter}
                             />
                         </div>
                         <div styleName="summary">
-                            搜索"{value}"，找到<span styleName="total"> {total} </span>{this.getTypeText(activeType)}
-                            {
-                                Array.isArray(recQuery) && recQuery.length ? <>
+                            { loading ? null : <>搜索"{searchValue}"，找到<span styleName="total"> {total} </span>{this.getTypeText(activeType)}
+                                {
+                                    Array.isArray(recQuery) && recQuery.length ? <>
                                     ，您是不是要搜：{
-                                        recQuery.map((s) => {
-                                            return <Link key={s} styleName="rec"
-                                                to={`/search?s=${s}&type=${activeType}`}>{s}</Link>
-                                        })
-                                    }
-                                </> : null
+                                            recQuery.map((s) => {
+                                                return <Link key={s} styleName="rec"
+                                                    to={`/search?s=${window.encodeURIComponent(s)}&type=${activeType}`}>{s}</Link>
+                                            })
+                                        }
+                                    </> : null
+                                }</>
                             }
                         </div>
-                        <div styleName="tab-panel">
-                            <ul styleName="tabs">
-                                {
-                                    Object.keys(SEARCH_TYPE).map((key) => {
-                                        const {TYPE: type, TEXT: text} = SEARCH_TYPE[key]
-                                        return <li
-                                            key={key}
-                                            onClick={() => this.handleTabChange(type)}
-                                            styleName={`tab${type === activeType ? ' active' : ''}`}
-                                        >
-                                            {text}
-                                        </li>
-                                    })
-                                }
-                            </ul>
-                            <div styleName="list">
-                                {
-                                    loading ? <Loading/>
-                                        : (!list.length
-                                            ? <Empty/>
-                                            : <>
-                                                {this.getRenderList()}
-                                                <Pagination
-                                                    current={current}
-                                                    total={Math.ceil(total / LIMIT)}
-                                                    onChange={this.handlePageChange}
-                                                />
-                                            </>)
-                                }
-                            </div>
-                        </div>
+                        <ul styleName="tabs">
+                            {
+                                Object.keys(SEARCH_TYPE).map((key) => {
+                                    const {TYPE: type, TEXT: text} = SEARCH_TYPE[key]
+                                    return <li
+                                        key={key}
+                                        onClick={() => this.handleTabChange(type)}
+                                        styleName={`tab${type === activeType ? ' active' : ''}`}
+                                    >
+                                        {text}
+                                    </li>
+                                })
+                            }
+                        </ul>
+                        <Loading loading={loading}/>
+                        {
+                            !loading ? (
+                                list.length ? <>
+                                    {this.getRenderList()}
+                                    <Pagination
+                                        current={current}
+                                        total={Math.ceil(total / limit)}
+                                        onChange={this.handlePageChange}
+                                    />
+                                </> : <Empty/>
+                            ) : ''
+                        }
                     </div>
                 </div>
             </Page>

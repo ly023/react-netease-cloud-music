@@ -35,8 +35,8 @@ export default class PlayBar extends React.PureComponent {
         super(props)
 
         this.state = {
+            visible: false,
             playBarStyle: {},
-            playPanelVisible: false,
 
             loading: false,
             readyPercent: 0,
@@ -93,10 +93,14 @@ export default class PlayBar extends React.PureComponent {
 
     handleDocumentClick = (e) => {
         click(e, PLAY_BAR_DOM_ID, ()=>{
-            this.setState({
-                playPanelVisible: false,
-                volumeVisible: false
-            })
+            this.closePanel()
+        })
+    }
+
+    closePanel = () => {
+        this.setState({
+            visible: false,
+            volumeVisible: false
         })
     }
 
@@ -423,7 +427,7 @@ export default class PlayBar extends React.PureComponent {
     handleSwitchPlayPanel = () => {
         this.setState((prevState) => {
             return {
-                playPanelVisible: !prevState.playPanelVisible
+                visible: !prevState.visible
             }
         })
     }
@@ -726,11 +730,7 @@ export default class PlayBar extends React.PureComponent {
         const {playSetting, trackQueue} = this.props.user
         return trackQueue[playSetting.index]
     }
-
-    setPlayBarRef = (el) => {
-        this.playBarRef = el
-    }
-
+    
     setProgressRef = (el) => {
         this.progressRef = el
     }
@@ -748,7 +748,7 @@ export default class PlayBar extends React.PureComponent {
 
         const {
             playBarStyle,
-            playPanelVisible,
+            visible,
             loading,
             readyPercent,
             playedPercent,
@@ -763,7 +763,6 @@ export default class PlayBar extends React.PureComponent {
         return (
             <div
                 id={PLAY_BAR_DOM_ID}
-                ref={this.setPlayBarRef}
                 styleName={`wrapper ${playSetting.isLocked ? "locked" : "unlock"}`}
                 style={playBarStyle}
                 onMouseEnter={this.showPlayBar}
@@ -786,7 +785,7 @@ export default class PlayBar extends React.PureComponent {
                             onClick={this.handlePlayNext}
                         >下一首</a>
                     </div>
-                    <Link to="" styleName="cover">
+                    <Link to="" styleName="cover" onClick={this.closePanel}>
                         <img
                             src={getThumbnail(song.album?.picUrl, 68)}
                             onError={(e) => {
@@ -800,21 +799,23 @@ export default class PlayBar extends React.PureComponent {
                         styleName="progress"
                     >
                         <div styleName="song-info">
-                            <Link to={`/song/${song.id}`} styleName="song-name">{song.name}</Link>
-                            {song.mvid ? <Link to={`/mv/${song.mvid}`} styleName="mv"/> : null}
+                            <Link to={`/song/${song.id}`} styleName="song-name" onClick={this.closePanel}>{song.name}</Link>
+                            {song.mvid ? <Link to={`/mv/${song.mvid}`} styleName="mv" onClick={this.closePanel}/> : null}
                             {
                                 Array.isArray(song.artists)
                                     ? <div styleName="singer" title={getArtists(song.artists)}>
                                         {
                                             song.artists.map((artist, i) => {
-                                                return <span key={artist.id}><Link
-                                                    to={`/artist/${artist.id}`}>{artist.name}</Link>{i !== song.artists.length - 1 ? '/' : ''}</span>
+                                                return <span key={artist.id}>
+                                                    <Link to={`/artist/${artist.id}`} onClick={this.closePanel}>{artist.name}</Link>
+                                                    {i !== song.artists.length - 1 ? '/' : ''}
+                                                </span>
                                             })
                                         }
                                     </div>
                                     : null
                             }
-                            {song.id ? <Link to="/link" styleName="song-source"/> : null}
+                            {song.id ? <Link to="/link" styleName="song-source" onClick={this.closePanel}/> : null}
                         </div>
                         <div
                             ref={this.setProgressRef}
@@ -884,8 +885,7 @@ export default class PlayBar extends React.PureComponent {
                     <span styleName="lock-icon" onClick={this.handleLock}/>
                 </div>
                 <PlayPanel
-                    dispatch={this.props.dispatch}
-                    visible={playPanelVisible}
+                    visible={visible}
                     trackQueue={trackQueue}
                     index={playSetting.index}
                     onPlay={this.playPanelItem}

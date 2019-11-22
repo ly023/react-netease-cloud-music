@@ -168,11 +168,28 @@ export function isValidMobileNumber(value) {
  * @param url
  * @param width
  * @param height
+ * @param quality
  * @returns {string}
  */
-export function getThumbnail(url, width = 256, height) {
+export function getThumbnail(url, width = 256, height, quality = 89) {
     if (url) {
-        return `${url}?param=${width}y${height || width}`
+        url = url.split('?')[0]
+        return `${url}?param=${width}y${height || width}&quality=${quality}`
+    }
+    return ''
+}
+
+/**
+ * 图片高斯模糊处理
+ * @param url
+ * @param radius
+ * @param sigma
+ * @returns {string}
+ */
+export function getBlur(url, radius = 40, sigma = 20) {
+    if (url) {
+        url = url.split('?')[0]
+        return `${url}?imageView&blur=${radius}x${sigma}`
     }
     return ''
 }
@@ -241,6 +258,20 @@ export function generateGuid() {
         result = result + i
     }
     return result
+}
+
+/**
+ * 生成字母数字随机字符串
+ * @param length
+ * @returns {string}
+ */
+export function generateRandomString(length = 8) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let str = ''
+    for (let i = 0, n = charset.length; i < length; ++i) {
+        str += charset.charAt(Math.floor(Math.random() * n))
+    }
+    return str
 }
 
 /**

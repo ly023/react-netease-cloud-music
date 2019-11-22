@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import {withRouter, Link} from 'react-router-dom'
 import {SEARCH_TYPE} from 'constants'
 import KEY_CODE from 'constants/keyCode'
-import {click, getLocalStorage, getUrlParameter, setLocalStorage} from 'utils'
+import {click, generateRandomString, getLocalStorage, getUrlParameter, setLocalStorage} from 'utils'
 import {getArtists, getRenderKeyword} from 'utils/song'
 import {requestSearchSuggest} from 'services/search'
 
@@ -16,32 +16,33 @@ import './index.scss'
 export default class Search extends React.Component {
 
     static propTypes = {
-        wrapperId: PropTypes.string.isRequired,
-        inputWrapper: PropTypes.node.isRequired,
-        input: PropTypes.node.isRequired,
-        resultWrapper: PropTypes.node.isRequired,
+        type: PropTypes.oneOf(['navSearch', 'pageSearch']).isRequired,
         showSearchTip: PropTypes.bool,
-        extractLinkParameters: PropTypes.bool,
-        defaultValue: PropTypes.string,
+        value: PropTypes.string,
+        onChange: PropTypes.func,
         onPressEnter: PropTypes.func,
     }
 
     static defaultProps = {
         showSearchTip: false,
-        extractLinkParameters: false,
+        onChange(){},
         onPressEnter(){}
     }
 
     constructor(props) {
         super(props)
+        const {value} = props
         this.state = {
-            keyword: this.props.defaultValue,
+            wrapperId: generateRandomString(),
+            keyword: value,
             result: {},
             resultVisible: false,
             activeUrl: '',
             urls: [],
             mvSupportVisible: false
         }
+
+        this.focus = false
     }
 
     componentDidMount() {
@@ -57,7 +58,7 @@ export default class Search extends React.Component {
     }
 
     handleDocumentClick = (e) => {
-        click(e, this.props.wrapperId, () => {
+        click(e, this.state.wrapperId, () => {
             this.hideResult()
         })
     }
@@ -111,34 +112,47 @@ export default class Search extends React.Component {
 
     handleEnterKey = (e) => {
         const keyCode = e.nativeEvent.which || e.nativeEvent.which
+        if (keyCode === KEY_CODE.ENTER) {
+            this.handleSearch()
+        }
+    }
+
+    handleSearch = () => {
         const {keyword} = this.state
-        if (keyCode === KEY_CODE.ENTER && keyword && keyword.trim()) {
-            this.hideResult()
+        const searchValue = window.decodeURIComponent(getUrlParameter('s'))
+        this.hideResult()
+        if (keyword !== searchValue && keyword && keyword.trim()) {
             const type = getUrlParameter('type') || SEARCH_TYPE.SONG.TYPE
-            this.props.history.push(`/search?s=${keyword}&type=${type}`)
+            this.props.history.push(`/search?s=${window.encodeURIComponent(keyword)}&type=${type}`)
             this.props.onPressEnter()
         }
     }
 
     handleFocus = () => {
-        const {keyword} = this.state
+        this.focus = true
+
+        const {keyword, mvSupportVisible} = this.state
+        if(mvSupportVisible) {
+            this.setState({mvSupportVisible: false})
+        }
         if (keyword && keyword.trim()) {
-            this.showResult()
             this.fetchSearchSuggest(keyword)
         }
+    }
+
+    handleBlur = () => {
+        this.focus = false
     }
 
     handleChange = (e) => {
         const {value} = e.target
         this.setState({keyword: value})
         if (value.trim()) {
-            if (!this.state.resultVisible) {
-                this.showResult()
-            }
             this.fetchSearchSuggest(value)
         } else {
             this.hideResult()
         }
+        this.props.onChange(value)
     }
 
     getSearchUrl = () => {
@@ -159,19 +173,20 @@ export default class Search extends React.Component {
                         return `/${key.substr(0, key.length - 1)}/${v.id}`
                     }))
                 })
+                const resultVisible = this.focus && Object.keys(result).length
+                if (resultVisible) {
+                    if (!this.state.resultVisible) {
+                        document.addEventListener('keydown', this.keyDownListener)
+                    }
+                } else {
+                    document.removeEventListener('keydown', this.keyDownListener)
+                }
                 this.setState({
                     result,
                     urls,
-                    resultVisible: !!Object.keys(result).length
+                    resultVisible
                 })
             })
-    }
-
-    showResult = () => {
-        this.setState({
-            resultVisible: true
-        })
-        document.addEventListener('keydown', this.keyDownListener)
     }
 
     hideResult = () => {
@@ -243,9 +258,51 @@ export default class Search extends React.Component {
         }
     }
 
+    getInputProps = () => {
+        const {value} = this.props
+        return {
+            value: value,
+            onChange: this.handleChange,
+            onKeyPress: this.handleEnterKey,
+            onFocus: this.handleFocus,
+            onBlur: this.handleBlur
+        }
+    }
+
+    getNavSearchInput = () => {
+        return <div styleName="nav-search-bar">
+            <input
+                placeholder="音乐/视频/电台/用户"
+                styleName="nav-search-input"
+                {...this.getInputProps()}
+            />
+        </div>
+    }
+
+    getPageSearchInput = () => {
+        return <div styleName="page-search-bar">
+            <input
+                styleName="page-search-input"
+                {...this.getInputProps()}
+            />
+            <span styleName="page-search-icon" onClick={this.handleSearch}/>
+        </div>
+    }
+
+    getRenderInput = (type) => {
+        switch (type) {
+            case 'navSearch':
+                return this.getNavSearchInput()
+            case 'pageSearch':
+                return this.getPageSearchInput()
+            default:
+                return null
+        }
+    }
+
     render() {
-        let {wrapperId, inputWrapper, input: Input, defaultValue, resultWrapper} = this.props
-        const {keyword, result, resultVisible, activeUrl, mvSupportVisible} = this.state
+        let {type} = this.props
+        const {wrapperId, keyword, result, resultVisible, activeUrl, mvSupportVisible} = this.state
 
         const searchUrl = this.getSearchUrl()
 
@@ -254,26 +311,19 @@ export default class Search extends React.Component {
                 <div styleName="mv-support" style={{display: !keyword && mvSupportVisible ? 'block' : 'none'}}>
                     <p>现在支持搜索MV啦</p>
                 </div>
-                {
-                    React.cloneElement(inputWrapper, {
-                        children: React.cloneElement(Input, {
-                            defaultValue: defaultValue,
-                            onChange: this.handleChange,
-                            onKeyPress: this.handleEnterKey,
-                            onFocus: this.handleFocus,
-                        })
-                    })
-                }
-                {
-                    React.cloneElement(resultWrapper, {
-                        style: {display: resultVisible ? 'block' : 'none'},
-                        children: <div styleName="layout">
-                            <div styleName="list">
-                                <p styleName="note">
-                                    <Link to={searchUrl} styleName={searchUrl === activeUrl ? 'active' : ''}>搜 "{keyword}" 相关用户</Link> >
-                                </p>
-                                {
-                                    result && Object.keys(result).length ? <div>
+                {this.getRenderInput(type)}
+                <div
+                    styleName={type === "navSearch" ? 'nav-search-layout' : 'page-search-layout'}
+                    style ={{display: resultVisible ? 'block' : 'none'}}
+                >
+                    <div styleName="layout">
+                        <div styleName="list">
+                            <p styleName="note">
+                                <Link to={searchUrl} styleName={searchUrl === activeUrl ? 'active' : ''} onClick={this.hideResult}>搜 "{keyword}" 相关用户</Link> >
+                            </p>
+                            {
+                                result && Object.keys(result).length
+                                    ? <div>
                                         {
                                             Object.keys(result).map((type, index) => {
                                                 const typeText = this.getTypeText(type)
@@ -296,11 +346,12 @@ export default class Search extends React.Component {
                                                 </div>
                                             })
                                         }
-                                    </div> : null
-                                }
-                            </div></div>
-                    })
-                }
+                                    </div>
+                                    : null
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

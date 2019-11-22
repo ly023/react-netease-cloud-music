@@ -79,6 +79,7 @@ class App extends React.Component {
 
 setConfig({
     logLevel: 'debug',
+    trackTailUpdates: false,
 })
 
 export default hot(App)
