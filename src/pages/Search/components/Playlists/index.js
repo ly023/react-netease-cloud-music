@@ -1,0 +1,72 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
+import {PLAY_TYPE} from 'constants/play'
+import Add from 'components/Add'
+import Play from 'components/Play'
+import {formatNumber} from 'utils'
+import {getRenderKeyword} from 'utils/song'
+
+import './index.scss'
+
+function Playlists(props) {
+    const {keyword, list} = props
+
+    return <div styleName="list">
+        {
+            list.map((item, index)=>{
+                const {id, name, creator} = item
+                const isEven = (index + 1) % 2 === 0
+                return <div key={id} styleName={`item${isEven ? ' even' : ''}`}>
+                    <div styleName="td">
+                        <Play id={id} type={PLAY_TYPE.PLAYLIST.TYPE}>
+                            <i styleName="icon play-icon"/>
+                        </Play>
+                    </div>
+                    <Link to={'/'} styleName="td cover">
+                        <img src={item.coverImgUrl}/>
+                        <div styleName="mask"/>
+                    </Link>
+                    <div styleName="td name">
+                        <Link to={`/playlist/${id}`}>
+                            {getRenderKeyword(name, keyword)}
+                        </Link>
+                    </div>
+                    <div styleName="td operation">
+                        <Add id={id} type={PLAY_TYPE.PLAYLIST.TYPE}>
+                            <a href={null} styleName="icon add-icon" title="添加到播放列表"/>
+                        </Add>
+                        <a href={null} styleName="icon favorite-icon" title="收藏"/>
+                        <a href={null} styleName="icon share-icon" title="分享"/>
+                    </div>
+                    <div styleName="td trackCount">
+                        {item.trackCount}首
+                    </div>
+                    {
+                        creator &&  <Link to={`/user/home/${creator.userId}`} styleName="td creator">
+                            by{'\u00A0'}{getRenderKeyword(creator.nickname, keyword)}
+                        </Link>
+                    }
+                    <div styleName="td count">
+                        收藏: {formatNumber(item.bookCount, 5, 1)}
+                    </div>
+                    <div styleName="td count">
+                        收听: {formatNumber(item.playCount, 5, 1)}
+                    </div>
+                </div>
+            })
+        }
+    </div>
+}
+
+Playlists.propTypes = {
+    keyword: PropTypes.string,
+    list: PropTypes.array,
+}
+
+Playlists.defaultProps = {
+    keyword: '',
+    list: []
+}
+
+export default React.memo(Playlists)

@@ -171,10 +171,10 @@ export function isValidMobileNumber(value) {
  * @param quality
  * @returns {string}
  */
-export function getThumbnail(url, width = 256, height, quality = 89) {
+export function getThumbnail(url, width = 256, height, quality) {
     if (url) {
         url = url.split('?')[0]
-        return `${url}?param=${width}y${height || width}&quality=${quality}`
+        return `${url}?param=${width}y${height || width}${quality ? `&quality=${quality}` : ''}`
     }
     return ''
 }

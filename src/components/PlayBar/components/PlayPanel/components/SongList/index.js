@@ -142,7 +142,7 @@ export default class SongList extends React.PureComponent {
                                             <div styleName="artists" title={getArtists(artists)}>
                                                 {
                                                     artists.map((artist, i) => {
-                                                        return <span key={artist.id}><Link
+                                                        return <span key={`${artist.id}-${i}`}><Link
                                                             to={`/artist/${artist.id}`}>{artist.name}</Link>{i !== artists.length - 1 ? '/' : ''}</span>
                                                     })
                                                 }

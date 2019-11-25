@@ -125,6 +125,7 @@ export default class Search extends React.Component {
             const type = getUrlParameter('type') || SEARCH_TYPE.SONG.TYPE
             this.props.history.push(`/search?s=${window.encodeURIComponent(keyword)}&type=${type}`)
             this.props.onPressEnter()
+            this.inputRef.blur()
         }
     }
 
@@ -269,9 +270,14 @@ export default class Search extends React.Component {
         }
     }
 
+    setInputRef = (el) => {
+        this.inputRef = el
+    }
+
     getNavSearchInput = () => {
         return <div styleName="nav-search-bar">
             <input
+                ref={this.setInputRef}
                 placeholder="音乐/视频/电台/用户"
                 styleName="nav-search-input"
                 {...this.getInputProps()}
@@ -282,6 +288,7 @@ export default class Search extends React.Component {
     getPageSearchInput = () => {
         return <div styleName="page-search-bar">
             <input
+                ref={this.setInputRef}
                 styleName="page-search-input"
                 {...this.getInputProps()}
             />

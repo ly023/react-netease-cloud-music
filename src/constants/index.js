@@ -28,7 +28,7 @@ export const SEARCH_TYPE = {
         TEXT: '专辑',
         UNIT: '张'
     },
-    MV: {
+    VIDEO: {
         TYPE: 1014,
         TEXT: '视频',
         UNIT: '个'

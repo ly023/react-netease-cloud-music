@@ -13,9 +13,9 @@ function Artists(props) {
     return <ul styleName="list">
         {
             list.map((item) => {
-                const artistUrl = `/artist/${item.id}`
-                const {name} = item
-                return <li key={item.id} styleName="item">
+                const {id, name} = item
+                const artistUrl = `/artist/${id}`
+                return <li key={id} styleName="item">
                     <Link to={artistUrl}>
                         <div styleName="cover">
                             <img src={getThumbnail(item.picUrl, 130)} onError={(e) => {
@@ -26,7 +26,7 @@ function Artists(props) {
                     </Link>
                     <div styleName="meta">
                         <Link to={artistUrl} styleName="name" title={name}>
-                            {keyword ? getRenderKeyword(name, keyword) : name}
+                            {getRenderKeyword(name, keyword)}
                         </Link>
                         {
                             item.accountId

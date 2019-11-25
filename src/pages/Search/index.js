@@ -15,6 +15,10 @@ import Loading from './components/Loading'
 import Empty from './components/Empty'
 import Songs from './components/Songs'
 import Artists from './components/Artists'
+import Albums from './components/Albums'
+import Videos from './components/Videos'
+import Lyrics from './components/Lyrics'
+import Playlists from './components/Playlists'
 
 import './index.scss'
 
@@ -128,7 +132,7 @@ export default class SearchPage extends React.Component {
             case SEARCH_TYPE.ARTIST.TYPE:
             case SEARCH_TYPE.ALBUM.TYPE:
                 return 75
-            case SEARCH_TYPE.MV.TYPE:
+            case SEARCH_TYPE.VIDEO.TYPE:
                 return 20
             default:
                 return 30
@@ -177,6 +181,7 @@ export default class SearchPage extends React.Component {
     parseData = (type, result) => {
         switch (type) {
             case SEARCH_TYPE.SONG.TYPE:
+            case SEARCH_TYPE.LYRIC.TYPE:
                 return {
                     list: result.songs || [],
                     total: result.songCount || 0,
@@ -191,10 +196,15 @@ export default class SearchPage extends React.Component {
                     list: result.albums || [],
                     total: result.albumCount || 0,
                 }
-            case SEARCH_TYPE.MV.TYPE:
+            case SEARCH_TYPE.VIDEO.TYPE:
                 return {
                     list: result.videos || [],
                     total: result.videoCount || 0,
+                }
+            case SEARCH_TYPE.PLAYLIST.TYPE:
+                return {
+                    list: result.playlists || [],
+                    total: result.playlistCount || 0
                 }
             default:
                 return {
@@ -211,6 +221,14 @@ export default class SearchPage extends React.Component {
                 return <Songs keyword={value} list={list}/>
             case SEARCH_TYPE.ARTIST.TYPE:
                 return <Artists keyword={value} list={list}/>
+            case SEARCH_TYPE.ALBUM.TYPE:
+                return <Albums keyword={value} list={list}/>
+            case SEARCH_TYPE.VIDEO.TYPE:
+                return <Videos keyword={value} list={list}/>
+            case SEARCH_TYPE.LYRIC.TYPE:
+                return <Lyrics keyword={value} list={list}/>
+            case SEARCH_TYPE.PLAYLIST.TYPE:
+                return <Playlists keyword={value} list={list}/>
             default:
         }
     }

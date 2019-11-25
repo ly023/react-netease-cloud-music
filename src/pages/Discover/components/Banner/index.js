@@ -89,13 +89,14 @@ function Banner() {
                 <div className="swiper-wrapper">
                     {
                         banners.map((v, i) => {
+                            const {imageUrl} = v
                             return <div key={i} className="swiper-slide">
                                 {
                                     v.targetType === 1
                                         ? <a style={{display: 'inline-block'}} href={`/song/${v.targetId}`}>
-                                            <img src={v.imageUrl} alt=""/>
+                                            <img src={imageUrl} alt=""/>
                                         </a>
-                                        : <img src={v.imageUrl} alt=""/>
+                                        : <img src={imageUrl} alt=""/>
                                 }
                             </div>
                         })

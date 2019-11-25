@@ -37,9 +37,11 @@ export function getArtists(artists = []) {
 }
 
 export function getRenderKeyword(text, keyword) {
-    const reg = new RegExp(keyword, 'gi')
-    const html = text.replace(reg, (p1) => `<span>${p1}</span>`)
-    return <span className="keyword" dangerouslySetInnerHTML={{__html: html}}/>
+    if(text && keyword) {
+        const reg = new RegExp(keyword, 'gi')
+        const html = text.replace(reg, (p1) => `<span>${p1}</span>`)
+        return <span className="keyword" dangerouslySetInnerHTML={{__html: html}}/>
+    }
 }
 
 export function getLyricLines(lyric, timePattern) {

@@ -785,7 +785,7 @@ export default class PlayBar extends React.PureComponent {
                             onClick={this.handlePlayNext}
                         >下一首</a>
                     </div>
-                    <Link to="" styleName="cover" onClick={this.closePanel}>
+                    <Link to={`/song/${song.id}`} styleName="cover" onClick={this.closePanel}>
                         <img
                             src={getThumbnail(song.album?.picUrl, 68)}
                             onError={(e) => {

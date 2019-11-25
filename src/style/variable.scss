@@ -47,6 +47,11 @@ $light-primary-color: #C20C0C;
 %background-table {
   background: url(~assets/images/table.png) no-repeat 0 9999px;
 }
+
+%mask {
+  background: url(~assets/images/mask.png) no-repeat 0 9999px;
+}
+
 // 单行省略
 %text-ellipsis {
   overflow: hidden;

@@ -1,0 +1,129 @@
+
+.list {
+  margin-top: 20px;
+}
+
+.item {
+  font-size: 12px;
+  border: 1px solid #fff;
+
+  &.even {
+    background: #f7f7f7;
+    border-color: #f7f7f7;
+  }
+
+  &:hover {
+    border: 1px solid #e1e1e1;
+    background: #f2f2f2;
+
+    .operation {
+      visibility: visible;
+    }
+  }
+}
+
+.td {
+  display: inline-block;
+  margin: 6px 10px;
+  vertical-align: middle;
+}
+
+.cover {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @extend %background-cover;
+    background-position: -160px 0;
+  }
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  @extend %background-table;
+  cursor: pointer;
+
+  &.play-icon {
+    width: 17px;
+    height: 17px;
+    background-position: 0 -103px;
+
+    &:hover {
+      background-position: 0 -128px;
+    }
+  }
+
+  &.add-icon {
+    width: 13px;
+    height: 13px;
+    margin-right: 8px;
+    @extend %background-icon;
+    background-position: 0 -700px;
+
+    &:hover {
+      background-position: -22px -700px;
+    }
+  }
+
+  &.favorite-icon {
+    margin-right: 8px;
+    margin-bottom: -2px;
+    background-position: 0 -174px;
+
+    &:hover {
+      background-position: -20px -174px;
+    }
+  }
+
+  &.share-icon {
+    margin-bottom: -2px;
+    background-position: 0 -195px;
+
+    &:hover {
+      background-position: -20px -195px;
+    }
+  }
+}
+
+.name {
+  width: 260px;
+  @extend %text-ellipsis;
+}
+
+.operation {
+  visibility: hidden;
+}
+
+.trackCount {
+  width: 35px;
+  margin-right: 0;
+  margin-left: 25px;
+  color: #999;
+}
+
+.creator {
+  width: 150px;
+  @extend %text-ellipsis;
+  color: #666;
+}
+
+.count {
+  width: 78px;
+  color: #999;
+}

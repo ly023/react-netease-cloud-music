@@ -14,6 +14,9 @@
   }
 
   &:hover {
+    border: 1px solid #e1e1e1;
+    background: #f2f2f2;
+
     .operation {
       visibility: visible;
     }
@@ -22,6 +25,7 @@
   .td {
     display: inline-block;
     margin-right: 5px;
+    vertical-align: middle;
   }
 
   .icon {
@@ -36,7 +40,6 @@
     &.play-icon {
       width: 17px;
       height: 17px;
-      margin-top: -6px;
       margin-right: 4px;
       background-position: 0 -103px;
 
