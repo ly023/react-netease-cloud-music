@@ -2,7 +2,7 @@ import {
     REQUEST_MOBILE_LOGIN,
     REQUEST_LOGIN_STATUS,
     SET_USER_INFO,
-    SET_USER_PLAY_INFO, SET_USER_COMMENT_INFO,
+    SET_USER_PLAYER, SET_USER_COMMENT_INFO,
 } from 'actions/actionTypes'
 
 export function requestMobileLogin(payload, success, fail) {
@@ -27,9 +27,9 @@ export const setUserInfo = (userInfo) => {
     }
 }
 
-export const setUserPlayInfo = (info) => {
+export const setUserPlayer = (info) => {
     return {
-        type: SET_USER_PLAY_INFO,
+        type: SET_USER_PLAYER,
         ...info
     }
 }

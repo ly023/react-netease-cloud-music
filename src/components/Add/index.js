@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux'
 import _ from 'lodash'
 import emitter from 'utils/eventEmitter'
 import {PLAY_TYPE} from 'constants/play'
-import {setUserPlayInfo} from 'actions/user'
+import {setUserPlayer} from 'actions/user'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
 import {requestDetail as requestSongDetail} from 'services/song'
 import {requestDetail as requestAlbumDetail} from 'services/album'
@@ -18,22 +18,23 @@ import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
 function Add(props) {
     const dispatch = useDispatch()
     const selectedState = useShallowEqualSelector(({user}) => ({
-        playSetting: user.playSetting,
-        trackQueue: user.trackQueue,
-        shuffle: user.shuffle
+        playSetting: user.player.playSetting,
+        trackQueue: user.player.trackQueue,
+        shuffle: user.player.shuffle
     }))
 
     const setShuffle = (trackQueue, startIndex) => {
         const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
         indexes.splice(startIndex, 1)
         const shuffle = [startIndex].concat(_.shuffle(indexes))
-        dispatch(setUserPlayInfo({shuffle}))
+        dispatch(setUserPlayer({shuffle}))
     }
 
     /**
      * 添加规则：顺序添加，随机模式下重新排列shuffle
      */
-    const handleAdd = async () => {
+    const handleAdd = async (e) => {
+        e.stopPropagation()
         const {type, id} = props
         const playSetting = selectedState.playSetting || {}
         const localTrackQueue = selectedState.trackQueue || []
@@ -65,7 +66,7 @@ function Add(props) {
                         if (shuffleIndex === -1) {
                             newShuffle = _.shuffle(shuffle.concat([newTrackIndex]))
                         }
-                        dispatch(setUserPlayInfo({shuffle: newShuffle}))
+                        dispatch(setUserPlayer({shuffle: newShuffle}))
                     }
                 }
             }
@@ -107,7 +108,7 @@ function Add(props) {
         }
         if (hasChangeTrackQueue) {
             setLocalStorage('trackQueue', trackQueue)
-            dispatch(setUserPlayInfo({trackQueue}))
+            dispatch(setUserPlayer({trackQueue}))
         }
     }
 

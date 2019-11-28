@@ -42,6 +42,7 @@ export default class Search extends React.Component {
             mvSupportVisible: false
         }
 
+        this.inputRef = React.createRef()
         this.focus = false
     }
 
@@ -125,7 +126,7 @@ export default class Search extends React.Component {
             const type = getUrlParameter('type') || SEARCH_TYPE.SONG.TYPE
             this.props.history.push(`/search?s=${window.encodeURIComponent(keyword)}&type=${type}`)
             this.props.onPressEnter()
-            this.inputRef.blur()
+            this.inputRef.current.blur()
         }
     }
 
@@ -270,14 +271,10 @@ export default class Search extends React.Component {
         }
     }
 
-    setInputRef = (el) => {
-        this.inputRef = el
-    }
-
     getNavSearchInput = () => {
         return <div styleName="nav-search-bar">
             <input
-                ref={this.setInputRef}
+                ref={this.inputRef}
                 placeholder="音乐/视频/电台/用户"
                 styleName="nav-search-input"
                 {...this.getInputProps()}
@@ -288,7 +285,7 @@ export default class Search extends React.Component {
     getPageSearchInput = () => {
         return <div styleName="page-search-bar">
             <input
-                ref={this.setInputRef}
+                ref={this.inputRef}
                 styleName="page-search-input"
                 {...this.getInputProps()}
             />

@@ -48,6 +48,9 @@ export default class Editor extends React.Component {
     constructor(props) {
         super(props)
         this.state = this.getInitialState()
+        this.inputRef = React.createRef()
+        this.displayRef = React.createRef()
+        this.markRef = React.createRef()
     }
 
     getInitialState = () => {
@@ -76,21 +79,21 @@ export default class Editor extends React.Component {
     componentDidMount() {
         this.props.onRef(this) // 将组件实例this传递给onRef方法
 
-        if (this.inputRef) {
-            this.inputRef.addEventListener('keydown', this.keyDownListener)
+        if (this.inputRef.current) {
+            this.inputRef.current.addEventListener('keydown', this.keyDownListener)
             // 点击输入框，寻找光标所在位置
-            this.inputRef.addEventListener('click', this.clickListener)
+            this.inputRef.current.addEventListener('click', this.clickListener)
         }
     }
 
     componentWillUnmount() {
-        this.inputRef.removeEventListener('keydown', this.keyDownListener)
-        this.inputRef.removeEventListener('click', this.clickListener)
+        this.inputRef.current.removeEventListener('keydown', this.keyDownListener)
+        this.inputRef.current.removeEventListener('click', this.clickListener)
     }
 
     focus = () => {
         // 光标在输入框内容末尾
-        const cursorStart = this.inputRef.value.length
+        const cursorStart = this.inputRef.current.value.length
         this.setSelectionRange(cursorStart, cursorStart)
     }
 
@@ -99,7 +102,7 @@ export default class Editor extends React.Component {
 
         if (keyCode === KEY_CODE.LEFT || keyCode === KEY_CODE.RIGHT) {
             const {value} = this.state
-            const [cursorStart] = getCursorPosition(this.inputRef)
+            const [cursorStart] = getCursorPosition(this.inputRef.current)
             let start = 0
             if (keyCode === KEY_CODE.LEFT) {
                 start = cursorStart - 1 < 0 ? 0 : cursorStart - 1
@@ -196,14 +199,10 @@ export default class Editor extends React.Component {
         this.hideEmojiPanel()
     }
 
-    setInputRef = (el) => {
-        this.inputRef = el
-    }
-
     showAtList = () => {
         if (this.validateLogin()) {
             const {value} = this.state
-            const [cursorStart, cursorEnd] = getCursorPosition(this.inputRef)
+            const [cursorStart, cursorEnd] = getCursorPosition(this.inputRef.current)
             const newValue = `${value.substring(0, cursorStart)}@${value.substring(cursorEnd)}`
             const atCursorStart = cursorStart + 1
             this.setInputValue(newValue, () => {
@@ -223,14 +222,14 @@ export default class Editor extends React.Component {
         }
 
         if (value) {
-            const [cursorStart] = getCursorPosition(this.inputRef)
+            const [cursorStart] = getCursorPosition(this.inputRef.current)
             const atCursorStart = this.getAtCursor(value, cursorStart)
 
             this.setState({
                 atCursorStart: atCursorStart
             }, () => {
                 // autoHeight为false的情况下，与textarea输入框保持一致
-                const hasScrollbar = this.inputRef.scrollHeight !== this.inputRef.clientHeight
+                const hasScrollbar = this.inputRef.current.scrollHeight !== this.inputRef.current.clientHeight
                 if (hasScrollbar) {
                     this.setState({
                         displayStyle: {overflowY: 'scroll'}
@@ -245,11 +244,11 @@ export default class Editor extends React.Component {
 
                 // @与光标之间符合昵称的规则，或前一个字符为@，就认为还在查找@列表或者还在输入
                 if (/^[a-zA-Z0-9_\-一-龥]{1,15}$/.test(atText) || (atCursorStart && atCursorStart === cursorStart)) {
-                    const displayRect = this.displayRef.getBoundingClientRect()
-                    const markRect = this.markRef.getBoundingClientRect()
+                    const displayRect = this.displayRef.current.getBoundingClientRect()
+                    const markRect = this.markRef.current.getBoundingClientRect()
                     const top = markRect.top - displayRect.top
                     const left = markRect.left - displayRect.left
-                    const topOffset = 10 - this.inputRef.scrollTop
+                    const topOffset = 10 - this.inputRef.current.scrollTop
                     const leftOffset = -12
 
                     this.setState({
@@ -283,7 +282,7 @@ export default class Editor extends React.Component {
         if (val) {
             const {value} = this.state
             // 在重新赋值前focus的位置
-            const [cursorStart, cursorEnd] = getCursorPosition(this.inputRef)
+            const [cursorStart, cursorEnd] = getCursorPosition(this.inputRef.current)
 
             const atText = this.getAtText(value, cursorStart)
             const insertedValue = val.substr(atText.length)
@@ -298,10 +297,10 @@ export default class Editor extends React.Component {
     }
 
     setSelectionRange = (cursorStart, cursorEnd) => {
-        this.inputRef.selectionStart = cursorStart
-        this.inputRef.selectionEnd = cursorEnd
-        this.inputRef.focus()
-        // this.inputRef.setSelectionRange(cursorStart, cursorEnd)
+        this.inputRef.current.selectionStart = cursorStart
+        this.inputRef.current.selectionEnd = cursorEnd
+        this.inputRef.current.focus()
+        // this.inputRef.current.setSelectionRange(cursorStart, cursorEnd)
     }
 
     getAtText = (value, cursorStart) => {
@@ -326,14 +325,6 @@ export default class Editor extends React.Component {
         this.setState(this.getInitialState())
     }
 
-    setDisplayRef = (el) => {
-        this.displayRef = el
-    }
-
-    setMarkRef = (el) => {
-        this.markRef = el
-    }
-
     render() {
         const {className, placeholder, submitText, loading} = this.props
         const {
@@ -344,7 +335,7 @@ export default class Editor extends React.Component {
             <div className={className}>
                 <div styleName="text-wrapper">
                     <textarea
-                        ref={this.setInputRef}
+                        ref={this.inputRef}
                         placeholder={placeholder}
                         styleName="textarea"
                         value={value}
@@ -352,8 +343,8 @@ export default class Editor extends React.Component {
                         onFocus={this.handleFocus}
                     />
                     {/* 用来计算光标的位置 -- start */}
-                    <div styleName="textarea display" ref={this.setDisplayRef} style={displayStyle}>
-                        {value.substr(0, atCursorStart)}<span styleName="mark" ref={this.setMarkRef}/>
+                    <div styleName="textarea display" ref={this.displayRef} style={displayStyle}>
+                        {value.substr(0, atCursorStart)}<span styleName="mark" ref={this.markRef}/>
                     </div>
                     {/* 用来计算光标的位置 -- end */}
                     <AtList

@@ -10,20 +10,22 @@ import {requestPersonalized} from 'services/playlist'
 
 import './index.scss'
 
+let isMounted = false
+
 function HotRcmd () {
     const [personalized, setPersonalized] = useState([])
-    let isMounted = false
-
-    const fetchPersonalized = async () => {
-        const res = await requestPersonalized({limit: 8})
-        if(isMounted) {
-            setPersonalized(res.result)
-        }
-    }
 
     useEffect(() => {
+        const fetchPersonalized = async () => {
+            const res = await requestPersonalized({limit: 8})
+            if(isMounted) {
+                setPersonalized(res.result)
+            }
+        }
+
         isMounted = true
         fetchPersonalized()
+
         return () => {
             isMounted = false
         }

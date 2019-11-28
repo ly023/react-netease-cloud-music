@@ -10,25 +10,27 @@ import {requestRankList} from 'services/toplist'
 
 import './index.scss'
 
+let isMounted = false
+
 function Rank() {
     const [rankList, setRankList] = useState([])
-    let isMounted = false
-
-    const fetchRankList = async () => {
-        try {
-            const {playlist: soaringRank} = await requestRankList({idx: 3})
-            const {playlist: newRank} = await requestRankList({idx: 0})
-            const {playlist: hotRank} = await requestRankList({idx: 2})
-
-            if(isMounted) {
-                setRankList([soaringRank, newRank, hotRank])
-            }
-        } catch (e) {}
-    }
 
     useEffect(() => {
+        const fetchRankList = async () => {
+            try {
+                const {playlist: soaringRank} = await requestRankList({idx: 3})
+                const {playlist: newRank} = await requestRankList({idx: 0})
+                const {playlist: hotRank} = await requestRankList({idx: 2})
+
+                if(isMounted) {
+                    setRankList([soaringRank, newRank, hotRank])
+                }
+            } catch (e) {}
+        }
+
         isMounted = true
         fetchRankList()
+
         return () => {
             isMounted = false
         }

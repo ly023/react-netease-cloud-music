@@ -22,6 +22,7 @@ export default class NavBar extends React.Component {
             loginVisible: false,
             loginMode: LOGIN_MODE.GUIDE.TYPE
         }
+        this.navRef = React.createRef()
     }
 
     componentDidMount() {
@@ -38,7 +39,7 @@ export default class NavBar extends React.Component {
     }
 
     setNavHeight = () => {
-        const navHeight = this.navRef.offsetHeight
+        const navHeight = this.navRef.current.offsetHeight
         if (navHeight) {
             this.setState({
                 style: {height: navHeight}
@@ -96,10 +97,6 @@ export default class NavBar extends React.Component {
         return null
     }
 
-    setNavRef = (el) => {
-        this.navRef = el
-    }
-
     render() {
         const {style, loginVisible, loginMode} = this.state
         const {isLogin, userInfo} = this.props
@@ -110,7 +107,7 @@ export default class NavBar extends React.Component {
         return (
             <>
                 <div style={style}>
-                    <div styleName="wrapper" ref={this.setNavRef}>
+                    <div styleName="wrapper" ref={this.navRef}>
                         <div styleName="cont">
                             <a href='/' styleName="logo">
                                 <span styleName="logo-text">网易云音乐</span>

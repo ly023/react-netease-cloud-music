@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux'
 import _ from 'lodash'
 import emitter from 'utils/eventEmitter'
 import {PLAY_TYPE} from 'constants/play'
-import {setUserPlayInfo} from 'actions/user'
+import {setUserPlayer} from 'actions/user'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
 import {requestDetail as requestSongDetail} from 'services/song'
 import {requestDetail as requestAlbumDetail} from 'services/album'
@@ -17,16 +17,16 @@ import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
 function Play(props) {
     const dispatch = useDispatch()
     const selectedState = useShallowEqualSelector(({user}) => ({
-        playSetting: user.playSetting,
-        trackQueue: user.trackQueue,
-        shuffle: user.shuffle
+        playSetting: user.player.playSetting,
+        trackQueue: user.player.trackQueue,
+        shuffle: user.player.shuffle
     }))
 
     const setShuffle = (trackQueue, startIndex) => {
         const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
         indexes.splice(startIndex, 1)
         const shuffle = [startIndex].concat(_.shuffle(indexes))
-        dispatch(setUserPlayInfo({shuffle}))
+        dispatch(setUserPlayer({shuffle}))
     }
 
     /**
@@ -34,7 +34,8 @@ function Play(props) {
      * 播放歌单和专辑，随机播放模式下也是从第一首开始
      * 插入单曲，添加到播放列表尾部，随机播放模式下重新排列shuffle
      */
-    const handlePlay = async () => {
+    const handlePlay = async (e) => {
+        e.stopPropagation()
         const {type, id} = props
         const playSetting = selectedState.playSetting || {}
         const localTrackQueue = selectedState.trackQueue || []
@@ -64,7 +65,7 @@ function Play(props) {
                         if (shuffleIndex === -1) {
                             newShuffle = _.shuffle(shuffle.concat([index]))
                         }
-                        dispatch(setUserPlayInfo({shuffle: newShuffle}))
+                        dispatch(setUserPlayer({shuffle: newShuffle}))
                     }
                 } else {
                     emitPlay = false

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import emitter from 'utils/eventEmitter'
-import {setUserPlayInfo} from 'actions/user'
+import {setUserPlayer} from 'actions/user'
 import {getThumbnail} from 'utils'
 import {isShuffleMode} from 'utils/song'
 import {CONTENT_HEIGHT} from '../../constants'
@@ -12,8 +12,8 @@ import Lyric from './components/Lyric'
 import './index.scss'
 
 @connect(({user}) => ({
-    playSetting: user.playSetting,
-    shuffle: user.shuffle
+    playSetting: user.player.playSetting,
+    shuffle: user.player.shuffle
 }))
 export default class PlayPanel extends React.Component {
 
@@ -50,7 +50,7 @@ export default class PlayPanel extends React.Component {
         // 随机模式下清空shuffle
         const {playSetting} = this.props
         if (isShuffleMode(playSetting)) {
-            this.props.dispatch(setUserPlayInfo({shuffle: []}))
+            this.props.dispatch(setUserPlayer({shuffle: []}))
         }
         emitter.emit('play', {
             trackQueue: [],
@@ -73,7 +73,7 @@ export default class PlayPanel extends React.Component {
         if (!newTrackQueue.length) {
             // 随机模式下清空shuffle
             if (isShuffleMode(playSetting)) {
-                this.props.dispatch(setUserPlayInfo({shuffle: []}))
+                this.props.dispatch(setUserPlayer({shuffle: []}))
             }
             emitter.emit('play', {
                 trackQueue: [],
@@ -107,7 +107,7 @@ export default class PlayPanel extends React.Component {
                 ...playSetting,
                 index: newPlayIndex
             }
-            this.props.dispatch(setUserPlayInfo({
+            this.props.dispatch(setUserPlayer({
                 trackQueue: newTrackQueue,
                 playSetting: newPlaySetting
             }))
@@ -140,7 +140,7 @@ export default class PlayPanel extends React.Component {
                     }
                 }
             }
-            this.props.dispatch(setUserPlayInfo({shuffle: newShuffle}))
+            this.props.dispatch(setUserPlayer({shuffle: newShuffle}))
         }
     }
 

@@ -7,77 +7,74 @@ import {getBlur} from 'utils'
 import 'swiper/dist/css/swiper.css'
 import './index.scss'
 
+let isMounted = false
+let swiper
+let containerRef = React.createRef()
+
 function Banner() {
     const [banners, setBanners] = useState([])
     const [activeUrl, setActiveUrl] = useState('')
-    let swiper
-    let containerRef
-    let isMounted = false
 
-    const initSwiper = () => {
-        if(containerRef) {
-            swiper = new Swiper(containerRef, {
-                autoplay: 3000,
-                autoplayDisableOnInteraction: false, // 操作swiper之后自动切换不会停止
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true // 开启淡出
-                },
-                loop: true,
-                prevButton:'.swiper-button-prev',
-                nextButton:'.swiper-button-next',
-                // pagination: {
-                //     el: this.paginationRef,
-                //     clickable: true,
-                // },
-                pagination : '.swiper-pagination',
-                paginationClickable :true,
-                observer: true,
-                observeParents: true,
-                onSlideChangeStart: ({activeIndex}) => {
-                    const len = banners.length
-                    if(len) {
+    useEffect(() => {
+        const fetchBanners = async () => {
+            const res = await requestDiscoverBanners()
+            const banners = res.banners || []
+            if (isMounted) {
+                setBanners(banners)
+                setActiveUrl(banners.length ? banners[0].imageUrl : '')
+            }
+        }
+
+        const destroySwiper = () => {
+            if (swiper) {
+                swiper.destroy()
+            }
+        }
+
+        isMounted = true
+        fetchBanners()
+
+        return () => {
+            isMounted = false
+            destroySwiper()
+        }
+    }, [])
+
+    useEffect(() => {
+        const initSwiper = () => {
+            const container = containerRef.current
+            if(container) {
+                swiper = new Swiper(container, {
+                    autoplay: 3000,
+                    autoplayDisableOnInteraction: false, // 操作swiper之后自动切换不会停止
+                    effect: 'fade',
+                    fadeEffect: {
+                        crossFade: true // 开启淡出
+                    },
+                    loop: true,
+                    prevButton:'.swiper-button-prev',
+                    nextButton:'.swiper-button-next',
+                    // pagination: {
+                    //     el: this.paginationRef,
+                    //     clickable: true,
+                    // },
+                    pagination : '.swiper-pagination',
+                    paginationClickable :true,
+                    observer: true,
+                    observeParents: true,
+                    onSlideChangeStart: ({activeIndex}) => {
+                        const len = banners.length
                         const realActiveIndex = (activeIndex - 1) % len
                         const banner = banners[realActiveIndex]
                         if(banner) {
                             setActiveUrl(banner.imageUrl)
                         }
                     }
-                }
-            })
-        }
-    }
-
-    const fetchBanners = async () => {
-        const res = await requestDiscoverBanners()
-        if (isMounted) {
-            const banners = res.banners || []
-            setBanners(banners)
-            setActiveUrl(banners.length ? banners[0].imageUrl : '')
-        }
-    }
-
-    useEffect(() => {
-        isMounted = true
-
-        initSwiper()
-        fetchBanners()
-
-        return () => {
-            isMounted = false
-            if (swiper) {
-                // 销毁swiper
-                swiper.destroy()
+                })
             }
         }
-    }, [])
-
-    useEffect(() => {
-        if (swiper) {
-            swiper.destroy()
-        }
         initSwiper()
-    }, [banners.length])
+    }, [banners])
 
     return <section
         style={{
@@ -85,7 +82,7 @@ function Banner() {
             backgroundSize: '6000px'
         }}>
         <div styleName='banner'>
-            <div className="swiper-container" styleName="banner-content"  ref={(el) => {containerRef = el}}>
+            <div className="swiper-container" styleName="banner-content"  ref={containerRef}>
                 <div className="swiper-wrapper">
                     {
                         banners.map((v, i) => {

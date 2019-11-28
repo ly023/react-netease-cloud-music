@@ -1,4 +1,4 @@
-import {SET_USER_COMMENT_INFO, SET_USER_INFO, SET_USER_PLAY_INFO} from 'actions/actionTypes'
+import {SET_USER_COMMENT_INFO, SET_USER_INFO, SET_USER_PLAYER} from 'actions/actionTypes'
 import {PLAY_MODE} from 'constants/play'
 
 function getDefaultPlaySetting() {
@@ -12,14 +12,15 @@ function getDefaultPlaySetting() {
 
 const initialState = {
     isLogin: false,
-    userInfo: {},
-
-    trackQueue: [],
-    playSetting: getDefaultPlaySetting(),
-    shuffle: [],
-    isPlaying: false,
-    isDragProgress: false,
-    currentPlayedTime: 0,
+    userInfo: {}, // 个人信息相关
+    player: {
+        playSetting: getDefaultPlaySetting(),
+        trackQueue: [],
+        shuffle: [],
+        isPlaying: false,
+        isDragProgress: false,
+        currentPlayedTime: 0,
+    }, // 音乐播放相关
 
     follows: [],
 
@@ -35,10 +36,13 @@ export default function user(state = initialState, action) {
                 isLogin: true,
                 userInfo: userInfo.profile || {}
             }
-        case SET_USER_PLAY_INFO:
+        case SET_USER_PLAYER:
             return {
                 ...state,
-                ...action
+                player: {
+                    ...state.player,
+                    ...action
+                }
             }
         case SET_USER_COMMENT_INFO:
             return {

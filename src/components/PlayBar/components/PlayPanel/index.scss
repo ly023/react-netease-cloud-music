@@ -8,6 +8,8 @@
   height: 300px;
   overflow: hidden;
   z-index: -1;
+  transition: height 0.1s ease-in;
+
 }
 
 .content {

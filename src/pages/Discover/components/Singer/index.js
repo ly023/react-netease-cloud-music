@@ -4,21 +4,23 @@ import {requestArtist} from 'services/artist'
 
 import './index.scss'
 
+let isMounted = false
+
 function Singer() {
     const [artists, setArtists] = useState([])
-    let isMounted = false
-
-    const fetchArtist = async () => {
-        const params = {limit: 5, cat: 5001} // 5001：入驻歌手
-        const res = await requestArtist(params)
-        if (isMounted) {
-            setArtists(res.artists)
-        }
-    }
 
     useEffect(() => {
+        const fetchArtist = async () => {
+            const params = {limit: 5, cat: 5001} // 5001：入驻歌手
+            const res = await requestArtist(params)
+            if (isMounted) {
+                setArtists(res.artists)
+            }
+        }
+
         isMounted = true
         fetchArtist()
+
         return () => {
             isMounted = false
         }

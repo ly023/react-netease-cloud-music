@@ -40,11 +40,16 @@
 
     "react/jsx-uses-react": 2,
     // 防止在JSX中使用的变量被错误地标记为未使用
-    "react/jsx-uses-vars": 2
+    "react/jsx-uses-vars": 2,
+
+    // react hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "plugins": [
     "babel",
-    "react"
+    "react",
+    "react-hooks"
   ],
   "settings": {
     "react": {

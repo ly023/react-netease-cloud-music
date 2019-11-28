@@ -1,7 +1,17 @@
+.list {
+  -ms-overflow-style: none;
+  overflow-y: -moz-scrollbars-none;
+
+  &::-webkit-scrollbar {
+    width: 0 !important
+  }
+}
+
 .item {
   position: relative;
   height: 28px;
   padding: 0 6px 0 10px;
+  box-sizing: border-box;
   line-height: 28px;
   cursor: pointer;
 

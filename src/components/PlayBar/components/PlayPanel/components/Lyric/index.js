@@ -16,9 +16,9 @@ import './index.scss'
 const DURATION = 1000 // 动画执行时间
 
 @connect(({user}) => ({
-    isDragProgress: user.isDragProgress,
-    isPlaying: user.isPlaying,
-    currentPlayedTime: user.currentPlayedTime
+    isDragProgress: user.player.isDragProgress,
+    isPlaying: user.player.isPlaying,
+    currentPlayedTime: user.player.currentPlayedTime
 }))
 export default class Lyric extends React.Component {
     static propTypes = {
@@ -40,13 +40,13 @@ export default class Lyric extends React.Component {
         }
         this.requestedSongId = 0
         this.requestAnimationFrameId = 0
+        this.scrollbarRef = React.createRef()
+        this.hasLyric = false
+        this.formattedLyric = null
     }
 
     componentDidMount() {
         this._isMounted = true
-        if (this.verticalScrollbarRef) {
-            this.scrollbarRef = this.verticalScrollbarRef.getScrollbarRef()
-        }
     }
 
     shouldComponentUpdate(nextProps) {
@@ -71,18 +71,14 @@ export default class Lyric extends React.Component {
         this._isMounted = false
     }
 
-    setVerticalScrollbarRef = (ref) => {
-        this.verticalScrollbarRef = ref
-    }
-
     scrollToTop = () => {
-        this.scrollbarRef && this.scrollbarRef.scrollToTop()
+        this.scrollbarRef.current && this.scrollbarRef.current.scrollToTop()
     }
 
     scrollToCurrentTime = () => {
-        if (this.scrollbarRef) {
-            if (this.convertedLyric) {
-                const seconds = Object.keys(this.convertedLyric).map(key => this.convertedLyric[key].second)
+        if (this.scrollbarRef.current) {
+            if (this.formattedLyric) {
+                const seconds = Object.keys(this.formattedLyric).map(key => this.formattedLyric[key].second)
                 const currentTime = this.props.currentPlayedTime
                 let activeTime
                 for (let i = 0; i < seconds.length; i++) {
@@ -108,7 +104,7 @@ export default class Lyric extends React.Component {
                     const activeEleHeight = activeEle.offsetHeight
                     const offset = activeEle.offsetTop - (this.props.height - activeEleHeight) / 2
                     const scrollTop = offset < 0 ? 0 : offset
-                    const currentScrollTop = this.scrollbarRef.getScrollTop()
+                    const currentScrollTop = this.scrollbarRef.current.getScrollTop()
                     const duration = DURATION
                     const intervalTime = 50
                     const intervalHeight = Math.round(Math.abs((scrollTop - currentScrollTop) / (duration / intervalTime)))
@@ -126,7 +122,7 @@ export default class Lyric extends React.Component {
                             } else {
                                 this.requestAnimationFrameId = window.requestAnimationFrame(scrollDown)
                             }
-                            this.scrollbarRef.scrollTop(intervalScrollTop)
+                            this.scrollbarRef.current.scrollTop(intervalScrollTop)
                         }
                         this.requestAnimationFrameId = window.requestAnimationFrame(scrollDown)
                     } else {
@@ -139,7 +135,7 @@ export default class Lyric extends React.Component {
                             } else {
                                 this.requestAnimationFrameId = window.requestAnimationFrame(scrollUp)
                             }
-                            this.scrollbarRef.scrollTop(intervalScrollTop)
+                            this.scrollbarRef.current.scrollTop(intervalScrollTop)
                         }
                         this.requestAnimationFrameId = window.requestAnimationFrame(scrollUp)
                     }
@@ -184,8 +180,10 @@ export default class Lyric extends React.Component {
     getLyricElement = (lyric) => {
         let lyricElement = []
         this.hasTime = false
-        const convertedLyric = getLyric(lyric)
-        this.convertedLyric = convertedLyric
+        if(!this.formattedLyric) {
+            this.formattedLyric = getLyric(lyric)
+        }
+        const convertedLyric = this.formattedLyric
         convertedLyric.forEach((item, index) => {
             const {origin, transform} = item
             let innerTime = origin.second
@@ -269,7 +267,7 @@ export default class Lyric extends React.Component {
                 <div styleName="report-popover" style={{display: reportPopoverVisible ? 'block' : 'none'}}>
                     <Link to="/">报错</Link>
                 </div>
-                <VerticalScrollbar ref={this.setVerticalScrollbarRef}>
+                <VerticalScrollbar ref={this.scrollbarRef}>
                     <div styleName="lyric">
                         {this.getRenderLyric(lyric)}
                     </div>

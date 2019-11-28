@@ -21,14 +21,12 @@ export default class Modal extends React.Component {
         this.state = {
             style: {}
         }
-    }
-
-    componentDidMount() {
+        this.modalRef = React.createRef()
     }
 
     componentDidUpdate(prevProps) {
         if (!prevProps.visible && this.props.visible) {
-            const {clientWidth: modalClientWidth, clientHeight: modalClientHeight} = this.modalRef
+            const {clientWidth: modalClientWidth, clientHeight: modalClientHeight} = this.modalRef.current
             this.modalClientWidth = modalClientWidth
             this.modalClientHeight = modalClientHeight
             this.setPosition()
@@ -55,7 +53,7 @@ export default class Modal extends React.Component {
 
         this.startPosX = e.clientX
         this.startPosY = e.clientY
-        let rectObj = this.modalRef.getBoundingClientRect()
+        let rectObj = this.modalRef.current.getBoundingClientRect()
         this.top = rectObj.top
         this.left = rectObj.left
         this.isDrag = true
@@ -118,17 +116,13 @@ export default class Modal extends React.Component {
         onCancel && onCancel()
     }
 
-    setModalRef = (el) => {
-        this.modalRef = el
-    }
-
     render() {
         const {visible, title, children} = this.props
         const {style} = this.state
 
         return (
             <>
-                <div ref={this.setModalRef} styleName="popover" className={visible ? null : "hide"} style={style}>
+                <div ref={this.modalRef} styleName="popover" className={visible ? null : "hide"} style={style}>
                     <div
                         styleName="popover-bar"
                         onMouseDown={this.handleMouseDown}

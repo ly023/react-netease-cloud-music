@@ -10,46 +10,30 @@ import {requestNewestAlbum} from 'services/album'
 import 'swiper/dist/css/swiper.css'
 import './index.scss'
 
+let isMounted = false
+let swiper
+let containerRef = React.createRef()
+
 function NewestAlbum() {
     const [newestAlbum, setNewestAlbum] = useState([])
-    let isMounted = false
-    let swiper
-    let containerRef
-
-    const initSwiper = () => {
-        if (containerRef) {
-            swiper = new Swiper(containerRef, {
-                slidesPerView: 5,
-                slidesPerGroup: 5,
-                loop: true,
-                spaceBetween: 10,
-                speed: 1000,
-                prevButton: '#roller-prev',
-                nextButton: '#roller-next',
-                // navigation: {
-                //     nextEl: '#roller-next',
-                //     prevEl: '#roller-prev',
-                // },
-            })
-        }
-    }
-
-    const destroySwiper = () => {
-        if (swiper) {
-            swiper.destroy()
-        }
-    }
-
-    const fetchNewestAlbum = async () => {
-        const res = await requestNewestAlbum()
-        if(isMounted) {
-            setNewestAlbum(Array.isArray(res.albums) ? res.albums.slice(0, 10) : [])
-        }
-    }
 
     useEffect(() => {
+        const destroySwiper = () => {
+            if (swiper) {
+                swiper.destroy()
+            }
+        }
+
+        const fetchNewestAlbum = async () => {
+            const res = await requestNewestAlbum()
+            if(isMounted) {
+                setNewestAlbum(Array.isArray(res.albums) ? res.albums.slice(0, 10) : [])
+            }
+        }
+
         isMounted = true
         fetchNewestAlbum()
+
         return () => {
             isMounted = false
             destroySwiper()
@@ -57,12 +41,30 @@ function NewestAlbum() {
     }, [])
 
     useEffect(() => {
+        const initSwiper = () => {
+            const container = containerRef.current
+            if(container) {
+                swiper = new Swiper(container, {
+                    slidesPerView: 5,
+                    slidesPerGroup: 5,
+                    loop: true,
+                    spaceBetween: 10,
+                    speed: 1000,
+                    prevButton: '#roller-prev',
+                    nextButton: '#roller-next',
+                    // navigation: {
+                    //     nextEl: '#roller-next',
+                    //     prevEl: '#roller-prev',
+                    // },
+                })
+            }
+        }
         initSwiper()
     }, [newestAlbum])
 
     return <div styleName="wrapper">
         <div styleName="list-wrapper">
-            <div className="swiper-container" ref={(el) => {containerRef = el}}>
+            <div className="swiper-container" ref={containerRef}>
                 <div className="swiper-wrapper" styleName="list">
                     {
                         newestAlbum.map((item, index) => {

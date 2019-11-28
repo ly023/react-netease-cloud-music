@@ -1,79 +1,67 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import './index.scss'
 
 const Threshold = 10
 
-export default class BackTop extends React.Component {
+let timeoutTimer = 0
+let intervalTimer = 0
 
-    static propTypes = {
-        scrollStep: PropTypes.number,
-        delayInMs: PropTypes.number,
-    }
+function BackTop(props) {
+    const [visible, setVisible] = useState(false)
+    const {step, delayInMs} = props
 
-    static defaultProps = {
-        scrollStep: 50,
-        delayInMs: 0,
-    }
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            visible: false
-        }
-        this.timeoutTimer = 0
-        this.intervalTimer = 0
-    }
-
-    componentDidMount() {
-        window.addEventListener('scroll', this.scroll)
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timeoutTimer)
-        clearInterval(this.intervalTimer)
-        window.removeEventListener('scroll', this.scroll)
-    }
-
-    scroll = () => {
-        if(this.timeoutTimer) {
-            clearTimeout(this.timeoutTimer)
-        }
-
-        this.timeoutTimer = window.setTimeout(()=>{
-            const pageYOffset = window.pageYOffset
-            if(pageYOffset >= Threshold) {
-                this.setState({
-                    visible: true
-                })
-            } else {
-                this.setState({
-                    visible: false
-                })
-            }
-        }, 150)
-    }
-
-    scrollStep = () => {
+    const scrollStep = () => {
         if (window.pageYOffset === 0) {
-            clearInterval(this.intervalTimer)
+            clearInterval(intervalTimer)
         }
-        window.scroll(0, window.pageYOffset - this.props.scrollStep)
+        window.scroll(0, window.pageYOffset - step)
     }
 
-    scrollToTop = () => {
-        this.intervalTimer = setInterval(()=>{
-            this.scrollStep()
-        }, this.props.delayInMs)
+    const scrollToTop = () => {
+        intervalTimer = setInterval(() => {
+            scrollStep()
+        }, delayInMs)
     }
 
-    render() {
-        let {visible} = this.state
+    useEffect(() => {
+        const scroll = () => {
+            if (timeoutTimer) {
+                clearTimeout(timeoutTimer)
+            }
 
-        return (
-            <div className={visible ? 'block' : 'hide'} styleName='back' onClick={this.scrollToTop}>
-                回到顶部
-            </div>
-        )
-    }
+            timeoutTimer = window.setTimeout(() => {
+                const pageYOffset = window.pageYOffset
+                if (pageYOffset >= Threshold) {
+                    setVisible(true)
+                } else {
+                    setVisible(false)
+                }
+            }, 150)
+        }
+
+        window.addEventListener('scroll', scroll)
+
+        return () => {
+            clearTimeout(timeoutTimer)
+            clearInterval(intervalTimer)
+            window.removeEventListener('scroll', scroll)
+        }
+    }, [])
+
+    return <div className={visible ? 'block' : 'hide'} styleName='back' onClick={scrollToTop}>
+        回到顶部
+    </div>
 }
+
+BackTop.propTypes = {
+    step: PropTypes.number,
+    delayInMs: PropTypes.number,
+}
+
+BackTop.defaultProps = {
+    step: 50,
+    delayInMs: 0,
+}
+
+export default BackTop

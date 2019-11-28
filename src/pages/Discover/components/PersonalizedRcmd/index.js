@@ -13,23 +13,25 @@ import './index.scss'
 
 const Weekday = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
 
+let isMounted = false
+
 function PersonalizedRcmd() {
     const isLogin = useSelector(({user}) => user.isLogin)
     const [playlist, setPlaylist] = useState([])
-    let isMounted = false
-
-    const fetchRcmdPlaylist = async () => {
-        const res = await requestRcmdPlaylist()
-        if(isMounted) {
-            setPlaylist(res.recommend.splice(0, 3))
-        }
-    }
 
     useEffect(() => {
+        const fetchRcmdPlaylist = async () => {
+            const res = await requestRcmdPlaylist()
+            if(isMounted) {
+                setPlaylist(res.recommend.splice(0, 3))
+            }
+        }
+
         isMounted = true
         if(isLogin) {
             fetchRcmdPlaylist()
         }
+
         return () => {
             isMounted = false
         }

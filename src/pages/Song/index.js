@@ -29,6 +29,7 @@ export default class Song extends React.Component {
     constructor(props) {
         super(props)
         this.state = this.getInitialState()
+        this.formattedLyric = null
     }
 
     getInitialState = () => {
@@ -86,6 +87,7 @@ export default class Song extends React.Component {
             this.setState({
                 lyric: res
             })
+            this.formattedLyric = null
         }
     }
 
@@ -132,7 +134,10 @@ export default class Song extends React.Component {
 
     getLyricElement = (lyric) => {
         let lyricElement = []
-        const convertedLyric = getLyric(lyric)
+        if(!this.formattedLyric) {
+            this.formattedLyric = getLyric(lyric)
+        }
+        const convertedLyric = this.formattedLyric
         convertedLyric.forEach((item, index) => {
             const {origin, transform} = item
             let innerTime = origin.second

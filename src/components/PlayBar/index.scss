@@ -36,7 +36,7 @@
 .wrapper {
   position: fixed;
   left: 0;
-  @include size(100%, auto);
+  @include size(100%, 53px);
   zoom: 1;
   z-index: 998;
   background: {
@@ -277,7 +277,6 @@
 .operation {
   float: left;
   position: relative;
-  text-indent: -9999px;
   margin: 12px 6px 0 0;
 }
 

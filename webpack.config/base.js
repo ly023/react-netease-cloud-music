@@ -57,9 +57,10 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif|svg)$/,
+                test: /\.(png|jpe?g|gif|svg)$/i,
                 loader: 'url-loader',
                 options: {
+                    esModule: false, // 启用CommonJS模块语法
                     outputPath: 'images/',  // 路径要与output.publicPath结合
                     limit: 8192, // 小于8k转成base64嵌入到js或css中，减少加载次数
                     name: '[hash:8]-[name].[ext]?[hash:8]',

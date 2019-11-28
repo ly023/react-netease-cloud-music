@@ -32,6 +32,7 @@ class Notification extends React.Component {
         this.state = {
             style: {}
         }
+        this.messageRef = React.createRef()
     }
 
     componentDidMount() {
@@ -43,13 +44,9 @@ class Notification extends React.Component {
         this.clearCloseTimer()
     }
 
-    setRef = (el) => {
-        this.messageRef = el
-    }
-
     setTop = () => {
         const {clientHeight} = document.documentElement
-        const messageClientHeight = this.messageRef.clientHeight
+        const messageClientHeight = this.messageRef.current.clientHeight
         this.setState({
             style: {top: (clientHeight - messageClientHeight) / 2}
         })
@@ -74,7 +71,7 @@ class Notification extends React.Component {
         const {type, content} = this.props
         const {style} = this.state
 
-        return <div styleName="wrapper" style={style} ref={this.setRef}>
+        return <div styleName="wrapper" style={style} ref={this.messageRef}>
             <div styleName="notice">
                 <span styleName={`icon ${iconType[type]}`}/>
                 <span styleName="content">{content}</span>

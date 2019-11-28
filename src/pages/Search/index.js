@@ -165,7 +165,9 @@ export default class SearchPage extends React.Component {
                 }
             })
             .finally(() => {
-                this.setState({loading: false})
+                if (this._isMounted) {
+                    this.setState({loading: false})
+                }
             })
         requestMultiMatch(params)
             .then((res) => {
@@ -215,20 +217,20 @@ export default class SearchPage extends React.Component {
     }
 
     getRenderList = () => {
-        const {activeType, value, list} = this.state
+        const {activeType, searchValue, list} = this.state
         switch (activeType) {
             case SEARCH_TYPE.SONG.TYPE:
-                return <Songs keyword={value} list={list}/>
+                return <Songs keyword={searchValue} list={list}/>
             case SEARCH_TYPE.ARTIST.TYPE:
-                return <Artists keyword={value} list={list}/>
+                return <Artists keyword={searchValue} list={list}/>
             case SEARCH_TYPE.ALBUM.TYPE:
-                return <Albums keyword={value} list={list}/>
+                return <Albums keyword={searchValue} list={list}/>
             case SEARCH_TYPE.VIDEO.TYPE:
-                return <Videos keyword={value} list={list}/>
+                return <Videos keyword={searchValue} list={list}/>
             case SEARCH_TYPE.LYRIC.TYPE:
-                return <Lyrics keyword={value} list={list}/>
+                return <Lyrics keyword={searchValue} list={list}/>
             case SEARCH_TYPE.PLAYLIST.TYPE:
-                return <Playlists keyword={value} list={list}/>
+                return <Playlists keyword={searchValue} list={list}/>
             default:
         }
     }

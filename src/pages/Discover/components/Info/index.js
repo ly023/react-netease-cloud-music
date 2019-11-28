@@ -4,23 +4,16 @@ import {DEFAULT_AVATAR} from 'constants'
 import emitter from 'utils/eventEmitter'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestDetail, requestDailySignIn} from 'services/user'
+
 import './index.scss'
+
+let isMounted = false
 
 function Info() {
     const {isLogin, userInfo: {userId}} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin, userInfo: user.userInfo}))
     const [detail, setDetail] = useState(null)
     const [dailySignInLoading, setDailySignInLoading] = useState(false)
     const [signInSuccess, setSignInSuccess] = useState(false)
-    let isMounted = false
-
-    const fetchDetail = () => {
-        requestDetail({uid: userId})
-            .then((res) => {
-                if (isMounted) {
-                    setDetail(res)
-                }
-            })
-    }
 
     const handleCheckIn = () => {
         if (dailySignInLoading) {
@@ -64,14 +57,22 @@ function Info() {
     }
 
     useEffect(() => {
+        const fetchDetail = async () => {
+            const res = await requestDetail({uid: userId})
+            if (isMounted) {
+                setDetail(res)
+            }
+        }
+
         isMounted = true
-        if (isLogin) {
+        if(userId) {
             fetchDetail()
         }
+
         return () => {
             isMounted = false
         }
-    }, [isLogin])
+    }, [userId])
 
     const avatarUrl = detail?.profile?.avatarUrl || ''
 
