@@ -37,7 +37,7 @@ function HotRcmd () {
                 return <li key={item.id} styleName="item">
                     <div styleName="cover">
                         <img src={item.picUrl}/>
-                        <Link to={`/playlist?id=${item.id}`} styleName="mask"/>
+                        <Link to={`/playlist/${item.id}`} styleName="mask"/>
                         <div styleName="bottom">
                             <span className="fl" styleName="icon-headset"/>
                             <span className="fl" styleName="play-num">{formatNumber(item.playCount)}</span>

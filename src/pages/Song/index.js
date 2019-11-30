@@ -10,11 +10,12 @@ import {FEE_TYPE, PLAY_TYPE} from 'constants/play'
 import Add from 'components/Add'
 import Play from 'components/Play'
 import Comments from 'components/Comments'
+import RelatedPlaylists from 'components/RelatedPlaylists'
+import ClientDownload from 'components/ClientDownload'
 import {requestDetail, requestLyric, requestSimilar as requestSimilarSongs} from 'services/song'
 import {requestSimilar as requestSimilarPlaylists} from 'services/playlist'
 import emitter from 'utils/eventEmitter'
 import {getArtists, getLyric} from 'utils/song'
-import Similar from './components/Similar'
 
 import './index.scss'
 
@@ -310,7 +311,40 @@ export default class Song extends React.Component {
                         </div>
                     </div>
                     <div className="right-wrapper">
-                        <Similar playlists={similarPlaylists} songs={similarSongs}/>
+                        <RelatedPlaylists title="包含这首歌的歌单" list={similarPlaylists}/>
+                        {
+                            similarSongs.length ? <div styleName="songs">
+                                <h3 styleName="title-underline">相似歌曲</h3>
+                                <ul>
+                                    {
+                                        similarSongs.map((item) => {
+                                            return <li key={item.id}>
+                                                <div styleName="text">
+                                                    <p><Link to={`/song/${item.id}`} title={item.name}>{item.name}</Link></p>
+                                                    <div styleName="singer" title={getArtists(item.artists)}>
+                                                        {
+                                                            item.artists.map((artist, i) => {
+                                                                return <span key={artist.id}><Link
+                                                                    to={`/artist/${artist.id}`}>{artist.name}</Link>{i !== item.artists.length - 1 ? '/' : ''}</span>
+                                                            })
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div styleName="oper">
+                                                    <Play id={item.id} type={PLAY_TYPE.SINGLE.TYPE}>
+                                                        <a styleName="icon play-icon" href={null}/>
+                                                    </Play>
+                                                    <Add id={item.id} type={PLAY_TYPE.SINGLE.TYPE}>
+                                                        <a styleName="icon add-icon" href={null}/>
+                                                    </Add>
+                                                </div>
+                                            </li>
+                                        })
+                                    }
+                                </ul>
+                            </div> : null
+                        }
+                        <ClientDownload/>
                     </div>
                 </div>
             </Page>

@@ -1,0 +1,48 @@
+.list {
+  margin-bottom: 25px;
+  line-height: 24px;
+
+  .title {
+    @extend %title-underline-h3;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .item {
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .cover {
+    float: left;
+    width: 50px;
+    height: 50px;
+  }
+
+  .meta {
+    float: left;
+    margin-left: 10px;
+
+    p {
+      width: 140px;
+      @extend %text-ellipsis;
+    }
+
+    .name {
+      color: #000;
+      font-size: 14px;
+    }
+
+    .by {
+      float: left;
+      color: #999;
+    }
+
+    .nickname {
+      float: left;
+      max-width: 112px;
+      @extend %text-ellipsis;
+      margin: 0 2px 0 4px;
+      color: #666;
+    }
+  }
+}

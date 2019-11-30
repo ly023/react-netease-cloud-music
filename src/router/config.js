@@ -50,6 +50,14 @@ export default [
         }),
     },
     {
+        path: '/playlist/:id',
+        name: '歌单',
+        component: Loadable({
+            loader: () => importViews('Playlist'),
+            loading: Loading
+        })
+    },
+    {
         path: '/search',
         name: '搜索',
         component: Loadable({

@@ -69,10 +69,16 @@ export default class NavBar extends React.Component {
             })
     }
 
-    getRenderSubNav = () => {
-        const pathname = this.props.history.location.pathname
+    hasSubNav = () => {
+        const {pathname} = this.props.history.location
+        return pathname.startsWith('/discover')
+            || pathname.startsWith('/song')
+            || pathname.startsWith('/playlist')
+            || pathname.startsWith('/album')
+    }
 
-        if (pathname.startsWith('/discover') || pathname.startsWith('/song')) {
+    getRenderSubNav = () => {
+        if (this.hasSubNav()) {
             return <ul styleName="sub-nav-list">
                 <li styleName="sub-nav-item">
                     <NavLink to="/discover" exact={true} activeClassName={styles["sub-nav-active"]}><em>推荐</em></NavLink>

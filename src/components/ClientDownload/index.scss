@@ -1,0 +1,56 @@
+%background-sprite {
+  background: url(~assets/images/sprite.png) no-repeat 0 9999px;
+}
+
+.multiple-client {
+  .title {
+    @extend %title-underline-h3;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .bg {
+    height: 65px;
+    margin-bottom: 10px;
+    @extend %background-sprite;
+    background-position: 0 -392px;
+
+    li {
+      float: left;
+    }
+  }
+
+  a {
+    display: inline-block;
+    width: 42px;
+    height: 48px;
+    text-indent: -9999px;
+  }
+
+  .ios {
+    &:hover {
+      @extend %background-sprite;
+      background-position: 0 -472px;
+    }
+  }
+
+  .pc {
+    width: 60px;
+    margin: 0 26px 0 30px;
+
+    &:hover {
+      @extend %background-sprite;
+      background-position: -72px -472px;
+    }
+  }
+
+  .aos {
+    &:hover {
+      @extend %background-sprite;
+      background-position: -158px -472px;
+    }
+  }
+
+  .tip {
+    color: #999;
+  }
+}

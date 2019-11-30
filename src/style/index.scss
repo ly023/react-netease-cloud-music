@@ -9,9 +9,13 @@
   body, textarea, select, input, button {
     color: #333;
     font-size: 12px;
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     -webkit-text-size-adjust: none;
     outline: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Microsoft YaHei, Arial, Helvetica, sans-serif;
   }
 
   a {
@@ -23,7 +27,7 @@
     }
   }
 
-  body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, p, pre {
+  body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, p, pre, th {
     margin: 0;
     padding: 0;
   }

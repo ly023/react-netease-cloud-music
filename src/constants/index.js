@@ -7,6 +7,8 @@ export const DEFAULT_AVATAR = defaultAvatar
 export const DEFAULT_ARTIST_AVATAR = defaultArtistAvatar
 export const PAGINATION_LIMIT = 20
 
+export const DATE_FORMAT = 'YYYY-MM-DD'
+
 export const TIP_TIMEOUT = 2000 // ms
 
 export const NICKNAME_PATTERN = /^[a-zA-Z0-9_\-一-龥]{2,15}$/ // 昵称规则，2-15汉字，且不包含除_和-的特殊字符

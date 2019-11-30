@@ -56,8 +56,8 @@ const ACTION_TYPES = {
 }))
 export default class Comments extends React.Component {
     static propTypes = {
-        id: PropTypes.number.isRequired,
         type: PropTypes.oneOf(Object.keys(COMMENT_TYPES)),
+        id: PropTypes.number.isRequired,
         onRef: PropTypes.func,
     }
 
@@ -100,7 +100,8 @@ export default class Comments extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.id !== prevProps.id) {
+        const {id} = this.props
+        if (!Number.isNaN(id) && id !== prevProps.id) {
             this.setState(this.getInitialState())
             this.fetchComments()
         }

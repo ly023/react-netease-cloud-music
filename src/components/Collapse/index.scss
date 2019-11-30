@@ -1,0 +1,25 @@
+
+.fold-ctrl {
+  color: #0c73c2;
+  cursor: pointer;
+
+  &.ellipsis {
+    text-align: right;
+  }
+
+  i {
+    display: inline-block;
+    width: 11px;
+    height: 8px;
+    @extend %background-icon;
+  }
+
+  &.fold i {
+    background-position: -65px -520px;
+  }
+
+  &.unfold i {
+    background-position: -45px -520px
+  }
+}
+

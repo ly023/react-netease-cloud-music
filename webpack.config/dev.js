@@ -10,8 +10,8 @@ module.exports = merge(baseConfig, {
     mode: 'development',
     entry: {
         main: [
+            'react-hot-loader/patch', // Make sure react-hot-loader is required before react and react-dom
             '@babel/polyfill',
-            'react-hot-loader/patch',
             './src/index.js' // 入口文件路径
         ]
     },

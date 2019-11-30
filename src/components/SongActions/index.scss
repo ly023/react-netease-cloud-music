@@ -1,0 +1,53 @@
+
+.actions {
+  height: 18px;
+}
+
+.icon {
+  display: inline-block;
+  width: 18px;
+  height: 16px;
+  margin: 0 0 0 4px;
+  vertical-align: middle;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+
+.add {
+  width: 13px;
+  height: 13px;
+  margin-left: 0;
+  @extend %background-icon;
+  background-position: 0 -700px;
+
+  &:hover {
+    background-position: -22px -700px;
+  }
+}
+
+.favorite {
+  @extend %background-table;
+  background-position: 0 -174px;
+
+  &:hover {
+    background-position: -20px -174px;
+  }
+}
+
+.share {
+  @extend %background-table;
+  background-position: 0 -195px;
+
+  &:hover {
+    background-position: -20px -195px;
+  }
+}
+
+.download {
+  @extend %background-table;
+  background-position: -81px -174px;
+
+  &:hover {
+    background-position: -104px -174px;
+  }
+}

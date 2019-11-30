@@ -19,5 +19,9 @@ export default {
     similar: {
         url: `${config.apiHost}/api/simi/playlist`,
         type: 'GET'
+    },
+    related :{
+        url: `${config.apiHost}/api/related/playlist`,
+        type: 'GET'
     }
 }

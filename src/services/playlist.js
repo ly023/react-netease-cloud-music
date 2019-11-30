@@ -21,3 +21,8 @@ export async function requestDetail(params) {
 export async function requestSimilar(params) {
     return request(`${API.similar.url}?${stringify(params)}`)
 }
+
+// 相关歌单推荐
+export async function requestRelated(params) {
+    return request(`${API.related.url}?${stringify(params)}`)
+}
