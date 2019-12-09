@@ -1,28 +1,27 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import {requestArtist} from 'services/artist'
 
 import './index.scss'
 
-let isMounted = false
-
 function Singer() {
     const [artists, setArtists] = useState([])
+    const isMounted = useRef()
 
     useEffect(() => {
         const fetchArtist = async () => {
             const params = {limit: 5, cat: 5001} // 5001：入驻歌手
             const res = await requestArtist(params)
-            if (isMounted) {
+            if (isMounted.current) {
                 setArtists(res.artists)
             }
         }
 
-        isMounted = true
+        isMounted.current = true
         fetchArtist()
 
         return () => {
-            isMounted = false
+            isMounted.current = false
         }
     }, [])
 

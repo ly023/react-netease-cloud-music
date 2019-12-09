@@ -28,7 +28,7 @@ import './index.scss'
 @connect(({user}) => ({
     isLogin: user.isLogin,
 }))
-export default class Playlist extends React.Component {
+export default class PlaylistDetail extends React.Component {
     constructor(props) {
         super(props)
         this.state = this.getInitialState()

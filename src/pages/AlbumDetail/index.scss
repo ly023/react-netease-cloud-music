@@ -1,0 +1,465 @@
+.cover {
+  position: relative;
+  float: left;
+  margin: 0 -220px 0 0;
+
+  img {
+    width: 177px;
+    height: 177px;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @extend %background-cover;
+    width: 209px;
+    height: 177px;
+    background-position: 0 -986px;
+    content: '';
+  }
+}
+
+.content {
+  float: right;
+  width: 414px;
+}
+
+.label {
+  float: left;
+  width: 54px;
+  height: 24px;
+  @extend %background-icon;
+  background-position: 0 -186px;
+
+  .r {
+    position: absolute;
+    top: 2px;
+    left: 34px;
+    width: 8px;
+    height: 8px;
+    background: url(~assets/images/white-r-icon@3x.png) no-repeat 50%;
+    background-size: cover;
+  }
+}
+
+.title {
+  position: relative;
+  margin-left: 64px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.publish {
+  margin: 16px 0;
+  line-height: 22px;
+  color: #666;
+
+  .artist {
+    color: #0c73c2;
+  }
+}
+
+.operation {
+  margin: 0 -10px 0 0;
+  overflow: hidden;
+  user-select: none;
+
+  .btn-play {
+    float: left;
+    @extend %background-button2;
+    background-position: right -428px;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      background-position: right -510px;
+
+      i {
+        background-position: 0 -469px;
+      }
+
+      em {
+        background-position: -28px -1622px
+      }
+    }
+
+    i {
+      @extend %button-i;
+      padding: 0 7px 0 8px;
+      color: #fff;
+      background-position: 0 -387px;
+
+      em {
+        float: left;
+        width: 20px;
+        height: 18px;
+        margin: 6px 2px 2px 0;
+        @extend %background-button2;
+        background-position: 0 -1622px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .btn-play-disabled {
+    float: left;
+    padding: 0 5px 0 0;
+    margin-right: 6px;
+    font-family: simsun, \5b8b\4f53, sans-serif;
+    @extend %background-button2;
+    background-position: right -934px;
+
+    i {
+      @extend %u-button-i;
+      padding: 0 7px 0 36px;
+      color: #bebebe;
+      @extend %background-button2;
+      background-position: 0 -891px;
+      cursor: default;
+    }
+  }
+
+  .btn-add-play {
+    @extend %u-button;
+    margin: 0 5px 0 -3px;
+    padding: 0 8px 0 0;
+    background-position: 0 -1588px;
+
+    &:hover {
+      background-position: -40px -1588px;
+    }
+  }
+
+  .btn-add-favorite,
+  .btn-share,
+  .btn-download,
+  .btn-comment {
+    @extend %u-button;
+    margin-right: 6px;
+    padding: 0 5px 0 0;
+    background-position: right -1020px;
+
+    &:hover {
+      background-position: right -1106px;
+    }
+
+    i {
+      @extend %u-button-i;
+      padding: 0 2px 0 28px;
+    }
+  }
+
+  .btn-add-favorite {
+    i {
+      background-position: 0 -977px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -1063px;
+      }
+    }
+  }
+
+  .btn-share {
+    i {
+      background-position: 0 -1225px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -1268px;
+      }
+    }
+  }
+
+  .btn-download {
+    i {
+      background-position: 0 -2761px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -2805px;
+      }
+    }
+  }
+
+  .btn-comment {
+    i {
+      line-height: 28px;
+      background-position: 0 -1465px;
+    }
+
+    &:hover {
+      i {
+        background-position: 0 -1508px;
+      }
+    }
+  }
+}
+
+.desc {
+  margin-top: 20px;
+  line-height: 18px;
+  color: #666;
+
+  > h3 {
+    color: #333;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .description {
+    line-height: 24px;
+    white-space: pre-wrap;
+  }
+}
+
+.tracks-wrapper {
+  margin: 27px 0 40px 0;
+
+  .table-title {
+    border-bottom: 2px solid $light-primary-color;
+
+    h3 {
+      display: inline-block;
+      height: 35px;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 28px;
+    }
+
+    .other {
+      color: #666;
+      font-size: 12px;
+
+      .total {
+        margin: 9px 0 0 20px;
+      }
+
+      .out-chain {
+        float: right;
+        margin: 5px 0 0 0;
+
+        i {
+          display: inline-block;
+          vertical-align: middle;
+          width: 16px;
+          height: 16px;
+          @extend %background-icon;
+          background-position: -34px -863px;
+        }
+
+        a {
+          color: #4996d1;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+
+  .table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #d9d9d9;
+
+    th {
+      height: 38px;
+      vertical-align: top;
+      background-color: #f7f7f7;
+      @extend %background-table;
+      background-position: 0 0;
+      background-repeat: repeat-x;
+
+      &.w1 {
+        width: 74px;
+      }
+
+      &.w2 {
+        width: 90px;
+      }
+
+      &.w3 {
+        width: 20%;
+      }
+
+      .th {
+        height: 18px;
+        line-height: 18px;
+        padding: 8px 10px;
+        text-align: left;
+        color: #666;
+        font-weight: 400;
+        @extend %background-table;
+        background-position: 0 -56px;
+
+        &.first {
+          background: none;
+        }
+      }
+    }
+
+    td {
+      padding: 6px 10px;
+      line-height: 18px;
+      text-align: left;
+    }
+
+    .even {
+      td {
+        background-color: #f7f7f7;
+      }
+    }
+  }
+
+  .track {
+    color: #333;
+
+    &.disabled * {
+      color: #bbb;
+    }
+
+    &.disabled .order .ply,
+    &.disabled .order .ply:hover {
+      opacity: 0.5;
+      background-position: 0 -103px;
+      cursor: default;
+    }
+
+    &.disabled:hover {
+      .duration {
+        color: #bbb;
+
+        .time {
+          display: inline-block;
+        }
+
+        .actions {
+          display: none;
+        }
+      }
+    }
+
+    &:hover {
+      .duration {
+        .time {
+          display: none;
+        }
+
+        .actions {
+          display: inline-block;
+        }
+      }
+    }
+
+    .order {
+      color: #999;
+
+      .number {
+        margin-left: 5px;
+      }
+
+      .ply {
+        float: right;
+        display: inline-block;
+        width: 17px;
+        height: 17px;
+        cursor: pointer;
+        @extend %background-table;
+        background-position: 0 -103px;
+
+        &:hover {
+          background-position: 0 -128px;
+        }
+      }
+    }
+
+    .name {
+      width: 100%;
+      @extend %text-ellipsis;
+
+      .alias {
+        color: #aeaeae;
+      }
+
+      .mv-icon {
+        display: inline-block;
+        width: 23px;
+        height: 17px;
+        vertical-align: middle;
+        margin: 0 0 0 4px;
+        @extend %background-table;
+        background-position: 0 -151px;
+        cursor: pointer;
+
+        &:hover {
+          background-position: -30px -151px;
+        }
+      }
+    }
+
+    .duration {
+      white-space: nowrap;
+      color: #666;
+
+      .actions {
+        display: none;
+        cursor: pointer;
+      }
+    }
+
+    .artists {
+      @extend %text-ellipsis;
+    }
+  }
+}
+
+.other-albums {
+  margin-bottom: 25px;
+  line-height: 24px;
+
+  .album-title {
+    @extend %title-underline-h3;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .album-item {
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .album-cover {
+    float: left;
+    width: 50px;
+    height: 50px;
+  }
+
+  .album-meta {
+    float: left;
+    margin-left: 10px;
+
+    p {
+      width: 140px;
+      @extend %text-ellipsis;
+    }
+
+    .album-name {
+      color: #000;
+      font-size: 14px;
+    }
+
+    .album-time {
+      color: #666;
+    }
+  }
+}
+
+
+
+

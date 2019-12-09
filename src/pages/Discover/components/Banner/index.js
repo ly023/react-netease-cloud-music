@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import Swiper from 'swiper'
 import {requestDiscoverBanners} from 'services/banners'
@@ -7,19 +7,19 @@ import {getBlur} from 'utils'
 import 'swiper/dist/css/swiper.css'
 import './index.scss'
 
-let isMounted = false
 let swiper
 let containerRef = React.createRef()
 
 function Banner() {
     const [banners, setBanners] = useState([])
     const [activeUrl, setActiveUrl] = useState('')
+    const isMounted = useRef()
 
     useEffect(() => {
         const fetchBanners = async () => {
             const res = await requestDiscoverBanners()
             const banners = res.banners || []
-            if (isMounted) {
+            if (isMounted.current) {
                 setBanners(banners)
                 setActiveUrl(banners.length ? banners[0].imageUrl : '')
             }
@@ -31,11 +31,11 @@ function Banner() {
             }
         }
 
-        isMounted = true
+        isMounted.current = true
         fetchBanners()
 
         return () => {
-            isMounted = false
+            isMounted.current = false
             destroySwiper()
         }
     }, [])

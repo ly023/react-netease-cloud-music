@@ -1,7 +1,7 @@
 /**
  *  榜单
  */
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import Add from 'components/Add'
 import Play from 'components/Play'
@@ -10,10 +10,9 @@ import {requestRankList} from 'services/toplist'
 
 import './index.scss'
 
-let isMounted = false
-
 function Rank() {
     const [rankList, setRankList] = useState([])
+    const isMounted = useRef()
 
     useEffect(() => {
         const fetchRankList = async () => {
@@ -22,17 +21,17 @@ function Rank() {
                 const {playlist: newRank} = await requestRankList({idx: 0})
                 const {playlist: hotRank} = await requestRankList({idx: 2})
 
-                if(isMounted) {
+                if(isMounted.current) {
                     setRankList([soaringRank, newRank, hotRank])
                 }
             } catch (e) {}
         }
 
-        isMounted = true
+        isMounted.current = true
         fetchRankList()
 
         return () => {
-            isMounted = false
+            isMounted.current = false
         }
     }, [])
 

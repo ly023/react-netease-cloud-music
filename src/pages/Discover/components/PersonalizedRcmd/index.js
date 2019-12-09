@@ -1,7 +1,7 @@
 /**
  * 个性化推荐
  */
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {PLAY_TYPE} from 'constants/play'
@@ -13,27 +13,26 @@ import './index.scss'
 
 const Weekday = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
 
-let isMounted = false
-
 function PersonalizedRcmd() {
     const isLogin = useSelector(({user}) => user.isLogin)
     const [playlist, setPlaylist] = useState([])
+    const isMounted = useRef()
 
     useEffect(() => {
         const fetchRcmdPlaylist = async () => {
             const res = await requestRcmdPlaylist()
-            if(isMounted) {
+            if(isMounted.current) {
                 setPlaylist(res.recommend.splice(0, 3))
             }
         }
 
-        isMounted = true
+        isMounted.current = true
         if(isLogin) {
             fetchRcmdPlaylist()
         }
 
         return () => {
-            isMounted = false
+            isMounted.current = false
         }
     }, [isLogin])
 

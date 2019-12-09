@@ -8,3 +8,7 @@ import API from 'api/artist'
 export async function requestArtist(params) {
     return request(`${API.list.url}${params ? `?${stringify(params)}` : ''}`)
 }
+
+export async function requestAlbum(params) {
+    return request(`${API.album.url}${params ? `?${stringify(params)}` : ''}`)
+}

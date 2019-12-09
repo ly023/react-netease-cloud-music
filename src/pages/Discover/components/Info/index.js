@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import {DEFAULT_AVATAR} from 'constants'
 import emitter from 'utils/eventEmitter'
@@ -7,13 +7,12 @@ import {requestDetail, requestDailySignIn} from 'services/user'
 
 import './index.scss'
 
-let isMounted = false
-
 function Info() {
     const {isLogin, userInfo: {userId}} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin, userInfo: user.userInfo}))
     const [detail, setDetail] = useState(null)
     const [dailySignInLoading, setDailySignInLoading] = useState(false)
     const [signInSuccess, setSignInSuccess] = useState(false)
+    const isMounted = useRef()
 
     const handleCheckIn = () => {
         if (dailySignInLoading) {
@@ -28,7 +27,7 @@ function Info() {
 
         requestDailySignIn(body)
             .then((res) => {
-                if (isMounted) {
+                if (isMounted.current) {
                     setDetail({
                         ...detail,
                         pcSign: true,
@@ -42,7 +41,7 @@ function Info() {
                 console.log(err, err.msg)
             })
             .finally(() => {
-                if (isMounted) {
+                if (isMounted.current) {
 
                     setTimeout(()=>{
                         setDailySignInLoading(false)
@@ -59,18 +58,18 @@ function Info() {
     useEffect(() => {
         const fetchDetail = async () => {
             const res = await requestDetail({uid: userId})
-            if (isMounted) {
+            if (isMounted.current) {
                 setDetail(res)
             }
         }
 
-        isMounted = true
+        isMounted.current = true
         if(userId) {
             fetchDetail()
         }
 
         return () => {
-            isMounted = false
+            isMounted.current = false
         }
     }, [userId])
 

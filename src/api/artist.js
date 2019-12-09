@@ -7,5 +7,9 @@ export default {
     list: {
         url: `${config.apiHost}/api/artist/list`,
         type: 'GET'
+    },
+    album: {
+        url: `${config.apiHost}/api/artist/album`,
+        type: 'GET'
     }
 }

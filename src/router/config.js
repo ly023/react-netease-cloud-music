@@ -43,7 +43,7 @@ export default [
     },
     {
         path: '/song/:id',
-        name: '歌曲',
+        name: '歌曲详情',
         component: Loadable({
             loader: () => importViews('Song'),
             loading: Loading,
@@ -51,9 +51,17 @@ export default [
     },
     {
         path: '/playlist/:id',
-        name: '歌单',
+        name: '歌单详情',
         component: Loadable({
-            loader: () => importViews('Playlist'),
+            loader: () => importViews('PlaylistDetail'),
+            loading: Loading
+        })
+    },
+    {
+        path: '/album/:id',
+        name: '专辑详情',
+        component: Loadable({
+            loader: () => importViews('AlbumDetail'),
             loading: Loading
         })
     },
