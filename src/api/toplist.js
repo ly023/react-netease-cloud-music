@@ -5,4 +5,8 @@ export default {
         url: `${config.apiHost}/api/top/list`,
         type: 'GET'
     },
+    all: {
+        url: `${config.apiHost}/api/toplist`,
+        type: 'GET'
+    }
 }

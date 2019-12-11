@@ -293,7 +293,7 @@ export function getUrlParameter(name) {
  * @param replaceWith
  * @returns {void | string}
  */
-export function replaceUrlParamVal(url, name, replaceWith) {
+export function replaceUrlParamVal(name, replaceWith, url) {
     if (!url) {
         url = window.location.href
     }

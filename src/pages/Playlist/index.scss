@@ -1,0 +1,166 @@
+
+.wrapper {
+  padding: 40px;
+}
+
+.title {
+  height: 40px;
+  border-bottom: 2px solid $light-primary-color;
+
+  h3 {
+    float: left;
+    font-size: 24px;
+    font-weight: normal;
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+  }
+
+  .category-btn-wrapper {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .category-btn,
+  .hot-btn {
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .category-btn {
+    width: 90px;
+    height: 30px;
+    margin: 0 0 0 12px;
+    vertical-align: middle;
+    color: #0c73c2;
+    border: 1px solid #D1D1D1;
+    background-color: #F5F5F5;
+
+    i {
+      display: inline-block;
+      width: 8px;
+      height: 5px;
+      margin-left: 5px;
+      vertical-align: middle;
+      @extend %background-icon;
+      background-position: -70px -543px;
+    }
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  .hot-btn {
+    display: inline-block;
+    float: right;
+    width: 46px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background-color: $light-primary-color;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+  }
+}
+
+.list {
+  margin: 30px 0 0px -50px;
+
+  .item {
+    float: left;
+    display: inline-block;
+    width: 140px;
+    height: 188px;
+    overflow: hidden;
+    padding: 0 0 30px 50px;
+    line-height: 1.4;
+
+    .cover-wrapper {
+      position: relative;
+
+      .cover {
+        position: relative;
+        display: inline-block;
+        width: 140px;
+        height: 140px;
+
+        img {
+          vertical-align: top;
+        }
+
+        &::after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          @extend %background-cover;
+          background-position: 0 0;
+          content: '';
+        }
+      }
+    }
+
+    .bottom {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 27px;
+      background-position: 0 -537px;
+      @extend %background-cover;
+      color: #ccc;
+
+      .icon-headset {
+        width: 14px;
+        height: 11px;
+        margin: 9px 5px 0 10px;
+        @extend %background-icon-all;
+        background-position: 0 -24px;
+      }
+
+      .icon-play {
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+        width: 16px;
+        height: 17px;
+        background-position: 0 0;
+        @extend %background-icon-all;
+        cursor: pointer;
+
+        &:hover {
+          background-position: 0 -60px;
+        }
+      }
+
+      .play-num {
+        margin: 6px 0 0 0;
+      }
+    }
+
+    .name {
+      display: inline-block;
+      width: 100%;
+      @extend %text-ellipsis;
+      margin: 8px 0 3px;
+      color: #000;
+      font-size: 14px;
+    }
+
+    .creator {
+      color: #999;
+
+      .nickname {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 76%;
+        @extend %text-ellipsis;
+        color: #666;
+      }
+    }
+  }
+}
+
+.pagination {
+  margin: 20px 0;
+}

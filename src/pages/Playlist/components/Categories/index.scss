@@ -1,0 +1,138 @@
+
+.wrapper {
+  position: relative;
+  font-size: 12px;
+}
+
+.arrow {
+  &,
+  &::after {
+    position: absolute;
+    z-index: 99;
+    border-style: solid;
+    content: '';
+  }
+
+  top: 25px;
+  left: 44px;
+  border-width: 12px 11px;
+  border-color: transparent transparent #ccc transparent;
+
+  &::after {
+    top: -11px;
+    left: -11px;
+    border-width: 12px 11px;
+    border-color: transparent transparent #fff transparent;
+  }
+}
+
+.category-panel {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  z-index: 10;
+  width: 720px;
+  padding: 20px 0 0;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.32);
+}
+
+.all {
+  height: 37px;
+  padding-left: 26px;
+  border-bottom: 1px solid #e6e6e6;
+
+  a {
+    display: inline-block;
+    width: 75px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    border: 1px solid #D1D1D1;
+    background-color: #F5F5F5;
+    border-radius: 4px;
+  }
+}
+
+.category {
+  .category-name {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    margin: 0 0 0 26px;
+    padding-top: 16px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+
+    > i {
+      display: inline-block;
+      vertical-align: top;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      @extend %background-icon;
+    }
+
+    > span {
+      display: inline-block;
+      vertical-align: top;
+      line-height: 24px;
+    }
+
+    &.category-0 > i {
+      width: 23px;
+      height: 23px;
+      background-position: -20px -735px;
+    }
+
+    &.category-1 > i {
+      background-position: 0 -60px;
+    }
+
+    &.category-2 > i {
+      background-position: 0 -88px;
+    }
+
+    &.category-3 > i {
+      background-position: 0 -117px;
+    }
+
+    &.category-4 > i {
+      background-position: 0 -141px;
+    }
+  }
+}
+
+.sub-categories {
+  display: inline-block;
+  padding: 16px 15px 0 15px;
+  vertical-align: top;
+  width: 620px;
+  box-sizing: border-box;
+  line-height: 24px;
+  border-left: 1px solid #e6e6e6;
+
+  &.last {
+    padding-bottom: 30px;
+  }
+
+  .sub {
+    a {
+      white-space: nowrap;
+    }
+
+    &.active a {
+      padding: 2px 6px;
+      color: #fff;
+      background-color: #a7a7a7;
+    }
+  }
+
+  .line {
+    margin: 0 8px 0 10px;
+    color: #d8d8d8;
+  }
+}
+

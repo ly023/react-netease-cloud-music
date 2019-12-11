@@ -26,6 +26,15 @@ export default [
         }),
     },
     {
+        path: '/discover/playlist',
+        name: '发现-歌单',
+        exact: true,
+        component: Loadable({
+            loader: () => importViews('Playlist'),
+            loading: Loading,
+        }),
+    },
+    {
         path: '/friend',
         name: '朋友',
         component: Loadable({

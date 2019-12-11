@@ -2,9 +2,19 @@ import {stringify} from 'qs'
 import request from 'utils/request'
 import API from 'api/playlist'
 
+// 歌单分类
+export async function requestCategory() {
+    return request(API.category.url)
+}
+
 // 热门歌单分类
 export async function requestHotCategory(params) {
     return request(`${API.hotCategory.url}${params ? `?${stringify(params)}` : ''}`)
+}
+
+// 热门歌单分类
+export async function requestTop(params) {
+    return request(`${API.top.url}${params ? `?${stringify(params)}` : ''}`)
 }
 
 // 推荐歌单

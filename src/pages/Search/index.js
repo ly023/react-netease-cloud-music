@@ -11,7 +11,7 @@ import Pagination from 'components/Pagination'
 import {SEARCH_TYPE} from 'constants'
 import {requestSearch, requestMultiMatch} from 'services/search'
 import {getUrlParameter} from 'utils'
-import Loading from './components/Loading'
+import ListLoading from '../../components/ListLoading'
 import Empty from './components/Empty'
 import Songs from './components/Songs'
 import Artists from './components/Artists'
@@ -278,7 +278,7 @@ export default class SearchPage extends React.Component {
                                 })
                             }
                         </ul>
-                        <Loading loading={loading}/>
+                        <ListLoading loading={loading}/>
                         {
                             !loading ? (
                                 list.length ? <>

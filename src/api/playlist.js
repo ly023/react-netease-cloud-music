@@ -4,8 +4,16 @@
 import config from 'config'
 
 export default {
+    category: {
+        url: `${config.apiHost}/api/playlist/catlist`,
+        type: 'GET'
+    },
     hotCategory:{
         url: `${config.apiHost}/api/playlist/hot`,
+        type: 'GET'
+    },
+    top: {
+        url: `${config.apiHost}/api/top/playlist`  ,
         type: 'GET'
     },
     personalized: {
