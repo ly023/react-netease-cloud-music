@@ -14,6 +14,7 @@ import RelatedPlaylists from 'components/RelatedPlaylists'
 import ClientDownload from 'components/ClientDownload'
 import {requestDetail, requestLyric, requestSimilar as requestSimilarSongs} from 'services/song'
 import {requestSimilar as requestSimilarPlaylists} from 'services/playlist'
+import {getThumbnail} from 'utils'
 import emitter from 'utils/eventEmitter'
 import {getArtists, getLyric} from 'utils/song'
 
@@ -213,7 +214,7 @@ export default class Song extends React.Component {
                                     <div styleName="cover-wrapper">
                                         <div styleName="cover">
                                             <img
-                                                src={detail?.al?.picUrl}
+                                                src={getThumbnail(detail?.al?.picUrl, 130)}
                                                 alt="封面"
                                             />
                                         </div>

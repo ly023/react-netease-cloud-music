@@ -1,0 +1,70 @@
+.box {
+  position: relative;
+  display: inline-block;
+  width: 153px;
+  height: 178px;
+  overflow: hidden;
+
+  .cover {
+    display: block;
+    position: relative;
+    width: 153px;
+    height: 130px;
+
+    a {
+      display: inline-block;
+    }
+
+    .mask {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      @extend %background-cover;
+      background-position: 0 -845px;
+    }
+
+    img {
+      width: 130px;
+    }
+
+    .play-icon {
+      display: none;
+      position: absolute;
+      right: 32px;
+      bottom: 6px;
+      width: 28px;
+      height: 28px;
+      @extend %background-icon-all;
+      background-position: 0 -140px;
+      cursor: pointer;
+    }
+
+    &:hover {
+      .play-icon {
+        display: inline-block;
+
+        &:hover {
+          background-position: 0 -170px;
+        }
+      }
+    }
+  }
+
+  .title,
+  .name {
+    display: block;
+    @extend %text-ellipsis;
+    font-size: 14px;
+  }
+
+  .title {
+    margin: 8px 0 3px 0;
+    color: #000;
+  }
+
+  .name {
+    color: #666;
+  }
+}

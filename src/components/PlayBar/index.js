@@ -195,6 +195,7 @@ export default class PlayBar extends React.PureComponent {
             playSetting,
             isPlaying: false,
             currentPlayedTime: 0,
+            currentSong: trackQueue[index]
         }))
         this.setState({
             readyPercent: 0,

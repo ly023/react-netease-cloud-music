@@ -35,6 +35,15 @@ export default [
         }),
     },
     {
+        path: '/discover/album',
+        name: '发现-新碟上架',
+        exact: true,
+        component: Loadable({
+            loader: () => importViews('Album'),
+            loading: Loading,
+        }),
+    },
+    {
         path: '/friend',
         name: '朋友',
         component: Loadable({

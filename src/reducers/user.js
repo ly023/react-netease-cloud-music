@@ -20,6 +20,7 @@ const initialState = {
         isPlaying: false,
         isDragProgress: false,
         currentPlayedTime: 0,
+        currentSong: {}, // 当前播放的歌曲
     }, // 音乐播放相关
 
     follows: [],

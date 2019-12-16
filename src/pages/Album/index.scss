@@ -1,0 +1,40 @@
+
+.title {
+  @extend %title;
+
+  h3 {
+    @extend %title-h3;
+  }
+}
+
+.tabs {
+  margin: 7px 0 0 20px;
+
+  .tab {
+    display: inline-block;
+
+    > a {
+      color: #666;
+    }
+
+    > span {
+      margin: 0 10px;
+      color: #ccc;
+    }
+  }
+}
+
+.list {
+  margin: 20px -30px 0 0;
+  overflow: hidden;
+
+  .item {
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+.pagination {
+  margin: 20px 0;
+}

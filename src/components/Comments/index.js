@@ -155,6 +155,7 @@ export default class Comments extends React.Component {
 
     scrollIntoView = (el) => {
         const top = el.offsetTop - 110
+        // const top = el.offsetTop
         window.scrollTo(0, top)
     }
 
@@ -508,7 +509,7 @@ export default class Comments extends React.Component {
 
         return (
             <>
-                <div id={`${this.domIdPrefix}-wrapper`}>
+                <div id={`${this.domIdPrefix}-wrapper`} styleName="wrapper">
                     <div styleName="title">
                         <h3><span>评论</span></h3><span styleName="count">共{total}条评论</span>
                     </div>

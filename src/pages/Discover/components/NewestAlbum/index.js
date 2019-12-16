@@ -7,6 +7,7 @@ import Swiper from 'swiper'
 import {PLAY_TYPE} from 'constants/play'
 import Play from 'components/Play'
 import {requestNewestAlbum} from 'services/album'
+import {getThumbnail} from 'utils'
 
 import 'swiper/dist/css/swiper.css'
 import './index.scss'
@@ -69,20 +70,25 @@ function NewestAlbum() {
                 <div className="swiper-wrapper" styleName="list">
                     {
                         newestAlbum.map((item, index) => {
-                            const albumLink = `/album/${item.id}`
-                            return <div key={index} className="swiper-slide" styleName="item">
-                                <Link to={albumLink} styleName="cover">
-                                    <img
-                                        src={item.picUrl}
-                                        alt={item.name}
-                                    />
-                                    <span styleName="mask"/>
-                                    <Play id={item.id} type={PLAY_TYPE.ALBUM.TYPE}>
-                                        <span styleName="play-icon"/>
-                                    </Play>
-                                </Link>
-                                <Link to={albumLink} styleName="title">{item.name}</Link>
-                                <a styleName="name">{item.artist && item.artist.name}</a>
+                            const {id, name, artist} = item
+                            const albumLink = `/album/${id}`
+                            return <div key={index} className="swiper-slide">
+                                <div styleName="item">
+                                    <div styleName="cover">
+                                        <Link to={albumLink}>
+                                            <img
+                                                src={getThumbnail(item.picUrl, 100)}
+                                                alt={name}
+                                            />
+                                            <span styleName="mask"/>
+                                        </Link>
+                                        <Play id={id} type={PLAY_TYPE.ALBUM.TYPE}>
+                                            <span styleName="play-icon"/>
+                                        </Play>
+                                    </div>
+                                    <Link to={albumLink} styleName="title">{name}</Link>
+                                    <Link to="/" styleName="name">{artist && artist.name}</Link>
+                                </div>
                             </div>
                         })
                     }

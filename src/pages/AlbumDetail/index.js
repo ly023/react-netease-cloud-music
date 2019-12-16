@@ -26,6 +26,7 @@ import './index.scss'
 @withRouter
 @connect(({user}) => ({
     isLogin: user.isLogin,
+    currentSong: user.player.currentSong
 }))
 export default class AlbumDetail extends React.Component {
     constructor(props) {
@@ -109,6 +110,7 @@ export default class AlbumDetail extends React.Component {
     }
 
     render() {
+        const {currentSong} = this.props
         const {detail, albums} = this.state
 
         const title = detail ? `${detail?.name || ''} - 专辑 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
@@ -216,27 +218,25 @@ export default class AlbumDetail extends React.Component {
                                                 {
                                                     detail.songs.map((item, index) => {
                                                         const order = index + 1
-                                                        const {alia: alias} = item
+                                                        const {id, alia: alias} = item
                                                         const privilege = detail.privileges?.[index]
-                                                        return <tr key={item.id}
+                                                        return <tr key={id}
                                                             styleName={`track${privilege?.st === -200 ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                                                             <td styleName="order">
                                                                 <span styleName="number">{order}</span>
-                                                                <Play id={item.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                                    <span styleName="ply"/>
+                                                                <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
+                                                                    {
+                                                                        currentSong.id === id
+                                                                            ? <span styleName="ply ply-active"/>
+                                                                            : <span styleName="ply"/>
+                                                                    }
                                                                 </Play>
                                                             </td>
                                                             <td>
                                                                 <div styleName="name">
-                                                                    <Link to={`/song/${item.id}`}>{item.name}</Link>
-                                                                    {
-                                                                        alias && alias.length
-                                                                            ?
-                                                                            <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span>
-                                                                            : ''
-                                                                    }
-                                                                    {item.mv ? <Link to={`/mv/${item.mv}`}
-                                                                        styleName="mv-icon"/> : null}
+                                                                    <Link to={`/song/${id}`}>{item.name}</Link>
+                                                                    {alias && alias.length ? <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
+                                                                    {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
                                                                 </div>
                                                             </td>
                                                             <td>

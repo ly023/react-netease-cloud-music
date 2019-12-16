@@ -78,7 +78,7 @@
 }
 
 .operation {
-  margin: 0 -10px 0 0;
+  margin: 0 -10px 25px 0;
   overflow: hidden;
   user-select: none;
 
@@ -316,6 +316,10 @@
 
       &.w1 {
         width: 74px;
+
+        &.special {
+          width: 96px;
+        }
       }
 
       &.w2 {
@@ -331,7 +335,7 @@
       }
 
       &.w5 {
-        width: 126px;
+        width: 20%;
       }
 
       .th {
@@ -410,6 +414,16 @@
         margin-left: 5px;
       }
 
+      .new {
+        display: inline-block;
+        vertical-align: middle;
+        width: 16px;
+        height: 17px;
+        margin: 0 8px 0 16px;
+        @extend %background-icon;
+        background-position: -67px -283px;
+      }
+
       .ply {
         float: right;
         display: inline-block;
@@ -421,6 +435,10 @@
 
         &:hover {
           background-position: 0 -128px;
+        }
+
+        &.ply-active {
+          background-position: -20px -128px;
         }
       }
     }

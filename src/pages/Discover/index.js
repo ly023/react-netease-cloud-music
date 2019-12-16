@@ -24,7 +24,7 @@ export default class Discover extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            hotCategory: [],
+            hotCategories: [],
         }
     }
 
@@ -43,14 +43,14 @@ export default class Discover extends React.Component {
             const tags = res.tags || []
             if (tags.length) {
                 this.setState({
-                    hotCategory: tags.slice(0, 5)
+                    hotCategories: tags.slice(0, 5)
                 })
             }
         }
     }
 
     render() {
-        const {hotCategory} = this.state
+        const {hotCategories} = this.state
         const {isLogin} = this.props
 
         return (
@@ -65,15 +65,15 @@ export default class Discover extends React.Component {
                                     <Link className='fl' styleName='title-text' to=''>热门推荐</Link>
                                     <div className='fl' styleName='hot-tab'>
                                         {
-                                            hotCategory.map((item, index) => {
+                                            hotCategories.map((item, index) => {
                                                 return <div key={index} styleName='hot-tab-item'>
                                                     <Link key={item.id} to={`/discover/playlist?cat=${item.name}`}>{item.name}</Link>
-                                                    {index !== hotCategory.length - 1 ? <span>|</span> : null}
+                                                    {index !== hotCategories.length - 1 ? <span>|</span> : null}
                                                 </div>
                                             })
                                         }
                                     </div>
-                                    <Link styleName='title-more' to=''>更多<i/></Link>
+                                    <Link styleName='title-more' to='/discover/playlist'>更多<i/></Link>
                                 </div>
                                 <HotRcmd/>
                             </section>

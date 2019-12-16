@@ -6,8 +6,9 @@ import {Link, useHistory, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
 import Page from 'components/Page'
 import ListLoading from 'components/ListLoading'
+import Empty from 'components/Empty'
 import Pagination from 'components/Pagination'
-import Play from "components/Play";
+import Play from 'components/Play'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {PLAY_TYPE} from 'constants/play'
 import {requestTop} from 'services/playlist'
@@ -22,74 +23,81 @@ function Playlist() {
     const isMounted = useRef()
     const history = useHistory()
     const {pathname, search} = useLocation()
-    const [params, setParams] = useState({
-        cat: getUrlParameter('cat') || undefined,
-        order: getUrlParameter('order') || undefined,
-        limit: getUrlParameter('limit') || DEFAULT_LIMIT,
-        offset: getUrlParameter('offset') || 0
-    })
     const [current, setCurrent] = useState(0)
     const [total, setTotal] = useState(0)
     const [catText, setCatText] = useState(getUrlParameter('cat') || '')
     const [playlists, setPlaylists] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const fetchPlaylists = useCallback(async () => {
-        setLoading(true)
-
-        const limit = getUrlParameter('limit') || DEFAULT_LIMIT
-        const offset = getUrlParameter('offset') || 0
-        const query = {
-            cat: getUrlParameter('cat') || undefined,
-            order: getUrlParameter('order') || undefined,
-            limit,
-            offset,
+    const getPage = () => {
+        const page = getUrlParameter('page')
+        if (/^\+?[1-9][0-9]*$/.test(page)) {
+            return Number(page)
         }
-        setParams(query)
-        try {
-            const res = await requestTop(query)
-            if (isMounted.current && res) {
-                const {playlists = [], total = 0, cat} = res
-                setPlaylists(playlists)
-                setTotal(total)
-                setCurrent(offset / limit + 1)
-                setCatText(cat)
-            }
-        } catch (e) {
+        return 1
+    }
 
-        } finally {
-            setLoading(false)
-        }
-    }, [])
+    const [params, setParams] = useState({
+        cat: getUrlParameter('cat') || undefined,
+        order: getUrlParameter('order') || undefined,
+        limit: DEFAULT_LIMIT,
+        offset: (getPage() - 1) * DEFAULT_LIMIT
+    })
 
     useEffect(() => {
         isMounted.current = true
 
-        fetchPlaylists()
-
         return () => {
             isMounted.current = false
         }
-    }, [fetchPlaylists])
+    }, [])
 
     useEffect(() => {
+        const fetchPlaylists = async () => {
+            setLoading(true)
+
+            const page = getPage()
+            const offset = (page - 1) * DEFAULT_LIMIT
+            const query = {
+                cat: getUrlParameter('cat') || undefined,
+                order: getUrlParameter('order') || undefined,
+                limit: DEFAULT_LIMIT,
+                offset,
+            }
+            try {
+                const res = await requestTop(query)
+                if (isMounted.current && res) {
+                    const {playlists = [], total = 0, cat} = res
+                    setParams(query)
+                    setPlaylists(playlists)
+                    setTotal(total)
+                    setCurrent(page)
+                    setCatText(cat)
+                }
+            } catch (e) {
+
+            } finally {
+                setLoading(false)
+            }
+        }
         fetchPlaylists()
-    }, [fetchPlaylists, search])
+    }, [search])
 
     const handlePageChange = useCallback((page) => {
         setCurrent(page)
         const url = `${pathname}?${stringify({
-            ...params,
-            offset: params.limit * (page - 1)
+            cat: getUrlParameter('cat') || undefined,
+            order: getUrlParameter('order') || undefined,
+            page
         })}`
         history.push(url)
-    }, [params, history, pathname])
+    }, [history, pathname])
 
-    const title = useMemo(() => {
+    const documentTitle = useMemo(() => {
         return `${catText}歌单 - 歌单 - ${DEFAULT_DOCUMENT_TITLE}`
     }, [catText])
 
-    return <Page title={title}>
+    return <Page title={documentTitle}>
         <div className="main">
             <div styleName="wrapper">
                 <div styleName="title">
@@ -127,11 +135,7 @@ function Playlist() {
                                             </div>
                                             <Link to={detailLink} styleName="name" title={name}>{name}</Link>
                                             <div styleName="creator">
-                                                by <Link
-                                                    to={`/user/home/${creator.userId}`}
-                                                    styleName="nickname"
-                                                    title={creator.nickname}
-                                                >
+                                                by <Link to={`/user/home/${creator.userId}`} styleName="nickname" title={creator.nickname}>
                                                     {creator.nickname}
                                                 </Link>
                                             </div>
@@ -146,7 +150,7 @@ function Playlist() {
                                     onChange={handlePageChange}
                                 />
                             </div>
-                        </> : null
+                        </> : <Empty/>
                     ) : ''
                 }
             </div>

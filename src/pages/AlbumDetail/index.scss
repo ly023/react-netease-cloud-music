@@ -377,6 +377,10 @@
         &:hover {
           background-position: 0 -128px;
         }
+
+        &.ply-active {
+          background-position: -20px -128px;
+        }
       }
     }
 

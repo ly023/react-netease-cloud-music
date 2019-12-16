@@ -17,11 +17,15 @@
 import {useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
 
+const EXCLUDE = ['/discover/album']
+
 export default function ScrollToTop({children}) {
     const {pathname, search} = useLocation()
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        if (!EXCLUDE.includes(pathname)) {
+            window.scrollTo(0, 0)
+        }
     }, [pathname, search])
 
     return children || null

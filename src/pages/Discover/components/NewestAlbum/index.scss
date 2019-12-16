@@ -22,9 +22,8 @@
   .item {
     position: relative;
     display: inline-block;
-    width: 118px!important;
+    width: 118px;
     height: 150px;
-    font-size: 0;
 
     .cover {
       display: block;
@@ -32,6 +31,10 @@
       width: 118px;
       height: 100px;
       margin-bottom: 7px;
+
+      a {
+        display: inline-block;
+      }
 
       .mask {
         position: absolute;

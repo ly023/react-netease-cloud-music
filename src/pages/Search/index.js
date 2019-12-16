@@ -7,12 +7,12 @@ import qs from 'qs'
 import {Link} from 'react-router-dom'
 import Page from 'components/Page'
 import Search from 'components/Search'
+import ListLoading from 'components/ListLoading'
+import Empty from 'components/Empty'
 import Pagination from 'components/Pagination'
 import {SEARCH_TYPE} from 'constants'
 import {requestSearch, requestMultiMatch} from 'services/search'
 import {getUrlParameter} from 'utils'
-import ListLoading from '../../components/ListLoading'
-import Empty from './components/Empty'
 import Songs from './components/Songs'
 import Artists from './components/Artists'
 import Albums from './components/Albums'
@@ -288,7 +288,7 @@ export default class SearchPage extends React.Component {
                                         total={Math.ceil(total / limit)}
                                         onChange={this.handlePageChange}
                                     />
-                                </> : <Empty/>
+                                </> : <Empty tip="很抱歉，未能找到相关搜索结果！"/>
                             ) : ''
                         }
                     </div>

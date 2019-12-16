@@ -27,6 +27,7 @@ import './index.scss'
 @withRouter
 @connect(({user}) => ({
     isLogin: user.isLogin,
+    currentSong: user.player.currentSong
 }))
 export default class PlaylistDetail extends React.Component {
     constructor(props) {
@@ -106,6 +107,7 @@ export default class PlaylistDetail extends React.Component {
     }
 
     render() {
+        const {currentSong} = this.props
         const {detail, related} = this.state
 
         const title = detail ? `${detail?.name || ''} - 歌单 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
@@ -178,7 +180,7 @@ export default class PlaylistDetail extends React.Component {
                                                 }
                                                 {
                                                     detail.description ? <div styleName="description">
-                                                        <Collapse content={`描述：${detail.description}`}/>
+                                                        <Collapse content={`介绍：${detail.description}`}/>
                                                     </div> : null
                                                 }
                                             </div>
@@ -189,8 +191,7 @@ export default class PlaylistDetail extends React.Component {
                                             <h3>歌曲列表</h3>
                                             <span styleName="other">
                                                 <span styleName="total">{detail.tracks.length}首歌</span>
-                                                <span styleName="more">播放：<strong
-                                                    styleName="play-count">{detail.playCount}</strong>次</span>
+                                                <span styleName="more">播放：<strong styleName="play-count">{detail.playCount}</strong>次</span>
                                                 <span styleName="out-chain"><i/><Link to="/">生成外链播放器</Link></span>
                                             </span>
                                         </div>
@@ -208,25 +209,25 @@ export default class PlaylistDetail extends React.Component {
                                                 {
                                                     detail.tracks.map((item, index) => {
                                                         const order = index + 1
-                                                        const {alia: alias} = item
+                                                        const {id, alia: alias} = item
                                                         const privilege = detail.privileges?.[index]
-                                                        return <tr key={item.id}
+                                                        return <tr key={id}
                                                             styleName={`track${privilege?.st === -200 ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                                                             <td styleName="order">
                                                                 <span styleName="number">{order}</span>
-                                                                <Play id={item.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                                    <span styleName="ply"/>
+                                                                {/*{item.publishTime ? <i styleName="new"/> : null}*/}
+                                                                <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
+                                                                    {
+                                                                        currentSong.id === id
+                                                                            ? <span styleName="ply ply-active"/>
+                                                                            : <span styleName="ply"/>
+                                                                    }
                                                                 </Play>
                                                             </td>
                                                             <td>
                                                                 <div styleName="name">
-                                                                    <Link to={`/song/${item.id}`}>{item.name}</Link>
-                                                                    {
-                                                                        alias && alias.length
-                                                                            ?
-                                                                            <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span>
-                                                                            : ''
-                                                                    }
+                                                                    <Link to={`/song/${id}`}>{item.name}</Link>
+                                                                    {alias && alias.length ? <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
                                                                     {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
                                                                 </div>
                                                             </td>
@@ -234,7 +235,7 @@ export default class PlaylistDetail extends React.Component {
                                                                 <div styleName="duration">
                                                                     <span styleName="time">{formatDuration(item.dt)}</span>
                                                                     <div styleName="actions">
-                                                                        <SongActions id={item.id}/>
+                                                                        <SongActions id={id}/>
                                                                     </div>
                                                                 </div>
                                                             </td>
