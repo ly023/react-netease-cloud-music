@@ -44,6 +44,18 @@ export default [
         }),
     },
     {
+        path: '/discover/recommend/daily',
+        name: '发现-每日歌曲推荐',
+        exact: true,
+        meta: {
+            requiresAuth: true
+        },
+        component: Loadable({
+            loader: () => importViews('DailyRecommendation'),
+            loading: Loading,
+        }),
+    },
+    {
         path: '/friend',
         name: '朋友',
         component: Loadable({
@@ -102,13 +114,13 @@ export default [
     {
         path: '/user/update/:id',
         name: '修改',
+        meta: {
+            requiresAuth: true
+        },
         component: Loadable({
             loader: () => importViews('UserUpdate'),
             loading: Loading
-        }),
-        meta: {
-            requiresAuth: true
-        }
+        })
     },
     {
         path: '*',

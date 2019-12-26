@@ -36,3 +36,11 @@ export async function requestSimilar(params) {
 export async function requestRelated(params) {
     return request(`${API.related.url}?${stringify(params)}`)
 }
+
+// 收藏/取消收藏歌单
+export async function requestSubscribe(payload) {
+    return request(API.subscribe.url, {
+        method: API.subscribe.type,
+        body: payload.body
+    })
+}

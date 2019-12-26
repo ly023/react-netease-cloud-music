@@ -56,3 +56,8 @@ export const SEARCH_TYPE = {
         UNIT: '个'
     }
 }
+
+export const SUBSCRIPTION_TYPE = {
+    OK: 1,
+    CANCEL: 2
+}

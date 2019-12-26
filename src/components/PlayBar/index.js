@@ -56,7 +56,8 @@ export default class PlayBar extends React.PureComponent {
             volumeLength: 0,
             volumeDotStyle: {},
 
-            addedTipVisible: false
+            playedTipVisible: false,
+            addedTipVisible: false,
         }
 
         this.progressRef = React.createRef()
@@ -166,10 +167,22 @@ export default class PlayBar extends React.PureComponent {
             this.autoPlay = true
         }
         this.play(trackQueue, index, hasChangeTrackQueue)
+
+        // 播放提示
+        if(trackQueue.length) {
+            this.setState({playedTipVisible: true, addedTipVisible: false})
+            if (this.tipTimeout) {
+                window.clearTimeout(this.tipTimeout)
+            }
+            this.tipTimeout = setTimeout(() => {
+                this.setState({playedTipVisible: false})
+            }, TIP_TIMEOUT)
+        }
     }
 
     emitterOnAdd = () => {
-        this.setState({addedTipVisible: true})
+        // 添加到播放列表提示
+        this.setState({playedTipVisible: false, addedTipVisible: true})
         if (this.tipTimeout) {
             window.clearTimeout(this.tipTimeout)
         }
@@ -762,6 +775,7 @@ export default class PlayBar extends React.PureComponent {
             volumeVisible,
             volumeLength,
             volumeDotStyle,
+            playedTipVisible,
             addedTipVisible,
         } = this.state
 
@@ -882,7 +896,8 @@ export default class PlayBar extends React.PureComponent {
                             {this.getRenderMode(playSetting.mode)}
                         </div>
                         <div styleName="icon playlist-icon" onClick={this.handleSwitchPlayPanel}>
-                            <div style={{display: addedTipVisible ? 'block' : 'none'}} styleName="added-to-playlist">已添加到播放列表</div>
+                            <div style={{display: playedTipVisible ? 'block' : 'none'}} styleName="operation-tip">已开始播放</div>
+                            <div style={{display: addedTipVisible ? 'block' : 'none'}} styleName="operation-tip">已添加到播放列表</div>
                             {trackQueue.length}
                         </div>
                     </div>

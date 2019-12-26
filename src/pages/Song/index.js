@@ -246,7 +246,7 @@ export default class Song extends React.Component {
                                             </span>
                                         </div>
                                         <div styleName="desc">
-                                        所属专辑：<a href={null} title={detail?.al?.name}>{detail?.al?.name}</a>
+                                        所属专辑：<Link to={`/album/${detail?.al?.id}`} href={null} title={detail?.al?.name}>{detail?.al?.name}</Link>
                                         </div>
                                         <div styleName="operation">
                                             {

@@ -28,8 +28,8 @@ export async function requestDetail(params) {
     return request(`${API.detail.url}?${stringify(params)}`)
 }
 
-export async function subContent(params) {
-    return request(`${API.subContent.url}?${stringify(params)}`)
+export async function requestSubContent() {
+    return request(API.subContent.url)
 }
 
 export async function requestDailySignIn(body) {

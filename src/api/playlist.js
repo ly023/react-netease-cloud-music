@@ -31,5 +31,9 @@ export default {
     related :{
         url: `${config.apiHost}/api/related/playlist`,
         type: 'GET'
+    },
+    subscribe: {
+        url: `${config.apiHost}/api/playlist/subscribe`,
+        type: 'POST'
     }
 }

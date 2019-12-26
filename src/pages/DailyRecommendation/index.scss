@@ -1,0 +1,209 @@
+%background-date {
+  background: url(~assets/images/date.png) no-repeat 0 9999px;
+}
+
+.header {
+  position: relative;
+  width: 638px;
+  height: 180px;
+  background: url(~assets/images/recmd-daily.jpg) no-repeat;
+}
+
+.date-icon {
+  position: relative;
+  float: left;
+  margin: 34px 0 0 54px;
+  width: 114px;
+  height: 114px;
+  @extend %background-date;
+  background-position: 0 -270px;
+}
+
+.day {
+  height: 26px;
+  line-height: 26px;
+  font-size: 12px;
+  color: #fed9d9;
+  text-shadow: 0 -1px #962626;
+  text-align: center;
+}
+
+.date {
+  text-align: center;
+  color: #202020;
+  font-size: 74px;
+  line-height: 80px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+.date-mask {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  width: 142px;
+  height: 107px;
+  @extend %background-date;
+  background-position: 0 -400px;
+}
+
+.actions {
+  margin: 30px 0 16px;
+  overflow: hidden;
+
+  .btn-play {
+    float: left;
+    @extend %background-button2;
+    background-position: right -428px;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      background-position: right -510px;
+
+      i {
+        background-position: 0 -469px;
+      }
+
+      em {
+        background-position: -28px -1622px
+      }
+    }
+
+    i {
+      @extend %button-i;
+      padding: 0 7px 0 8px;
+      color: #fff;
+      background-position: 0 -387px;
+
+      em {
+        float: left;
+        width: 20px;
+        height: 18px;
+        margin: 6px 2px 2px 0;
+        @extend %background-button2;
+        background-position: 0 -1622px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .btn-add-play {
+    @extend %u-button;
+    margin: 0 8px 0 -3px;
+    padding: 0 8px 0 0;
+    background-position: 0 -1588px;
+
+    &:hover {
+      background-position: -40px -1588px;
+    }
+  }
+
+  .btn-subscribe {
+    @extend %u-button;
+    margin-right: 6px;
+    padding: 0 5px 0 0;
+    background-position: right -1020px;
+
+    &:hover {
+      background-position: right -1106px;
+
+      i {
+        background-position: 0 -1063px;
+      }
+    }
+
+    i {
+      @extend %u-button-i;
+      background-position: 0 -977px;
+      padding: 0 2px 0 28px;
+    }
+  }
+}
+
+.table-title {
+  border-bottom: 2px solid $light-primary-color;
+
+  h3 {
+    display: inline-block;
+    height: 35px;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+  }
+
+  .other {
+    color: #666;
+    font-size: 12px;
+
+    .total {
+      margin: 9px 0 0 20px;
+    }
+  }
+}
+
+.rcmd-des {
+  margin-bottom: 30px;
+
+  .rcmd-title {
+    padding: 5px 0 8px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    font-weight: 500;
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+
+    .question-icon {
+      float: left;
+      margin-right: 6px;
+      width: 22px;
+      height: 22px;
+      vertical-align: middle;
+      @extend %background-icon2;
+      background-position: 0 0;
+    }
+  }
+
+  p {
+    margin: 12px 0;
+    line-height: 20px;
+    color: #666;
+  }
+
+  .summary {
+    padding: 17px 0 0 12px;
+    color: #999;
+    background-color: #f7f7f7;
+
+    li {
+      padding-bottom: 20px;
+      width: 188px;
+    }
+
+    .icon {
+      display: inline-block;
+      margin-right: 8px;
+      width: 22px;
+      height: 22px;
+      vertical-align: middle;
+      @extend %background-icon2;
+    }
+
+    .play-icon {
+      background-position: -25px 0;
+    }
+
+    .like-icon {
+      background-position: 0 -25px;
+    }
+
+    .subscribe-icon {
+      background-position: -25px -25px;
+    }
+
+    .count {
+      color: $light-primary-color;
+    }
+  }
+}

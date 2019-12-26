@@ -9,9 +9,7 @@ export default function PrivateRoute({component: Component, ...rest}) {
 
         isLogin = () => {
             const csrfToken = getCsrfToken()
-            if (!csrfToken) {
-                return false
-            }
+            return !!csrfToken
         }
 
         render() {

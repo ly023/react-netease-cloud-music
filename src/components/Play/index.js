@@ -36,7 +36,7 @@ function Play(props) {
      */
     const handlePlay = async (e) => {
         e.stopPropagation()
-        const {type, id} = props
+        const {type, id, songs} = props
         const playSetting = selectedState.playSetting || {}
         const localTrackQueue = selectedState.trackQueue || []
         let trackQueue = []
@@ -74,14 +74,23 @@ function Play(props) {
         } else {
             let newTrackQueue = []
             if (type === PLAY_TYPE.PLAYLIST.TYPE) {
-                const res = await requestPlaylistDetail({id})
-                const tracks = res?.playlist?.tracks || []
-                const privileges = res?.privileges || []
-                for (let i = 0; i < tracks.length; i++) {
-                    const item = tracks[i]
-                    const privilege = privileges[i]
-                    if (hasPrivilege(privilege)) {
-                        newTrackQueue.push(formatTrack(item))
+                if (id && !Number.isNaN(id)) {
+                    const res = await requestPlaylistDetail({id})
+                    const tracks = res?.playlist?.tracks || []
+                    const privileges = res?.privileges || []
+                    for (let i = 0; i < tracks.length; i++) {
+                        const item = tracks[i]
+                        const privilege = privileges[i]
+                        if (hasPrivilege(privilege)) {
+                            newTrackQueue.push(formatTrack(item))
+                        }
+                    }
+                } else if (songs.length) {
+                    for (let i = 0; i < songs.length; i++) {
+                        const item = songs[i]
+                        if (hasPrivilege(item.privilege)) {
+                            newTrackQueue.push(formatTrack(item))
+                        }
                     }
                 }
             } else if (type === PLAY_TYPE.ALBUM.TYPE) {
@@ -132,11 +141,13 @@ function Play(props) {
 
 Play.propTypes = {
     type: PropTypes.oneOf([PLAY_TYPE.SINGLE.TYPE, PLAY_TYPE.PLAYLIST.TYPE, PLAY_TYPE.ALBUM.TYPE]).isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
+    songs: PropTypes.array,
 }
 
 Play.defaultProps = {
     type: PLAY_TYPE.SINGLE.TYPE,
+    songs: [],
 }
 
-export default Play
+export default React.memo(Play)

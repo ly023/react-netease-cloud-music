@@ -11,7 +11,7 @@ import {formatNumber} from 'utils'
 
 import './index.scss'
 
-const Weekday = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+const WEEKDAY = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
 
 function PersonalizedRcmd() {
     const isLogin = useSelector(({user}) => user.isLogin)
@@ -43,7 +43,7 @@ function PersonalizedRcmd() {
     return <ul styleName="list">
         <li styleName="item">
             <Link to="discover/recommend/daily" styleName="item-date" title="每日歌曲推荐">
-                <p styleName="day">{Weekday[new Date().getDay() - 1]}</p>
+                <p styleName="day">{WEEKDAY[new Date().getDay() - 1]}</p>
                 <p styleName="date">{new Date().getDate()}</p>
                 <div styleName="date-mask"/>
             </Link>

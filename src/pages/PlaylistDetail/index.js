@@ -13,21 +13,19 @@ import {PLAY_TYPE} from 'constants/play'
 import Add from 'components/Add'
 import Play from 'components/Play'
 import {requestDetail, requestRelated} from 'services/playlist'
-import {formatDuration, formatNumber, getThumbnail} from 'utils'
+import {formatNumber, getThumbnail} from 'utils'
 import emitter from 'utils/eventEmitter'
 import Collapse from 'components/Collapse'
+import SongTable from 'components/SongTable'
 import SubscribedUsers from 'components/SubscribedUsers'
 import RelatedPlaylists from 'components/RelatedPlaylists'
 import ClientDownload from 'components/ClientDownload'
-import SongActions from 'components/SongActions'
-import {getArtists} from 'utils/song'
 
 import './index.scss'
 
 @withRouter
 @connect(({user}) => ({
     isLogin: user.isLogin,
-    currentSong: user.player.currentSong
 }))
 export default class PlaylistDetail extends React.Component {
     constructor(props) {
@@ -66,15 +64,34 @@ export default class PlaylistDetail extends React.Component {
         }
     }
 
+    parseTracks = (tracks = [], privileges = []) => {
+        const newTracks = []
+        const len = tracks.length
+        for (let i = 0; i < len; i++) {
+            const item = tracks[i]
+            newTracks.push({
+                ...item,
+                al: {},
+                ar: [],
+                album: item.al,
+                artists: item.ar,
+                duration: item.dt,
+                privilege: privileges[i] || {}
+            })
+        }
+        return newTracks
+    }
+
     fetchDetail = async (id) => {
         const res = await requestDetail({id})
         if (this._isMounted) {
-            this.setState({
-                detail: {
-                    ...res?.playlist,
-                    privileges: res?.privileges
-                }
-            })
+            const playlist = res?.playlist || {}
+            const detail = {
+                ...playlist,
+                tracks: [],
+                songs: this.parseTracks(playlist.tracks, res?.privileges),
+            }
+            this.setState({detail})
         }
     }
 
@@ -106,8 +123,11 @@ export default class PlaylistDetail extends React.Component {
         }
     }
 
+    handleSubscribeSuccess = () => {
+
+    }
+
     render() {
-        const {currentSong} = this.props
         const {detail, related} = this.state
 
         const title = detail ? `${detail?.name || ''} - 歌单 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
@@ -170,9 +190,7 @@ export default class PlaylistDetail extends React.Component {
                                                         <div styleName="tags">
                                                             <b>标签：</b>
                                                             {detail.tags.map((tag) => {
-
-
-                                                                return <Link to="/" key={tag}
+                                                                return <Link to={`/discover/playlist?cat=${tag}&order=hot`} key={tag}
                                                                     styleName="tag">{tag}</Link>
                                                             })}
                                                         </div>
@@ -190,75 +208,12 @@ export default class PlaylistDetail extends React.Component {
                                         <div styleName="table-title">
                                             <h3>歌曲列表</h3>
                                             <span styleName="other">
-                                                <span styleName="total">{detail.tracks.length}首歌</span>
+                                                <span styleName="total">{detail.songs.length}首歌</span>
                                                 <span styleName="more">播放：<strong styleName="play-count">{detail.playCount}</strong>次</span>
                                                 <span styleName="out-chain"><i/><Link to="/">生成外链播放器</Link></span>
                                             </span>
                                         </div>
-                                        <table styleName="table">
-                                            <thead>
-                                                <tr>
-                                                    <th styleName="w1"><div styleName="th first"/></th>
-                                                    <th styleName="w2"><div styleName="th">歌曲标题</div></th>
-                                                    <th styleName="w3"><div styleName="th">时长</div></th>
-                                                    <th styleName="w4"><div styleName="th">歌手</div></th>
-                                                    <th styleName="w5"><div styleName="th">专辑</div></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    detail.tracks.map((item, index) => {
-                                                        const order = index + 1
-                                                        const {id, alia: alias} = item
-                                                        const privilege = detail.privileges?.[index]
-                                                        return <tr key={id}
-                                                            styleName={`track${privilege?.st === -200 ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
-                                                            <td styleName="order">
-                                                                <span styleName="number">{order}</span>
-                                                                {/*{item.publishTime ? <i styleName="new"/> : null}*/}
-                                                                <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                                    {
-                                                                        currentSong.id === id
-                                                                            ? <span styleName="ply ply-active"/>
-                                                                            : <span styleName="ply"/>
-                                                                    }
-                                                                </Play>
-                                                            </td>
-                                                            <td>
-                                                                <div styleName="name">
-                                                                    <Link to={`/song/${id}`}>{item.name}</Link>
-                                                                    {alias && alias.length ? <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
-                                                                    {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div styleName="duration">
-                                                                    <span styleName="time">{formatDuration(item.dt)}</span>
-                                                                    <div styleName="actions">
-                                                                        <SongActions id={id}/>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td styleName="artists">
-                                                                {
-                                                                    Array.isArray(item.ar) && item.ar.map((artist, i) => {
-                                                                        return <span key={artist.id}
-                                                                            title={getArtists(item.ar)}>
-                                                                            <Link to={`/artist/${artist.id}`}
-                                                                                onClick={this.closePanel}>{artist.name}</Link>
-                                                                            {i !== item.ar.length - 1 ? '/' : ''}
-                                                                        </span>
-                                                                    })
-                                                                }
-                                                            </td>
-                                                            <td styleName="album">
-                                                                <Link to={`/artist/${item.al?.id}`}>{item.al?.name}</Link>
-                                                            </td>
-                                                        </tr>
-                                                    })
-                                                }
-                                            </tbody>
-                                        </table>
+                                        <SongTable detail={detail}/>
                                     </div>
                                 </> : null
                             }

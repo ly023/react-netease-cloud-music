@@ -28,7 +28,9 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    isDevelopment ? {
+                        loader: 'style-loader',
+                    } : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader'
                 ],
@@ -37,7 +39,9 @@ module.exports = {
                 test: /\.scss$/,
                 exclude: [/node_modules/],
                 use: [
-                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    isDevelopment ? {
+                        loader: 'style-loader',
+                    } : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {

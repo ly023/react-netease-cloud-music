@@ -35,7 +35,7 @@ function Add(props) {
      */
     const handleAdd = async (e) => {
         e.stopPropagation()
-        const {type, id} = props
+        const {type, id, songs} = props
         const playSetting = selectedState.playSetting || {}
         const localTrackQueue = selectedState.trackQueue || []
         let trackQueue = []
@@ -73,14 +73,24 @@ function Add(props) {
         } else {
             let additionalTrackQueue = []
             if (type === PLAY_TYPE.PLAYLIST.TYPE) {
-                const res = await requestPlaylistDetail({id})
-                const tracks = res?.playlist?.tracks || []
-                const privileges = res?.privileges || []
-                for (let i = 0; i < tracks.length; i++) {
-                    const item = tracks[i]
-                    const privilege = privileges[i]
-                    if (hasPrivilege(privilege)) {
-                        additionalTrackQueue.push(formatTrack(item))
+                if (id && !Number.isNaN(id)) {
+                    const res = await requestPlaylistDetail({id})
+                    const tracks = res?.playlist?.tracks || []
+                    const privileges = res?.privileges || []
+                    for (let i = 0; i < tracks.length; i++) {
+                        const item = tracks[i]
+                        const privilege = privileges[i]
+                        if (hasPrivilege(privilege)) {
+                            additionalTrackQueue.push(formatTrack(item))
+                        }
+                    }
+                } else if (songs.length) {
+                    for (let i = 0; i < songs.length; i++) {
+                        const item = songs[i]
+                        const index = localTrackQueue.findIndex(v => v.id === item.id)
+                        if (index === -1 && hasPrivilege(item.privilege)) {
+                            additionalTrackQueue.push(formatTrack(item))
+                        }
                     }
                 }
             } else if (type === PLAY_TYPE.ALBUM.TYPE) {
@@ -104,6 +114,9 @@ function Add(props) {
                 }
             } else {
                 trackQueue = localTrackQueue
+                if (songs.length) {
+                    emitter.emit('add')
+                }
             }
         }
         if (hasChangeTrackQueue) {
@@ -124,11 +137,13 @@ function Add(props) {
 
 Add.propTypes = {
     type: PropTypes.oneOf([PLAY_TYPE.SINGLE.TYPE, PLAY_TYPE.PLAYLIST.TYPE, PLAY_TYPE.ALBUM.TYPE]).isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
+    songs: PropTypes.array,
 }
 
 Add.defaultProps = {
     type: PLAY_TYPE.SINGLE.TYPE,
+    songs: [],
 }
 
-export default Add
+export default React.memo(Add)
