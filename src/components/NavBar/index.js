@@ -90,7 +90,7 @@ export default class NavBar extends React.Component {
                     <NavLink to="/discover/playlist" activeClassName={styles["sub-nav-active"]}><em>歌单<i/></em></NavLink>
                 </li>
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover/3" activeClassName={styles["sub-nav-active"]}><em>主播电台</em></NavLink>
+                    <NavLink to="/discover/radio" activeClassName={styles["sub-nav-active"]}><em>主播电台</em></NavLink>
                 </li>
                 <li styleName="sub-nav-item">
                     <NavLink to="/discover/4" activeClassName={styles["sub-nav-active"]}><em>歌手</em></NavLink>

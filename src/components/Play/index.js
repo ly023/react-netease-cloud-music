@@ -11,6 +11,7 @@ import {setUserPlayer} from 'actions/user'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
 import {requestDetail as requestSongDetail} from 'services/song'
 import {requestDetail as requestAlbumDetail} from 'services/album'
+import {requestDetail as requestRadioDetail} from 'services/radio'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
 
@@ -43,6 +44,7 @@ function Play(props) {
         let index = 0
         let hasChangeTrackQueue = true
         let emitPlay = true
+        // 单曲
         if (type === PLAY_TYPE.SINGLE.TYPE) {
             const trackIndex = localTrackQueue.findIndex((v) => v.id === id)
             if (trackIndex !== -1) {
@@ -71,7 +73,30 @@ function Play(props) {
                     emitPlay = false
                 }
             }
+        // 电台节目
+        } else if(type === PLAY_TYPE.PROGRAM.TYPE) {
+            const trackIndex = localTrackQueue.findIndex((v) => v.id === id)
+            if (trackIndex !== -1) {
+                trackQueue = localTrackQueue
+                index = trackIndex
+            } else {
+                const res = await requestRadioDetail({id})
+                const track = formatTrack(res?.program, true)
+                trackQueue = localTrackQueue.concat([track])
+                index = trackQueue.length - 1
+                // 随机模式重新计算shuffle
+                if (isShuffleMode(playSetting)) {
+                    const {shuffle} = selectedState
+                    const shuffleIndex = shuffle.findIndex((v) => v === index)
+                    let newShuffle = [...shuffle]
+                    if (shuffleIndex === -1) {
+                        newShuffle = _.shuffle(shuffle.concat([index]))
+                    }
+                    dispatch(setUserPlayer({shuffle: newShuffle}))
+                }
+            }
         } else {
+            // 歌单、专辑
             let newTrackQueue = []
             if (type === PLAY_TYPE.PLAYLIST.TYPE) {
                 if (id && !Number.isNaN(id)) {
@@ -139,8 +164,10 @@ function Play(props) {
     )
 }
 
+const types = Object.keys(PLAY_TYPE).map((key)=> PLAY_TYPE[key].TYPE)
+
 Play.propTypes = {
-    type: PropTypes.oneOf([PLAY_TYPE.SINGLE.TYPE, PLAY_TYPE.PLAYLIST.TYPE, PLAY_TYPE.ALBUM.TYPE]).isRequired,
+    type: PropTypes.oneOf(types).isRequired,
     id: PropTypes.number,
     songs: PropTypes.array,
 }

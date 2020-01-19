@@ -64,99 +64,99 @@
 
 .list {
   margin: 30px 0 0px -50px;
+}
 
-  .item {
-    float: left;
-    display: inline-block;
-    width: 140px;
-    height: 188px;
-    overflow: hidden;
-    padding: 0 0 30px 50px;
-    line-height: 1.4;
+.item {
+  float: left;
+  display: inline-block;
+  width: 140px;
+  height: 188px;
+  overflow: hidden;
+  padding: 0 0 30px 50px;
+  line-height: 1.4;
 
-    .cover-wrapper {
+  .cover-wrapper {
+    position: relative;
+
+    .cover {
       position: relative;
-
-      .cover {
-        position: relative;
-        display: inline-block;
-        width: 140px;
-        height: 140px;
-
-        img {
-          vertical-align: top;
-        }
-
-        &::after {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          @extend %background-cover;
-          background-position: 0 0;
-          content: '';
-        }
-      }
-    }
-
-    .bottom {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 27px;
-      background-position: 0 -537px;
-      @extend %background-cover;
-      color: #ccc;
-
-      .icon-headset {
-        width: 14px;
-        height: 11px;
-        margin: 9px 5px 0 10px;
-        @extend %background-icon-all;
-        background-position: 0 -24px;
-      }
-
-      .icon-play {
-        position: absolute;
-        right: 10px;
-        bottom: 5px;
-        width: 16px;
-        height: 17px;
-        background-position: 0 0;
-        @extend %background-icon-all;
-        cursor: pointer;
-
-        &:hover {
-          background-position: 0 -60px;
-        }
-      }
-
-      .play-num {
-        margin: 6px 0 0 0;
-      }
-    }
-
-    .name {
       display: inline-block;
-      width: 100%;
-      @extend %text-ellipsis;
-      margin: 8px 0 3px;
-      color: #000;
-      font-size: 14px;
+      width: 140px;
+      height: 140px;
+
+      img {
+        vertical-align: top;
+      }
+
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @extend %background-cover;
+        background-position: 0 0;
+        content: '';
+      }
+    }
+  }
+
+  .bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 27px;
+    background-position: 0 -537px;
+    @extend %background-cover;
+    color: #ccc;
+
+    .icon-headset {
+      width: 14px;
+      height: 11px;
+      margin: 9px 5px 0 10px;
+      @extend %background-icon-all;
+      background-position: 0 -24px;
     }
 
-    .creator {
-      color: #999;
+    .icon-play {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+      width: 16px;
+      height: 17px;
+      background-position: 0 0;
+      @extend %background-icon-all;
+      cursor: pointer;
 
-      .nickname {
-        display: inline-block;
-        vertical-align: middle;
-        max-width: 76%;
-        @extend %text-ellipsis;
-        color: #666;
+      &:hover {
+        background-position: 0 -60px;
       }
+    }
+
+    .play-num {
+      margin: 6px 0 0 0;
+    }
+  }
+
+  .name {
+    display: inline-block;
+    width: 100%;
+    @extend %text-ellipsis;
+    margin: 8px 0 3px;
+    color: #000;
+    font-size: 14px;
+  }
+
+  .creator {
+    color: #999;
+
+    .nickname {
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 76%;
+      @extend %text-ellipsis;
+      color: #666;
     }
   }
 }

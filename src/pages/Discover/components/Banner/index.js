@@ -22,6 +22,40 @@ function Banner() {
             if (isMounted.current) {
                 setBanners(banners)
                 setActiveUrl(banners.length ? banners[0].imageUrl : '')
+
+                const initSwiper = () => {
+                    const container = containerRef.current
+                    if(container) {
+                        swiper = new Swiper(container, {
+                            autoplay: 3000,
+                            autoplayDisableOnInteraction: false, // 操作swiper之后自动切换不会停止
+                            effect: 'fade',
+                            fadeEffect: {
+                                crossFade: true // 开启淡出
+                            },
+                            loop: true,
+                            prevButton:'.swiper-button-prev',
+                            nextButton:'.swiper-button-next',
+                            // pagination: {
+                            //     el: this.paginationRef,
+                            //     clickable: true,
+                            // },
+                            pagination : '.swiper-pagination',
+                            paginationClickable: true,
+                            observer: true,
+                            observeParents: true,
+                            onSlideChangeStart: ({activeIndex}) => {
+                                const len = banners.length
+                                const realActiveIndex = (activeIndex - 1) % len
+                                const banner = banners[realActiveIndex]
+                                if(banner) {
+                                    setActiveUrl(banner.imageUrl)
+                                }
+                            }
+                        })
+                    }
+                }
+                initSwiper()
             }
         }
 
@@ -39,42 +73,6 @@ function Banner() {
             destroySwiper()
         }
     }, [])
-
-    useEffect(() => {
-        const initSwiper = () => {
-            const container = containerRef.current
-            if(container) {
-                swiper = new Swiper(container, {
-                    autoplay: 3000,
-                    autoplayDisableOnInteraction: false, // 操作swiper之后自动切换不会停止
-                    effect: 'fade',
-                    fadeEffect: {
-                        crossFade: true // 开启淡出
-                    },
-                    loop: true,
-                    prevButton:'.swiper-button-prev',
-                    nextButton:'.swiper-button-next',
-                    // pagination: {
-                    //     el: this.paginationRef,
-                    //     clickable: true,
-                    // },
-                    pagination : '.swiper-pagination',
-                    paginationClickable :true,
-                    observer: true,
-                    observeParents: true,
-                    onSlideChangeStart: ({activeIndex}) => {
-                        const len = banners.length
-                        const realActiveIndex = (activeIndex - 1) % len
-                        const banner = banners[realActiveIndex]
-                        if(banner) {
-                            setActiveUrl(banner.imageUrl)
-                        }
-                    }
-                })
-            }
-        }
-        initSwiper()
-    }, [banners])
 
     return <section
         style={{

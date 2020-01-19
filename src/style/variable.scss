@@ -141,3 +141,23 @@ $light-primary-color: #C20C0C;
   color: #333;
   font-size: 12px;
 }
+
+%tag {
+  position: relative;
+  display: inline-block;
+  margin: 1px 0 0 10px;
+  height: 16px;
+  overflow: hidden;
+  padding: 0 6px;
+  line-height: 16px;
+  vertical-align: middle;
+  color: #999;
+  font-size: 12px;
+  border: 1px solid #999;
+
+  &:hover {
+    border-color: #666;
+    color: #666;
+    text-decoration: none;
+  }
+}

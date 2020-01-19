@@ -10,6 +10,10 @@ export const PLAY_TYPE = {
     ALBUM: {
         TYPE: 'album',
         TEXT: '专辑'
+    },
+    PROGRAM: {
+        TYPE: 'program',
+        TEXT: '电台节目'
     }
 }
 

@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import VerticalScrollbar from 'components/VerticalScrollbar'
+import Download from 'components/Download'
 import {formatDuration} from 'utils'
+import emitter from 'utils/eventEmitter'
 import {getArtists} from 'utils/song'
 import Empty from './components/Empty'
-import {CONTENT_HEIGHT} from '../../../../constants'
+import {CONTENT_HEIGHT} from '../../../constants'
 
 import './index.scss'
-import Download from "components/Download";
 
 const ITEM_HEIGHT = 28
 
@@ -99,6 +100,11 @@ export default class SongList extends React.PureComponent {
         onRemove && onRemove(id)
     }
 
+    handleRedirect = (e) => {
+        e.stopPropagation()
+        emitter.emit('close')
+    }
+
     render() {
         const {height, trackQueue, index} = this.props
         const style = {
@@ -113,7 +119,7 @@ export default class SongList extends React.PureComponent {
                             ? <ul>
                                 {
                                     trackQueue.map((item, idx) => {
-                                        const {artists = []} = item
+                                        const {artists, radio} = item
                                         return <li
                                             key={`${item.id}-${idx}`}
                                             styleName={`item${idx === index ? " active" : ''}`}
@@ -134,16 +140,23 @@ export default class SongList extends React.PureComponent {
                                                 <span styleName="icon share-icon">分享</span>
                                                 <span styleName="icon add-icon">收藏</span>
                                             </div>
-                                            <div styleName="artists" title={getArtists(artists)}>
-                                                {
-                                                    artists.map((artist, i) => {
-                                                        return <span key={`${artist.id}-${i}`}><Link
-                                                            to={`/artist/${artist.id}`}>{artist.name}</Link>{i !== artists.length - 1 ? '/' : ''}</span>
-                                                    })
-                                                }
-                                            </div>
+                                            {
+                                                Array.isArray(artists) ? <div styleName="artists" title={getArtists(artists)} onClick={this.handleRedirect}>
+                                                    {
+                                                        artists.map((artist, i) => {
+                                                            return <span key={`${artist.id}-${i}`}><Link
+                                                                to={`/artist/${artist.id}`}>{artist.name}</Link>{i !== artists.length - 1 ? '/' : ''}</span>
+                                                        })
+                                                    }
+                                                </div> : null
+                                            }
+                                            {
+                                                radio ? <div styleName="artists" title={radio.name} onClick={this.handleRedirect}>
+                                                    <Link to={`/radio/${radio.id}`}>{radio.name}</Link>
+                                                </div> : null
+                                            }
                                             <span styleName="duration">{formatDuration(item.duration)}</span>
-                                            <span styleName="link"><Link to="/">来源</Link></span>
+                                            <span styleName="link" onClick={this.handleRedirect}><Link to="/">来源</Link></span>
                                         </li>
                                     })
                                 }

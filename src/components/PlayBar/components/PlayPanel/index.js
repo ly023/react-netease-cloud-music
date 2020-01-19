@@ -6,8 +6,8 @@ import {setUserPlayer} from 'actions/user'
 import {getThumbnail} from 'utils'
 import {isShuffleMode} from 'utils/song'
 import {CONTENT_HEIGHT} from '../../constants'
-import SongList from './components/SongList'
-import Lyric from './components/Lyric'
+import SongList from './SongList'
+import Lyric from './Lyric'
 
 import './index.scss'
 
@@ -191,7 +191,7 @@ export default class PlayPanel extends React.Component {
                     </div>
                     <div styleName="lyric">
                         <div styleName="mask"/>
-                        <Lyric visible={visible} height={CONTENT_HEIGHT} songId={trackQueue[index]?.id}/>
+                        <Lyric visible={visible} height={CONTENT_HEIGHT} song={trackQueue[index]}/>
                     </div>
                 </div>
             </div>

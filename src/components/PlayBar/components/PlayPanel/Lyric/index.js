@@ -9,7 +9,7 @@ import {requestLyric} from 'services/song'
 import VerticalScrollbar from 'components/VerticalScrollbar'
 import {DEFAULT_SECOND} from 'constants/play'
 import {getLyric} from 'utils/song'
-import {CONTENT_HEIGHT} from '../../../../constants'
+import {CONTENT_HEIGHT} from '../../../constants'
 
 import './index.scss'
 
@@ -24,12 +24,13 @@ export default class Lyric extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
         height: PropTypes.number,
-        songId: PropTypes.number,
+        song: PropTypes.object,
     }
 
     static defaultProps = {
         visible: false,
         height: CONTENT_HEIGHT,
+        song: {}
     }
 
     constructor(props) {
@@ -54,8 +55,14 @@ export default class Lyric extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const {visible, songId, isDragProgress} = this.props
-        if (visible && songId && (songId !== prevProps.songId || this.requestedSongId !== songId)) {
+        const {visible, song, isDragProgress} = this.props
+        // 电台节目
+        if (song.program) {
+            return
+        }
+        // 歌曲
+        const songId = song.id
+        if (visible && songId && (songId !== prevProps.song.id || this.requestedSongId !== songId)) {
             this.fetchLyric(songId)
             return
         }
@@ -145,9 +152,10 @@ export default class Lyric extends React.Component {
     }
 
     fetchLyric = async (id) => {
-        const res = await requestLyric({id: id})
+        const res = await requestLyric({id})
         if (this._isMounted) {
             this.requestedSongId = id
+            this.formattedLyric = null
             this.setState({
                 lyric: res
             })
@@ -155,10 +163,15 @@ export default class Lyric extends React.Component {
         }
     }
 
-    getRenderLyric = (lyric) => {
-        if (!this.props.songId) {
+    getRenderLyric = () => {
+        const {song} = this.props
+        if(song.program) {
+            return <div styleName="no-lyric">电台节目，无歌词</div>
+        }
+        if (!song.id) {
             return ''
         }
+        const {lyric} = this.state
         this.hasLyric = false
         if (lyric && Object.keys(lyric).length) {
             const {nolyric, tlyric = {}, lrc = {}} = lyric
@@ -258,18 +271,18 @@ export default class Lyric extends React.Component {
     }
 
     render() {
-        const {height} = this.props
-        const {lyric, reportPopoverVisible} = this.state
+        const {height, song} = this.props
+        const {reportPopoverVisible} = this.state
 
         return (
             <div styleName="lyric-wrapper" style={{height: height}}>
-                <div styleName="ask-icon" onClick={this.handleClickAsk}><span/></div>
+                {song.program ? '' : <div styleName="ask-icon" onClick={this.handleClickAsk}><span/></div>}
                 <div styleName="report-popover" style={{display: reportPopoverVisible ? 'block' : 'none'}}>
                     <Link to="/">报错</Link>
                 </div>
                 <VerticalScrollbar ref={this.scrollbarRef}>
                     <div styleName="lyric">
-                        {this.getRenderLyric(lyric)}
+                        {this.getRenderLyric()}
                     </div>
                 </VerticalScrollbar>
             </div>

@@ -15,16 +15,32 @@ export function isShuffleMode(playSetting) {
     return playSetting.mode === PLAY_MODE.SHUFFLE
 }
 
-export function formatTrack(song) {
+export function formatTrack(data = {}, isProgram) {
+    if(isProgram) {
+        const song = data.mainSong || {}
+        return {
+            id: song.id,
+            name: song.name,
+            duration: song.duration, // 单位ms
+            album: song.album,
+            radio: data.radio, // radio
+            mvid: song.mv || song.mvid, // mv id
+            picUrl: data.coverUrl,
+            program: {
+                id: data.id
+            }
+        }
+    }
     return {
-        id: song.id,
-        name: song.name,
-        duration: song.dt, // 单位ms
-        album: song.al,
-        artists: song.ar,
-        mvid: song.mv || song.mvid, // mv id
-        privilege: song.privilege, // 特权
-        st: song.st, // 是否可用（有版权），不为0不可播放
+        id: data.id,
+        name: data.name,
+        duration: data.dt, // 单位ms
+        album: data.al,
+        artists: data.ar,
+        mvid: data.mv || data.mvid, // mv id
+        privilege: data.privilege, // 特权
+        st: data.st, // 是否可用（有版权），不为0不可播放
+        picUrl: data.album?.picUrl,
     }
 }
 

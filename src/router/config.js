@@ -35,6 +35,24 @@ export default [
         }),
     },
     {
+        path: '/discover/radio',
+        name: '发现-主播电台',
+        exact: true,
+        component: Loadable({
+            loader: () => importViews('AnchorRadio'),
+            loading: Loading,
+        }),
+    },
+    {
+        path: '/discover/radio/rank',
+        name: '发现-主播电台-节目排行榜',
+        exact: true,
+        component: Loadable({
+            loader: () => importViews('ProgramRank'),
+            loading: Loading,
+        }),
+    },
+    {
         path: '/discover/album',
         name: '发现-新碟上架',
         exact: true,
