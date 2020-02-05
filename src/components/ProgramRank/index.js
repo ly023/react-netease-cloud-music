@@ -48,9 +48,9 @@ function ProgramRank(props) {
             return <span styleName="stable">﹣0</span>
         }
         if (rank < lastRank) {
-            return <span styleName="descend"><i/>{lastRank - rank}</span>
+            return <span styleName="ascend"><i/>{lastRank - rank}</span>
         }
-        return <span styleName="ascend"><i/>{rank - lastRank}</span>
+        return <span styleName="descend"><i/>{rank - lastRank}</span>
     }, [])
 
     const isFullType = useMemo(() => type === 'full', [type])
@@ -111,8 +111,7 @@ ProgramRank.propTypes = {
 
 ProgramRank.defaultProps = {
     type: 'part',
-    onLoad() {
-    }
+    onLoad() {}
 }
 
 export default ProgramRank

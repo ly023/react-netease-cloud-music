@@ -1,0 +1,46 @@
+
+.section {
+  margin-top: 35px;
+}
+
+.radios {
+  margin-left: -30px;
+  overflow: hidden;
+
+  .item {
+    float: left;
+    width: 435px;
+    height: 120px;
+    margin-left: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(231, 231, 231);
+
+    > a {
+      float: left;
+    }
+
+    .cover {
+      margin-right: 20px;
+      width: 120px;
+      height: 120px;
+    }
+
+    .cont {
+      float: left;
+
+      .name {
+        display: block;
+        margin: 16px 0 20px;
+        color: #333;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .desc {
+        margin-bottom: 6px;
+        line-height: 20px;
+        color: #999;
+      }
+    }
+  }
+}

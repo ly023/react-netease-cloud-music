@@ -1,8 +1,4 @@
 
-.gutter {
-  padding: 40px;
-}
-
 .title {
   height: 40px;
   border-bottom: 2px solid #c20c0c;
@@ -13,14 +9,14 @@
     font-weight: normal;
   }
 
-  .sub {
-    float: left;
-    margin: 13px 0 0 10px;
-    color: #999;
-  }
-
-  .question {
+  .guide {
     float: right;
-    margin-top: 12px;
+    margin-top: 14px;
+    color: #666;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
   }
 }
+
+
+
+

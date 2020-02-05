@@ -1,0 +1,13 @@
+.question-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  @extend %background-icon2;
+  background-position: 0 -50px;
+  cursor: pointer;
+
+  &:hover {
+    background-position: -20px -50px;
+  }
+}
