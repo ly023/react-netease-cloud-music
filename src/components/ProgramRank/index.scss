@@ -10,6 +10,7 @@
   width: 100%;
   height: 40px;
   padding: 10px 0;
+  line-height: 40px;
   background-color: #fff;
 
   &.even {
@@ -25,7 +26,6 @@
   .program-name,
   .radio-name {
     margin-left: 10px;
-    line-height: 40px;
   }
 
   .program-name {
@@ -39,7 +39,6 @@
   .tag {
     width: 140px;
     margin: 1px 0 0 10px;
-    line-height: 40px;
 
     > a {
       @extend %tag;

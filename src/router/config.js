@@ -44,6 +44,15 @@ export default [
         }),
     },
     {
+        path: '/discover/radio/recommend' ,
+        name: '发现-主播电台-推荐节目',
+        exact: true,
+        component: Loadable({
+            loader: () => importViews('AnchorRadioRecommendation'),
+            loading: Loading,
+        }),
+    },
+    {
         path: '/discover/radio/rank',
         name: '发现-主播电台-节目排行榜',
         exact: true,

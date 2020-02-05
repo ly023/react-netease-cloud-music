@@ -1,0 +1,106 @@
+.title {
+  height: 40px;
+  border-bottom: 2px solid #c20c0c;
+
+  h3 {
+    float: left;
+    font-size: 24px;
+    font-weight: normal;
+  }
+
+  .sub {
+    float: left;
+    margin: 13px 0 0 10px;
+    color: #999;
+  }
+}
+
+.list {
+  overflow: hidden;
+  border: 1px solid #e2e2e2;
+  border-top: none;
+}
+
+.item {
+  float: left;
+  width: 100%;
+  height: 40px;
+  padding: 10px 0;
+  line-height: 40px;
+  background-color: #fff;
+
+  &.even {
+    background-color: #f7f7f7;
+  }
+
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+.cover {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+
+  .play-icon {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    overflow: hidden;
+    margin: -11px 0 0 -11px;
+    @extend %background-icon-all;
+    background-position: 0 -85px;
+    cursor: pointer;
+  }
+
+  &:hover {
+    .play-icon {
+      display: inline-block;
+
+      &:hover {
+        background-position: 0 -110px;
+      }
+    }
+  }
+}
+
+.program-name,
+.radio-name {
+  display: block;
+  @extend %text-ellipsis;
+  margin-left: 10px;
+}
+
+.program-name {
+  width: 304px;
+}
+
+.radio-name {
+  width: 166px;
+  color: #666;
+}
+
+.listener-count,
+.like-count {
+  margin-left: 10px;
+  color: #999;
+}
+
+.listener-count {
+  width: 90px;
+}
+
+.like-count {
+  width: 126px;
+}
+
+.tag {
+  > a {
+    @extend %tag;
+  }
+}
