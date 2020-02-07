@@ -1,0 +1,86 @@
+
+.section {
+  margin-top: 35px;
+}
+
+.tabs {
+  margin-top: 12px;
+
+  .tab {
+    color: #666;
+
+    &.active {
+      color: #c20c0c;
+    }
+  }
+}
+
+.line {
+  margin: 0 10px;
+  color: #c7c7c7;
+}
+
+.radios {
+  margin-left: -30px;
+  overflow: hidden;
+
+  .item {
+    position: relative;
+    float: left;
+    width: 435px;
+    height: 120px;
+    margin-left: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgb(231, 231, 231);
+
+    > a {
+      position: absolute;
+    }
+
+    .cover {
+      width: 120px;
+      height: 120px;
+      vertical-align: top;
+    }
+
+    .cont {
+      margin-left: 140px;
+
+      .name {
+        display: block;
+        height: 64px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .user-info {
+        margin-bottom: 6px;
+        line-height: 20px;
+
+        .user-icon {
+          display: inline-block;
+          width: 14px;
+          height: 15px;
+          vertical-align: middle;
+          @extend %background-icon;
+          background-position: -50px -300px;
+        }
+
+        .nickname {
+          margin-left: 5px;
+          color: #333;
+        }
+      }
+
+
+      .stats {
+        color: #999;
+      }
+    }
+  }
+}
+
+
+.pagination {
+  margin: 20px 0;
+}

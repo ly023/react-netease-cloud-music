@@ -20,7 +20,6 @@ import './index.scss'
 const DEFAULT_LIMIT = 35
 
 function Playlist() {
-    const isMounted = useRef()
     const history = useHistory()
     const {pathname, search} = useLocation()
     const [current, setCurrent] = useState(0)
@@ -28,6 +27,8 @@ function Playlist() {
     const [catText, setCatText] = useState(getUrlParameter('cat') || '')
     const [playlists, setPlaylists] = useState([])
     const [loading, setLoading] = useState(false)
+
+    const isMounted = useRef()
 
     const getPage = () => {
         const page = getUrlParameter('page')

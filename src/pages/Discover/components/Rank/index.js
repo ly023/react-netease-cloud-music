@@ -7,6 +7,7 @@ import Add from 'components/Add'
 import Play from 'components/Play'
 import {PLAY_TYPE} from 'constants/play'
 import {requestRankList} from 'services/toplist'
+import {getThumbnail} from 'utils'
 
 import './index.scss'
 
@@ -42,7 +43,7 @@ function Rank() {
                     <div styleName='top'>
                         <a styleName='cover'>
                             <img className='fl'
-                                src={rank.coverImgUrl}
+                                src={getThumbnail(rank.coverImgUrl, 100)}
                                 alt={rank.name}
                             />
                         </a>

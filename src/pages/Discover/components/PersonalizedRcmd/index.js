@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import {PLAY_TYPE} from 'constants/play'
 import Play from 'components/Play'
 import {requestRcmdPlaylist} from 'services/rcmd'
-import {formatNumber} from 'utils'
+import {formatNumber, getThumbnail} from 'utils'
 
 import './index.scss'
 
@@ -59,7 +59,7 @@ function PersonalizedRcmd() {
             playlist.map((item)=>{
                 return <li key={item.id} styleName="item">
                     <div styleName="cover">
-                        <img src={item.picUrl} alt=""/>
+                        <img src={getThumbnail(item.picUrl, 140)} alt=""/>
                         <Link to={`/playlist/${item.id}`} title={item.name} styleName="mask"/>
                         <div styleName="bottom">
                             <Play type={PLAY_TYPE.PLAYLIST.TYPE} id={item.id}>

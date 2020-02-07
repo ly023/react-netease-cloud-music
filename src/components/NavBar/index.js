@@ -5,6 +5,7 @@ import {LOGIN_MODE} from 'constants/login'
 import LoginModal from 'components/LoginModal'
 import emitter from 'utils/eventEmitter'
 import {requestLogout} from 'services/user'
+import {getThumbnail} from 'utils'
 import SearchBar from './components/SearchBar'
 
 import styles from './index.scss'
@@ -154,7 +155,7 @@ export default class NavBar extends React.Component {
                                 isLogin
                                     ? <div styleName="login">
                                         <div styleName="login-status avatar">
-                                            <img src={userInfo?.avatarUrl} alt="头像"/>
+                                            <img src={getThumbnail(userInfo?.avatarUrl, 30)} alt="头像"/>
                                             {unreadCount ? <i styleName="login-badge">{unreadCount}</i> : null}
                                         </div>
                                         <div styleName="login-cont">

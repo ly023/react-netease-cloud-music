@@ -44,6 +44,15 @@ export default [
         }),
     },
     {
+        path: '/discover/radio/category/:id' ,
+        name: '发现-主播电台-分类',
+        exact: true,
+        component: Loadable({
+            loader: () => importViews('AnchorRadioType'),
+            loading: Loading,
+        }),
+    },
+    {
         path: '/discover/radio/recommend' ,
         name: '发现-主播电台-推荐节目',
         exact: true,

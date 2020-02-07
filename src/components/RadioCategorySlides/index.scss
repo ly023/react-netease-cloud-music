@@ -27,6 +27,10 @@
       &.active {
         color: rgb(211, 87, 87);
         background-position: -70px 0px;
+
+        .icon {
+          background-position: -48px 0px;
+        }
       }
     }
 
