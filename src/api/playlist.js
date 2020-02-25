@@ -34,6 +34,7 @@ export default {
     },
     subscribe: {
         url: `${config.apiHost}/api/playlist/subscribe`,
-        type: 'POST'
+        // type: 'POST'
+        type: 'GET'
     }
 }

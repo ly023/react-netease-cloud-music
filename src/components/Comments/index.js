@@ -6,8 +6,10 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {cloneDeep} from 'lodash'
+import emitter from 'utils/eventEmitter'
 import {setUserCommentInfo} from 'actions/user'
 import {DEFAULT_AVATAR, PAGINATION_LIMIT} from 'constants'
+import ListLoading from 'components/ListLoading'
 import Pagination from 'components/Pagination'
 import message from 'components/Message'
 import Confirm from 'components/Confirm'
@@ -16,8 +18,7 @@ import {
     requestMusicComments, requestPlaylistComments, requestAlbumComments, requestMVComments,
     comment, like
 } from 'services/comment'
-import {formatNumber, formatTimestamp, generateGuid, getThumbnail} from 'utils'
-import emitter from 'utils/eventEmitter'
+import {formatNumber, formatTimestamp, generateGuid, getThumbnail, scrollIntoView} from 'utils'
 import Editor from './components/Editor'
 import {msgToHtml} from './components/Editor/utils'
 import ReplyEditor from './components/ReplyEditor'
@@ -49,7 +50,8 @@ const ACTION_TYPES = {
     REPLAY: 2, // 回复
 }
 
-@connect(({user}) => ({
+@connect(({base, user}) => ({
+    navHeight: base.navHeight,
     isLogin: user.isLogin,
     userInfo: user.userInfo,
     activeCommentId: user.activeCommentId
@@ -84,6 +86,7 @@ export default class Comments extends React.Component {
             replyVisible: false,
             activeCommentId: 0,
             confirmVisible: false,
+            commentsLoading: false,
             commentLoading: false,
             deleteLoading: false,
             likeLoading: false,
@@ -127,11 +130,12 @@ export default class Comments extends React.Component {
         }
     }
 
-    fetchComments = (offset = 0, scroll = false) => {
+    fetchComments = (offset = 0) => {
         const params = {
             id: this.props.id,
             offset
         }
+        this.setState({commentsLoading: true})
         this.requestFunc(params).then((res) => {
             if (this._isMounted) {
                 const {topComments = [], hotComments = [], comments = [], total = 0} = res
@@ -140,30 +144,18 @@ export default class Comments extends React.Component {
                     total,
                     topComments, hotComments, comments
                 })
-                if (scroll) {
-                    if (offset) {
-                        this.scrollIntoView(document.getElementById(`${this.domIdPrefix}-latest-content`))
-                        return
-                    }
-                    this.scrollIntoView(document.getElementById(`${this.domIdPrefix}-content`))
-                    return
-                }
                 this.setTotalComment(total)
             }
+        }).finally(()=>{
+            this.setState({commentsLoading: false})
         })
-    }
-
-    scrollIntoView = (el) => {
-        const top = el.offsetTop - 110
-        // const top = el.offsetTop
-        window.scrollTo(0, top)
     }
 
     handlePageChange = (page) => {
         this.setState({
             current: page
         })
-        this.fetchComments((page - 1) * PAGINATION_LIMIT, true)
+        this.fetchComments((page - 1) * PAGINATION_LIMIT)
     }
 
     validateLogin = () => {
@@ -190,7 +182,7 @@ export default class Comments extends React.Component {
 
     focusEditor = () => {
         this.editorRef.focus()
-        this.scrollIntoView(document.getElementById(`${this.domIdPrefix}-wrapper`))
+        scrollIntoView(document.getElementById(`${this.domIdPrefix}-wrapper`), this.props.navHeight)
     }
 
     getCommentKey = (commentId) => {
@@ -234,7 +226,7 @@ export default class Comments extends React.Component {
                         // 清空评论框
                         this.editorRef.clear()
                         // 定位到当前评论
-                        this.scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)))
+                        scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)), this.props.navHeight)
                         // 弹窗提示
                         message.success({
                             content: '评论成功'
@@ -361,7 +353,7 @@ export default class Comments extends React.Component {
                         }
                     }, () => {
                         // 定位到当前评论
-                        this.scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)))
+                        scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)), this.props.navHeight)
                         this.props.dispatch(setUserCommentInfo({activeCommentId: 0}))
                         message.success({
                             content: '回复成功'
@@ -504,6 +496,7 @@ export default class Comments extends React.Component {
             follows,
             topComments, hotComments, comments, total, current, offset,
             confirmVisible,
+            commentsLoading,
             commentLoading,
         } = this.state
 
@@ -527,33 +520,38 @@ export default class Comments extends React.Component {
                                 <Editor onRef={this.setEditorRef} follows={follows} onSubmit={this.handleCreateComment} loading={commentLoading}/>
                             </div>
                         </div>
-                        <div id={`${this.domIdPrefix}-content`}>
-                            {
-                                topComments.length ? <div>
-                                    <h4 styleName="sub-title">置顶评论</h4>
-                                    {this.getRenderComments(topComments)}
-                                </div> : null
-                            }
-                            {
-                                hotComments.length ? <div styleName="hot-comment">
-                                    {offset ? null : <h4 styleName="sub-title">精彩评论</h4>}
-                                    {this.getRenderComments(hotComments)}
-                                </div> : null
-                            }
-                            {
-                                comments.length ? <div id={`${this.domIdPrefix}-latest-content`}>
-                                    {current === 1 ? <h4 styleName="sub-title">最新评论({total})</h4> : null}
-                                    {this.getRenderComments(comments)}
-                                    <div styleName="pagination">
-                                        <Pagination
-                                            total={Math.ceil(total / PAGINATION_LIMIT)}
-                                            current={current}
-                                            onChange={this.handlePageChange}
-                                        />
-                                    </div>
-                                </div> : null
-                            }
-                        </div>
+                        {
+                            commentsLoading
+                                ? <ListLoading/>
+                                : <div>
+                                    {
+                                        topComments.length ? <div>
+                                            <h4 styleName="sub-title">置顶评论</h4>
+                                            {this.getRenderComments(topComments)}
+                                        </div> : null
+                                    }
+                                    {
+                                        hotComments.length ? <div styleName="hot-comment">
+                                            {offset ? null : <h4 styleName="sub-title">精彩评论</h4>}
+                                            {this.getRenderComments(hotComments)}
+                                        </div> : null
+                                    }
+                                    {
+                                        comments.length ? <div>
+                                            {current === 1 ? <h4 styleName="sub-title">最新评论({total})</h4> : null}
+                                            {this.getRenderComments(comments)}
+                                            <div styleName="pagination">
+                                                <Pagination
+                                                    total={Math.ceil(total / PAGINATION_LIMIT)}
+                                                    current={current}
+                                                    onChange={this.handlePageChange}
+                                                    el={document.getElementById(`${this.domIdPrefix}-wrapper`)}
+                                                />
+                                            </div>
+                                        </div> : null
+                                    }
+                                </div>
+                        }
                     </div>
                 </div>
                 <Confirm

@@ -209,105 +209,103 @@ export default class Song extends React.Component {
                 <div className="main">
                     <div className="left-wrapper">
                         <div className="left">
-                            {
-                                detail ? <div styleName="info">
-                                    <div styleName="cover-wrapper">
-                                        <div styleName="cover">
-                                            <img
-                                                src={getThumbnail(detail?.al?.picUrl, 130)}
-                                                alt="封面"
-                                            />
-                                        </div>
-                                        <div styleName="out-chain">
-                                            <i/><a href={null}>生成外链播放器</a>
-                                        </div>
+                            <div styleName="info">
+                                <div styleName="cover-wrapper">
+                                    <div styleName="cover">
+                                        <img
+                                            src={getThumbnail(detail?.al?.picUrl, 130)}
+                                            alt="封面"
+                                        />
                                     </div>
-                                    <div styleName="content">
-                                        {isVip ? <span styleName="vip-label">VIP单曲</span> : <span styleName="label"/>}
-                                        <div styleName={`title${isVip ? ' vip-title' : ''}`}>
-                                            <span>{detail?.name}</span>
-                                            {detail?.mv ? <Link to={`/mv/${detail?.mv}`} title="播放mv" styleName="mv-link"><i/></Link> : null}
-                                            {detail?.alia ? <div styleName="alias">
-                                                {detail?.alia.map((v, i)=> `${v}${i !== detail?.alia.length - 1 ? '、' : ''}`)}
-                                            </div> : null}
-                                        </div>
-                                        <div styleName="desc">
+                                    <div styleName="out-chain">
+                                        <i/><a href={null}>生成外链播放器</a>
+                                    </div>
+                                </div>
+                                <div styleName="content">
+                                    {isVip ? <span styleName="vip-label">VIP单曲</span> : <span styleName="label"/>}
+                                    <div styleName={`title${isVip ? ' vip-title' : ''}`}>
+                                        <span>{detail?.name}</span>
+                                        {detail?.mv ? <Link to={`/mv/${detail?.mv}`} title="播放mv" styleName="mv-link"><i/></Link> : null}
+                                        {detail?.alia && detail.alia.length ? <div styleName="alias">
+                                            {detail?.alia.map((v, i)=> `${v}${i !== detail?.alia.length - 1 ? '、' : ''}`)}
+                                        </div> : null}
+                                    </div>
+                                    <div styleName="desc">
                                         歌手：
-                                            <span>
-                                                {
-                                                    Array.isArray(detail?.ar) && detail.ar.map((ar, idx) => {
-                                                        return <Fragment key={ar.id}>
-                                                            <a href={`/artist/${ar.id}`}
-                                                                title={detail?.ar.map((v) => v.name).join(' / ')}>{ar.name}</a>
-                                                            {idx !== detail.ar.length - 1 ? ' / ' : null}
-                                                        </Fragment>
-                                                    })
-                                                }
-                                            </span>
-                                        </div>
-                                        <div styleName="desc">
-                                        所属专辑：<Link to={`/album/${detail?.al?.id}`} href={null} title={detail?.al?.name}>{detail?.al?.name}</Link>
-                                        </div>
-                                        <div styleName="operation">
+                                        <span>
                                             {
-                                                isVip && detail?.privilege?.payed === 0
-                                                    ? <a
-                                                        href={null}
-                                                        hidefocus="true"
-                                                        title="播放"
-                                                        styleName="vip-play"
-                                                    >
-                                                        <i>开通VIP畅听</i>
-                                                    </a>
-                                                    : (hasCopyright ? <>
-                                                        <Play id={detail?.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                            <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
-                                                        </Play>
-                                                        <Add id={detail?.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                            <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
-                                                        </Add>
-                                                    </> : <a href={null} styleName="btn-play-disabled" title="播放"><i>播放</i></a>)
+                                                Array.isArray(detail?.ar) && detail.ar.map((ar, idx) => {
+                                                    return <Fragment key={ar.id}>
+                                                        <a href={`/artist/${ar.id}`}
+                                                            title={detail?.ar.map((v) => v.name).join(' / ')}>{ar.name}</a>
+                                                        {idx !== detail.ar.length - 1 ? ' / ' : null}
+                                                    </Fragment>
+                                                })
                                             }
-                                            <a href={null} styleName="btn-add-favorite"><i>收藏</i></a>
-                                            <a href={null} styleName="btn-share"><i>分享</i></a>
-                                            <a href={null} styleName={`btn-download${isVip ? ' btn-vip-download': ''}`}><i>下载</i></a>
-                                            <a href={null} styleName="btn-comment" onClick={this.handleComment}><i>{totalComment ? `(${totalComment})` : '评论'}</i></a>
-                                        </div>
-                                        <div styleName="lyric-wrapper">
-                                            <div styleName={`lyric ${isLyricFolding ? 'fold' : 'unfold'}`}>
-                                                {lyricElement}
-                                            </div>
-                                            {
-                                                Array.isArray(lyricElement) && lyricElement.length > DEFAULT_LYRIC_LINES
-                                                    ? <>
-                                                        <div href={null} styleName="fold-ctrl" onClick={this.ctrlFold}>
-                                                            {isLyricFolding ? '展开' : '收起'}<i/>
-                                                        </div>
-                                                        <div styleName="lyric-user">
-                                                            <Link to="" styleName="lyric-report">报错</Link>
-                                                            {
-                                                                lyric.lyricUser || lyric.transUser ? <div styleName="lyric-user-info">
-                                                                    {
-                                                                        lyric.lyricUser
-                                                                            ? <>贡献歌词：<Link to={`/user/home/${lyric?.lyricUser?.userid}`}>{lyric?.lyricUser?.nickname}</Link></>
-                                                                            : null
-                                                                    }
-                                                                    {lyric.lyricUser && lyric.transUser ? <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</> : ''}
-                                                                    {
-                                                                        lyric.transUser ?
-                                                                            <>贡献翻译：<Link to={`/user/home/${lyric?.transUser?.userid}`}>{lyric?.transUser?.nickname}</Link></>
-                                                                            : null
-                                                                    }
-                                                                </div> : null
-                                                            }
-                                                        </div>
-                                                    </>
-                                                    : null
-                                            }
-                                        </div>
+                                        </span>
                                     </div>
-                                </div> : null
-                            }
+                                    <div styleName="desc">
+                                        所属专辑：<Link to={`/album/${detail?.al?.id}`} href={null} title={detail?.al?.name}>{detail?.al?.name}</Link>
+                                    </div>
+                                    <div styleName="operation">
+                                        {
+                                            isVip && detail?.privilege?.payed === 0
+                                                ? <a
+                                                    href={null}
+                                                    hidefocus="true"
+                                                    title="播放"
+                                                    styleName="vip-play"
+                                                >
+                                                    <i>开通VIP畅听</i>
+                                                </a>
+                                                : (hasCopyright ? <>
+                                                    <Play id={detail?.id} type={PLAY_TYPE.SINGLE.TYPE}>
+                                                        <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                                                    </Play>
+                                                    <Add id={detail?.id} type={PLAY_TYPE.SINGLE.TYPE}>
+                                                        <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                                                    </Add>
+                                                </> : <a href={null} styleName="btn-play-disabled" title="播放"><i>播放</i></a>)
+                                        }
+                                        <a href={null} styleName="btn-add-favorite"><i>收藏</i></a>
+                                        <a href={null} styleName="btn-share"><i>分享</i></a>
+                                        <a href={null} styleName={`btn-download${isVip ? ' btn-vip-download': ''}`}><i>下载</i></a>
+                                        <a href={null} styleName="btn-comment" onClick={this.handleComment}><i>{totalComment ? `(${totalComment})` : '评论'}</i></a>
+                                    </div>
+                                    <div styleName="lyric-wrapper">
+                                        <div styleName={`lyric ${isLyricFolding ? 'fold' : 'unfold'}`}>
+                                            {lyricElement}
+                                        </div>
+                                        {
+                                            Array.isArray(lyricElement) && lyricElement.length > DEFAULT_LYRIC_LINES
+                                                ? <>
+                                                    <div href={null} styleName="fold-ctrl" onClick={this.ctrlFold}>
+                                                        {isLyricFolding ? '展开' : '收起'}<i/>
+                                                    </div>
+                                                    <div styleName="lyric-user">
+                                                        <Link to="" styleName="lyric-report">报错</Link>
+                                                        {
+                                                            lyric.lyricUser || lyric.transUser ? <div styleName="lyric-user-info">
+                                                                {
+                                                                    lyric.lyricUser
+                                                                        ? <>贡献歌词：<Link to={`/user/home/${lyric?.lyricUser?.userid}`}>{lyric?.lyricUser?.nickname}</Link></>
+                                                                        : null
+                                                                }
+                                                                {lyric.lyricUser && lyric.transUser ? <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</> : ''}
+                                                                {
+                                                                    lyric.transUser ?
+                                                                        <>贡献翻译：<Link to={`/user/home/${lyric?.transUser?.userid}`}>{lyric?.transUser?.nickname}</Link></>
+                                                                        : null
+                                                                }
+                                                            </div> : null
+                                                        }
+                                                    </div>
+                                                </>
+                                                : null
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                             <Comments onRef={this.setCommentsRef} id={Number(this.props.match.params.id)} setTotalComment={this.setTotalComment}/>
                         </div>
                     </div>

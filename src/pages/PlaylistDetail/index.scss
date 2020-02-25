@@ -1,11 +1,38 @@
 .cover {
   position: relative;
   float: left;
+  width: 200px;
+  height: 200px;
   margin: 0 -220px 0 0;
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+
+    &::before {
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      content: '  ';
+      background-color: #f7f7f7;
+    }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 16px;
+      margin-top: -8px;
+      text-align: center;
+      color: #999;
+      content: '\f127' attr(alt);
+    }
   }
 
   &::after {
@@ -168,8 +195,51 @@
   }
 
   .btn-add-favorite {
+
+    &.btn-add-favorite-subscribed,
+    &.btn-add-favorite-dis {
+      background-position: right -1192px;
+
+      &:hover i,
+      i {
+        color: #bebebe;
+        background-position: 0 -1149px;
+      }
+    }
+
+    &.btn-add-favorite-dis {
+      cursor: default;
+
+      &:hover i,
+      i {
+        cursor: default;
+      }
+    }
+
+    &[data-loading="true"] {
+      i {
+        cursor: default;
+      }
+
+      i::after {
+        margin: 8px 0 0 6px;
+        width: 14px;
+        height: 14px;
+        background: url(~assets/images/loading.gif) no-repeat;
+        background-size: 100% 100%;
+        content: '';
+        cursor: default;
+      }
+    }
+
     i {
+      position: relative;
       background-position: 0 -977px;
+
+      &::after {
+        display: inline-block;
+        content: attr(data-content);
+      }
     }
 
     &:hover {

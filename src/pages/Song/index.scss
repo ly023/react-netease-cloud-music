@@ -59,6 +59,7 @@
 .label,
 .vip-label {
   float: left;
+  margin-bottom: 10px;
 }
 
 .label {
@@ -111,7 +112,8 @@
 }
 
 .desc {
-  margin: 10px 0;
+  clear: both;
+  padding: 0 0 10px;
   color: #999;
 
   a {

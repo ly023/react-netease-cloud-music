@@ -38,9 +38,6 @@ export async function requestRelated(params) {
 }
 
 // 收藏/取消收藏歌单
-export async function requestSubscribe(payload) {
-    return request(API.subscribe.url, {
-        method: API.subscribe.type,
-        body: payload.body
-    })
+export async function requestSubscribe(params) {
+    return request(`${API.subscribe.url}?${stringify(params)}`)
 }

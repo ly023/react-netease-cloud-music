@@ -15,7 +15,7 @@ function RadioRank(props) {
     const history = useHistory()
     const {pathname, search} = useLocation()
 
-    const {match, type} = props
+    const {match} = props
 
     const getPage = useCallback(() => {
         const page = getUrlParameter('page')
@@ -73,6 +73,7 @@ function RadioRank(props) {
             }
         }
         fetchCategoryHot()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getPage, search])
 
     const handlePageChange = useCallback((page) => {

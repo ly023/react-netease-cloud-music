@@ -1,8 +1,10 @@
 /**
  * 分页器
  */
-import React from 'react'
+import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
+import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import {scrollIntoView} from 'utils'
 
 import './index.scss'
 
@@ -29,15 +31,19 @@ const getPages = (current, total) => {
 }
 
 function Pagination(props) {
-    const {current, total} = props
+    const {current, total, onChange, el} = props
     const prevDisabled = current === 1
     const nextDisabled = current === total
     const showPagination = total > 0 && total > 1
 
-    const onChange = (current) => {
-        const {onChange} = props
+    const {navHeight} = useShallowEqualSelector(({base})=>({
+        navHeight: base.navHeight
+    }))
+
+    const handleChange = useCallback((current) => {
+        scrollIntoView(el, navHeight)
         onChange && onChange(current)
-    }
+    }, [onChange, el])
 
     return showPagination && <div styleName="pagination">
         <span
@@ -46,7 +52,7 @@ function Pagination(props) {
                 if (prevDisabled) {
                     return
                 }
-                onChange(current - 1)
+                handleChange(current - 1)
             }}
         >
                     上一页
@@ -56,8 +62,8 @@ function Pagination(props) {
                 if (Number.isNaN(Number(page))) {
                     return <span key={index}> {page} </span>
                 }
-                return <span styleName={`page${current === page ? ' active' : ''}`} key={index}
-                    onClick={() => onChange(page)}>{page}</span>
+                return <span key={index} styleName={`page${current === page ? ' active' : ''}`}
+                    onClick={() => handleChange(page)}>{page}</span>
             })
         }
         <span styleName={`page next${nextDisabled ? ' disabled' : ''}`}
@@ -65,7 +71,7 @@ function Pagination(props) {
                 if (nextDisabled) {
                     return
                 }
-                onChange(current + 1)
+                handleChange(current + 1)
             }}>
                     下一页
         </span>
@@ -75,11 +81,14 @@ function Pagination(props) {
 Pagination.propTypes = {
     current: PropTypes.number,
     total: PropTypes.number,
+    onChange: PropTypes.func,
+    el: PropTypes.object,
 }
 
 Pagination.defaultProps = {
     current: 1,
-    total: 0
+    total: 0,
+    onChange() {}
 }
 
 export default React.memo(Pagination)

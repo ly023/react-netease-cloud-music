@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 
 import './index.scss'
 
-function ListLoading(props) {
-    return <div styleName="content" style={{display: props.loading ? 'block' : 'none'}}>
+/**
+ * @return {null}
+ */
+function ListLoading({loading}) {
+    return loading ? <div styleName="content">
         <i styleName="icon"/>加载中...
-    </div>
+    </div> : null
 }
 
 ListLoading.propTypes = {
@@ -14,7 +17,7 @@ ListLoading.propTypes = {
 }
 
 ListLoading.defaultProps = {
-    loading: false
+    loading: true
 }
 
 export default React.memo(ListLoading)

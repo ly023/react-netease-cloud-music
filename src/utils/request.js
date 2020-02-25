@@ -76,7 +76,6 @@ export default function request(url, fetchOptions = {}, options = {}) {
             // newOptions.body is FormData
             newOptions.headers = {
                 'Accept': 'application/json',
-                'Content-Type': 'multipart/form-data',
                 ...newOptions.headers,
             }
         }

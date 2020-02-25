@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react'
+import React, {useMemo} from 'react'
 import Page from 'components/Page'
 import RadioCategorySlides from 'components/RadioCategorySlides'
 import CategoryRecommendation  from './components/CategoryRecommendation'

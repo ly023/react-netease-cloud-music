@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import ListLoading from 'components/ListLoading'
 import Play from 'components/Play'
 import SongActions from 'components/SongActions'
 import {PLAY_TYPE} from 'constants/play'
@@ -11,7 +12,7 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import './index.scss'
 
 function SongTable(props) {
-    const {detail, showDislike, onDislikeSuccess} = props
+    const {loading, detail, showDislike, onDislikeSuccess} = props
     const {currentSong={}} = useShallowEqualSelector(({user}) => ({currentSong: user.player.currentSong}))
 
     const handleDislike = useCallback((id) => {
@@ -20,28 +21,28 @@ function SongTable(props) {
         onDislikeSuccess(songs.filter(v => v.id !== id))
     }, [detail, onDislikeSuccess])
 
-    return <table styleName="table">
-        <thead>
-            <tr>
-                <th styleName="w1">
-                    <div styleName="th first"/>
-                </th>
-                <th styleName="w2">
-                    <div styleName="th">歌曲标题</div>
-                </th>
-                <th styleName="w3">
-                    <div styleName="th">时长</div>
-                </th>
-                <th styleName="w4">
-                    <div styleName="th">歌手</div>
-                </th>
-                <th styleName="w5">
-                    <div styleName="th">专辑</div>
-                </th>
-            </tr>
-        </thead>
-        {
-            Array.isArray(detail.songs) && <tbody>
+    return <>
+        <table styleName="table">
+            <thead>
+                <tr>
+                    <th styleName="w1">
+                        <div styleName="th first"/>
+                    </th>
+                    <th styleName="w2">
+                        <div styleName="th">歌曲标题</div>
+                    </th>
+                    <th styleName="w3">
+                        <div styleName="th">时长</div>
+                    </th>
+                    <th styleName="w4">
+                        <div styleName="th">歌手</div>
+                    </th>
+                    <th styleName="w5">
+                        <div styleName="th">专辑</div>
+                    </th>
+                </tr>
+            </thead>
+            {Array.isArray(detail.songs) && <tbody>
                 {
                     detail.songs.map((item, index) => {
                         const order = index + 1
@@ -96,9 +97,10 @@ function SongTable(props) {
                         </tr>
                     })
                 }
-            </tbody>
-        }
-    </table>
+            </tbody>}
+        </table>
+        <ListLoading loading={loading}/>
+    </>
 }
 
 SongTable.propTypes = {

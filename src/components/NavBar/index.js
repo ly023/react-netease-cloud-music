@@ -1,9 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
+import emitter from 'utils/eventEmitter'
 import {LOGIN_MODE} from 'constants/login'
 import LoginModal from 'components/LoginModal'
-import emitter from 'utils/eventEmitter'
+import {setNavHeight} from 'actions/base'
 import {requestLogout} from 'services/user'
 import {getThumbnail} from 'utils'
 import SearchBar from './components/SearchBar'
@@ -45,6 +46,7 @@ export default class NavBar extends React.Component {
             this.setState({
                 style: {height: navHeight}
             })
+            this.props.dispatch(setNavHeight({navHeight}))
         }
     }
 

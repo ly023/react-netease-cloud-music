@@ -20,6 +20,7 @@ function DailyRecommendation() {
     const [detail, setDetail] = useState({})
     const [songs, setSongs] = useState([])
     const [info, setInfo] = useState({})
+    const [detailLoading, setDetailLoading] = useState(false)
 
     useEffect(() => {
         isMounted.current = true
@@ -38,11 +39,16 @@ function DailyRecommendation() {
         }
 
         const fetchRcmdSongs = async () => {
-            const res = await requestRcmdSongs()
-            if (isMounted.current) {
-                const data = res.recommend
-                setSongs(data)
-                setDetail({songs: parseSongs(data)})
+            try {
+                setDetailLoading(true)
+                const res = await requestRcmdSongs()
+                if (isMounted.current) {
+                    const data = res.recommend
+                    setSongs(data)
+                    setDetail({songs: parseSongs(data)})
+                }
+            } finally {
+                setDetailLoading(false)
             }
         }
 
@@ -100,7 +106,7 @@ function DailyRecommendation() {
                             <span styleName="total">{detail.songs?.length}首歌</span>
                         </span>
                     </div>
-                    <SongTable detail={detail} showDislike onDislikeSuccess={handleDislikeSuccess}/>
+                    <SongTable loading={detailLoading} detail={detail} showDislike onDislikeSuccess={handleDislikeSuccess}/>
                 </div>
             </div>
             <div className="right-wrapper">

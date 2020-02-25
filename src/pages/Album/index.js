@@ -20,6 +20,7 @@ function Album() {
     const [newestAlbum, setNewestAlbum] = useState([])
     const [topAlbum, setTopAlbum] = useState([])
     const isMounted = useRef()
+    const listWrapperRef = useRef()
 
     const getPage = useCallback(() => {
         const page = getUrlParameter('page')
@@ -125,7 +126,7 @@ function Album() {
                         </div> : <Empty/>
                     ) : ''
                 }
-                <div styleName="title">
+                <div styleName="title" ref={listWrapperRef}>
                     <h3>全部新碟</h3>
                     <div className="fl" styleName="tabs">
                         {/* todo 专辑分类 */}
@@ -169,6 +170,7 @@ function Album() {
                         current={current}
                         total={Math.ceil(total / params.limit)}
                         onChange={handlePageChange}
+                        el={listWrapperRef.current}
                     />
                 </div>
             </div>

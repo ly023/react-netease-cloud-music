@@ -57,7 +57,7 @@ export const SEARCH_TYPE = {
     }
 }
 
-export const SUBSCRIPTION_TYPE = {
+export const PLAYLIST_COLLECTION_TYPE = {
     OK: 1,
     CANCEL: 2
 }

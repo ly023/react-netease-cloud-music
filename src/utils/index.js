@@ -300,3 +300,24 @@ export function replaceUrlParamVal(name, replaceWith, url) {
     const reg = new RegExp('(' + name + '=)([^&]*)', 'gi')
     return url.replace(reg, `${name}=${replaceWith}`)
 }
+
+/**
+ * 获取当前页面滚动高度
+ * @returns {number}
+ */
+export function getScrollTop() {
+    return document.documentElement.scrollTop || document.body.scrollTop
+}
+
+/**
+ * 滚动到指定元素
+ * @param el
+ * @param offset
+ */
+export function scrollIntoView(el, offset = 0) {
+    if (el) {
+        const top = el.offsetTop
+        const scrollTop = top - offset
+        window.scrollTo(0, scrollTop)
+    }
+}
