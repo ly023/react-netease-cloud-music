@@ -36,7 +36,7 @@ export default class AlbumDetail extends React.Component {
 
     getInitialState = () => {
         return {
-            detail: null,
+            detail: {},
             albums: [],
         }
     }
@@ -71,7 +71,7 @@ export default class AlbumDetail extends React.Component {
             this.setState({
                 detail: {
                     ...album,
-                    songs: res?.songs
+                    songs: res?.songs || []
                 }
             })
             const artist = album.artists[0]
@@ -113,159 +113,156 @@ export default class AlbumDetail extends React.Component {
         const {currentSong} = this.props
         const {detail, albums} = this.state
 
-        const title = detail ? `${detail?.name || ''} - 专辑 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
+        const title = detail ? `${detail.name || ''} - 专辑 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
 
         return (
             <Page title={title}>
                 <div className="main">
                     <div className="left-wrapper">
                         <div className="left">
-                            {
-                                detail ? <>
-                                    <div className="clearfix">
-                                        <div styleName="cover">
-                                            <img
-                                                src={getThumbnail(detail?.picUrl, 200)}
-                                                alt="封面"
-                                            />
+                            <div className="clearfix">
+                                <div styleName="cover">
+                                    <img
+                                        src={getThumbnail(detail.picUrl, 200)}
+                                        alt="封面"
+                                    />
+                                </div>
+                                <div styleName="content">
+                                    <span styleName="label"/>
+                                    <h2 styleName="title">{detail.name}</h2>
+                                    <div styleName="publish">
+                                        <div>
+                                            歌手：{
+                                                Array.isArray(detail.artists) && detail.artists.map((artist, i) => {
+                                                    return <span key={artist.id}>
+                                                        <Link to={`/artist/${artist.id}`}
+                                                            styleName="artist">{artist.name}</Link>
+                                                        {i !== detail.artists.length - 1 ? '/' : ''}
+                                                    </span>
+                                                })
+                                            }
                                         </div>
-                                        <div styleName="content">
-                                            <span styleName="label"/>
-                                            <h2 styleName="title">{detail.name}</h2>
-                                            <div styleName="publish">
-                                                <div>
-                                                    歌手：{
-                                                        detail.artists.map((artist, i) => {
-                                                            return <span key={artist.id}>
-                                                                <Link to={`/artist/${artist.id}`}
-                                                                    styleName="artist">{artist.name}</Link>
-                                                                {i !== detail.artists.length - 1 ? '/' : ''}
-                                                            </span>
-                                                        })
-                                                    }
-                                                </div>
-                                                <div>
+                                        <div>
                                                     发行时间：{moment(detail.publishTime).format(DATE_FORMAT)}
-                                                </div>
-                                                <div>
+                                        </div>
+                                        <div>
                                                     发行公司：{detail.company}
-                                                </div>
-                                            </div>
-                                            <div styleName="operation">
-                                                <Play id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
-                                                    <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
-                                                </Play>
-                                                <Add id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
-                                                    <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
-                                                </Add>
-                                                <a
-                                                    href={null}
-                                                    styleName="btn-add-favorite"
-                                                >
-                                                    <i>{detail.subscribedCount ? `(${formatNumber(detail.subscribedCount, 5)})` : '收藏'}</i>
-                                                </a>
-                                                <a
-                                                    href={null}
-                                                    styleName="btn-share"
-                                                >
-                                                    <i>{detail.info?.shareCount ? `(${formatNumber(detail.info?.shareCount, 5)})` : '分享'}</i>
-                                                </a>
-                                                <a href={null} styleName="btn-download"><i>下载</i></a>
-                                                <a
-                                                    href={null}
-                                                    styleName="btn-comment"
-                                                    onClick={this.handleComment}
-                                                >
-                                                    <i>{detail.info?.commentCount ? `(${detail.info?.commentCount})` : '评论'}</i>
-                                                </a>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div styleName="desc">
-                                        <h3>专辑介绍：</h3>
+                                    <div styleName="operation">
+                                        <Play id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
+                                            <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                                        </Play>
+                                        <Add id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
+                                            <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                                        </Add>
+                                        <a
+                                            href={null}
+                                            styleName="btn-add-favorite"
+                                        >
+                                            <i>{detail.subscribedCount ? `(${formatNumber(detail.subscribedCount, 5)})` : '收藏'}</i>
+                                        </a>
+                                        <a
+                                            href={null}
+                                            styleName="btn-share"
+                                        >
+                                            <i>{detail.info?.shareCount ? `(${formatNumber(detail.info?.shareCount, 5)})` : '分享'}</i>
+                                        </a>
+                                        <a href={null} styleName="btn-download"><i>下载</i></a>
+                                        <a
+                                            href={null}
+                                            styleName="btn-comment"
+                                            onClick={this.handleComment}
+                                        >
+                                            <i>{detail.info?.commentCount ? `(${detail.info?.commentCount})` : '评论'}</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div styleName="desc">
+                                <h3>专辑介绍：</h3>
+                                {
+                                    detail.description ? <div styleName="description">
+                                        <Collapse content={detail.description} maxWordNumber={140}/>
+                                    </div> : null
+                                }
+                            </div>
+                            <div styleName="tracks-wrapper" className="clearfix">
+                                <div styleName="table-title">
+                                    <h3>包含歌曲列表</h3>
+                                    <span styleName="other">
+                                        <span styleName="total">{detail?.songs?.length}首歌</span>
+                                        <span styleName="out-chain"><i/><Link to="/">生成外链播放器</Link></span>
+                                    </span>
+                                </div>
+                                <table styleName="table">
+                                    <thead>
+                                        <tr>
+                                            <th styleName="w1">
+                                                <div styleName="th first"/>
+                                            </th>
+                                            <th>
+                                                <div styleName="th">歌曲标题</div>
+                                            </th>
+                                            <th styleName="w2">
+                                                <div styleName="th">时长</div>
+                                            </th>
+                                            <th styleName="w3">
+                                                <div styleName="th">歌手</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         {
-                                            detail.description ? <div styleName="description">
-                                                <Collapse content={detail.description} maxWordNumber={140}/>
-                                            </div> : null
-                                        }
-                                    </div>
-                                    <div styleName="tracks-wrapper" className="clearfix">
-                                        <div styleName="table-title">
-                                            <h3>包含歌曲列表</h3>
-                                            <span styleName="other">
-                                                <span styleName="total">{detail.songs.length}首歌</span>
-                                                <span styleName="out-chain"><i/><Link to="/">生成外链播放器</Link></span>
-                                            </span>
-                                        </div>
-                                        <table styleName="table">
-                                            <thead>
-                                                <tr>
-                                                    <th styleName="w1">
-                                                        <div styleName="th first"/>
-                                                    </th>
-                                                    <th>
-                                                        <div styleName="th">歌曲标题</div>
-                                                    </th>
-                                                    <th styleName="w2">
-                                                        <div styleName="th">时长</div>
-                                                    </th>
-                                                    <th styleName="w3">
-                                                        <div styleName="th">歌手</div>
-                                                    </th>
+                                            Array.isArray(detail.songs) && detail.songs.map((item, index) => {
+                                                const order = index + 1
+                                                const {id, alia: alias} = item
+                                                const privilege = detail.privileges?.[index]
+                                                return <tr key={id}
+                                                    styleName={`track${privilege?.st === -200 ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
+                                                    <td styleName="order">
+                                                        <span styleName="number">{order}</span>
+                                                        <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
+                                                            {
+                                                                currentSong.id === id
+                                                                    ? <span styleName="ply ply-active"/>
+                                                                    : <span styleName="ply"/>
+                                                            }
+                                                        </Play>
+                                                    </td>
+                                                    <td>
+                                                        <div styleName="name">
+                                                            <Link to={`/song/${id}`}>{item.name}</Link>
+                                                            {alias && alias.length ? <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
+                                                            {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div styleName="duration">
+                                                            <span styleName="time">{formatDuration(item.dt)}</span>
+                                                            <div styleName="actions">
+                                                                <SongActions id={item.id}/>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td styleName="artists">
+                                                        {
+                                                            Array.isArray(item.ar) && item.ar.map((artist, i) => {
+                                                                return <span key={artist.id}
+                                                                    title={getArtists(item.ar)}>
+                                                                    <Link to={`/artist/${artist.id}`}
+                                                                        onClick={this.closePanel}>{artist.name}</Link>
+                                                                    {i !== item.ar.length - 1 ? '/' : ''}
+                                                                </span>
+                                                            })
+                                                        }
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    detail.songs.map((item, index) => {
-                                                        const order = index + 1
-                                                        const {id, alia: alias} = item
-                                                        const privilege = detail.privileges?.[index]
-                                                        return <tr key={id}
-                                                            styleName={`track${privilege?.st === -200 ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
-                                                            <td styleName="order">
-                                                                <span styleName="number">{order}</span>
-                                                                <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                                    {
-                                                                        currentSong.id === id
-                                                                            ? <span styleName="ply ply-active"/>
-                                                                            : <span styleName="ply"/>
-                                                                    }
-                                                                </Play>
-                                                            </td>
-                                                            <td>
-                                                                <div styleName="name">
-                                                                    <Link to={`/song/${id}`}>{item.name}</Link>
-                                                                    {alias && alias.length ? <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
-                                                                    {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div styleName="duration">
-                                                                    <span styleName="time">{formatDuration(item.dt)}</span>
-                                                                    <div styleName="actions">
-                                                                        <SongActions id={item.id}/>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td styleName="artists">
-                                                                {
-                                                                    Array.isArray(item.ar) && item.ar.map((artist, i) => {
-                                                                        return <span key={artist.id}
-                                                                            title={getArtists(item.ar)}>
-                                                                            <Link to={`/artist/${artist.id}`}
-                                                                                onClick={this.closePanel}>{artist.name}</Link>
-                                                                            {i !== item.ar.length - 1 ? '/' : ''}
-                                                                        </span>
-                                                                    })
-                                                                }
-                                                            </td>
-                                                        </tr>
-                                                    })
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </> : null
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                             }
                             <Comments
                                 onRef={this.setCommentsRef}

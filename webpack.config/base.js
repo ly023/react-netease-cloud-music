@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化资源分析
 
 const config = require('./config');
@@ -94,6 +95,11 @@ module.exports = {
         extensions: ['.js', '.json', '.jsx'], // 省略后缀名
     },
     plugins: [
+        // 剥离除 “en”、“zh-cn”以外的所有语言环境
+        //（“en” 内置于 Moment 中，无法移除）
+        new MomentLocalesPlugin({
+            localesToKeep: ['zh-cn'],
+        }),
         new BundleAnalyzerPlugin({
             // analyzerMode: 'server',
             analyzerMode: 'disabled',

@@ -29,7 +29,7 @@ function CollectPlaylist(props) {
             .finally(() => {
                 setLoading(false)
             })
-    }, [loading, id, type, onSuccess])
+    }, [disabled, loading, id, type, onSuccess])
 
     const {children} = props
     const onlyChildren = React.Children.only(children)

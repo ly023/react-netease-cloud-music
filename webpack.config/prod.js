@@ -13,6 +13,11 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const config = require('./config');
 const baseConfig = require('./base');
 
+const commonOptions = {
+    chunks: 'all',
+    reuseExistingChunk: true,
+}
+
 module.exports = merge(baseConfig, {
     mode: 'production', // webpack v4 指定mode自动配置DefinePlugin
     entry: {
@@ -45,15 +50,34 @@ module.exports = merge(baseConfig, {
                 }
             })
         ],
+        namedChunks: true,
+        moduleIds: 'hashed',
+        runtimeChunk: { // 或 runtimeChunk: true,  将webpack运行时生成代码打包
+            name: 'manifest'
+        },
+        // 分割代码块
         splitChunks: {
+            maxInitialRequests: 5,
             cacheGroups: {
-                vendor: {
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/](react|react-dom|react-router|redux|rect-redux|redux-saga)[\\/]/,
-                    name: "vendor",
+                polyfill: {
+                    test: /[\\/]node_modules[\\/](core-js|raf|@babel|babel)[\\/]/,
+                    name: 'polyfill',
+                    priority: 2,
+                    ...commonOptions
+                },
+                dll: {
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    name: 'dll',
+                    priority: 1,
+                    ...commonOptions
+                },
+                commons: {
+                    name: 'commons',
+                    minChunks: 3,
+                    ...commonOptions
                 }
             }
-        }
+        },
     },
     output: {
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
@@ -82,7 +106,7 @@ module.exports = merge(baseConfig, {
 
         // 提取css，路径相对于输出文件所在的位置
         new MiniCssExtractPlugin({
-            // contenthash 将根据资源内容创建出唯一hash，也文件内容不变，hash就不变
+            // contenthash 将根据资源内容创建出唯一hash，文件内容不变，hash就不变
             filename: 'css/[name].[contenthash:8].css',
         }),
 

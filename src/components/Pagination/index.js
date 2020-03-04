@@ -43,7 +43,7 @@ function Pagination(props) {
     const handleChange = useCallback((current) => {
         scrollIntoView(el, navHeight)
         onChange && onChange(current)
-    }, [onChange, el])
+    }, [onChange, el, navHeight])
 
     return showPagination && <div styleName="pagination">
         <span

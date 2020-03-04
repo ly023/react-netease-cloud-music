@@ -124,8 +124,7 @@ function Rank() {
                                                         styleName='icon add-icon'
                                                     />
                                                 </Add>
-                                                <a href={null} title={'收藏'}
-                                                   styleName='icon subscribe-icon'/>
+                                                <a href={null} title={'收藏'} styleName='icon subscribe-icon'/>
                                             </div>
                                         </li>
                                     })
