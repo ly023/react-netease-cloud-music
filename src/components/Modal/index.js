@@ -1,4 +1,5 @@
 import React from 'react'
+import {createPortal} from 'react-dom'
 import PropTypes from 'prop-types'
 import './index.scss'
 
@@ -9,11 +10,13 @@ export default class Modal extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
         title: PropTypes.string,
+        mask: PropTypes.bool,
         onCancel: PropTypes.func,
     }
 
     static defaultProps = {
         visible: false,
+        mask: false,
     }
 
     constructor(props) {
@@ -31,10 +34,6 @@ export default class Modal extends React.Component {
             this.modalClientHeight = modalClientHeight
             this.setPosition()
         }
-    }
-
-    componentWillUnmount() {
-
     }
 
     setPosition = () => {
@@ -117,25 +116,24 @@ export default class Modal extends React.Component {
     }
 
     render() {
-        const {visible, title, children} = this.props
+        const {visible, title, mask, children} = this.props
         const {style} = this.state
+        const modalRoot = document.getElementById('modal-root')
 
-        return (
-            <>
-                <div ref={this.modalRef} styleName="popover" className={visible ? null : "hide"} style={style}>
-                    <div
-                        styleName="popover-bar"
-                        onMouseDown={this.handleMouseDown}
-                    >
-                        <p styleName="popover-title">{title}</p>
-                        <span styleName="popover-close" title="关闭窗体" onClick={this.close}>×</span>
-                    </div>
-                    <div styleName="popover-cont">
-                        {children}
-                    </div>
+        return createPortal(visible ? <>
+            <div ref={this.modalRef} styleName="popover" style={style}>
+                <div
+                    styleName="popover-bar"
+                    onMouseDown={this.handleMouseDown}
+                >
+                    <p styleName="popover-title">{title}</p>
+                    <span styleName="popover-close" title="关闭窗体" onClick={this.close}>×</span>
                 </div>
-                <div className={visible ? null : "hide"} styleName="popover-mask"/>
-            </>
-        )
+                <div styleName="popover-cont">
+                    {children}
+                </div>
+            </div>
+            {mask ? <div styleName="popover-mask"/> : null}
+        </> : null, modalRoot)
     }
 }

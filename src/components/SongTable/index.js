@@ -12,8 +12,10 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import './index.scss'
 
 function SongTable(props) {
-    const {loading, detail, showDislike, onDislikeSuccess} = props
-    const {currentSong={}} = useShallowEqualSelector(({user}) => ({currentSong: user.player.currentSong}))
+    const {loading, detail, isSelf, showDislike, onDislikeSuccess} = props
+    const {currentSong={}} = useShallowEqualSelector(({user}) => ({
+        currentSong: user.player.currentSong,
+    }))
 
     const handleDislike = useCallback((id) => {
         // todo 歌曲不感兴趣
@@ -73,7 +75,7 @@ function SongTable(props) {
                                 <div styleName="duration">
                                     <span styleName="time">{formatDuration(item.duration)}</span>
                                     <div styleName="actions">
-                                        <SongActions id={id}/>
+                                        <SongActions id={id} isSelf={isSelf}/>
                                     </div>
                                 </div>
                             </td>
@@ -105,12 +107,14 @@ function SongTable(props) {
 
 SongTable.propTypes = {
     detail: PropTypes.object,
+    isSelf: PropTypes.bool,
     showDislike: PropTypes.bool,
     onDislikeSuccess: PropTypes.func,
 }
 
 SongTable.defaultProps = {
     detail: {},
+    isSelf: false,
     showDislike: false,
     onDislikeSuccess(){}
 }

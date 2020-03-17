@@ -6,14 +6,14 @@ import {Link} from 'react-router-dom'
 import {cloneDeep} from 'lodash'
 import Add from 'components/Add'
 import Play from 'components/Play'
-import CollectPlaylist from 'components/CollectPlaylist'
+import ListLoading from 'components/ListLoading'
+import SubscribePlaylist from 'components/SubscribePlaylist'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import {PLAY_TYPE} from 'constants/play'
 import {requestRankList} from 'services/toplist'
 import {getThumbnail} from 'utils'
 
 import './index.scss'
-import ListLoading from "components/ListLoading";
 
 function Rank() {
     const [loading, setLoading] = useState([])
@@ -44,7 +44,7 @@ function Rank() {
         }
     }, [])
 
-    const handleCollectSuccess = useCallback((index) => {
+    const handleSubscribeSuccess = useCallback((index) => {
         const list = cloneDeep(rankList)
         const rank = list[index]
         rank.subscribed = !rank.subscribed
@@ -80,10 +80,10 @@ function Rank() {
                                                 title="播放"
                                             >播放</a>
                                         </Play>
-                                        <CollectPlaylist
+                                        <SubscribePlaylist
                                             id={id}
                                             type={rank.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
-                                            onSuccess={() => handleCollectSuccess(index)}
+                                            onSuccess={() => handleSubscribeSuccess(index)}
                                         >
                                             <a
                                                 href={null}
@@ -92,7 +92,7 @@ function Rank() {
                                             >
                                                 收藏
                                             </a>
-                                        </CollectPlaylist>
+                                        </SubscribePlaylist>
                                     </div>
                                 </div>
                             </div>

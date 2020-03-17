@@ -4,8 +4,8 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import moment from 'moment'
-moment.locale('zh-cn')
+import dayjs from 'dayjs'
+dayjs.locale('zh-cn')
 import Page from 'components/Page'
 import Comments from 'components/Comments'
 import {DATE_FORMAT, DEFAULT_DOCUMENT_TITLE, PLAYLIST_COLLECTION_TYPE} from 'constants'
@@ -20,7 +20,7 @@ import SongTable from 'components/SongTable'
 import SubscribedUsers from 'components/SubscribedUsers'
 import RelatedPlaylists from 'components/RelatedPlaylists'
 import ClientDownload from 'components/ClientDownload'
-import CollectPlaylist from 'components/CollectPlaylist'
+import SubscribePlaylist from 'components/SubscribePlaylist'
 
 import './index.scss'
 
@@ -131,7 +131,7 @@ export default class PlaylistDetail extends React.Component {
         }
     }
 
-    handleCollectSuccess = () => {
+    handleSubscribeSuccess = () => {
         this.setState((prevState) => {
             return {
                 detail: {
@@ -171,7 +171,7 @@ export default class PlaylistDetail extends React.Component {
                                         </Link>
                                         <Link to="/" styleName="nickname">{detail.creator?.nickname}</Link>
                                         <span
-                                            styleName="time">{moment(detail.createTime).format(DATE_FORMAT)} 创建</span>
+                                            styleName="time">{dayjs(detail.createTime).format(DATE_FORMAT)} 创建</span>
                                     </div>
                                     <div styleName="operation">
                                         <Play id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
@@ -181,11 +181,11 @@ export default class PlaylistDetail extends React.Component {
                                             <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
                                         </Add>
 
-                                        <CollectPlaylist
+                                        <SubscribePlaylist
                                             id={detail.id}
                                             type={detail.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
                                             disabled={isSelf}
-                                            onSuccess={this.handleCollectSuccess}
+                                            onSuccess={this.handleSubscribeSuccess}
                                         >
                                             <a
                                                 href={null}
@@ -193,7 +193,7 @@ export default class PlaylistDetail extends React.Component {
                                             >
                                                 <i data-content={detail.subscribedCount ? `(${formatNumber(detail.subscribedCount, 5)})` : '收藏'}/>
                                             </a>
-                                        </CollectPlaylist>
+                                        </SubscribePlaylist>
                                         <a
                                             href={null}
                                             styleName="btn-share"
@@ -237,7 +237,7 @@ export default class PlaylistDetail extends React.Component {
                                         <span styleName="out-chain"><i/><Link to="/">生成外链播放器</Link></span>
                                     </span>
                                 </div>
-                                <SongTable loading={detailLoading} detail={detail}/>
+                                <SongTable loading={detailLoading} detail={detail} isSelf={isSelf}/>
                             </div>
                             <Comments
                                 onRef={this.setCommentsRef}

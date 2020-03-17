@@ -1,6 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+// const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化资源分析
 
 const config = require('./config');
@@ -23,7 +23,6 @@ module.exports = {
                 ] : [
                     'babel-loader',
                 ],
-                // exclude: /node_modules\/(?!(dom7|swiper)\/).*/,
                 exclude: /node_modules/,
             },
             {
@@ -62,7 +61,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif|svg)$/i,
+                test: /\.(png|jpe?g|gif|svg|woff|ttf|eot)$/i,
                 loader: 'url-loader',
                 options: {
                     esModule: false, // 启用CommonJS模块语法
@@ -97,9 +96,9 @@ module.exports = {
     plugins: [
         // 剥离除 “en”、“zh-cn”以外的所有语言环境
         //（“en” 内置于 Moment 中，无法移除）
-        new MomentLocalesPlugin({
-            localesToKeep: ['zh-cn'],
-        }),
+        // new MomentLocalesPlugin({
+        //     localesToKeep: ['zh-cn'],
+        // }),
         new BundleAnalyzerPlugin({
             // analyzerMode: 'server',
             analyzerMode: 'disabled',

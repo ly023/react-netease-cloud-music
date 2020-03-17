@@ -9,13 +9,14 @@ const ACTION_TYPES = {
     add: '添加到播放列表',
     favorite: '收藏',
     share: '分享',
-    download: '下载'
+    download: '下载',
+    delete: '删除',
 }
 
 const actions = Object.keys(ACTION_TYPES)
 
 function SongActions(props) {
-    const {id} = props
+    const {id, isSelf} = props
 
     const hasAction = (action) => {
         return props.actions.includes(action)
@@ -36,6 +37,9 @@ function SongActions(props) {
         {
             hasAction('download') ? <a href={null} styleName="icon download">{ACTION_TYPES.download}</a> : null
         }
+        {
+            hasAction('delete') && isSelf ? <a href={null} styleName="icon delete">{ACTION_TYPES.delete}</a> : null
+        }
     </div>
 }
 
@@ -48,11 +52,13 @@ SongActions.propTypes = {
                 ' `' + componentName + '`. Validation failed.'
             )
         }
-    })
+    }),
+    isSelf: PropTypes.bool,
 }
 
 SongActions.defaultProps = {
-    actions: actions
+    actions: actions,
+    isSelf: false,
 }
 
 export default SongActions

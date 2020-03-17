@@ -1,7 +1,7 @@
 
 .wrapper {
   position: relative;
-  padding: 0 28px;
+  padding: 0 16px 0 30px;
   margin: 20px 0 38px;
   white-space: nowrap;
   overflow: hidden;
@@ -9,11 +9,42 @@
   box-sizing: border-box;
   background-color: $bg-color;
   border: 1px solid #d3d3d3;
-}
 
-.list-wrapper {
-  width: 100%;
-  overflow: hidden;
+  :global {
+    .slick-prev,
+    .slick-next {
+      position: absolute;
+      top: 55px;
+      width: 17px;
+      height: 17px;
+      @extend %background-index;
+      cursor: pointer;
+      outline: none;
+
+      &:before {
+        content: none;
+      }
+    }
+
+    .slick-prev {
+      left: -24px;
+      background-position: -260px -75px;
+
+      &:hover {
+        background-position: -280px -75px;
+      }
+
+    }
+
+    .slick-next {
+      right: -12px;
+      background-position: -300px -75px;
+
+      &:hover {
+        background-position: -320px -75px;
+      }
+    }
+  }
 }
 
 .list {
@@ -91,33 +122,6 @@
   }
 }
 
-.prev,
-.next {
-  position: absolute;
-  top: 71px;
-  width: 17px;
-  height: 17px;
-  @extend %background-index;
-  cursor: pointer;
-  outline: none;
-}
 
-.prev {
-  left: 4px;
-  background-position: -260px -75px;
 
-  &:hover {
-    background-position: -280px -75px;
-  }
-
-}
-
-.next {
-  right: 4px;
-  background-position: -300px -75px;
-
-  &:hover {
-    background-position: -320px -75px;
-  }
-}
 

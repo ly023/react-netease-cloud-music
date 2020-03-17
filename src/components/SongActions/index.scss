@@ -1,6 +1,7 @@
 
 .actions {
   height: 18px;
+  white-space: nowrap;
 }
 
 .icon {
@@ -49,5 +50,14 @@
 
   &:hover {
     background-position: -104px -174px;
+  }
+}
+
+.delete {
+  @extend %background-table;
+  background-position: 0 -217px;
+
+  &:hover {
+    background-position: -20px -217px;
   }
 }

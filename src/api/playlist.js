@@ -13,7 +13,7 @@ export default {
         type: 'GET'
     },
     top: {
-        url: `${config.apiHost}/api/top/playlist`  ,
+        url: `${config.apiHost}/api/top/playlist`,
         type: 'GET'
     },
     personalized: {
@@ -35,6 +35,14 @@ export default {
     subscribe: {
         url: `${config.apiHost}/api/playlist/subscribe`,
         // type: 'POST'
+        type: 'GET'
+    },
+    userPlaylist: {
+        url: `${config.apiHost}/api/user/playlist`,
+        type: 'GET'
+    },
+    updateUserPlaylist: {
+        url: `${config.apiHost}/api/playlist/update`,
         type: 'GET'
     }
 }

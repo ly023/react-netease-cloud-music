@@ -24,30 +24,42 @@
 .banner {
   position: relative;
   width: 982px;
-  height: 336px;
+  height: 284px;
   margin: 0 auto;
   z-index: 1;
 
   :global {
-    .swiper-container {
-      height: 100%;
+    .slick-dots {
+      bottom: 10px;
+
+      li {
+        button {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+          @extend %swiper-icon;
+          background-position: 3px -343px;
+          cursor: pointer;
+
+          &:before {
+            content: none;
+          }
+
+          &:hover {
+            background-position: -16px -343px;
+          }
+        }
+
+        &.slick-active {
+          button {
+            background-position: -16px -343px;
+          }
+        }
+      }
     }
 
-    .swiper-pagination-bullet {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-      @extend %swiper-icon;
-      background-position: 3px -343px;
-      cursor: pointer;
-    }
-
-    .swiper-pagination-bullet-active {
-      background-position: -16px -343px;
-    }
-
-    .swiper-button-prev {
+    .slick-prev {
       @extend %swiper-icon;
       @extend %swiper-button;
       left: -68px;
@@ -58,7 +70,7 @@
       }
     }
 
-    .swiper-button-next {
+    .slick-next {
       @extend %swiper-icon;
       @extend %swiper-button;
       right: -68px;
@@ -68,43 +80,32 @@
         background-position: 0 -578px;
       }
     }
-
-    .swiper-slide img {
-      display: block;
-      height: 336px;
-    }
-
-    .swiper-pagination {
-      width: 730px;
-      height: 20px;
-    }
   }
 
-  .banner-content {
-    margin: 0;
-    width: 730px;
+  .slide img {
+    vertical-align: top;
   }
 
   .download {
     position: absolute;
     top: 0;
+    z-index: 20;
     right: -1px;
-    z-index: 1;
     width: 254px;
-    height: 336px;
+    height: 284px;
     @extend %background-download;
 
     a {
-      @extend %background-download;
       display: block;
       width: 215px;
       height: 56px;
-      margin: 212px 0 0 19px;
+      margin: 186px 0 0 19px;
       background-position: 0 9999px;
       text-indent: -9999px;
+      @extend %background-download;
 
       &:hover {
-        background-position: 0 -340px;
+        background-position: 0 -290px;
       }
     }
 
@@ -121,7 +122,7 @@
       top: 0;
       left: -20px;
       width: 20px;
-      height: 336px;
+      height: 284px;
       @extend %background-banner;
       background-position: -1px 0;
     }

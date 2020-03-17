@@ -34,6 +34,9 @@ module.exports = merge(baseConfig, {
             },
         }
     },
+    // watchOptions : {
+    //     ignored : /node_modules/, // 不监听node_modules目录下的文件
+    // },
     plugins: [
         new HtmlWebpackPlugin({
             filename: path.join(config.root, 'dist/index.html'),  // 生成的html存放路径，相对于path

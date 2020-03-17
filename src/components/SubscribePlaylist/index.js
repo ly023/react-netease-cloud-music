@@ -7,7 +7,7 @@ import message from 'components/Message'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import {requestSubscribe} from 'services/playlist'
 
-function CollectPlaylist(props) {
+function SubscribePlaylist(props) {
     const {id, type, disabled, onSuccess} = props
     const [loading, setLoading] = useState(false)
 
@@ -42,16 +42,16 @@ function CollectPlaylist(props) {
     )
 }
 
-CollectPlaylist.propTypes = {
+SubscribePlaylist.propTypes = {
     id: PropTypes.number,
     type: PropTypes.oneOf(Object.values(PLAYLIST_COLLECTION_TYPE)),
     disabled: PropTypes.bool,
     onSuccess: PropTypes.func,
 }
 
-CollectPlaylist.defaultProps = {
+SubscribePlaylist.defaultProps = {
     disabled: false,
     onSuccess(){}
 }
 
-export default CollectPlaylist
+export default SubscribePlaylist

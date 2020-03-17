@@ -4,8 +4,8 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import moment from 'moment'
-moment.locale('zh-cn')
+import dayjs from 'dayjs'
+dayjs.locale('zh-cn')
 import Page from 'components/Page'
 import Comments from 'components/Comments'
 import {DATE_FORMAT, DEFAULT_DOCUMENT_TITLE} from 'constants'
@@ -143,7 +143,7 @@ export default class AlbumDetail extends React.Component {
                                             }
                                         </div>
                                         <div>
-                                                    发行时间：{moment(detail.publishTime).format(DATE_FORMAT)}
+                                                    发行时间：{dayjs(detail.publishTime).format(DATE_FORMAT)}
                                         </div>
                                         <div>
                                                     发行公司：{detail.company}
@@ -285,7 +285,7 @@ export default class AlbumDetail extends React.Component {
                                             </Link>
                                             <div styleName="album-meta">
                                                 <p styleName="album-name"><Link to={albumLink} title={item.name}>{item.name}</Link></p>
-                                                <p styleName="album-time">{moment(item.publishTime).format(DATE_FORMAT)}</p>
+                                                <p styleName="album-time">{dayjs(item.publishTime).format(DATE_FORMAT)}</p>
                                             </div>
                                         </li>
                                     })

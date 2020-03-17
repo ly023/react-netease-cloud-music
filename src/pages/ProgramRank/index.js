@@ -2,8 +2,8 @@
  * 节目排行榜
  */
 import React, {useState, useMemo} from 'react'
-import moment from 'moment'
-moment.locale('zh-cn')
+import dayjs from 'dayjs'
+dayjs.locale('zh-cn')
 import Page from 'components/Page'
 import ProgramRank from 'components/ProgramRank'
 import QuestionPopover from 'components/Popover/QuestionPopover'
@@ -29,7 +29,7 @@ const ProgramRankPage = () => {
             <div styleName="gutter">
                 <div styleName="title">
                     <h3>节目排行榜</h3>
-                    {updateTime ? <span styleName="sub">最近更新：{moment(updateTime).format('MM月Do')}</span> : null}
+                    {updateTime ? <span styleName="sub">最近更新：{dayjs(updateTime).format('MM月Do')}</span> : null}
                     <div styleName="question">
                         <QuestionPopover
                             placement="bottomRight"

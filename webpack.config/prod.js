@@ -13,11 +13,6 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const config = require('./config');
 const baseConfig = require('./base');
 
-const commonOptions = {
-    chunks: 'all',
-    reuseExistingChunk: true,
-}
-
 module.exports = merge(baseConfig, {
     mode: 'production', // webpack v4 指定mode自动配置DefinePlugin
     entry: {
@@ -53,6 +48,7 @@ module.exports = merge(baseConfig, {
         namedChunks: true,
         moduleIds: 'hashed',
         runtimeChunk: { // 或 runtimeChunk: true,  将webpack运行时生成代码打包
+            // name: entrypoint => `runtime-${entrypoint.name}`,
             name: 'manifest'
         },
         // 分割代码块
@@ -63,18 +59,21 @@ module.exports = merge(baseConfig, {
                     test: /[\\/]node_modules[\\/](core-js|raf|@babel|babel)[\\/]/,
                     name: 'polyfill',
                     priority: 2,
-                    ...commonOptions
+                    chunks: 'all',
+                    reuseExistingChunk: true,
                 },
                 dll: {
                     test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-                    name: 'dll',
+                    name: 'react',
                     priority: 1,
-                    ...commonOptions
+                    chunks: 'all',
+                    reuseExistingChunk: true,
                 },
                 commons: {
                     name: 'commons',
                     minChunks: 3,
-                    ...commonOptions
+                    chunks: 'all',
+                    reuseExistingChunk: true,
                 }
             }
         },

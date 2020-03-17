@@ -38,6 +38,7 @@ export default class FooterBar extends React.Component {
                                 styleName='link color-1'>版权投诉指引</a><span
                                 styleName='copy-line'>|</span>
                             <a styleName='link color-1' hidefocus='true' onClick={this.showFeedback}>意见反馈</a>
+                            <FeedbackModal visible={feedbackVisible} onCancel={this.hideFeedback}/>
                         </p>
                         <p styleName='color-2'>
                             <span styleName='copy-sep-company'>网易公司版权所有©1997-2019</span>杭州乐读科技有限公司运营：<a
@@ -68,7 +69,6 @@ export default class FooterBar extends React.Component {
                         </li>
                     </ul>
                 </div>
-                <FeedbackModal visible={feedbackVisible} onCancel={this.hideFeedback}/>
             </div>
         )
     }
