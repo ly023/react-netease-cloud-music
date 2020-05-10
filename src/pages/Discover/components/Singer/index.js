@@ -33,7 +33,7 @@ function Singer() {
         <ul styleName="list">
             {
                 artists.map((item) => {
-                    return <li key={item.accountId} styleName="item">
+                    return <li key={item.id} styleName="item">
                         <Link to={`/user/home/${item.accountId}`}>
                             <img src={item.picUrl} styleName="item-avatar" alt="头像"/>
                             <div styleName="item-info">

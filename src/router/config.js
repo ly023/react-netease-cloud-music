@@ -1,13 +1,13 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
 import Loadable from 'react-loadable'
+import PageLoading from 'components/PageLoading'
 
 // import asyncComponent from './asyncComponent'
 // const importPages = file => asyncComponent(() => import(`pages/${file}`))
 
-const importViews = file => import(`pages/${file}`)
-
-const Loading = () => null
+// const importViews = file => import(`pages/${file}`)
+const importViews = file => import('pages/' + file) // https://github.com/babel/babel-eslint/issues/681#issuecomment-612744192
 
 export default [
     {
@@ -22,7 +22,7 @@ export default [
         exact: true,
         component: Loadable({
             loader: () => importViews('Discover'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -31,7 +31,7 @@ export default [
         exact: true,
         component: Loadable({
             loader: () => importViews('Playlist'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -40,25 +40,25 @@ export default [
         exact: true,
         component: Loadable({
             loader: () => importViews('AnchorRadio'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
-        path: '/discover/radio/category/:id' ,
+        path: '/discover/radio/category/:id',
         name: '发现-主播电台-分类',
         exact: true,
         component: Loadable({
             loader: () => importViews('AnchorRadioType'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
-        path: '/discover/radio/recommend' ,
+        path: '/discover/radio/recommend',
         name: '发现-主播电台-推荐节目',
         exact: true,
         component: Loadable({
             loader: () => importViews('AnchorRadioRecommendation'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -67,7 +67,7 @@ export default [
         exact: true,
         component: Loadable({
             loader: () => importViews('ProgramRank'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -76,7 +76,7 @@ export default [
         exact: true,
         component: Loadable({
             loader: () => importViews('Album'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -88,7 +88,7 @@ export default [
         },
         component: Loadable({
             loader: () => importViews('DailyRecommendation'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -96,7 +96,7 @@ export default [
         name: '朋友',
         component: Loadable({
             loader: () => importViews('Friend'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -104,7 +104,7 @@ export default [
         name: '下载客户端',
         component: Loadable({
             loader: () => importViews('Download'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -112,7 +112,7 @@ export default [
         name: '歌曲详情',
         component: Loadable({
             loader: () => importViews('Song'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -120,7 +120,7 @@ export default [
         name: '歌单详情',
         component: Loadable({
             loader: () => importViews('PlaylistDetail'),
-            loading: Loading
+            loading: PageLoading,
         })
     },
     {
@@ -128,7 +128,7 @@ export default [
         name: '专辑详情',
         component: Loadable({
             loader: () => importViews('AlbumDetail'),
-            loading: Loading
+            loading: PageLoading,
         })
     },
     {
@@ -136,7 +136,7 @@ export default [
         name: '搜索',
         component: Loadable({
             loader: () => importViews('Search'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -144,7 +144,7 @@ export default [
         name: '我的主页',
         component: Loadable({
             loader: () => importViews('UserHome'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
     {
@@ -155,14 +155,14 @@ export default [
         },
         component: Loadable({
             loader: () => importViews('UserUpdate'),
-            loading: Loading
+            loading: PageLoading,
         })
     },
     {
         path: '*',
         component: Loadable({
             loader: () => importViews('404'),
-            loading: Loading,
+            loading: PageLoading,
         }),
     },
 ]

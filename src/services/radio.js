@@ -26,3 +26,8 @@ export async function requestCategoryHot(params) {
 export async function requestDetail(params) {
     return request(`${API.detail.url}?${stringify(params)}`)
 }
+
+// 首页热门主播mock
+export async function requestHotAnchorMock() {
+    return request(API.hotAnchorMock.url, null, {errorShow: false})
+}

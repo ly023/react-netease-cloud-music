@@ -13,9 +13,14 @@ function resolve(dir) {
 module.exports = {
     context: config.root, // 绝对路径，webpack 编译时的基础目录，entry 会相对于此目录查找
     module: { // 配置loader
+        // 如果项目中使用jquery，jquery并没有采用模块化标准，让webpack忽略它
+        // noParse: /jquery/,
         rules: [
             {
-                test: /\.jsx?$/,
+                // 编译 js、jsx
+                // 如果项目源码中没有 jsx 文件就不要写 /\.jsx?$/，提升正则表达式性能
+                // test: /\.jsx?$/,
+                test: /\.js$/,
                 // enforce: 'pre', // ESLint 优先级高于其他 JS 相关的 loader
                 loader: isDevelopment ? [
                     'babel-loader',
@@ -91,7 +96,10 @@ module.exports = {
             utils: resolve( 'src/utils'),
             pages: resolve('src/pages'),
         },
-        extensions: ['.js', '.json', '.jsx'], // 省略后缀名
+        // 省略后缀名
+        // resolve.extensions 列表要尽可能的小，不要把项目中不可能存在的情况写到后缀尝试列表中
+        // 频率出现最高的文件后缀要优先放在最前面，以做到尽快的退出寻找过程
+        extensions: ['.js', '.json'],
     },
     plugins: [
         // 剥离除 “en”、“zh-cn”以外的所有语言环境

@@ -3,6 +3,8 @@ const path = require('path');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 
+const apiMocker = require('mocker-api');
+
 const config = require('./config');
 const baseConfig = require('./base');
 
@@ -25,6 +27,9 @@ module.exports = merge(baseConfig, {
         hot: true,
         port: config.port,
         historyApiFallback: true,
+        before(app) {
+            apiMocker(app, path.resolve('src/mock/index.js'))
+        },
         proxy: {
             '/api': {
                 target: 'http://localhost:' + config.proxyPort,
@@ -34,9 +39,9 @@ module.exports = merge(baseConfig, {
             },
         }
     },
-    // watchOptions : {
-    //     ignored : /node_modules/, // 不监听node_modules目录下的文件
-    // },
+    watchOptions : {
+        ignored : /node_modules/, // 不监听node_modules目录下的文件
+    },
     plugins: [
         new HtmlWebpackPlugin({
             filename: path.join(config.root, 'dist/index.html'),  // 生成的html存放路径，相对于path

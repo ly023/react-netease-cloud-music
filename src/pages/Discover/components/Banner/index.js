@@ -34,10 +34,9 @@ function Banner() {
         }
     }, [])
 
-    const beforeChange = useCallback((oldIndex, newIndex) => {
-        const realActiveIndex = (newIndex - 1) % (banners.length)
-        const banner = banners[realActiveIndex]
-        if(banner) {
+    const afterChange = useCallback((index) => {
+        const banner = banners[index]
+        if (banner) {
             setActiveUrl(banner.imageUrl)
         }
     }, [banners])
@@ -45,15 +44,16 @@ function Banner() {
     const settings = useMemo(() => ({
         autoplay: true,
         autoplaySpeed: 3000,
-        dots: true,
         infinite: true,
+        dots: true,
         fade: true,
-        beforeChange
-    }), [beforeChange])
+        pauseOnHover: true,
+        afterChange,
+    }), [afterChange])
 
     const backgroundStyle = useMemo(() => ({
         backgroundImage: `url(${getBlur(activeUrl)})`,
-        backgroundSize: '6000px'
+        backgroundSize: '6000px',
     }), [activeUrl])
 
     return <section style={backgroundStyle}>
