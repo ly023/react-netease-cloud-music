@@ -24,9 +24,9 @@ function Rank() {
         const fetchRankList = async () => {
             try {
                 setLoading(true)
-                const {playlist: soaringRank} = await requestRankList({idx: 3})
-                const {playlist: newRank} = await requestRankList({idx: 0})
-                const {playlist: hotRank} = await requestRankList({idx: 2})
+                const {playlist: soaringRank} = await requestRankList({id: 19723756})
+                const {playlist: newRank} = await requestRankList({id: 3779629})
+                const {playlist: hotRank} = await requestRankList({id: 2884035})
 
                 if(isMounted.current) {
                     setRankList([soaringRank, newRank, hotRank])

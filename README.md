@@ -8,4 +8,4 @@
 
 #### Build Setup
 
-开发：npm run start
+开发：npm run dev
