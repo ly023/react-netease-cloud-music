@@ -24,7 +24,7 @@ const codeMessage = {
 function responseCatch(e) {
     return new Promise((resolve, reject) => {
         if(!e.errorText){
-            e.errorText = get(codeMessage, e.response.status, get(e, 'response.statusText', ''))
+            e.errorText = get(codeMessage, e.response?.status, get(e, 'response.statusText', ''))
         }
         reject(e)
     })

@@ -34,8 +34,8 @@ function Banner() {
         }
     }, [])
 
-    const afterChange = useCallback((index) => {
-        const banner = banners[index]
+    const beforeChange = useCallback((oldIndex, newIndex) => {
+        const banner = banners[newIndex]
         if (banner) {
             setActiveUrl(banner.imageUrl)
         }
@@ -48,8 +48,8 @@ function Banner() {
         dots: true,
         fade: true,
         pauseOnHover: true,
-        afterChange,
-    }), [afterChange])
+        beforeChange,
+    }), [beforeChange])
 
     const backgroundStyle = useMemo(() => ({
         backgroundImage: `url(${getBlur(activeUrl)})`,

@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 
 const apiMocker = require('mocker-api');

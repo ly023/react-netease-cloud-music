@@ -56,7 +56,15 @@ module.exports = {
                         }
                     },
                     'postcss-loader',
-                    'sass-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('sass'),
+                            sassOptions: {
+                                fiber: false,
+                            },
+                        },
+                    },
                     {
                         loader: 'sass-resources-loader', // 实现全局scss变量
                         options: {
@@ -82,18 +90,18 @@ module.exports = {
             'react-dom': '@hot-loader/react-dom',
             actions: resolve('src/actions'),
             assets: resolve('src/assets'),
-            api: resolve( 'src/api'),
+            api: resolve('src/api'),
             components: resolve('src/components'),
-            config: resolve( 'src/config'),
+            config: resolve('src/config'),
             constants: resolve('src/constants'),
             hoc: resolve('src/hoc'),
-            reducers: resolve( 'src/reducers'),
+            reducers: resolve('src/reducers'),
             router: resolve('src/router'),
-            sagas: resolve( 'src/sagas'),
+            sagas: resolve('src/sagas'),
             services: resolve('src/services'),
-            store: resolve( 'src/store'),
+            store: resolve('src/store'),
             style: resolve('src/style'),
-            utils: resolve( 'src/utils'),
+            utils: resolve('src/utils'),
             pages: resolve('src/pages'),
         },
         // 省略后缀名
@@ -101,12 +109,7 @@ module.exports = {
         // 频率出现最高的文件后缀要优先放在最前面，以做到尽快的退出寻找过程
         extensions: ['.js', '.json'],
     },
-    plugins: [
-        // 剥离除 “en”、“zh-cn”以外的所有语言环境
-        //（“en” 内置于 Moment 中，无法移除）
-        // new MomentLocalesPlugin({
-        //     localesToKeep: ['zh-cn'],
-        // }),
+    plugins: isDevelopment ? [
         new BundleAnalyzerPlugin({
             // analyzerMode: 'server',
             analyzerMode: 'disabled',
@@ -119,6 +122,8 @@ module.exports = {
             statsFilename: 'stats.json',
             logLevel: 'info'
         }),
+    ] : [
+        new MiniCssExtractPlugin(),
     ]
 };
 

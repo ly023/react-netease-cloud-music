@@ -6,7 +6,7 @@ import ListLoading from 'components/ListLoading'
 import Empty from 'components/Empty'
 import Pagination from 'components/Pagination'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
-import {requestNewestAlbum, requestTopAlbum} from 'services/album'
+import {requestNewestAlbum, requestAllNewAlbum} from 'services/album'
 import {getUrlParameter} from 'utils'
 import AlbumItem from './components/AlbumItem'
 
@@ -18,7 +18,7 @@ function Album() {
     const history = useHistory()
     const {pathname, search} = useLocation()
     const [newestAlbum, setNewestAlbum] = useState([])
-    const [topAlbum, setTopAlbum] = useState([])
+    const [allNewAlbum, setAllNewAlbum] = useState([])
     const isMounted = useRef()
     const listWrapperRef = useRef()
 
@@ -64,7 +64,7 @@ function Album() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const fetchTopAlbum = useCallback(async () => {
+    const fetchAllNewAlbum = useCallback(async () => {
         setTopLoading(true)
         const page = getPage()
         const query = {
@@ -73,11 +73,11 @@ function Album() {
             offset: (page - 1) * DEFAULT_LIMIT
         }
         try {
-            const res = await requestTopAlbum(query)
+            const res = await requestAllNewAlbum(query)
             if (isMounted.current && res) {
                 const {albums = [], total = 0} = res
                 setParams(query)
-                setTopAlbum(albums)
+                setAllNewAlbum(albums)
                 setTotal(total)
                 setCurrent(page)
             }
@@ -100,7 +100,7 @@ function Album() {
     }, [history, params, pathname])
 
     useEffect(()=>{
-        fetchTopAlbum()
+        fetchAllNewAlbum()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
 
@@ -154,9 +154,9 @@ function Album() {
                 <ListLoading loading={topLoading}/>
                 {
                     !topLoading ? (
-                        topAlbum.length ? <div styleName="list">
+                        allNewAlbum.length ? <div styleName="list">
                             {
-                                topAlbum.map((item) => {
+                                allNewAlbum.map((item) => {
                                     return <div key={item.id} styleName="item">
                                         <AlbumItem item={item}/>
                                     </div>

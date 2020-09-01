@@ -57,7 +57,7 @@ function SongTable(props) {
                                 {/*{item.publishTime ? <i styleName="new"/> : null}*/}
                                 <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
                                     {
-                                        currentSong.id === id
+                                        currentSong?.id === id
                                             ? <span styleName="ply ply-active"/>
                                             : <span styleName="ply"/>
                                     }

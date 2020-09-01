@@ -5,7 +5,6 @@ import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
-dayjs.locale('zh-cn')
 import Page from 'components/Page'
 import Comments from 'components/Comments'
 import {DATE_FORMAT, DEFAULT_DOCUMENT_TITLE} from 'constants'
@@ -192,7 +191,7 @@ export default class AlbumDetail extends React.Component {
                                     <h3>包含歌曲列表</h3>
                                     <span styleName="other">
                                         <span styleName="total">{detail?.songs?.length}首歌</span>
-                                        <span styleName="out-chain"><i/><Link to="/">生成外链播放器</Link></span>
+                                        <span styleName="out-chain"><i/><a href={null}>生成外链播放器</a></span>
                                     </span>
                                 </div>
                                 <table styleName="table">
@@ -224,7 +223,7 @@ export default class AlbumDetail extends React.Component {
                                                         <span styleName="number">{order}</span>
                                                         <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
                                                             {
-                                                                currentSong.id === id
+                                                                currentSong?.id === id
                                                                     ? <span styleName="ply ply-active"/>
                                                                     : <span styleName="ply"/>
                                                             }

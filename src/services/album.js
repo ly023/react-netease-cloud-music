@@ -7,9 +7,9 @@ export async function requestNewestAlbum() {
     return request(API.newest.url)
 }
 
-// 新碟上架
-export async function requestTopAlbum(params) {
-    return request(`${API.top.url}?${stringify(params)}`)
+// 全部新碟
+export async function requestAllNewAlbum(params) {
+    return request(`${API.allNew.url}?${stringify(params)}`)
 }
 
 export async function requestDetail(params) {

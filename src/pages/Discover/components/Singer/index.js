@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {requestArtist} from 'services/artist'
 
 import './index.scss'
+import {getThumbnail} from "utils/index";
 
 function Singer() {
     const [artists, setArtists] = useState([])
@@ -35,7 +36,7 @@ function Singer() {
                 artists.map((item) => {
                     return <li key={item.id} styleName="item">
                         <Link to={`/user/home/${item.accountId}`}>
-                            <img src={item.picUrl} styleName="item-avatar" alt="头像"/>
+                            <img src={getThumbnail(item.picUrl, 62)} styleName="item-avatar" alt="头像"/>
                             <div styleName="item-info">
                                 <h4 styleName="item-nickname">{item.name}{item.alias?.[0]}</h4>
                                 <p styleName="item-desc">暂无描述</p>

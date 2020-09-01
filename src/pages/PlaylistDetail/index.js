@@ -5,7 +5,6 @@ import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
-dayjs.locale('zh-cn')
 import Page from 'components/Page'
 import Comments from 'components/Comments'
 import {DATE_FORMAT, DEFAULT_DOCUMENT_TITLE, PLAYLIST_COLLECTION_TYPE} from 'constants'
@@ -234,7 +233,7 @@ export default class PlaylistDetail extends React.Component {
                                     <span styleName="other">
                                         <span styleName="total">{detail.songs?.length}首歌</span>
                                         <span styleName="more">播放：<strong styleName="play-count">{detail.playCount}</strong>次</span>
-                                        <span styleName="out-chain"><i/><Link to="/">生成外链播放器</Link></span>
+                                        <span styleName="out-chain"><i/><a href={null}>生成外链播放器</a></span>
                                     </span>
                                 </div>
                                 <SongTable loading={detailLoading} detail={detail} isSelf={isSelf}/>

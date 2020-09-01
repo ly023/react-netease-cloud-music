@@ -3,7 +3,6 @@
  */
 import React, {useState, useMemo} from 'react'
 import dayjs from 'dayjs'
-dayjs.locale('zh-cn')
 import Page from 'components/Page'
 import ProgramRank from 'components/ProgramRank'
 import QuestionPopover from 'components/Popover/QuestionPopover'
@@ -29,7 +28,7 @@ const ProgramRankPage = () => {
             <div styleName="gutter">
                 <div styleName="title">
                     <h3>节目排行榜</h3>
-                    {updateTime ? <span styleName="sub">最近更新：{dayjs(updateTime).format('MM月Do')}</span> : null}
+                    {updateTime ? <span styleName="sub">最近更新：{dayjs(updateTime).format('MM月DD日')}</span> : null}
                     <div styleName="question">
                         <QuestionPopover
                             placement="bottomRight"
