@@ -12,7 +12,7 @@ function Info() {
     const [detail, setDetail] = useState(null)
     const [dailySignInLoading, setDailySignInLoading] = useState(false)
     const [signInSuccess, setSignInSuccess] = useState(false)
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     const handleCheckIn = () => {
         if (dailySignInLoading) {

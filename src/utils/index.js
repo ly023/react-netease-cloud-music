@@ -1,4 +1,3 @@
-
 /**
  * 根据name获取cookie
  * @param name
@@ -39,7 +38,7 @@ export function formatNumber(number, startIndex = 4, digits = 0) {
     }
     const start = Number(`1e${startIndex}`)
     if (number / start > 1) {
-        return  `${trunc(number / 1e4, digits)}万`
+        return `${trunc(number / 1e4, digits)}万`
     } else {
         return number
     }
@@ -320,4 +319,31 @@ export function scrollIntoView(el, offset = 0) {
         const scrollTop = top - offset
         window.scrollTo(0, scrollTop)
     }
+}
+
+export function trim(str) {
+    if (typeof str === 'string' && str) {
+        return str.trim()
+    }
+    return ''
+}
+
+/**
+ * 计算string字节数
+ * @param str
+ * @returns {number}
+ */
+export function bytes(str) {
+    let total = 0
+    if (typeof str === 'string' && str) {
+        const reg = /[^\x00-\xfff]/ // 匹配双字节字符
+        for (let i = 0, len = str.length; i < len; i++) {
+            if (reg.test(str.charAt(i))) {
+                total += 2
+            } else {
+                total += 1
+            }
+        }
+    }
+    return total
 }

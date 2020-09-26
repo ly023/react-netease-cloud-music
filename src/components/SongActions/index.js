@@ -4,6 +4,7 @@ import {PLAY_TYPE} from 'constants/play'
 import Add from 'components/Add'
 
 import './index.scss'
+import AddToPlaylist from "components/AddToPlaylist";
 
 const ACTION_TYPES = {
     add: '添加到播放列表',
@@ -29,7 +30,11 @@ function SongActions(props) {
             </Add> : null
         }
         {
-            hasAction('favorite') ? <a href={null} styleName="icon favorite">{ACTION_TYPES.favorite}</a> : null
+            hasAction('favorite')
+                ? <AddToPlaylist songIds={[id]}>
+                    <a href={null} styleName="icon favorite">{ACTION_TYPES.favorite}</a>
+                </AddToPlaylist>
+                : null
         }
         {
             hasAction('share') ? <a href={null} styleName="icon share">{ACTION_TYPES.share}</a> : null

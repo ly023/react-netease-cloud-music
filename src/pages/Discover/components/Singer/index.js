@@ -7,7 +7,7 @@ import {getThumbnail} from "utils/index";
 
 function Singer() {
     const [artists, setArtists] = useState([])
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     useEffect(() => {
         const fetchArtist = async () => {

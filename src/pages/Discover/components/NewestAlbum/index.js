@@ -18,7 +18,7 @@ const SLIDES_PER_ROW = 5 // 每行显示专辑数
 
 function NewestAlbum() {
     const [newestAlbums, setNewestAlbum] = useState([])
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     useEffect(() => {
         const fetchNewestAlbum = async () => {

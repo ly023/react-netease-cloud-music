@@ -84,7 +84,7 @@ export default class FeedbackModal extends React.Component {
                             onChange={(e)=>{this.handleChange('contact', e)}}
                         />
                     </div>
-                    <div styleName="error-msg">{errorMsg}</div>
+                    {errorMsg ? <div styleName="error-msg">{errorMsg}</div> : null}
                     <div styleName="feedback-btns">
                         <a
                             href={null}

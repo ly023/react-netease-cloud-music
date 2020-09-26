@@ -12,16 +12,15 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import './index.scss'
 
 function SongTable(props) {
-    const {loading, detail, isSelf, showDislike, onDislikeSuccess} = props
+    const {loading, songs, isSelf, showDislike, onDislikeSuccess} = props
     const {currentSong={}} = useShallowEqualSelector(({user}) => ({
         currentSong: user.player.currentSong,
     }))
 
     const handleDislike = useCallback((id) => {
         // todo 歌曲不感兴趣
-        const {songs=[]} =  detail
         onDislikeSuccess(songs.filter(v => v.id !== id))
-    }, [detail, onDislikeSuccess])
+    }, [songs, onDislikeSuccess])
 
     return <>
         <table styleName="table">
@@ -44,9 +43,9 @@ function SongTable(props) {
                     </th>
                 </tr>
             </thead>
-            {Array.isArray(detail.songs) && <tbody>
+            {Array.isArray(songs) && <tbody>
                 {
-                    detail.songs.map((item, index) => {
+                    songs.map((item, index) => {
                         const order = index + 1
                         const {id, alia: alias, privilege} = item
 
@@ -65,7 +64,7 @@ function SongTable(props) {
                             </td>
                             <td>
                                 <div styleName="name">
-                                    <Link to={`/song/${id}`}>{item.name}</Link>
+                                    <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>
                                     {alias && alias.length ?
                                         <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
                                     {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
@@ -106,14 +105,14 @@ function SongTable(props) {
 }
 
 SongTable.propTypes = {
-    detail: PropTypes.object,
+    songs: PropTypes.array,
     isSelf: PropTypes.bool,
     showDislike: PropTypes.bool,
     onDislikeSuccess: PropTypes.func,
 }
 
 SongTable.defaultProps = {
-    detail: {},
+    songs: [],
     isSelf: false,
     showDislike: false,
     onDislikeSuccess(){}

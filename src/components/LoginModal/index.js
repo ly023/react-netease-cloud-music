@@ -105,8 +105,10 @@ export default class LoginModal extends React.Component {
 
         return (
             <Modal {...this.props} title={this.getTitle(mode)}>
-                {this.getRenderMode(mode)}
-                {this.getRenderModeTip(mode)}
+                <div styleName="cont">
+                    {this.getRenderMode(mode)}
+                    {this.getRenderModeTip(mode)}
+                </div>
             </Modal>
         )
     }

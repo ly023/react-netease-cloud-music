@@ -11,7 +11,7 @@ const PLAYLIST_CATEGORY_ID = 'playlist-category'
 
 function Categories(props) {
     const {children, category} = props
-    const isMounted = useRef()
+    const isMounted = useRef(false)
     const {pathname, search} = useLocation()
     const [categories, setCategories] = useState({})
     const [visible, setVisible] = useState(false)

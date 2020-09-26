@@ -9,7 +9,7 @@ import {CATEGORY_RECOMMENDATION} from '../../constants'
 import './index.scss'
 
 function CategoryRecommendation({type}) {
-    const isMounted = useRef()
+    const isMounted = useRef(false)
     const [radios, setRadios] = useState([])
 
     const categoryName = useMemo(() => {

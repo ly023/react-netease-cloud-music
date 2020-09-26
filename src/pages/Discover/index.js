@@ -79,7 +79,7 @@ export default class Discover extends React.Component {
                             </section>
                             {/* 个性化推荐 */}
                             {
-                                isLogin ?  <section className='clearfix'>
+                                isLogin ? <section className='clearfix'>
                                     <div styleName='title'>
                                         <Link className='fl' styleName='title-text' to=''>个性化推荐</Link>
                                     </div>

@@ -9,7 +9,7 @@ import {requestCategoryRecommendation} from 'services/radio'
 import './index.scss'
 
 function CategoryRecommendation({type}) {
-    const isMounted = useRef()
+    const isMounted = useRef(false)
     const [radios, setRadios] = useState([])
     const [loading, setLoading] = useState(false)
 

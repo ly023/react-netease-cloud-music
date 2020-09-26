@@ -3,6 +3,7 @@ import Page from 'components/Page'
 import SongTable from 'components/SongTable'
 import Play from 'components/Play'
 import Add from 'components/Add'
+import AddToPlaylist from 'components/AddToPlaylist'
 import ClientDownload from 'components/ClientDownload'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {PLAY_TYPE} from 'constants/play'
@@ -16,8 +17,7 @@ const WEEKDAY = ['星期一', '星期二', '星期三', '星期四', '星期五'
 
 function DailyRecommendation() {
     const {userInfo} = useShallowEqualSelector(({user}) => ({userInfo: user.userInfo}))
-    const isMounted = useRef()
-    const [detail, setDetail] = useState({})
+    const isMounted = useRef(false)
     const [songs, setSongs] = useState([])
     const [info, setInfo] = useState({})
     const [detailLoading, setDetailLoading] = useState(false)
@@ -32,7 +32,10 @@ function DailyRecommendation() {
                 const item = songs[i]
                 newSongs.push({
                     ...item,
-                    mv: item.mvid
+                    mv: item.mvid,
+                    duration: item.dt,
+                    artists: item.ar,
+                    album: item.al,
                 })
             }
             return newSongs
@@ -43,9 +46,7 @@ function DailyRecommendation() {
                 setDetailLoading(true)
                 const res = await requestRcmdSongs()
                 if (isMounted.current) {
-                    const data = res.recommend
-                    setSongs(data)
-                    setDetail({songs: parseSongs(data)})
+                    setSongs(parseSongs(res?.data?.dailySongs || []))
                 }
             } finally {
                 setDetailLoading(false)
@@ -72,13 +73,12 @@ function DailyRecommendation() {
     }, [userInfo])
 
     const handleDislikeSuccess = useCallback((songs) => {
-        setDetail({
-            ...detail,
-            songs: songs || []
-        })
-    }, [detail])
+        setSongs(songs || [])
+    }, [])
 
     const documentTitle = useMemo(() => `每日歌曲推荐 - ${DEFAULT_DOCUMENT_TITLE}`, [])
+
+    const songIds = useMemo(() => Array.isArray(songs) ? songs.map(v => v.id) : [], [songs])
 
     return <Page title={documentTitle}>
         <div className="main">
@@ -98,15 +98,17 @@ function DailyRecommendation() {
                         <Add type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
                             <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
                         </Add>
-                        <a href={null} styleName="btn-subscribe" title="播放"><i><em/>收藏全部</i></a>
+                        <AddToPlaylist songIds={songIds}>
+                            <a href={null} styleName="btn-subscribe" title="播放"><i><em/>收藏全部</i></a>
+                        </AddToPlaylist>
                     </div>
                     <div styleName="table-title">
                         <h3>歌曲列表</h3>
                         <span styleName="other">
-                            <span styleName="total">{detail.songs?.length}首歌</span>
+                            <span styleName="total">{songs?.length}首歌</span>
                         </span>
                     </div>
-                    <SongTable loading={detailLoading} detail={detail} showDislike onDislikeSuccess={handleDislikeSuccess}/>
+                    <SongTable loading={detailLoading} songs={songs} showDislike onDislikeSuccess={handleDislikeSuccess}/>
                 </div>
             </div>
             <div className="right-wrapper">

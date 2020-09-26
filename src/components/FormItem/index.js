@@ -1,7 +1,10 @@
 import React from 'react'
+
 import './index.scss'
 
-const FormItem = ({classname, error, children}) => {
+const FormItem = (props) => {
+    const {error, children, classname} = props
+
     return <div className={classname} styleName={`field ${error ? "has-error" : ''}`}>
         {children}
     </div>

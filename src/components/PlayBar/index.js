@@ -19,6 +19,7 @@ import {
     click,
 } from 'utils'
 import {isShuffleMode, getArtists} from 'utils/song'
+import AddToPlaylist from 'components/AddToPlaylist'
 import {isPlaying} from './utils'
 import PlayPanel from './components/PlayPanel'
 
@@ -869,7 +870,9 @@ export default class PlayBar extends React.PureComponent {
                         <em>{formatDuration(currentPlayedTime * 1000)}</em> / {formatDuration(song.duration)}
                     </div>
                     <div styleName="operation">
-                        <span styleName="icon collect" title="收藏"/>
+                        <AddToPlaylist songIds={[id]}>
+                            <span styleName="icon collect" title="收藏"/>
+                        </AddToPlaylist>
                         <span styleName="icon share" title="分享"/>
                     </div>
                     <div styleName="setting">

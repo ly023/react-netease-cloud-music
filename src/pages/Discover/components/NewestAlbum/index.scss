@@ -11,6 +11,10 @@
   border: 1px solid #d3d3d3;
 
   :global {
+    .slick-slide div {
+      outline: none;
+    }
+
     .slick-prev,
     .slick-next {
       position: absolute;
@@ -55,6 +59,7 @@
     display: inline-block;
     width: 118px;
     height: 150px;
+    vertical-align: top;
 
     .cover {
       display: block;

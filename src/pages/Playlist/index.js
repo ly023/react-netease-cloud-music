@@ -8,11 +8,10 @@ import Page from 'components/Page'
 import ListLoading from 'components/ListLoading'
 import Empty from 'components/Empty'
 import Pagination from 'components/Pagination'
-import Play from 'components/Play'
+import PlaylistItem from 'components/PlaylistItem'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
-import {PLAY_TYPE} from 'constants/play'
 import {requestTop} from 'services/playlist'
-import {formatNumber, getThumbnail, getUrlParameter} from 'utils'
+import {getUrlParameter} from 'utils'
 import Categories from './components/Categories'
 
 import './index.scss'
@@ -28,7 +27,7 @@ function Playlist() {
     const [playlists, setPlaylists] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     const getPage = () => {
         const page = getUrlParameter('page')
@@ -119,27 +118,12 @@ function Playlist() {
                             <ul styleName="list">
                                 {
                                     playlists.map((item, index) => {
-                                        const {id, name, creator = {}} = item
-                                        const detailLink = `/playlist/${id}`
-                                        return <li key={`${id}-${index}`} styleName="item">
-                                            <div styleName="cover-wrapper">
-                                                <Link to={detailLink} styleName="cover">
-                                                    <img src={getThumbnail(item.coverImgUrl, 140)} alt="歌单封面"/>
-                                                </Link>
-                                                <div styleName="bottom">
-                                                    <i className="fl" styleName="icon-headset"/>
-                                                    <span className="fl" styleName="play-num">{formatNumber(item.playCount, 5)}</span>
-                                                    <Play type={PLAY_TYPE.PLAYLIST.TYPE} id={id}>
-                                                        <i className="fr" styleName="icon-play"/>
-                                                    </Play>
-                                                </div>
-                                            </div>
-                                            <Link to={detailLink} styleName="name" title={name}>{name}</Link>
-                                            <div styleName="creator">
-                                                by <Link to={`/user/home/${creator.userId}`} styleName="nickname" title={creator.nickname}>
-                                                    {creator.nickname}
-                                                </Link>
-                                            </div>
+                                        const parseItem = {
+                                            ...item,
+                                            coverUrl: item.coverImgUrl
+                                        }
+                                        return <li key={`${item.id}-${index}`} styleName="item">
+                                            <PlaylistItem item={parseItem} showCreator/>
                                         </li>
                                     })
                                 }

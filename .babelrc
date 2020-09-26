@@ -71,7 +71,8 @@
         "autoResolveMultipleImports": true
       }
     ],
-    "lodash"
+    "lodash",
+    "react-loadable/babel"
   ],
   "env": {
     "development": {

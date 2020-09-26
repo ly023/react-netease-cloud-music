@@ -1,7 +1,7 @@
 /**
  * 热门主播
  */
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import {requestHotAnchorMock} from 'services/radio'
 import staticHotAnchorJson from 'assets/json/static-hot-anchor'
@@ -11,25 +11,36 @@ import './index.scss'
 
 function Anchor() {
     const [anchors, setAnchors] = useState([])
+    const isMounted = useRef(false)
 
     useEffect(() => {
+        isMounted.current = true
+
         const fetchHotAnchor = async () => {
             try {
-                const {data} = await requestHotAnchorMock()
-                setAnchors(data)
+                const res = await requestHotAnchorMock()
+                if (isMounted.current) {
+                    setAnchors(res?.data || [])
+                }
             } catch (e) {
-                setAnchors(staticHotAnchorJson.data)
+                if (isMounted.current) {
+                    setAnchors(staticHotAnchorJson.data)
+                }
             }
         }
 
         fetchHotAnchor()
+
+        return () => {
+            isMounted.current = false
+        }
     }, [])
 
     return <section styleName="wrapper">
         <div styleName="title">热门主播</div>
         <ul styleName="list">
             {
-                anchors.map((item)=> {
+                anchors.map((item) => {
                     const {user} = item
                     const homeLink = `/user/home/${user.id}`
                     return <li key={user.id} styleName="item">

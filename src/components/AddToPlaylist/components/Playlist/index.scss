@@ -1,0 +1,37 @@
+
+.item {
+  border-top: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.box {
+  padding: 6px 0 6px 35px;
+}
+
+.left {
+  float: left;
+  width: 40px;
+}
+
+.cover {
+  width: 100%;
+  vertical-align: top;
+}
+
+.meta {
+  margin-left: 50px;
+}
+
+.name,
+.count {
+  word-wrap: break-word;
+}
+
+.name {
+  margin-bottom: 6px;
+  @extend %text-ellipsis;
+}
+
+.track-count {
+  color: #666;
+}

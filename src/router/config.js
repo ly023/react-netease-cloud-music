@@ -6,8 +6,7 @@ import PageLoading from 'components/PageLoading'
 // import asyncComponent from './asyncComponent'
 // const importPages = file => asyncComponent(() => import(`pages/${file}`))
 
-// const importViews = file => import(`pages/${file}`)
-const importViews = file => import('pages/' + file) // https://github.com/babel/babel-eslint/issues/681#issuecomment-612744192
+const importViews = file => import(`pages/${file}`)
 
 export default [
     {
@@ -141,7 +140,7 @@ export default [
     },
     {
         path: '/user/home/:id',
-        name: '我的主页',
+        name: '用户主页',
         component: Loadable({
             loader: () => importViews('UserHome'),
             loading: PageLoading,

@@ -3,8 +3,9 @@
  */
 import React from 'react'
 import {withRouter} from 'react-router-dom'
-import qs from 'qs'
 import {Link} from 'react-router-dom'
+import qs from 'qs'
+import {cloneDeep} from 'lodash'
 import Page from 'components/Page'
 import Search from 'components/Search'
 import ListLoading from 'components/ListLoading'
@@ -216,6 +217,17 @@ export default class SearchPage extends React.Component {
         }
     }
 
+    handleSubscribePlaylistSuccess = (index) => {
+        const currentList = cloneDeep(this.state.list)
+        currentList[index] = {
+            ...currentList[index],
+            subscribed: !(currentList[index].subscribed)
+        }
+        this.setState({
+            list: currentList
+        })
+    }
+
     getRenderList = () => {
         const {activeType, searchValue, list} = this.state
         switch (activeType) {
@@ -230,7 +242,7 @@ export default class SearchPage extends React.Component {
             case SEARCH_TYPE.LYRIC.TYPE:
                 return <Lyrics keyword={searchValue} list={list}/>
             case SEARCH_TYPE.PLAYLIST.TYPE:
-                return <Playlists keyword={searchValue} list={list}/>
+                return <Playlists keyword={searchValue} list={list} onSubscribeSuccess={this.handleSubscribePlaylistSuccess}/>
             default:
         }
     }

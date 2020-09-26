@@ -35,7 +35,7 @@ function RadioRank(props) {
     const [total, setTotal] = useState(0)
     const [radios, setRadios] = useState([])
     const [loading, setLoading] = useState(false)
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     useEffect(() => {
         isMounted.current = true

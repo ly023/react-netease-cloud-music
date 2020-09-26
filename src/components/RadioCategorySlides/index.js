@@ -15,7 +15,7 @@ function RadioCategorySlides(props) {
     const [slides, setSlides] = useState([])
     const [activePageIndex, setActivePageIndex] = useState(0)
     const [pagination, setPagination] = useState([])
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     useEffect(() => {
         isMounted.current = true

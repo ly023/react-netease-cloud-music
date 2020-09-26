@@ -22,8 +22,8 @@
     * error 或 2 ：表示验证规则，不满足时报错
     */
 
-    // 空格4个
-    "indent": ["warn", 4, { "SwitchCase": 1 }],
+    "template-curly-spacing" : "off",
+    "indent" : "off",
     // 指定数组的元素之间要以空格隔开
     "array-bracket-spacing": [2, "never"],
     // 不能有声明后未被使用的变量或参数

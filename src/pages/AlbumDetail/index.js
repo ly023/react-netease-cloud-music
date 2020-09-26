@@ -21,6 +21,7 @@ import SongActions from 'components/SongActions'
 import {getArtists} from 'utils/song'
 
 import './index.scss'
+import AddToPlaylist from "components/AddToPlaylist";
 
 @withRouter
 @connect(({user}) => ({
@@ -141,26 +142,24 @@ export default class AlbumDetail extends React.Component {
                                                 })
                                             }
                                         </div>
-                                        <div>
-                                                    发行时间：{dayjs(detail.publishTime).format(DATE_FORMAT)}
-                                        </div>
-                                        <div>
-                                                    发行公司：{detail.company}
-                                        </div>
+                                        <div>发行时间：{dayjs(detail.publishTime).format(DATE_FORMAT)}</div>
+                                        <div>发行公司：{detail.company}</div>
                                     </div>
                                     <div styleName="operation">
-                                        <Play id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
+                                        <Play id={detail.id} type={PLAY_TYPE.ALBUM.TYPE}>
                                             <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
                                         </Play>
-                                        <Add id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
+                                        <Add id={detail.id} type={PLAY_TYPE.ALBUM.TYPE}>
                                             <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
                                         </Add>
-                                        <a
-                                            href={null}
-                                            styleName="btn-add-favorite"
-                                        >
-                                            <i>{detail.subscribedCount ? `(${formatNumber(detail.subscribedCount, 5)})` : '收藏'}</i>
-                                        </a>
+                                        <AddToPlaylist songIds={Array.isArray(detail?.songs) ? detail.songs.map(v => v.id) : []}>
+                                            <a
+                                                href={null}
+                                                styleName="btn-add-favorite"
+                                            >
+                                                <i>{detail.subscribedCount ? `(${formatNumber(detail.subscribedCount, 5)})` : '收藏'}</i>
+                                            </a>
+                                        </AddToPlaylist>
                                         <a
                                             href={null}
                                             styleName="btn-share"
@@ -178,14 +177,14 @@ export default class AlbumDetail extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div styleName="desc">
-                                <h3>专辑介绍：</h3>
-                                {
-                                    detail.description ? <div styleName="description">
+                            {
+                                detail.description ? <div styleName="desc">
+                                    <h3>专辑介绍：</h3>
+                                    <div styleName="description">
                                         <Collapse content={detail.description} maxWordNumber={140}/>
-                                    </div> : null
-                                }
-                            </div>
+                                    </div>
+                                </div> : null
+                            }
                             <div styleName="tracks-wrapper" className="clearfix">
                                 <div styleName="table-title">
                                     <h3>包含歌曲列表</h3>

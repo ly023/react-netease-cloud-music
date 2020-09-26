@@ -22,8 +22,8 @@ function Albums(props) {
                             <img src={getThumbnail(item.picUrl, 180)} onError={(e) => {
                                 e.target.src = DEFAULT_ARTIST_AVATAR
                             }} alt="封面"/>
+                            <div styleName="mask"/>
                         </Link>
-                        <div styleName="mask"/>
                         <Play id={id} type={PLAY_TYPE.ALBUM.TYPE}>
                             <span title="播放" styleName="play-icon"/>
                         </Play>

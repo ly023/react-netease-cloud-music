@@ -166,7 +166,7 @@ export default class PlaylistDetail extends React.Component {
                                     <h2 styleName="title">{detail.name}</h2>
                                     <div styleName="creator">
                                         <Link to="/" styleName="avatar">
-                                            <img src={detail.creator?.avatarUrl} alt=""/>
+                                            <img src={getThumbnail(detail.creator?.avatarUrl, 120)} alt=""/>
                                         </Link>
                                         <Link to="/" styleName="nickname">{detail.creator?.nickname}</Link>
                                         <span
@@ -236,7 +236,7 @@ export default class PlaylistDetail extends React.Component {
                                         <span styleName="out-chain"><i/><a href={null}>生成外链播放器</a></span>
                                     </span>
                                 </div>
-                                <SongTable loading={detailLoading} detail={detail} isSelf={isSelf}/>
+                                <SongTable loading={detailLoading} songs={detail?.songs || []} isSelf={isSelf}/>
                             </div>
                             <Comments
                                 onRef={this.setCommentsRef}

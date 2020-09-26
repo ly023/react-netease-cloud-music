@@ -13,7 +13,7 @@ import './index.scss'
 function AnchorRadioRecommendation() {
     const [loading, setLoading] = useState(false)
     const [programs, setPrograms] = useState([])
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     useEffect(() => {
         isMounted.current = true

@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {createForm, formShape} from 'rc-form'
 import areaCode from 'constants/areaCode'
 import FormItem from 'components/FormItem'
-import {createForm, formShape} from 'rc-form'
 import KEY_CODE from 'constants/keyCode'
 import {isValidMobileNumber} from 'utils'
+
 import styles from '../../index.scss'
-import './index.scss'
 
 @createForm()
 export default class Mobile extends React.Component {
@@ -23,14 +23,6 @@ export default class Mobile extends React.Component {
             areaCodeSelectVisible: false,
             responseError: ''
         }
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-
     }
 
     setAreaCodeSelectVisible = (visible) => {
@@ -57,7 +49,6 @@ export default class Mobile extends React.Component {
         }
         callback()
     }
-
 
     getErrorMessage = () => {
         const fieldsError = this.props.form.getFieldsError()
@@ -122,7 +113,9 @@ export default class Mobile extends React.Component {
                             getFieldDecorator('phone', {
                                 initialValue: '',
                                 rules: [
-                                    {validator: this.validatePhone},
+                                    {
+                                        validator: this.validatePhone
+                                    },
                                 ],
                                 validateTrigger: false
                             })(

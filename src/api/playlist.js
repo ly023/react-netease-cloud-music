@@ -41,8 +41,16 @@ export default {
         url: `${config.apiHost}/api/user/playlist`,
         type: 'GET'
     },
+    createUserPlaylist: {
+        url: `${config.apiHost}/api/playlist/create`,
+        type: 'GET'
+    },
     updateUserPlaylist: {
         url: `${config.apiHost}/api/playlist/update`,
         type: 'GET'
-    }
+    },
+    updateUserPlaylistSongs: {
+        url: `${config.apiHost}/api/playlist/tracks`,
+        type: 'GET'
+    },
 }

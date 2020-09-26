@@ -11,7 +11,7 @@ import './index.scss'
 
 function ProgramRank(props) {
     const {type, onLoad} = props
-    const isMounted = useRef()
+    const isMounted = useRef(false)
     const [programRank, setProgramRank] = useState([])
     const [loading, setLoading] = useState(false)
 

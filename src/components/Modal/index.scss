@@ -2,7 +2,6 @@
 .popover {
   position: fixed;
   z-index: 999;
-  width: 530px;
   background-color: #FFF;
   border-radius: 4px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.8);
@@ -56,12 +55,10 @@
 }
 
 .popover-cont {
-  padding: 40px 0;
-}
-
-.popover-cont a {
-  font-size: 12px;
-  color: #333;
+  a {
+    font-size: 12px;
+    color: #333;
+  }
 }
 
 .popover-form-text {

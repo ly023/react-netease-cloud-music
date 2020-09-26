@@ -17,6 +17,10 @@
   width: 130px;
   height: 130px;
 
+  > a {
+    display: block;
+  }
+
   img {
     width: 130px;
     height: 130px;
@@ -45,6 +49,7 @@
   right: 10px;
   bottom: 5px;
   left: 94px;
+  z-index: 1;
   width: 28px;
   height: 28px;
   @extend %background-icon-all;

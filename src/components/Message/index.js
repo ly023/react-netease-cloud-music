@@ -22,9 +22,9 @@ class Notification extends React.Component {
 
     static defaultProps = {
         type: 'success',
+        content: 'success',
         duration: DEFAULT_DURATION,
-        onClose() {
-        },
+        onClose() {},
     }
 
     constructor(props) {

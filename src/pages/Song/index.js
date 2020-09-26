@@ -19,6 +19,7 @@ import emitter from 'utils/eventEmitter'
 import {getArtists, getLyric} from 'utils/song'
 
 import './index.scss'
+import AddToPlaylist from "components/AddToPlaylist";
 
 const DEFAULT_SECOND = -1
 const DEFAULT_LYRIC_LINES = 13
@@ -267,7 +268,9 @@ export default class Song extends React.Component {
                                                     </Add>
                                                 </> : <a href={null} styleName="btn-play-disabled" title="播放"><i>播放</i></a>)
                                         }
-                                        <a href={null} styleName="btn-add-favorite"><i>收藏</i></a>
+                                        <AddToPlaylist songIds={detail?.id ? [detail.id] : []}>
+                                            <a href={null} styleName="btn-add-favorite"><i>收藏</i></a>
+                                        </AddToPlaylist>
                                         <a href={null} styleName="btn-share"><i>分享</i></a>
                                         <a href={null} styleName={`btn-download${isVip ? ' btn-vip-download': ''}`}><i>下载</i></a>
                                         <a href={null} styleName="btn-comment" onClick={this.handleComment}><i>{totalComment ? `(${totalComment})` : '评论'}</i></a>

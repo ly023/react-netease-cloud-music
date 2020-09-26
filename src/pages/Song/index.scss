@@ -65,7 +65,6 @@
 .label {
   width: 54px;
   height: 24px;
-  margin-top: 4px;
   @extend %background-icon;
   background-position: 0 -463px;
 }
@@ -76,7 +75,6 @@
   color: #fff;
   background: url(~assets/images/label.png) center;
   background-size: 100% 100%;
-  margin-top: 3px;
   font-size: 13px;
   line-height: 25px;
   padding-left: 8px;
@@ -84,6 +82,8 @@
 }
 
 .title {
+  margin-top: -5px;
+  margin-bottom: 14px;
   margin-left: 64px;
   position: relative;
   font-size: 24px;
@@ -308,8 +308,14 @@
 .lyric {
   overflow: hidden;
 
+  p {
+    min-height: 24px;
+    line-height: 24px;
+  }
+
   &.fold {
-    height: 300px;
+    min-height: 160px;
+    max-height: 312px;
 
     + .fold-ctrl i {
       background-position: -65px -520px;

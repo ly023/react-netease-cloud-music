@@ -12,6 +12,7 @@ export const viewStyleDefault = {
     right: 0,
     bottom: 0,
     overflow: 'scroll',
+    overscrollBehavior: 'contain',
     WebkitOverflowScrolling: 'touch'
 }
 

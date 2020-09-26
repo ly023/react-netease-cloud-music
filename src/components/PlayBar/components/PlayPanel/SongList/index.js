@@ -10,6 +10,7 @@ import Empty from './components/Empty'
 import {CONTENT_HEIGHT} from '../../../constants'
 
 import './index.scss'
+import AddToPlaylist from "components/AddToPlaylist";
 
 const ITEM_HEIGHT = 28
 
@@ -119,9 +120,9 @@ export default class SongList extends React.PureComponent {
                             ? <ul>
                                 {
                                     trackQueue.map((item, idx) => {
-                                        const {artists, radio} = item
+                                        const {id, artists, radio} = item
                                         return <li
-                                            key={`${item.id}-${idx}`}
+                                            key={`${id}-${idx}`}
                                             styleName={`item${idx === index ? " active" : ''}`}
                                             onClick={() => this.handlePlay(idx)}
                                         >
@@ -130,15 +131,17 @@ export default class SongList extends React.PureComponent {
                                             <div styleName="operation">
                                                 <span
                                                     styleName="icon delete-icon"
-                                                    onClick={(e) => this.handleRemove(e, item.id)}
+                                                    onClick={(e) => this.handleRemove(e, id)}
                                                 >
                                                     删除
                                                 </span>
-                                                <Download id={item.id}>
+                                                <Download id={id}>
                                                     <span styleName="icon download-icon">下载</span>
                                                 </Download>
                                                 <span styleName="icon share-icon">分享</span>
-                                                <span styleName="icon add-icon">收藏</span>
+                                                <AddToPlaylist songIds={[id]}>
+                                                    <span styleName="icon add-icon">收藏</span>
+                                                </AddToPlaylist>
                                             </div>
                                             {
                                                 Array.isArray(artists) ? <div styleName="artists" title={getArtists(artists)} onClick={this.handleRedirect}>

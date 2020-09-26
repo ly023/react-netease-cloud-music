@@ -11,18 +11,21 @@ export default class Modal extends React.Component {
         visible: PropTypes.bool,
         title: PropTypes.string,
         mask: PropTypes.bool,
+        width: PropTypes.number,
+        height: PropTypes.number,
         onCancel: PropTypes.func,
     }
 
     static defaultProps = {
         visible: false,
         mask: false,
+        width: 530,
     }
 
     constructor(props) {
         super(props)
         this.state = {
-            style: {}
+            positionStyle: {}
         }
         this.modalRef = React.createRef()
     }
@@ -41,7 +44,7 @@ export default class Modal extends React.Component {
         const top = (clientHeight - this.modalClientHeight) / 2
         const left = (clientWidth - this.modalClientWidth) / 2
         this.setState({
-            style: this.getRightPosition(top, left)
+            positionStyle: this.getRightPosition(top, left)
         })
     }
 
@@ -73,7 +76,7 @@ export default class Modal extends React.Component {
         let styleLeft = this.left + moveX
 
         this.setState({
-            style: this.getRightPosition(styleTop, styleLeft)
+            positionStyle: this.getRightPosition(styleTop, styleLeft)
         })
     }
 
@@ -115,13 +118,22 @@ export default class Modal extends React.Component {
         onCancel && onCancel()
     }
 
+    handleModalClick = (e) => {
+        e.stopPropagation()
+    }
+
     render() {
-        const {visible, title, mask, children} = this.props
-        const {style} = this.state
+        const {visible, title, width, height, mask, children} = this.props
+        const {positionStyle} = this.state
         const modalRoot = document.getElementById('modal-root')
 
+        const contentStyle = {
+            width,
+            height,
+        }
+
         return createPortal(visible ? <>
-            <div ref={this.modalRef} styleName="popover" style={style}>
+            <div ref={this.modalRef} styleName="popover" style={positionStyle} onClick={this.handleModalClick}>
                 <div
                     styleName="popover-bar"
                     onMouseDown={this.handleMouseDown}
@@ -129,7 +141,7 @@ export default class Modal extends React.Component {
                     <p styleName="popover-title">{title}</p>
                     <span styleName="popover-close" title="关闭窗体" onClick={this.close}>×</span>
                 </div>
-                <div styleName="popover-cont">
+                <div styleName="popover-cont" style={contentStyle}>
                     {children}
                 </div>
             </div>

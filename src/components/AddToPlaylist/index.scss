@@ -1,0 +1,16 @@
+.create-item {
+  padding: 10px 0 10px 35px;
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+
+.plus-icon {
+  display: inline-block;
+  width: 35px;
+  height: 36px;
+  margin-right: 10px;
+  vertical-align: middle;
+  @extend %background-icon;
+  background-position: 0 -495px;
+}
+

@@ -14,7 +14,7 @@ import './index.scss'
 function Banner() {
     const [banners, setBanners] = useState([])
     const [activeUrl, setActiveUrl] = useState('')
-    const isMounted = useRef()
+    const isMounted = useRef(false)
 
     useEffect(() => {
         const fetchBanners = async () => {

@@ -42,6 +42,11 @@ export async function requestSubscribe(params) {
     return request(`${API.subscribe.url}?${stringify(params)}`)
 }
 
+// 新建歌单
+export async function createUserPlaylist(params) {
+    return request(`${API.createUserPlaylist.url}?${stringify(params)}`)
+}
+
 // 获取用户歌单
 // ?uid=32953014
 export async function requestUserPlaylist(params) {
@@ -52,4 +57,9 @@ export async function requestUserPlaylist(params) {
 // ?id=24381616&name=新歌单&desc=描述&tags=学习
 export async function updateUserPlaylist(params) {
     return request(`${API.updateUserPlaylist.url}?${stringify(params)}`)
+}
+
+// 对歌单添加或删除歌曲
+export async function updateUserPlaylistSongs(params) {
+    return request(`${API.updateUserPlaylistSongs.url}?${stringify(params)}`)
 }

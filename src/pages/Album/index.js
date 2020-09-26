@@ -19,7 +19,7 @@ function Album() {
     const {pathname, search} = useLocation()
     const [newestAlbum, setNewestAlbum] = useState([])
     const [allNewAlbum, setAllNewAlbum] = useState([])
-    const isMounted = useRef()
+    const isMounted = useRef(false)
     const listWrapperRef = useRef()
 
     const getPage = useCallback(() => {

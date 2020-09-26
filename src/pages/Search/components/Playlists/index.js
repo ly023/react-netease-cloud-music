@@ -1,22 +1,32 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {PLAY_TYPE} from 'constants/play'
+import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import Add from 'components/Add'
 import Play from 'components/Play'
+import SubscribePlaylist from 'components/SubscribePlaylist'
+import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {formatNumber} from 'utils'
 import {getRenderKeyword} from 'utils/song'
 
 import './index.scss'
 
 function Playlists(props) {
-    const {keyword, list} = props
+    const {keyword, list, onSubscribeSuccess} = props
+
+    const {userInfo} = useShallowEqualSelector(({user}) => ({userInfo: user.userInfo}))
+
+    const handleSubscribeSuccess = useCallback((index) => {
+        onSubscribeSuccess && onSubscribeSuccess(index)
+    }, [onSubscribeSuccess])
 
     return <div styleName="list">
         {
             list.map((item, index)=>{
                 const {id, name, creator} = item
                 const isEven = (index + 1) % 2 === 0
+                const isSelf = creator?.userId === userInfo?.userId
                 return <div key={id} styleName={`item${isEven ? ' even' : ''}`}>
                     <div styleName="td">
                         <Play id={id} type={PLAY_TYPE.PLAYLIST.TYPE}>
@@ -36,7 +46,14 @@ function Playlists(props) {
                         <Add id={id} type={PLAY_TYPE.PLAYLIST.TYPE}>
                             <a href={null} styleName="icon add-icon" title="添加到播放列表"/>
                         </Add>
-                        <a href={null} styleName="icon favorite-icon" title="收藏"/>
+                        <SubscribePlaylist
+                            id={id}
+                            type={item.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
+                            disabled={isSelf}
+                            onSuccess={() => handleSubscribeSuccess(index)}
+                        >
+                            <a href={null} styleName="icon favorite-icon" title="收藏"/>
+                        </SubscribePlaylist>
                         <a href={null} styleName="icon share-icon" title="分享"/>
                     </div>
                     <div styleName="td trackCount">
@@ -62,11 +79,12 @@ function Playlists(props) {
 Playlists.propTypes = {
     keyword: PropTypes.string,
     list: PropTypes.array,
+    onSubscribeSuccess: PropTypes.func,
 }
 
 Playlists.defaultProps = {
     keyword: '',
-    list: []
+    list: [],
 }
 
 export default React.memo(Playlists)
