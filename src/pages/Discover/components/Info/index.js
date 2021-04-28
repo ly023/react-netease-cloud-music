@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import {DEFAULT_AVATAR} from 'constants'
 import emitter from 'utils/eventEmitter'
@@ -123,4 +123,4 @@ function Info() {
         </div>
 }
 
-export default React.memo(Info)
+export default memo(Info)

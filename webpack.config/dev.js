@@ -1,7 +1,7 @@
-const webpack = require('webpack');
 const path = require('path');
 const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const apiMocker = require('mocker-api');
 
@@ -12,7 +12,7 @@ module.exports = merge(baseConfig, {
     mode: 'development',
     entry: {
         main: [
-            'react-hot-loader/patch', // Make sure react-hot-loader is required before react and react-dom
+            // 'react-hot-loader/patch', // Make sure react-hot-loader is required before react and react-dom
             '@babel/polyfill',
             './src/index.js' // 入口文件路径
         ]
@@ -24,10 +24,11 @@ module.exports = merge(baseConfig, {
         publicPath: '/'
     },
     devServer: {
+        open: true,
         hot: true,
         port: config.port,
         historyApiFallback: true,
-        before(app) {
+        onBeforeSetupMiddleware: function({app}) {
             apiMocker(app, path.resolve('src/mock/index.js'))
         },
         proxy: {
@@ -50,11 +51,6 @@ module.exports = merge(baseConfig, {
             favicon: path.join(config.root, 'src/assets/favicon.ico'), // favicon路径
         }),
 
-        // 热替换
-        new webpack.HotModuleReplacementPlugin(),
-
-        // 在热加载时直接返回更新文件名，而不是文件的id。
-        new webpack.NamedModulesPlugin(),
-
+        new ReactRefreshPlugin(),
     ]
 });

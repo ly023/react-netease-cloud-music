@@ -1,6 +1,5 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化资源分析
 
 const config = require('./config');
@@ -22,22 +21,20 @@ module.exports = {
                 // test: /\.jsx?$/,
                 test: /\.js$/,
                 // enforce: 'pre', // ESLint 优先级高于其他 JS 相关的 loader
-                loader: isDevelopment ? [
-                    'babel-loader',
-                    'eslint-loader',
+                use: isDevelopment ? [
+                    {loader: 'babel-loader'},
+                    {loader: 'eslint-loader'},
                 ] : [
-                    'babel-loader',
+                    {loader: 'babel-loader'},
                 ],
                 exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
                 use: [
-                    isDevelopment ? {
-                        loader: 'style-loader',
-                    } : MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'postcss-loader',
+                    isDevelopment ? {loader: 'style-loader'} : MiniCssExtractPlugin.loader,
+                    {loader: 'css-loader'},
+                    {loader: 'postcss-loader'}
                 ],
             },
             {
@@ -55,7 +52,7 @@ module.exports = {
                             },
                         }
                     },
-                    'postcss-loader',
+                    {loader: 'postcss-loader'},
                     {
                         loader: 'sass-loader',
                         options: {
@@ -87,7 +84,6 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'react-dom': '@hot-loader/react-dom',
             actions: resolve('src/actions'),
             assets: resolve('src/assets'),
             api: resolve('src/api'),

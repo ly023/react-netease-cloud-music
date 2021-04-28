@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import Page from 'components/Page'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import RadioCategorySlides from 'components/RadioCategorySlides'

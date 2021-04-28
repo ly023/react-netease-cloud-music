@@ -1,7 +1,7 @@
 /**
  * 发现音乐-歌单
  */
-import React, {useState, useEffect, useMemo, useCallback, useRef} from 'react'
+import {useState, useEffect, useMemo, useCallback, useRef} from 'react'
 import {Link, useHistory, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
 import Page from 'components/Page'
@@ -131,7 +131,8 @@ function Playlist() {
                             <div styleName="pagination">
                                 <Pagination
                                     current={current}
-                                    total={Math.ceil(total / params.limit)}
+                                    total={total}
+                                    pageSize={params.limit}
                                     onChange={handlePageChange}
                                 />
                             </div>

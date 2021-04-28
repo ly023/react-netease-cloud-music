@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import {useState, useEffect, useCallback, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'

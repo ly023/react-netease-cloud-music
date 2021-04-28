@@ -1,4 +1,4 @@
-import React from 'react'
+import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {DEFAULT_ARTIST_AVATAR} from 'constants'
@@ -8,7 +8,7 @@ import {getRenderKeyword} from 'utils/song'
 import './index.scss'
 
 function Artists(props) {
-    const {keyword, list} = props
+    const {keyword = '', list = []} = props
 
     return <ul styleName="list">
         {
@@ -45,10 +45,5 @@ Artists.propTypes = {
     list: PropTypes.array,
 }
 
-Artists.defaultProps = {
-    keyword: '',
-    list: []
-}
-
-export default React.memo(Artists)
+export default memo(Artists)
 

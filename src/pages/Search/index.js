@@ -297,7 +297,8 @@ export default class SearchPage extends React.Component {
                                     {this.getRenderList()}
                                     <Pagination
                                         current={current}
-                                        total={Math.ceil(total / limit)}
+                                        total={total}
+                                        pageSize={limit}
                                         onChange={this.handlePageChange}
                                     />
                                 </> : <Empty tip="很抱歉，未能找到相关搜索结果！"/>

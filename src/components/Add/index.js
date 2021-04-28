@@ -1,7 +1,7 @@
 /**
  *  添加到播放列表
  */
-import React from 'react'
+import {useCallback, cloneElement, Children, memo} from 'react'
 import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import _ from 'lodash'
@@ -17,25 +17,27 @@ import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
 
 function Add(props) {
     const dispatch = useDispatch()
+
     const selectedState = useShallowEqualSelector(({user}) => ({
         playSetting: user.player.playSetting,
         trackQueue: user.player.trackQueue,
         shuffle: user.player.shuffle
     }))
 
-    const setShuffle = (trackQueue, startIndex) => {
+    const setShuffle = useCallback((trackQueue, startIndex) => {
         const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
         indexes.splice(startIndex, 1)
         const shuffle = [startIndex].concat(_.shuffle(indexes))
         dispatch(setUserPlayer({shuffle}))
-    }
+    }, [dispatch])
+
+    const {type = PLAY_TYPE.SINGLE.TYPE, id, songs = []} = props
 
     /**
      * 添加规则：顺序添加，随机模式下重新排列shuffle
      */
-    const handleAdd = async (e) => {
+    const handleAdd = useCallback(async (e) => {
         e.stopPropagation()
-        const {type, id, songs} = props
         const playSetting = selectedState.playSetting || {}
         const localTrackQueue = selectedState.trackQueue || []
         let trackQueue = []
@@ -123,13 +125,13 @@ function Add(props) {
             setLocalStorage('trackQueue', trackQueue)
             dispatch(setUserPlayer({trackQueue}))
         }
-    }
+    }, [dispatch, type, id, songs, selectedState, setShuffle])
 
     const {children} = props
-    const onlyChildren = React.Children.only(children)
+    const onlyChildren = Children.only(children)
 
     return (
-        React.cloneElement(onlyChildren, {
+        cloneElement(onlyChildren, {
             onClick: handleAdd
         })
     )
@@ -141,9 +143,4 @@ Add.propTypes = {
     songs: PropTypes.array,
 }
 
-Add.defaultProps = {
-    type: PLAY_TYPE.SINGLE.TYPE,
-    songs: [],
-}
-
-export default React.memo(Add)
+export default memo(Add)

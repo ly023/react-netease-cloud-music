@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import {useCallback, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {PLAY_TYPE} from 'constants/play'
@@ -13,7 +13,7 @@ import {getRenderKeyword} from 'utils/song'
 import './index.scss'
 
 function Playlists(props) {
-    const {keyword, list, onSubscribeSuccess} = props
+    const {keyword = '', list = [], onSubscribeSuccess} = props
 
     const {userInfo} = useShallowEqualSelector(({user}) => ({userInfo: user.userInfo}))
 
@@ -82,9 +82,4 @@ Playlists.propTypes = {
     onSubscribeSuccess: PropTypes.func,
 }
 
-Playlists.defaultProps = {
-    keyword: '',
-    list: [],
-}
-
-export default React.memo(Playlists)
+export default memo(Playlists)

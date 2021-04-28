@@ -38,7 +38,10 @@
     // 不使用弃用的方法
     "react/no-deprecated": 1,
 
-    "react/jsx-uses-react": 2,
+    // react 17不再需要
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+
     // 防止在JSX中使用的变量被错误地标记为未使用
     "react/jsx-uses-vars": 2,
 

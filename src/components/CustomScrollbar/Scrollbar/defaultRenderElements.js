@@ -1,5 +1,3 @@
-import React from 'react'
-
 export function renderViewDefault(props) {
     return <div {...props}/>
 }

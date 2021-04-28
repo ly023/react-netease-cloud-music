@@ -132,7 +132,7 @@ export default class Modal extends React.Component {
             height,
         }
 
-        return createPortal(visible ? <>
+        return visible ? createPortal(<>
             <div ref={this.modalRef} styleName="popover" style={positionStyle} onClick={this.handleModalClick}>
                 <div
                     styleName="popover-bar"
@@ -146,6 +146,6 @@ export default class Modal extends React.Component {
                 </div>
             </div>
             {mask ? <div styleName="popover-mask"/> : null}
-        </> : null, modalRoot)
+        </>, modalRoot) : null
     }
 }

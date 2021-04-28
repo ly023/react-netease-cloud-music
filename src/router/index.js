@@ -1,10 +1,9 @@
-import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import PrivateRoute from 'components/PrivateRoute'
-import {hot} from 'react-hot-loader/root'
+// import {hot} from 'react-hot-loader/root'
 import config from './config'
 
-export default hot(() => <Switch>
+export default () => <Switch>
     {
         config.map(({path, component: Component, exact, routes = [], meta = {}}, key) => {
             const {requiresAuth} = meta
@@ -21,5 +20,5 @@ export default hot(() => <Switch>
                 />
         })
     }
-</Switch>)
+</Switch>
 

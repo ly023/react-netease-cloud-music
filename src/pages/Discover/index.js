@@ -81,7 +81,7 @@ export default class Discover extends React.Component {
                             {
                                 isLogin ? <section className='clearfix'>
                                     <div styleName='title'>
-                                        <Link className='fl' styleName='title-text' to=''>个性化推荐</Link>
+                                        <Link className='fl' styleName='title-text' to='/discover/recommend/daily'>个性化推荐</Link>
                                     </div>
                                     <PersonalizedRcmd/>
                                 </section> : null
@@ -89,7 +89,7 @@ export default class Discover extends React.Component {
                             {/* 新碟上架 */}
                             <section className="clearfix">
                                 <div styleName="title">
-                                    <Link className="fl" styleName="title-text" to=''>新碟上架</Link>
+                                    <Link className="fl" styleName="title-text" to='/discover/album'>新碟上架</Link>
                                     <Link styleName="title-more" to=''>更多<i/></Link>
                                 </div>
                                 <NewestAlbum/>

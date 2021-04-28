@@ -1,10 +1,10 @@
-import React from 'react'
+import {useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {PLAY_TYPE} from 'constants/play'
 import Add from 'components/Add'
+import AddToPlaylist from 'components/AddToPlaylist'
 
 import './index.scss'
-import AddToPlaylist from "components/AddToPlaylist";
 
 const ACTION_TYPES = {
     add: '添加到播放列表',
@@ -14,14 +14,14 @@ const ACTION_TYPES = {
     delete: '删除',
 }
 
-const actions = Object.keys(ACTION_TYPES)
+const defaultActions = Object.keys(ACTION_TYPES)
 
 function SongActions(props) {
-    const {id, isSelf} = props
+    const {id, actions = defaultActions, isSelf = false} = props
 
-    const hasAction = (action) => {
-        return props.actions.includes(action)
-    }
+    const hasAction = useCallback((action) => {
+        return actions.includes(action)
+    }, [actions])
 
     return <div styleName="actions">
         {
@@ -59,11 +59,6 @@ SongActions.propTypes = {
         }
     }),
     isSelf: PropTypes.bool,
-}
-
-SongActions.defaultProps = {
-    actions: actions,
-    isSelf: false,
 }
 
 export default SongActions

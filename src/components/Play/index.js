@@ -1,7 +1,7 @@
 /**
  *  播放
  */
-import React from 'react'
+import {useCallback, memo, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import _ from 'lodash'
@@ -15,6 +15,8 @@ import {requestDetail as requestRadioDetail} from 'services/radio'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
 
+const types = Object.keys(PLAY_TYPE).map((key)=> PLAY_TYPE[key].TYPE)
+
 function Play(props) {
     const dispatch = useDispatch()
     const selectedState = useShallowEqualSelector(({user}) => ({
@@ -23,21 +25,22 @@ function Play(props) {
         shuffle: user.player.shuffle
     }))
 
-    const setShuffle = (trackQueue, startIndex) => {
+    const {type = PLAY_TYPE.SINGLE.TYPE, id, songs = []} = props
+
+    const setShuffle = useCallback((trackQueue, startIndex) => {
         const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
         indexes.splice(startIndex, 1)
         const shuffle = [startIndex].concat(_.shuffle(indexes))
         dispatch(setUserPlayer({shuffle}))
-    }
+    }, [dispatch])
 
     /**
      * 播放规则：
      * 播放歌单和专辑，随机播放模式下也是从第一首开始
      * 插入单曲，添加到播放列表尾部，随机播放模式下重新排列shuffle
      */
-    const handlePlay = async (e) => {
+    const handlePlay = useCallback(async (e) => {
         e.stopPropagation()
-        const {type, id, songs} = props
         const playSetting = selectedState.playSetting || {}
         const localTrackQueue = selectedState.trackQueue || []
         let trackQueue = []
@@ -126,9 +129,13 @@ function Play(props) {
                     const {privilege = {}} = item
                     if (hasPrivilege(privilege)) {
                         newTrackQueue.push(formatTrack(item))
+                    } else {
+                        // todo
+                        console.log('不可听')
                     }
                 }
             }
+
             if (newTrackQueue.length) {
                 trackQueue = newTrackQueue
                 // 随机模式下重新计算shuffle
@@ -142,7 +149,6 @@ function Play(props) {
             }
         }
 
-
         if (emitPlay) {
             const emitData = {
                 trackQueue: trackQueue,
@@ -152,19 +158,17 @@ function Play(props) {
             }
             emitter.emit('play', emitData)
         }
-    }
+    }, [dispatch, type, id, songs, selectedState, setShuffle])
 
     const {children} = props
-    const onlyChildren = React.Children.only(children)
+    const onlyChildren = Children.only(children)
 
     return (
-        React.cloneElement(onlyChildren, {
+        cloneElement(onlyChildren, {
             onClick: handlePlay
         })
     )
 }
-
-const types = Object.keys(PLAY_TYPE).map((key)=> PLAY_TYPE[key].TYPE)
 
 Play.propTypes = {
     type: PropTypes.oneOf(types).isRequired,
@@ -172,9 +176,4 @@ Play.propTypes = {
     songs: PropTypes.array,
 }
 
-Play.defaultProps = {
-    type: PLAY_TYPE.SINGLE.TYPE,
-    songs: [],
-}
-
-export default React.memo(Play)
+export default memo(Play)

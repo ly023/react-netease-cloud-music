@@ -1,7 +1,7 @@
 /**
  * 节目排行榜
  */
-import React, {useState, useMemo} from 'react'
+import {useState, useMemo} from 'react'
 import dayjs from 'dayjs'
 import Page from 'components/Page'
 import ProgramRank from 'components/ProgramRank'

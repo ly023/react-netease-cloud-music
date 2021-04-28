@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useMemo, useRef} from 'react'
+import {useState, useEffect, useCallback, useMemo, useRef, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 
 import './index.scss'
@@ -11,7 +11,7 @@ const placements = [
 ]
 
 function Popover(props) {
-    const {children, placement, trigger, content, style} = props
+    const {children, placement = 'bottom', trigger = 'click', content, style} = props
     const [visible, setVisible] = useState(false)
     const [positionStyle, setPositionStyle] = useState({})
 
@@ -19,7 +19,7 @@ function Popover(props) {
     const innerRef = useRef()
 
 
-    const onlyChildren = React.Children.only(children)
+    const onlyChildren = Children.only(children)
 
     const setChildrenRef = useCallback((el) => {
         childrenRef.current = el
@@ -37,10 +37,10 @@ function Popover(props) {
         setVisible(false)
     }, [])
 
-    const element = trigger === 'click' ? React.cloneElement(onlyChildren, {
+    const element = trigger === 'click' ? cloneElement(onlyChildren, {
         ref: setChildrenRef,
         onClick: handleClick
-    }) : React.cloneElement(onlyChildren, {
+    }) : cloneElement(onlyChildren, {
         ref: setChildrenRef,
         onMouseEnter: handleMouseEnter,
         onMouseLeave: handleMouseLeave
@@ -109,11 +109,6 @@ Popover.propTypes = {
     trigger: PropTypes.oneOf(['hover', 'click']),
     content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
     style: PropTypes.object,
-}
-
-Popover.defaultProps = {
-    placement: 'bottom',
-    trigger: 'click'
 }
 
 export default Popover

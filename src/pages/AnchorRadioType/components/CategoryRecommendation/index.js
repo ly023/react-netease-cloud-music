@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import SubTitle from 'components/SubTitle'

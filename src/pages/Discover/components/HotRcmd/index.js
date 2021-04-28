@@ -1,7 +1,7 @@
 /**
  * 热门推荐
  */
-import React, {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import Play from 'components/Play'
 import {PLAY_TYPE} from 'constants/play'
@@ -64,4 +64,4 @@ function HotRcmd() {
     </>
 }
 
-export default React.memo(HotRcmd)
+export default memo(HotRcmd)

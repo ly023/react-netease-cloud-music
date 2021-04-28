@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import {useCallback, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
@@ -12,7 +12,7 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import './index.scss'
 
 function SongTable(props) {
-    const {loading, songs, isSelf, showDislike, onDislikeSuccess} = props
+    const {loading, songs = [], isSelf = false, showDislike = false, onDislikeSuccess} = props
     const {currentSong={}} = useShallowEqualSelector(({user}) => ({
         currentSong: user.player.currentSong,
     }))
@@ -111,11 +111,4 @@ SongTable.propTypes = {
     onDislikeSuccess: PropTypes.func,
 }
 
-SongTable.defaultProps = {
-    songs: [],
-    isSelf: false,
-    showDislike: false,
-    onDislikeSuccess(){}
-}
-
-export default React.memo(SongTable)
+export default memo(SongTable)

@@ -1,7 +1,7 @@
 /**
  * 首页轮播图
  */
-import React, {useState, useEffect, useCallback, useMemo, useRef} from 'react'
+import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 import {requestDiscoverBanners} from 'services/banners'

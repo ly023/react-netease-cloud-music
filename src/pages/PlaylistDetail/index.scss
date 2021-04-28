@@ -196,8 +196,7 @@
 
   .btn-add-favorite {
 
-    &.btn-add-favorite-subscribed,
-    &.btn-add-favorite-dis {
+    &.btn-add-favorite-subscribed {
       background-position: right -1192px;
 
       &:hover i,
@@ -207,14 +206,6 @@
       }
     }
 
-    &.btn-add-favorite-dis {
-      cursor: default;
-
-      &:hover i,
-      i {
-        cursor: default;
-      }
-    }
 
     &[data-loading="true"] {
       i {

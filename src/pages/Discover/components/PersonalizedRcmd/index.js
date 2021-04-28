@@ -1,7 +1,7 @@
 /**
  * 个性化推荐
  */
-import React, {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
 import PlaylistItem from 'components/PlaylistItem'
@@ -78,4 +78,4 @@ function PersonalizedRcmd() {
         </ul>
 }
 
-export default React.memo(PersonalizedRcmd)
+export default memo(PersonalizedRcmd)

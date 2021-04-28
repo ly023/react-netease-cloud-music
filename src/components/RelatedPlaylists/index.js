@@ -1,9 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import './index.scss'
 
-function RelatedPlaylists({title, list}) {
+function RelatedPlaylists({title = '', list = []}) {
     return list.length ? <div styleName="list" className="clearfix">
         <h3 styleName="title">{title}</h3>
         <ul>
@@ -36,11 +35,6 @@ function RelatedPlaylists({title, list}) {
 RelatedPlaylists.propTypes = {
     title: PropTypes.string,
     list: PropTypes.array
-}
-
-RelatedPlaylists.defaultProps = {
-    title: '',
-    list: []
 }
 
 export default RelatedPlaylists

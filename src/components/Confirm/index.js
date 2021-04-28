@@ -1,11 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import Modal from 'components/Modal'
 
 import './index.scss'
 
 function Confirm(props) {
-    const {title, content, okText, cancelText, onOk, onCancel, confirmLoading} = props
+    const {title = '提示', content, okText = '确定', cancelText = '取消', onOk, onCancel, confirmLoading = false} = props
 
     return <Modal {...props} title={title}>
         <div styleName="content">{content}</div>
@@ -24,15 +23,6 @@ Confirm.propTypes = {
     onOk: PropTypes.func,
     onCancel: PropTypes.func,
     confirmLoading: PropTypes.bool,
-}
-
-Confirm.defaultProps = {
-    title: '提示',
-    okText: '确定',
-    cancelText: '取消',
-    onOk() {},
-    onCancel() {},
-    confirmLoading: false,
 }
 
 export default Confirm

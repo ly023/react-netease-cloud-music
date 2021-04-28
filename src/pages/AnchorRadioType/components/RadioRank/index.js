@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import {useState, useEffect, useCallback, useRef} from 'react'
 import {withRouter, Link, useHistory, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
 import SubTitle from 'components/SubTitle'
@@ -120,7 +120,8 @@ function RadioRank(props) {
                 <div styleName="pagination">
                     <Pagination
                         current={current}
-                        total={Math.ceil(total / params.limit)}
+                        total={total}
+                        pageSize={params.limit}
                         onChange={handlePageChange}
                     />
                 </div>

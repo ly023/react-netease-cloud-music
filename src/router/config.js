@@ -1,12 +1,15 @@
-import React from 'react'
 import {Redirect} from 'react-router-dom'
-import Loadable from 'react-loadable'
-import PageLoading from 'components/PageLoading'
+import loadable from '@loadable/component'
+// import PageLoading from 'components/PageLoading'
 
 // import asyncComponent from './asyncComponent'
 // const importPages = file => asyncComponent(() => import(`pages/${file}`))
 
-const importViews = file => import(`pages/${file}`)
+// const importViews = file => loadable(() => import(`pages/${file}`))
+
+function importPages(filename) {
+    return loadable(() => import(`pages/${filename}`))
+}
 
 export default [
     {
@@ -19,64 +22,43 @@ export default [
         path: '/discover',
         name: '发现',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('Discover'),
-            loading: PageLoading,
-        }),
+        component: importPages('Discover'),
     },
     {
         path: '/discover/playlist',
         name: '发现-歌单',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('Playlist'),
-            loading: PageLoading,
-        }),
+        component: importPages('Playlist'),
     },
     {
         path: '/discover/radio',
         name: '发现-主播电台',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('AnchorRadio'),
-            loading: PageLoading,
-        }),
+        component: importPages('AnchorRadio'),
     },
     {
         path: '/discover/radio/category/:id',
         name: '发现-主播电台-分类',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('AnchorRadioType'),
-            loading: PageLoading,
-        }),
+        component: importPages('AnchorRadioType'),
     },
     {
         path: '/discover/radio/recommend',
         name: '发现-主播电台-推荐节目',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('AnchorRadioRecommendation'),
-            loading: PageLoading,
-        }),
+        component: importPages('AnchorRadioRecommendation'),
     },
     {
         path: '/discover/radio/rank',
         name: '发现-主播电台-节目排行榜',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('ProgramRank'),
-            loading: PageLoading,
-        }),
+        component: importPages('ProgramRank'),
     },
     {
         path: '/discover/album',
         name: '发现-新碟上架',
         exact: true,
-        component: Loadable({
-            loader: () => importViews('Album'),
-            loading: PageLoading,
-        }),
+        component: importPages('Album'),
     },
     {
         path: '/discover/recommend/daily',
@@ -85,66 +67,42 @@ export default [
         meta: {
             requiresAuth: true
         },
-        component: Loadable({
-            loader: () => importViews('DailyRecommendation'),
-            loading: PageLoading,
-        }),
+        component: importPages('DailyRecommendation'),
     },
     {
         path: '/friend',
         name: '朋友',
-        component: Loadable({
-            loader: () => importViews('Friend'),
-            loading: PageLoading,
-        }),
+        component: importPages('Friend'),
     },
     {
         path: '/download',
         name: '下载客户端',
-        component: Loadable({
-            loader: () => importViews('Download'),
-            loading: PageLoading,
-        }),
+        component: importPages('Download'),
     },
     {
         path: '/song/:id',
         name: '歌曲详情',
-        component: Loadable({
-            loader: () => importViews('Song'),
-            loading: PageLoading,
-        }),
+        component: importPages('Song'),
     },
     {
         path: '/playlist/:id',
         name: '歌单详情',
-        component: Loadable({
-            loader: () => importViews('PlaylistDetail'),
-            loading: PageLoading,
-        })
+        component: importPages('PlaylistDetail'),
     },
     {
         path: '/album/:id',
         name: '专辑详情',
-        component: Loadable({
-            loader: () => importViews('AlbumDetail'),
-            loading: PageLoading,
-        })
+        component: importPages('AlbumDetail'),
     },
     {
         path: '/search',
         name: '搜索',
-        component: Loadable({
-            loader: () => importViews('Search'),
-            loading: PageLoading,
-        }),
+        component: importPages('Search'),
     },
     {
         path: '/user/home/:id',
         name: '用户主页',
-        component: Loadable({
-            loader: () => importViews('UserHome'),
-            loading: PageLoading,
-        }),
+        component: importPages('UserHome'),
     },
     {
         path: '/user/update/:id',
@@ -152,16 +110,10 @@ export default [
         meta: {
             requiresAuth: true
         },
-        component: Loadable({
-            loader: () => importViews('UserUpdate'),
-            loading: PageLoading,
-        })
+        component: importPages('UserUpdate'),
     },
     {
         path: '*',
-        component: Loadable({
-            loader: () => importViews('404'),
-            loading: PageLoading,
-        }),
+        component: importPages('404'),
     },
 ]

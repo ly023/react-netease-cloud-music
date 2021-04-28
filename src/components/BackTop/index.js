@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import './index.scss'
 
@@ -9,7 +9,7 @@ let intervalTimer = 0
 
 function BackTop(props) {
     const [visible, setVisible] = useState(false)
-    const {step, delayInMs} = props
+    const {step = 50, delayInMs = 0} = props
 
     const scrollStep = () => {
         if (window.pageYOffset === 0) {
@@ -57,11 +57,6 @@ function BackTop(props) {
 BackTop.propTypes = {
     step: PropTypes.number,
     delayInMs: PropTypes.number,
-}
-
-BackTop.defaultProps = {
-    step: 50,
-    delayInMs: 0,
 }
 
 export default BackTop

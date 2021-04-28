@@ -1,7 +1,7 @@
 /**
  * 歌单详情页
  */
-import React from 'react'
+import {Component} from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
@@ -28,7 +28,7 @@ import './index.scss'
     isLogin: user.isLogin,
     userInfo: user.userInfo,
 }))
-export default class PlaylistDetail extends React.Component {
+export default class PlaylistDetail extends Component {
     constructor(props) {
         super(props)
         this.state = this.getInitialState()
@@ -183,12 +183,11 @@ export default class PlaylistDetail extends React.Component {
                                         <SubscribePlaylist
                                             id={detail.id}
                                             type={detail.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
-                                            disabled={isSelf}
                                             onSuccess={this.handleSubscribeSuccess}
                                         >
                                             <a
                                                 href={null}
-                                                styleName={`btn-add-favorite ${detail.subscribed ? 'btn-add-favorite-subscribed' : ''} ${isSelf ? 'btn-add-favorite-dis' : ''}`}
+                                                styleName={`btn-add-favorite ${detail.subscribed ? 'btn-add-favorite-subscribed' : ''}`}
                                             >
                                                 <i data-content={detail.subscribedCount ? `(${formatNumber(detail.subscribedCount, 5)})` : '收藏'}/>
                                             </a>

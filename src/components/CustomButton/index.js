@@ -1,4 +1,4 @@
-import React from 'react'
+import {memo} from 'react'
 import PropTypes from 'prop-types'
 
 import './index.scss'
@@ -14,4 +14,4 @@ CustomButton.propTypes = {
     type: PropTypes.oneOf(['primary']),
 }
 
-export default React.memo(CustomButton)
+export default memo(CustomButton)

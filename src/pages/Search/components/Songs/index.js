@@ -1,4 +1,4 @@
-import React from 'react'
+import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {PLAY_TYPE} from 'constants/play'
@@ -11,7 +11,7 @@ import {getRenderKeyword} from 'utils/song'
 import './index.scss'
 
 function Songs(props) {
-    const {keyword, list} = props
+    const {keyword = '', list = []} = props
 
     return <div styleName="list">
         {
@@ -67,9 +67,4 @@ Songs.propTypes = {
     list: PropTypes.array,
 }
 
-Songs.defaultProps = {
-    keyword: '',
-    list: []
-}
-
-export default React.memo(Songs)
+export default memo(Songs)

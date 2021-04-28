@@ -1,6 +1,4 @@
-import React, {useEffect} from 'react'
-import {hot} from 'react-hot-loader/root'
-import {setConfig} from 'react-hot-loader'
+import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {requestLoginStatus} from 'actions/user'
 import NavBar from 'components/NavBar'
@@ -69,10 +67,6 @@ function App() {
     )
 }
 
-setConfig({
-    logLevel: 'debug',
-})
-
-export default hot(App)
+export default App
 
 

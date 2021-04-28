@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useMemo, useRef} from 'react'
+import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
 import {Link, useHistory, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
 import Page from 'components/Page'
@@ -168,7 +168,8 @@ function Album() {
                 <div styleName="pagination">
                     <Pagination
                         current={current}
-                        total={Math.ceil(total / params.limit)}
+                        total={total}
+                        pageSize={params.limit}
                         onChange={handlePageChange}
                         el={listWrapperRef.current}
                     />

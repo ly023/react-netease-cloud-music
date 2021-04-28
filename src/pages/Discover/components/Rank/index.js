@@ -1,7 +1,7 @@
 /**
  *  榜单
  */
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import {useState, useEffect, useCallback, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import {cloneDeep} from 'lodash'
 import Add from 'components/Add'
@@ -144,4 +144,4 @@ function Rank() {
     </div>
 }
 
-export default React.memo(Rank)
+export default memo(Rank)

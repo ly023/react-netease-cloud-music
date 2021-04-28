@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useMemo, useRef} from 'react'
+import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {getThumbnail} from 'utils'

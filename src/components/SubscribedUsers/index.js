@@ -1,9 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import './index.scss'
 
-function SubscribedUsers({title, list}) {
+function SubscribedUsers({title = '', list = []}) {
     return list.length ? <div styleName="list">
         <h3 styleName="title">{title}</h3>
         <ul>
@@ -23,11 +22,6 @@ function SubscribedUsers({title, list}) {
 SubscribedUsers.propTypes = {
     title: PropTypes.string,
     list: PropTypes.array
-}
-
-SubscribedUsers.defaultProps = {
-    title: '',
-    list: []
 }
 
 export default SubscribedUsers

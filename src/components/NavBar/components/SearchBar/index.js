@@ -1,7 +1,6 @@
 /**
  * 顶部搜索栏
  */
-import React from 'react'
 import Search from 'components/Search'
 
 import './index.scss'

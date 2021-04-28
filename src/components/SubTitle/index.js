@@ -1,4 +1,4 @@
-import React from 'react'
+import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
@@ -20,4 +20,4 @@ PropTypes.propTypes = {
     slot: PropTypes.node,
 }
 
-export default React.memo(SubTitle)
+export default memo(SubTitle)

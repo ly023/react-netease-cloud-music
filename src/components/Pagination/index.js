@@ -1,79 +1,100 @@
 /**
  * 分页器
  */
-import React, {useCallback} from 'react'
+import {useCallback, useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {scrollIntoView} from 'utils'
+import {PAGINATION_LIMIT} from 'constants'
 
 import './index.scss'
 
 const MAX_PAGE_COUNT = 9
 
-const getNumbers = (length) => {
-    return Array.from(new Array(length), (v, i) => i + 1)
+function getRange(start, length) {
+    return Array.from(new Array(length), (v, i) => start + i)
 }
 
-const getPages = (current, total) => {
-    if (total <= MAX_PAGE_COUNT) {
-        return getNumbers(total)
+function getPages(currentPage, totalPage) {
+    if (totalPage <= MAX_PAGE_COUNT) {
+        return getRange(1, totalPage)
     }
     const half = Math.ceil(MAX_PAGE_COUNT / 2)
-    if (current <= half && total - MAX_PAGE_COUNT > 1) {
-        return getNumbers(MAX_PAGE_COUNT - 1).concat(['...', total])
+    if (currentPage <= half) {
+        return getRange(1, MAX_PAGE_COUNT - 1).concat(['...', totalPage])
     }
     const offset = half - 2
-    if (current + half <= total) {
-        const centerPages = Array.from(new Array(offset * 2 + 1), (v, i) => current - offset + i)
-        return [1, '...', ...centerPages, '...', total]
+    if (currentPage >= totalPage - offset) {
+        const centerPages = Array.from(new Array(MAX_PAGE_COUNT - 1), (v, i) => totalPage - i).reverse()
+        return [1, '...', ...centerPages]
     }
-    return [1, '...', ...Array.from(new Array(offset * 2 + 1), (v, i) => total - (offset * 2 + 1) + i), total]
+    const centerPages = Array.from(new Array(offset * 2 + 1), (v, i) => currentPage - offset + i)
+    return [1, '...', ...centerPages, '...', totalPage]
 }
 
 function Pagination(props) {
-    const {current, total, onChange, el} = props
-    const prevDisabled = current === 1
-    const nextDisabled = current === total
-    const showPagination = total > 0 && total > 1
+    const {current = 1, total = 0, pageSize = PAGINATION_LIMIT, onChange, el} = props
 
-    const {navHeight} = useShallowEqualSelector(({base})=>({
+    const {navHeight} = useShallowEqualSelector(({base}) => ({
         navHeight: base.navHeight
     }))
+
+    const totalPage = useMemo(() => Math.ceil(total / pageSize), [total, pageSize])
+
+    const prevDisabled = current === 1
+
+    const nextDisabled = current === totalPage
+
+    const showPagination = totalPage > 0 && totalPage > 1
 
     const handleChange = useCallback((current) => {
         scrollIntoView(el, navHeight)
         onChange && onChange(current)
     }, [onChange, el, navHeight])
 
+    const handlePrev = useCallback(() => {
+        if (prevDisabled) {
+            return
+        }
+        handleChange(current - 1)
+    }, [prevDisabled, handleChange, current])
+
+    const handleNext = useCallback(() => {
+        if (nextDisabled) {
+            return
+        }
+        handleChange(current + 1)
+    }, [nextDisabled, handleChange, current])
+
+    const renderPages = useMemo(() => {
+        const pages = getPages(current, Math.ceil(total / pageSize))
+        return pages.map((page, index) => {
+            if (Number.isNaN(Number(page))) {
+                return <span key={index}> {page} </span>
+            }
+            return <span
+                key={index}
+                styleName={`page${current === page ? ' active' : ''}`}
+                onClick={() => handleChange(page)}
+            >
+                {page}
+            </span>
+        })
+    }, [current, total, pageSize, handleChange])
+
     return showPagination && <div styleName="pagination">
         <span
             styleName={`page prev${prevDisabled ? ' disabled' : ''}`}
-            onClick={() => {
-                if (prevDisabled) {
-                    return
-                }
-                handleChange(current - 1)
-            }}
+            onClick={handlePrev}
         >
-                    上一页
+            上一页
         </span>
-        {
-            getPages(current, total).map((page, index) => {
-                if (Number.isNaN(Number(page))) {
-                    return <span key={index}> {page} </span>
-                }
-                return <span key={index} styleName={`page${current === page ? ' active' : ''}`}
-                    onClick={() => handleChange(page)}>{page}</span>
-            })
-        }
-        <span styleName={`page next${nextDisabled ? ' disabled' : ''}`}
-            onClick={() => {
-                if (nextDisabled) {
-                    return
-                }
-                handleChange(current + 1)
-            }}>
-                    下一页
+        {renderPages}
+        <span
+            styleName={`page next${nextDisabled ? ' disabled' : ''}`}
+            onClick={handleNext}
+        >
+            下一页
         </span>
     </div>
 }
@@ -81,14 +102,9 @@ function Pagination(props) {
 Pagination.propTypes = {
     current: PropTypes.number,
     total: PropTypes.number,
+    pageSize: PropTypes.number,
     onChange: PropTypes.func,
     el: PropTypes.object,
 }
 
-Pagination.defaultProps = {
-    current: 1,
-    total: 0,
-    onChange() {}
-}
-
-export default React.memo(Pagination)
+export default memo(Pagination)

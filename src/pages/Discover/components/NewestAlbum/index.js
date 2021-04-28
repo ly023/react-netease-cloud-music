@@ -1,7 +1,7 @@
 /**
  * 新碟上架
  */
-import React, {useState, useEffect, useMemo, useRef} from 'react'
+import {useState, useEffect, useMemo, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 import {PLAY_TYPE} from 'constants/play'
@@ -73,4 +73,4 @@ function NewestAlbum() {
     </div>
 }
 
-export default React.memo(NewestAlbum)
+export default memo(NewestAlbum)

@@ -1,7 +1,7 @@
 /**
  * 热门主播
  */
-import React, {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import {requestHotAnchorMock} from 'services/radio'
 import staticHotAnchorJson from 'assets/json/static-hot-anchor'
@@ -64,4 +64,4 @@ function Anchor() {
     </section>
 }
 
-export default React.memo(Anchor)
+export default memo(Anchor)

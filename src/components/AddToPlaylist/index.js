@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import {useState, useEffect, useCallback, useRef, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import Modal from 'components/Modal'
 import message from 'components/Message'
@@ -11,7 +11,7 @@ import CreatePlaylistModal from './components/CreatePlaylistModal'
 import './index.scss'
 
 function AddToPlaylist(props) {
-    const {children, songIds} = props
+    const {children, songIds = []} = props
 
     const {userId} = useShallowEqualSelector(({user}) => ({
         userId: user.userInfo?.userId
@@ -92,12 +92,12 @@ function AddToPlaylist(props) {
         updatePlaylistSongs(playlistId)
     }, [updatePlaylistSongs])
 
-    const onlyChildren = React.Children.only(children)
+    const onlyChildren = Children.only(children)
 
     return (
         <>
             {
-                React.cloneElement(onlyChildren, {
+                cloneElement(onlyChildren, {
                     onClick: addToPlaylist
                 })
             }
@@ -127,10 +127,6 @@ function AddToPlaylist(props) {
 
 AddToPlaylist.propTypes = {
     songIds: PropTypes.arrayOf(PropTypes.number),
-}
-
-AddToPlaylist.defaultProps = {
-    songIds: [],
 }
 
 export default AddToPlaylist

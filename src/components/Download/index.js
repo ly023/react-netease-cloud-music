@@ -1,7 +1,7 @@
 /**
  *  下载
  */
-import React from 'react'
+import {cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import {requestResource} from 'services/song'
 
@@ -27,10 +27,10 @@ function Download(props) {
     }
 
     const {children} = props
-    const onlyChildren = React.Children.only(children)
+    const onlyChildren = Children.only(children)
 
     return (
-        React.cloneElement(onlyChildren, {
+        cloneElement(onlyChildren, {
             onClick: handleDownload
         })
     )

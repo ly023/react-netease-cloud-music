@@ -1,17 +1,17 @@
-import React from 'react'
+import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {PLAY_TYPE} from 'constants/play'
 import Play from 'components/Play'
 import AddToPlaylist from 'components/AddToPlaylist'
+import Add from 'components/Add'
 import {formatDuration} from 'utils'
 import {getRenderKeyword} from 'utils/song'
 
 import './index.scss'
-import Add from "components/Add";
 
 function Lyrics(props) {
-    const {keyword, list} = props
+    const {keyword = '', list = []} = props
 
     return <div styleName="list">
         {
@@ -72,9 +72,4 @@ Lyrics.propTypes = {
     list: PropTypes.array,
 }
 
-Lyrics.defaultProps = {
-    keyword: '',
-    list: []
-}
-
-export default React.memo(Lyrics)
+export default memo(Lyrics)

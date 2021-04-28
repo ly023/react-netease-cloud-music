@@ -8,7 +8,9 @@
         "modules": false
       }
     ],
-    "@babel/preset-react"
+    ["@babel/preset-react", {
+      "runtime": "automatic"
+    }]
   ],
   "plugins": [
     "add-module-exports",
@@ -71,13 +73,12 @@
         "autoResolveMultipleImports": true
       }
     ],
-    "lodash",
-    "react-loadable/babel"
+    "lodash"
   ],
   "env": {
     "development": {
       "plugins": [
-        "react-hot-loader/babel"
+        "react-refresh/babel"
       ]
     }
   }

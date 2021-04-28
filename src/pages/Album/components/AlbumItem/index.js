@@ -1,4 +1,4 @@
-import React from 'react'
+import {memo} from 'react'
 import Proptypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import Play from 'components/Play'
@@ -8,7 +8,7 @@ import {getThumbnail} from 'utils'
 import './index.scss'
 
 function AlbumItem(props) {
-    const {item} = props
+    const {item = {}} = props
     const {id, name, artist} = item
     const albumLink = `/album/${id}`
 
@@ -34,8 +34,4 @@ AlbumItem.propTypes = {
     item: Proptypes.object
 }
 
-AlbumItem.defaultProps = {
-    item: {}
-}
-
-export default React.memo(AlbumItem)
+export default memo(AlbumItem)

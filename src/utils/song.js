@@ -1,4 +1,3 @@
-import React from 'react'
 import {FEE_TYPE, PLAY_MODE, DEFAULT_SECOND} from 'constants/play'
 
 export function hasPrivilege(privilege = {}) {

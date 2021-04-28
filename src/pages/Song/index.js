@@ -1,7 +1,7 @@
 /**
  * 歌曲详情页
  */
-import React, {Fragment} from 'react'
+import {Component, Fragment} from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Page from 'components/Page'
@@ -12,6 +12,7 @@ import Play from 'components/Play'
 import Comments from 'components/Comments'
 import RelatedPlaylists from 'components/RelatedPlaylists'
 import ClientDownload from 'components/ClientDownload'
+import AddToPlaylist from 'components/AddToPlaylist'
 import {requestDetail, requestLyric, requestSimilar as requestSimilarSongs} from 'services/song'
 import {requestSimilar as requestSimilarPlaylists} from 'services/playlist'
 import {getThumbnail} from 'utils'
@@ -19,7 +20,6 @@ import emitter from 'utils/eventEmitter'
 import {getArtists, getLyric} from 'utils/song'
 
 import './index.scss'
-import AddToPlaylist from "components/AddToPlaylist";
 
 const DEFAULT_SECOND = -1
 const DEFAULT_LYRIC_LINES = 13
@@ -28,7 +28,7 @@ const DEFAULT_LYRIC_LINES = 13
 @connect(({user}) => ({
     isLogin: user.isLogin,
 }))
-export default class Song extends React.Component {
+export default class Song extends Component {
     constructor(props) {
         super(props)
         this.state = this.getInitialState()

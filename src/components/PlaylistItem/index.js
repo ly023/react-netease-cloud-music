@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import {useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import Play from 'components/Play'
@@ -8,7 +8,7 @@ import {formatNumber, getThumbnail} from 'utils'
 import './index.scss'
 
 function PlaylistItem(props) {
-    const {item, showCreator} = props
+    const {item, showCreator = false} = props
     const {id, name, creator = {}} = item
     const detailLink = useMemo(() => `/playlist/${id}`, [id])
 
@@ -27,8 +27,9 @@ function PlaylistItem(props) {
         </div>
         <Link to={detailLink} styleName="name" title={name}>{name}</Link>
         {
-            showCreator ?  <div styleName="creator">
-                by <Link to={`/user/home/${creator.userId}`} styleName="nickname" title={creator.nickname}>{creator.nickname}</Link>
+            showCreator ? <div styleName="creator">
+                by <Link to={`/user/home/${creator.userId}`} styleName="nickname"
+                         title={creator.nickname}>{creator.nickname}</Link>
             </div> : null
         }
     </>
@@ -39,8 +40,4 @@ PlaylistItem.propTypes = {
     showCreator: PropTypes.bool,
 }
 
-PlaylistItem.defaultProps = {
-    showCreator: false,
-}
-
-export default React.memo(PlaylistItem)
+export default memo(PlaylistItem)

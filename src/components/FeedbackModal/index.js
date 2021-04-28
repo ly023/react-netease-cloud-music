@@ -22,13 +22,6 @@ export default class FeedbackModal extends React.Component {
         }
     }
 
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-
-    }
-
     handleChange = (key, e) => {
         let value = e && e.target ? e.target.value : ''
 

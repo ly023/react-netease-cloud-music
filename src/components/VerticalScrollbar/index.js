@@ -1,9 +1,9 @@
-import React from 'react'
+import {forwardRef} from 'react'
 import Scrollbar from 'components/CustomScrollbar'
 
 import './index.scss'
 
-const VerticalScrollbar = React.forwardRef((props, ref) => {
+const VerticalScrollbar = forwardRef((props, ref) => {
     return (
         <Scrollbar
             ref={ref}

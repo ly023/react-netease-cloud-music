@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import {useState, useEffect, useCallback, useRef, cloneElement, Children, memo} from 'react'
 import {useLocation} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
@@ -10,7 +10,7 @@ import './index.scss'
 const PLAYLIST_CATEGORY_ID = 'playlist-category'
 
 function Categories(props) {
-    const {children, category} = props
+    const {children, category = '全部'} = props
     const isMounted = useRef(false)
     const {pathname, search} = useLocation()
     const [categories, setCategories] = useState({})
@@ -70,7 +70,7 @@ function Categories(props) {
     return (
         <div id={PLAYLIST_CATEGORY_ID} styleName="wrapper">
             {
-                React.cloneElement(React.Children.only(children), {
+                cloneElement(Children.only(children), {
                     onClick: toggle
                 })
             }
@@ -107,11 +107,7 @@ function Categories(props) {
 }
 
 Categories.propTypes = {
-    category: PropTypes.string
+    category: PropTypes.string,
 }
 
-Categories.defaultProps = {
-    category: '全部'
-}
-
-export default React.memo(Categories)
+export default memo(Categories)

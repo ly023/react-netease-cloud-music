@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import {useState, useEffect, useCallback, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {FixedSizeList as List} from 'react-window'
 import AutoSizer from 'react-virtualized-auto-sizer'

@@ -1,14 +1,14 @@
 /**
  * 收藏/取消收藏 歌单
  */
-import React, {useState, useCallback} from 'react'
+import {useState, useCallback, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import message from 'components/Message'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import {requestSubscribe} from 'services/playlist'
 
 function SubscribePlaylist(props) {
-    const {id, type, disabled, onSuccess} = props
+    const {id, type, disabled = false, onSuccess} = props
     const [loading, setLoading] = useState(false)
 
     const handleCollect = useCallback(async () => {
@@ -24,7 +24,7 @@ function SubscribePlaylist(props) {
             .then(() => {
                 const content = type === PLAYLIST_COLLECTION_TYPE.OK ? '收藏成功' : '取消收藏成功'
                 message.success({content})
-                onSuccess()
+                onSuccess && onSuccess()
             })
             .finally(() => {
                 setLoading(false)
@@ -32,10 +32,10 @@ function SubscribePlaylist(props) {
     }, [disabled, loading, id, type, onSuccess])
 
     const {children} = props
-    const onlyChildren = React.Children.only(children)
+    const onlyChildren = Children.only(children)
 
     return (
-        React.cloneElement(onlyChildren, {
+        cloneElement(onlyChildren, {
             onClick: handleCollect,
             'data-loading': loading
         })
@@ -47,11 +47,6 @@ SubscribePlaylist.propTypes = {
     type: PropTypes.oneOf(Object.values(PLAYLIST_COLLECTION_TYPE)),
     disabled: PropTypes.bool,
     onSuccess: PropTypes.func,
-}
-
-SubscribePlaylist.defaultProps = {
-    disabled: false,
-    onSuccess(){}
 }
 
 export default SubscribePlaylist

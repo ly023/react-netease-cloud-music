@@ -1,7 +1,7 @@
-import React from 'react'
+import {Component} from 'react'
 
 export default loadComponent => (
-    class AsyncComponent extends React.Component {
+    class AsyncComponent extends Component {
         state = {
             component: null
         }
