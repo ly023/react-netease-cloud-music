@@ -1,17 +1,18 @@
 .table {
-  table-layout: fixed;
   width: 100%;
+  table-layout: fixed;
+  border: 1px solid #d9d9d9;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid #d9d9d9;
 
   th {
     height: 38px;
     vertical-align: top;
     background-color: #f7f7f7;
-    @extend %background-table;
-    background-position: 0 0;
     background-repeat: repeat-x;
+    background-position: 0 0;
+
+    @extend %background-table;
 
     &.w1 {
       width: 74px;
@@ -39,13 +40,14 @@
 
     .th {
       height: 18px;
-      line-height: 18px;
       padding: 8px 10px;
-      text-align: left;
       color: #666;
       font-weight: 400;
-      @extend %background-table;
+      line-height: 18px;
+      text-align: left;
       background-position: 0 -56px;
+
+      @extend %background-table;
 
       &.first {
         background: none;
@@ -74,9 +76,9 @@
 
     &.disabled .order .ply,
     &.disabled .order .ply:hover {
-      opacity: 0.5;
       background-position: 0 -103px;
       cursor: default;
+      opacity: 0.5;
     }
 
     &.disabled:hover {
@@ -120,22 +122,24 @@
 
       .new {
         display: inline-block;
-        vertical-align: middle;
         width: 16px;
         height: 17px;
         margin: 0 8px 0 16px;
-        @extend %background-icon;
+        vertical-align: middle;
         background-position: -67px -283px;
+
+        @extend %background-icon;
       }
 
       .ply {
-        float: right;
         display: inline-block;
+        float: right;
         width: 17px;
         height: 17px;
-        cursor: pointer;
-        @extend %background-table;
         background-position: 0 -103px;
+        cursor: pointer;
+
+        @extend %background-table;
 
         &:hover {
           background-position: 0 -128px;
@@ -149,6 +153,7 @@
 
     .name {
       width: 100%;
+
       @extend %text-ellipsis;
 
       .alias {
@@ -159,11 +164,12 @@
         display: inline-block;
         width: 23px;
         height: 17px;
-        vertical-align: middle;
         margin: 0 0 0 4px;
-        @extend %background-table;
+        vertical-align: middle;
         background-position: 0 -151px;
         cursor: pointer;
+
+        @extend %background-table;
 
         &:hover {
           background-position: -30px -151px;
@@ -190,19 +196,21 @@
       a {
         display: inline-block;
         width: 90%;
+
         @extend %text-ellipsis;
       }
 
       .dislike {
-        display: none;
         position: absolute;
         top: 10px;
         right: 8px;
+        display: none;
         width: 10px;
         height: 10px;
-        @extend %background-icon;
         background-position: -75px -352px;
         cursor: pointer;
+
+        @extend %background-icon;
 
         &:hover {
           background-position: -75px -365px;
@@ -211,4 +219,3 @@
     }
   }
 }
-

@@ -1,7 +1,7 @@
 
 .wrapper {
-  overflow: hidden;
   margin: 20px 0 0;
+  overflow: hidden;
   background-color: $bg-color;
   border: 1px solid #d3d3d3;
 }
@@ -9,7 +9,7 @@
 .column {
   float: left;
   width: 228px;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   border-right: 1px solid #d3d3d3;
 
   &:last-child {
@@ -17,11 +17,12 @@
   }
 }
 
-
 .icon {
   display: inline-block;
   text-indent: -9999px;
+
   @extend %background-index;
+
   cursor: pointer;
 }
 
@@ -42,6 +43,7 @@
 
 .add-icon {
   @extend %background-icon;
+
   background-position: 0 -700px;
 
   &:hover {
@@ -68,15 +70,16 @@
     width: 80px;
     height: 80px;
 
-    &:after {
-      content: '';
+    &::after {
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
-      @extend %background-cover;
       background-position: -145px -57px;
+      content: '';
+
+      @extend %background-cover;
     }
 
     img {
@@ -120,12 +123,11 @@
 }
 
 .list {
-
   .item-more {
     padding-right: 32px;
     line-height: 32px;
     text-align: right;
-    background-color: #E8E8E8;
+    background-color: #e8e8e8;
 
     .item-all {
       height: 32px;
@@ -141,7 +143,7 @@
   line-height: 32px;
 
   &.item-event {
-    background-color: #E8E8E8;
+    background-color: #e8e8e8;
   }
 
   .item-operation {
@@ -152,9 +154,9 @@
     float: left;
     width: 35px;
     height: 32px;
-    text-align: center;
     color: #666;
     font-size: 16px;
+    text-align: center;
 
     &.no-top {
       color: $primary-color;
@@ -167,6 +169,7 @@
     height: 32px;
     color: #000;
     font-size: 12px;
+
     @extend %text-ellipsis;
   }
 

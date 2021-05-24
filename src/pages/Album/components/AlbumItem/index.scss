@@ -6,8 +6,8 @@
   overflow: hidden;
 
   .cover {
-    display: block;
     position: relative;
+    display: block;
     width: 153px;
     height: 130px;
 
@@ -21,8 +21,9 @@
       right: 0;
       bottom: 0;
       left: 0;
-      @extend %background-cover;
       background-position: 0 -845px;
+
+      @extend %background-cover;
     }
 
     img {
@@ -30,15 +31,16 @@
     }
 
     .play-icon {
-      display: none;
       position: absolute;
       right: 32px;
       bottom: 6px;
+      display: none;
       width: 28px;
       height: 28px;
-      @extend %background-icon-all;
       background-position: 0 -140px;
       cursor: pointer;
+
+      @extend %background-icon-all;
     }
 
     &:hover {
@@ -55,7 +57,9 @@
   .title,
   .name {
     display: block;
+
     @extend %text-ellipsis;
+
     font-size: 14px;
   }
 

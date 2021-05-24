@@ -9,8 +9,8 @@
 
   h3 {
     float: left;
-    font-size: 24px;
     font-weight: normal;
+    font-size: 24px;
     font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
   }
 
@@ -29,10 +29,10 @@
     width: 90px;
     height: 30px;
     margin: 0 0 0 12px;
-    vertical-align: middle;
     color: #0c73c2;
-    border: 1px solid #D1D1D1;
-    background-color: #F5F5F5;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    border: 1px solid #d1d1d1;
 
     i {
       display: inline-block;
@@ -40,8 +40,9 @@
       height: 5px;
       margin-left: 5px;
       vertical-align: middle;
-      @extend %background-icon;
       background-position: -70px -543px;
+
+      @extend %background-icon;
     }
 
     &:hover {
@@ -54,25 +55,25 @@
     float: right;
     width: 46px;
     height: 30px;
+    color: #fff;
     line-height: 30px;
     text-align: center;
-    color: #fff;
     background-color: $light-primary-color;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
   }
 }
 
 .list {
-  margin: 30px 0 0px -50px;
+  margin: 30px 0 0 -50px;
 }
 
 .item {
-  float: left;
   display: inline-block;
+  float: left;
   width: 140px;
   height: 188px;
-  overflow: hidden;
   padding: 0 0 30px 50px;
+  overflow: hidden;
   line-height: 1.4;
 }
 

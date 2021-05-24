@@ -1,12 +1,12 @@
 
 .wrapper {
   position: relative;
-  padding: 0 16px 0 30px;
-  margin: 20px 0 38px;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
   box-sizing: border-box;
+  width: 100%;
+  margin: 20px 0 38px;
+  padding: 0 16px 0 30px;
+  overflow: hidden;
+  white-space: nowrap;
   background-color: $bg-color;
   border: 1px solid #d3d3d3;
 
@@ -21,11 +21,12 @@
       top: 55px;
       width: 17px;
       height: 17px;
-      @extend %background-index;
-      cursor: pointer;
       outline: none;
+      cursor: pointer;
 
-      &:before {
+      @extend %background-index;
+
+      &::before {
         content: none;
       }
     }
@@ -37,7 +38,6 @@
       &:hover {
         background-position: -280px -75px;
       }
-
     }
 
     .slick-next {
@@ -62,8 +62,8 @@
     vertical-align: top;
 
     .cover {
-      display: block;
       position: relative;
+      display: block;
       width: 118px;
       height: 100px;
       margin-bottom: 7px;
@@ -78,8 +78,9 @@
         right: 0;
         bottom: 0;
         left: 0;
-        @extend %background-cover;
         background-position: 0 -570px;
+
+        @extend %background-cover;
       }
 
       img {
@@ -87,15 +88,16 @@
       }
 
       .play-icon {
-        display: none;
         position: absolute;
         right: 24px;
         bottom: 6px;
+        display: none;
         width: 22px;
         height: 22px;
-        @extend %background-icon-all;
         background-position: 0 -85px;
         cursor: pointer;
+
+        @extend %background-icon-all;
       }
 
       &:hover {
@@ -113,7 +115,9 @@
     .name {
       display: block;
       width: 90%;
+
       @extend %text-ellipsis;
+
       font-size: 12px;
     }
 
@@ -126,7 +130,3 @@
     }
   }
 }
-
-
-
-

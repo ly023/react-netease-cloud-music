@@ -6,9 +6,9 @@
 
 .item {
   position: relative;
-  padding: 10px 0;
   width: 424px;
   height: 40px;
+  padding: 10px 0;
   line-height: 40px;
 
   &.even {
@@ -31,17 +31,18 @@
     }
 
     .play-icon {
-      display: none;
       position: absolute;
       top: 50%;
       left: 50%;
+      display: none;
       width: 22px;
       height: 22px;
-      overflow: hidden;
       margin: -11px 0 0 -11px;
-      @extend %background-icon-all;
+      overflow: hidden;
       background-position: 0 -85px;
       cursor: pointer;
+
+      @extend %background-icon-all;
     }
 
     &:hover {
@@ -63,6 +64,7 @@
     .program-name,
     .radio-name {
       display: block;
+
       @extend %text-ellipsis;
     }
 

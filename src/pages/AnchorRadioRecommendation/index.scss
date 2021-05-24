@@ -4,8 +4,8 @@
 
   h3 {
     float: left;
-    font-size: 24px;
     font-weight: normal;
+    font-size: 24px;
   }
 
   .sub {
@@ -45,15 +45,17 @@
   margin-left: 20px;
 
   .play-icon {
-    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
+    display: none;
     width: 22px;
     height: 22px;
-    overflow: hidden;
     margin: -11px 0 0 -11px;
+    overflow: hidden;
+
     @extend %background-icon-all;
+
     background-position: 0 -85px;
     cursor: pointer;
   }
@@ -72,8 +74,9 @@
 .program-name,
 .radio-name {
   display: block;
-  @extend %text-ellipsis;
   margin-left: 10px;
+
+  @extend %text-ellipsis;
 }
 
 .program-name {

@@ -49,8 +49,8 @@
       .name {
         display: block;
         height: 64px;
-        font-size: 18px;
         font-weight: 700;
+        font-size: 18px;
       }
 
       .user-info {
@@ -62,7 +62,9 @@
           width: 14px;
           height: 15px;
           vertical-align: middle;
+
           @extend %background-icon;
+
           background-position: -50px -300px;
         }
 
@@ -72,14 +74,12 @@
         }
       }
 
-
       .stats {
         color: #999;
       }
     }
   }
 }
-
 
 .pagination {
   margin: 20px 0;

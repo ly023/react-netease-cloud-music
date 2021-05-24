@@ -4,7 +4,8 @@
 
   .title {
     @extend %title-underline-h3;
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
   }
 
   .item {
@@ -24,6 +25,7 @@
 
     p {
       width: 140px;
+
       @extend %text-ellipsis;
     }
 
@@ -40,7 +42,9 @@
     .nickname {
       float: left;
       max-width: 112px;
+
       @extend %text-ellipsis;
+
       margin: 0 2px 0 4px;
       color: #666;
     }

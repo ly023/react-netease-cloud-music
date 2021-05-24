@@ -6,9 +6,9 @@
 
 .banner {
   position: relative;
-  padding: 83px 0 112px;
   width: 1100px;
   margin: 0 auto;
+  padding: 83px 0 112px;
   overflow: hidden;
 
   .clients-wrapper {
@@ -22,24 +22,24 @@
 }
 
 .clients {
-  padding: 20px 0 0 10px;
+  box-sizing: border-box;
   width: 276px;
   height: 250px;
+  padding: 20px 0 0 10px;
   background-color: #fff;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-  box-sizing: border-box;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .client {
-  float: left;
   display: block;
+  float: left;
   width: 113px;
   height: 45px;
   margin: 0 0 10px 10px;
   color: #333;
-  font-family: PingFangSC-Regular, sans-serif;
   font-size: 12px;
+  font-family: PingFangSC-Regular, sans-serif;
   line-height: 45px;
   background: rgba(0, 0, 0, 0.08);
   cursor: pointer;
@@ -50,8 +50,8 @@
 }
 
 .client:hover {
-  background-position: 0 -50px;
   text-decoration: none;
+  background-position: 0 -50px;
 }
 
 .client > i {
@@ -91,9 +91,9 @@
   top: 0;
   right: 0;
   height: 60px;
-  line-height: 60px;
   color: #fff;
   font-size: 14px;
+  line-height: 60px;
   cursor: pointer;
 
   .icon-download {
@@ -102,9 +102,9 @@
     height: 20px;
     margin-top: 20px;
     margin-right: 6px;
+    vertical-align: text-bottom;
     background: url(./images/download.png) no-repeat;
     background-size: contain;
-    vertical-align: text-bottom;
   }
 
   &:hover {
@@ -127,9 +127,9 @@
 .mobile {
   position: relative;
   display: inline-block;
-  margin-left: 220px;
   width: 300px;
   height: 100%;
+  margin-left: 220px;
   text-align: center;
 
   img {
@@ -150,19 +150,19 @@
 }
 
 .banner-title {
-  margin-bottom: 22px;
   width: 100%;
-  text-align: center;
+  margin-bottom: 22px;
+  color: #fff;
   font-size: 22px;
+  text-align: center;
   opacity: 0.8;
-  color: #FFFFFF;
 }
 
 .type {
   width: 100%;
   margin: 20px auto;
-  font-size: 16px;
   color: #eee;
+  font-size: 16px;
   text-align: center;
 
   span {
@@ -199,22 +199,21 @@
       background: url(./images/android.png) no-repeat 50%;
       background-size: contain;
     }
-
   }
 }
 
 .download-btn {
+  box-sizing: content-box;
   width: 300px;
   height: 65px;
   margin: 0 auto;
-  border-radius: 65px;
-  background-color: #fff;
-  color: #D10000;
+  color: #d10000;
   font-size: 22px;
   line-height: 65px;
   text-align: center;
+  background-color: #fff;
+  border-radius: 65px;
   cursor: pointer;
-  box-sizing: content-box;
   user-select: none;
 
   &:hover {
@@ -227,26 +226,26 @@
   width: 21px;
   height: 21px;
   margin-right: 3px;
+  vertical-align: -3px;
   background: url(./images/ncode.png) no-repeat center;
   background-size: contain;
-  vertical-align: -3px;
 }
 
 .code,
 .mobile-code {
   padding: 16px 18px 9px;
-  background: #FFF;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
   text-align: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .code {
   position: fixed;
-  z-index: 10;
-  right: 22px;
   top: 395px;
+  right: 22px;
+  z-index: 10;
 
   img {
     width: 100px;
@@ -256,6 +255,7 @@
 
 .mobile-code {
   margin-bottom: 20px;
+
   img {
     width: 164px;
     height: 164px;
@@ -268,8 +268,8 @@
 }
 
 .cont {
-  background: #FFF;
   height: 437px;
+  background: #fff;
   border-bottom: 1px solid #e3e3e3;
 }
 
@@ -280,18 +280,18 @@
 
 .title {
   padding: 45px 0 5px 0;
-  font-size: 40px;
   font-weight: normal;
+  font-size: 40px;
   font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
 }
 
 .des {
-  line-height: 24px;
-  font-size: 16px;
   color: #666;
+  font-size: 16px;
+  line-height: 24px;
 
   > em {
-    color: #cc0000;
+    color: #c00;
     font-style: normal;
   }
 }
@@ -317,6 +317,3 @@
 .cont-5 {
   padding-top: 53px;
 }
-
-
-

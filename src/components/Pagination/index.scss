@@ -2,23 +2,23 @@
 .pagination {
   clear: both;
   margin: 20px 0;
-  text-align: center;
   font-size: 12px;
   line-height: 160%;
+  text-align: center;
   user-select: none;
 }
 
 .page {
   display: inline-block;
+  height: 22px;
   margin: 0 1px 0 2px;
   padding: 0 8px;
-  height: 22px;
-  vertical-align: middle;
-  text-align: left;
   color: #333;
+  line-height: 22px;
+  text-align: left;
+  vertical-align: middle;
   border: 1px solid #ccc;
   border-radius: 2px;
-  line-height: 22px;
   cursor: pointer;
 
   &:hover {
@@ -27,19 +27,21 @@
 
   &.active {
     @extend %background-button;
-    background-position: 0 -650px;
-    border-color: #A2161B;
+
     color: #fff;
+    background-position: 0 -650px;
+    border-color: #a2161b;
     cursor: default;
   }
 }
 
 .prev,
 .next {
-  padding: 0;
   width: 69px;
   height: 24px;
+  padding: 0;
   line-height: 24px;
+
   @extend %background-button;
 
   &:hover {
@@ -74,7 +76,7 @@
   background-position: -75px -560px;
 
   &:hover {
-    background-position: -75px -590px
+    background-position: -75px -590px;
   }
 
   &.disabled,

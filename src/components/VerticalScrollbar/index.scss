@@ -7,20 +7,20 @@
   z-index: 2;
   width: 6px;
   background: #000;
-  opacity: .5;
-  filter: Alpha(opacity=50);
+  opacity: 0.5;
+  filter: alpha(opacity=50);
 }
 
 .thumb-vertical {
   position: absolute;
   left: 0;
   width: 4px;
-  border-radius: 5px;
-  cursor: pointer;
   background: #868686;
   border: 1px solid #a6a6a6;
-  opacity: .8;
-  filter: Alpha(opacity=80);
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
 
   span {
     position: relative;

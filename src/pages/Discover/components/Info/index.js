@@ -87,7 +87,7 @@ function Info() {
                     ? <a href={null} styleName="checkin-btn checkin-disabled"><span>已签到</span>
                         <div styleName={`point-popover${signInSuccess ? " fade" : ""}`}>
                             <span styleName="point-popover-arrow"/>
-                            <div styleName="point-popover-content">获得 <span
+                            <div>获得 <span
                                 styleName="point">{detail?.signInPoint}</span>积分
                             </div>
                         </div>

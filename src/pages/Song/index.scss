@@ -21,10 +21,10 @@
 
   &::after {
     position: absolute;
-    width: 206px;
-    height: 205px;
     top: -4px;
     left: -4px;
+    width: 206px;
+    height: 205px;
     background: url(~assets/images/coverall.png) no-repeat -140px -580px;
     content: '';
   }
@@ -36,19 +36,19 @@
 
   i {
     display: inline-block;
-    overflow: hidden;
-    vertical-align: middle;
     width: 16px;
     height: 16px;
-    @extend %background-icon;
+    overflow: hidden;
+    vertical-align: middle;
     background-position: -34px -863px;
+
+    @extend %background-icon;
   }
 
   a {
     color: #0c73c2;
     text-decoration: underline;
   }
-
 }
 
 .content {
@@ -65,27 +65,29 @@
 .label {
   width: 54px;
   height: 24px;
+
   @extend %background-icon;
+
   background-position: 0 -463px;
 }
 
 .vip-label {
-  height: 27px;
+  box-sizing: border-box;
   width: 75px;
+  height: 27px;
+  padding-left: 8px;
   color: #fff;
-  background: url(~assets/images/label.png) center;
-  background-size: 100% 100%;
   font-size: 13px;
   line-height: 25px;
-  padding-left: 8px;
-  box-sizing: border-box;
+  background: url(~assets/images/label.png) center;
+  background-size: 100% 100%;
 }
 
 .title {
+  position: relative;
   margin-top: -5px;
   margin-bottom: 14px;
   margin-left: 64px;
-  position: relative;
   font-size: 24px;
   font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
 
@@ -103,11 +105,12 @@
 .mv-link {
   i {
     display: inline-block;
-    margin-left: 7px;
     width: 21px;
     height: 18px;
-    @extend %background-icon;
+    margin-left: 7px;
     background-position: 0 -18px;
+
+    @extend %background-icon;
   }
 }
 
@@ -132,18 +135,19 @@
 
   .vip-play {
     float: left;
-    margin-right: 4px;
-    padding: 0 5px 0 0;
     width: 100px;
     height: 32px;
+    margin-right: 4px;
+    padding: 0 5px 0 0;
+    white-space: nowrap;
     background: url(~assets/images/vip-play.png) center;
     background-size: 100% 100%;
-    white-space: nowrap;
     cursor: pointer;
     user-select: none;
 
     i {
       @extend %button-i;
+
       padding: 0 15px 0 30px;
       color: #fff;
     }
@@ -151,10 +155,11 @@
 
   .btn-play {
     float: left;
-    @extend %background-button2;
-    background-position: right -428px;
-    text-decoration: none;
     white-space: nowrap;
+    text-decoration: none;
+    background-position: right -428px;
+
+    @extend %background-button2;
 
     &:hover {
       background-position: right -510px;
@@ -164,12 +169,13 @@
       }
 
       em {
-        background-position: -28px -1622px
+        background-position: -28px -1622px;
       }
     }
 
     i {
       @extend %button-i;
+
       padding: 0 7px 0 8px;
       color: #fff;
       background-position: 0 -387px;
@@ -179,33 +185,38 @@
         width: 20px;
         height: 18px;
         margin: 6px 2px 2px 0;
-        @extend %background-button2;
-        background-position: 0 -1622px;
         overflow: hidden;
+        background-position: 0 -1622px;
+
+        @extend %background-button2;
       }
     }
   }
 
   .btn-play-disabled {
     float: left;
-    padding: 0 5px 0 0;
     margin-right: 6px;
+    padding: 0 5px 0 0;
     font-family: simsun, \5b8b\4f53, sans-serif;
-    @extend %background-button2;
     background-position: right -934px;
+
+    @extend %background-button2;
 
     i {
       @extend %u-button-i;
+
       padding: 0 7px 0 36px;
       color: #bebebe;
-      @extend %background-button2;
       background-position: 0 -891px;
       cursor: default;
+
+      @extend %background-button2;
     }
   }
 
   .btn-add-play {
     @extend %u-button;
+
     margin: 0 5px 0 -3px;
     padding: 0 8px 0 0;
     background-position: 0 -1588px;
@@ -220,6 +231,7 @@
   .btn-download,
   .btn-comment {
     @extend %u-button;
+
     margin-right: 6px;
     padding: 0 5px 0 0;
     background-position: right -1020px;
@@ -230,6 +242,7 @@
 
     i {
       @extend %u-button-i;
+
       padding: 0 2px 0 28px;
     }
   }
@@ -297,6 +310,7 @@
 .lyric-wrapper {
   margin-top: 13px;
   line-height: 23px;
+
   @extend %break-word;
 }
 
@@ -326,7 +340,7 @@
     height: auto;
 
     + .fold-ctrl i {
-      background-position: -45px -520px
+      background-position: -45px -520px;
     }
   }
 }
@@ -339,14 +353,15 @@
     display: inline-block;
     width: 11px;
     height: 8px;
+
     @extend %background-icon;
   }
 }
 
 .lyric-user {
-  text-align: right;
   margin-top: 48px;
   line-height: 30px;
+  text-align: right;
 
   a {
     text-decoration: underline;
@@ -365,7 +380,6 @@
   }
 }
 
-
 .songs {
   margin-bottom: 25px;
 
@@ -379,11 +393,13 @@
 
   .title-underline {
     @extend %title-underline-h3;
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
   }
 
   .singer {
     color: #999;
+
     @extend %text-ellipsis;
 
     a {
@@ -402,9 +418,9 @@
   }
 
   .oper {
-    float: right;
     position: relative;
     top: 10px;
+    float: right;
     line-height: 32px;
   }
 
@@ -412,9 +428,10 @@
     float: left;
     width: 10px;
     height: 11px;
-    opacity: 0.9;
-    @extend %background-icon2;
     cursor: pointer;
+    opacity: 0.9;
+
+    @extend %background-icon2;
 
     &:hover {
       opacity: 1;
@@ -430,4 +447,3 @@
     background-position: -87px -454px;
   }
 }
-

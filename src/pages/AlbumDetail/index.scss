@@ -12,7 +12,9 @@
     position: absolute;
     top: 0;
     left: 0;
+
     @extend %background-cover;
+
     width: 209px;
     height: 177px;
     background-position: 0 -986px;
@@ -29,7 +31,9 @@
   float: left;
   width: 54px;
   height: 24px;
+
   @extend %background-icon;
+
   background-position: 0 -186px;
 
   .r {
@@ -46,15 +50,15 @@
 .title {
   position: relative;
   margin-left: 64px;
-  font-size: 20px;
   font-weight: 400;
+  font-size: 20px;
   line-height: 24px;
 }
 
 .publish {
   margin: 16px 0;
-  line-height: 22px;
   color: #666;
+  line-height: 22px;
 
   .artist {
     color: #0c73c2;
@@ -68,10 +72,11 @@
 
   .btn-play {
     float: left;
-    @extend %background-button2;
-    background-position: right -428px;
-    text-decoration: none;
     white-space: nowrap;
+    text-decoration: none;
+    background-position: right -428px;
+
+    @extend %background-button2;
 
     &:hover {
       background-position: right -510px;
@@ -81,12 +86,13 @@
       }
 
       em {
-        background-position: -28px -1622px
+        background-position: -28px -1622px;
       }
     }
 
     i {
       @extend %button-i;
+
       padding: 0 7px 0 8px;
       color: #fff;
       background-position: 0 -387px;
@@ -96,33 +102,38 @@
         width: 20px;
         height: 18px;
         margin: 6px 2px 2px 0;
-        @extend %background-button2;
-        background-position: 0 -1622px;
         overflow: hidden;
+        background-position: 0 -1622px;
+
+        @extend %background-button2;
       }
     }
   }
 
   .btn-play-disabled {
     float: left;
-    padding: 0 5px 0 0;
     margin-right: 6px;
+    padding: 0 5px 0 0;
     font-family: simsun, \5b8b\4f53, sans-serif;
-    @extend %background-button2;
     background-position: right -934px;
+
+    @extend %background-button2;
 
     i {
       @extend %u-button-i;
+
       padding: 0 7px 0 36px;
       color: #bebebe;
-      @extend %background-button2;
       background-position: 0 -891px;
       cursor: default;
+
+      @extend %background-button2;
     }
   }
 
   .btn-add-play {
     @extend %u-button;
+
     margin: 0 5px 0 -3px;
     padding: 0 8px 0 0;
     background-position: 0 -1588px;
@@ -137,6 +148,7 @@
   .btn-download,
   .btn-comment {
     @extend %u-button;
+
     margin-right: 6px;
     padding: 0 5px 0 0;
     background-position: right -1020px;
@@ -147,6 +159,7 @@
 
     i {
       @extend %u-button-i;
+
       padding: 0 2px 0 28px;
     }
   }
@@ -203,13 +216,13 @@
 
 .desc {
   margin-top: 20px;
-  line-height: 18px;
   color: #666;
+  line-height: 18px;
 
   > h3 {
     color: #333;
     font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
   }
 
   .description {
@@ -227,8 +240,8 @@
     h3 {
       display: inline-block;
       height: 35px;
-      font-size: 20px;
       font-weight: 400;
+      font-size: 20px;
       line-height: 28px;
     }
 
@@ -246,11 +259,12 @@
 
         i {
           display: inline-block;
-          vertical-align: middle;
           width: 16px;
           height: 16px;
-          @extend %background-icon;
+          vertical-align: middle;
           background-position: -34px -863px;
+
+          @extend %background-icon;
         }
 
         a {
@@ -261,21 +275,21 @@
     }
   }
 
-
   .table {
-    table-layout: fixed;
     width: 100%;
+    table-layout: fixed;
+    border: 1px solid #d9d9d9;
     border-collapse: collapse;
     border-spacing: 0;
-    border: 1px solid #d9d9d9;
 
     th {
       height: 38px;
       vertical-align: top;
       background-color: #f7f7f7;
-      @extend %background-table;
-      background-position: 0 0;
       background-repeat: repeat-x;
+      background-position: 0 0;
+
+      @extend %background-table;
 
       &.w1 {
         width: 74px;
@@ -291,13 +305,14 @@
 
       .th {
         height: 18px;
-        line-height: 18px;
         padding: 8px 10px;
-        text-align: left;
         color: #666;
         font-weight: 400;
-        @extend %background-table;
+        line-height: 18px;
+        text-align: left;
         background-position: 0 -56px;
+
+        @extend %background-table;
 
         &.first {
           background: none;
@@ -327,9 +342,9 @@
 
     &.disabled .order .ply,
     &.disabled .order .ply:hover {
-      opacity: 0.5;
       background-position: 0 -103px;
       cursor: default;
+      opacity: 0.5;
     }
 
     &.disabled:hover {
@@ -366,13 +381,14 @@
       }
 
       .ply {
-        float: right;
         display: inline-block;
+        float: right;
         width: 17px;
         height: 17px;
-        cursor: pointer;
-        @extend %background-table;
         background-position: 0 -103px;
+        cursor: pointer;
+
+        @extend %background-table;
 
         &:hover {
           background-position: 0 -128px;
@@ -386,6 +402,7 @@
 
     .name {
       width: 100%;
+
       @extend %text-ellipsis;
 
       .alias {
@@ -396,11 +413,12 @@
         display: inline-block;
         width: 23px;
         height: 17px;
-        vertical-align: middle;
         margin: 0 0 0 4px;
-        @extend %background-table;
+        vertical-align: middle;
         background-position: 0 -151px;
         cursor: pointer;
+
+        @extend %background-table;
 
         &:hover {
           background-position: -30px -151px;
@@ -409,8 +427,8 @@
     }
 
     .duration {
-      white-space: nowrap;
       color: #666;
+      white-space: nowrap;
 
       .actions {
         display: none;
@@ -430,7 +448,8 @@
 
   .album-title {
     @extend %title-underline-h3;
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
   }
 
   .album-item {
@@ -450,6 +469,7 @@
 
     p {
       width: 140px;
+
       @extend %text-ellipsis;
     }
 
@@ -463,7 +483,3 @@
     }
   }
 }
-
-
-
-

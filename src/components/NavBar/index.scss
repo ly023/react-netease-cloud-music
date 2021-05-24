@@ -1,11 +1,11 @@
 $nav-border-color: #202020;
 
 @mixin link-color {
-  color: #CCC;
+  color: #ccc;
 }
 
 @mixin link-hover-color {
-  color: #FFF;
+  color: #fff;
 }
 
 %icon {
@@ -18,8 +18,8 @@ $nav-border-color: #202020;
   right: 0;
   left: 0;
   z-index: 998;
-  min-height: 70px;
   width: 100%;
+  min-height: 70px;
   background-color: #242424;
 }
 
@@ -49,49 +49,50 @@ $nav-border-color: #202020;
 }
 
 .link-list {
-  padding: 0;
   margin: 0;
+  padding: 0;
 
   .link-item {
     float: left;
     font-size: 14px;
   }
-
 }
 
 .link {
-  display: inline-block;
   position: relative;
-  line-height: 70px;
+  display: inline-block;
   padding: 0 19px;
+  line-height: 70px;
+
   @include link-color;
 
   &:hover,
   &.link-active {
-    background-color: #000;
-    @include link-hover-color;
     text-decoration: none;
+    background-color: #000;
+
+    @include link-hover-color;
   }
 
   &.link-active {
     &::after {
       position: absolute;
-      left: 50%;
       bottom: 0;
-      transform: translateX(-50%);
-      border-width: 6px 6px;
-      border-style: solid;
+      left: 50%;
       border-color: transparent transparent $light-primary-color transparent;
-      content: ''
+      border-style: solid;
+      border-width: 6px 6px;
+      transform: translateX(-50%);
+      content: '';
     }
   }
 }
 
 .tag-hot {
-  display: block;
   position: absolute;
   top: 21px;
   left: 100px;
+  display: block;
   width: 28px;
   height: 19px;
   background-position: -190px 0;
@@ -99,16 +100,17 @@ $nav-border-color: #202020;
 
 .video-creator {
   float: right;
+  box-sizing: border-box;
   width: 90px;
   height: 32px;
   margin: 19px 0 0 12px;
-  box-sizing: border-box;
   line-height: 32px;
-  border: 1px solid #4F4F4F;
-  border-radius: 20px;
-  @include link-color;
   text-align: center;
   text-decoration: none;
+  border: 1px solid #4f4f4f;
+  border-radius: 20px;
+
+  @include link-color;
 
   &:hover {
     color: #fff;
@@ -119,9 +121,10 @@ $nav-border-color: #202020;
 
 .video-contribution {
   &:hover {
-    background-position: -100px -140px;
-    @include link-hover-color;
     text-decoration: none;
+    background-position: -100px -140px;
+
+    @include link-hover-color;
   }
 }
 
@@ -129,23 +132,23 @@ $nav-border-color: #202020;
   position: absolute;
   top: -5px;
   left: 20px;
+  box-sizing: border-box;
   min-width: 17px;
   height: 17px;
   padding: 0 4px;
-  box-sizing: border-box;
-  border-radius: 18px;
-  line-height: 16px;
+  color: #fff;
   font-size: 12px;
+  line-height: 16px;
   white-space: nowrap;
+  text-align: center;
   background-color: $light-primary-color;
   border: 1px solid #242424;
-  color: #fff;
-  text-align: center;
+  border-radius: 18px;
 }
 
 .login {
-  float: right;
   position: relative;
+  float: right;
   height: 45px;
   padding: 7px 0 0;
 
@@ -180,30 +183,30 @@ $nav-border-color: #202020;
   }
 
   .login-cont {
-    display: none;
     position: absolute;
     top: 60px;
     right: -44px;
+    display: none;
     width: 158px;
-    background-color: #2B2B2B;
+    background-color: #2b2b2b;
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.5);
     border: {
       width: 0 1px 1px;
-      style: solid;
       color: $nav-border-color;
+      style: solid;
       radius: 4px;
     }
-    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.5);
 
     .arrow {
       position: absolute;
-      border: {
-        width: 7px 6px;
-        style: solid;
-        color: transparent transparent #2B2B2B transparent;
-      }
       top: -13px;
       left: 50%;
       transform: translateX(-50%);
+      border: {
+        width: 7px 6px;
+        color: transparent transparent #2b2b2b transparent;
+        style: solid;
+      }
     }
   }
 
@@ -212,19 +215,22 @@ $nav-border-color: #202020;
 
     .login-item {
       position: relative;
-      line-height: 39px;
       padding-left: 24px;
+      line-height: 39px;
       border-radius: 4px;
-      @include link-color;
       cursor: pointer;
+
+      @include link-color;
 
       &:hover {
         background-color: #353535;
+
         @include link-hover-color;
       }
 
-      & > a {
+      > a {
         @include link-color;
+
         text-decoration: none;
 
         &:hover {
@@ -242,6 +248,7 @@ $nav-border-color: #202020;
         width: 18px;
         height: 18px;
         margin: 9px 10px 0 0;
+
         @extend %icon;
 
         &.login-icon-home {
@@ -257,8 +264,8 @@ $nav-border-color: #202020;
         }
 
         &.login-icon-member {
-          background-position: 0 -221px;
           margin-top: 9px;
+          background-position: 0 -221px;
         }
 
         &.login-icon-setting {
@@ -278,10 +285,10 @@ $nav-border-color: #202020;
 }
 
 .sub-nav-wrapper {
-  clear: both;
   z-index: 90;
-  padding: 3px 0;
+  clear: both;
   box-sizing: border-box;
+  padding: 3px 0;
   background-color: $light-primary-color;
   border-bottom: 1px solid #a40011;
 }
@@ -307,7 +314,7 @@ $nav-border-color: #202020;
   padding: 4px 0;
 
   .sub-nav-active em {
-    background-color: #9B0909;
+    background-color: #9b0909;
     border-radius: 20px;
   }
 
@@ -322,9 +329,8 @@ $nav-border-color: #202020;
     height: 20px;
     margin: 0 17px;
     padding: 0 13px;
-    line-height: 21px;
-
     font-style: normal;
+    line-height: 21px;
 
     i {
       position: absolute;
@@ -337,4 +343,3 @@ $nav-border-color: #202020;
     }
   }
 }
-

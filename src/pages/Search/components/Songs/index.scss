@@ -5,21 +5,12 @@
 
 .item {
   padding: 10px 10px 8px 18px;
-  border: 1px solid #fff;
   font-size: 12px;
+  border: 1px solid #fff;
 
   &.even {
     background: #f7f7f7;
     border-color: #f7f7f7;
-  }
-
-  &:hover {
-    border: 1px solid #e1e1e1;
-    background: #f2f2f2;
-
-    .operation {
-      visibility: visible;
-    }
   }
 
   .td {
@@ -30,12 +21,13 @@
 
   .icon {
     display: inline-block;
-    vertical-align: middle;
     width: 18px;
     height: 16px;
     margin: 0 7px 0 0;
-    @extend %background-table;
+    vertical-align: middle;
     cursor: pointer;
+
+    @extend %background-table;
 
     &.play-icon {
       width: 17px;
@@ -64,8 +56,9 @@
       height: 13px;
       margin-right: 8px;
       margin-bottom: 3px;
-      @extend %background-icon;
       background-position: 0 -700px;
+
+      @extend %background-icon;
 
       &:hover {
         background-position: -22px -700px;
@@ -100,6 +93,7 @@
 
   .name {
     width: 370px;
+
     @extend %text-ellipsis;
   }
 
@@ -114,6 +108,7 @@
   .artist {
     width: 15%;
     margin-right: 12px;
+
     @extend %text-ellipsis;
   }
 
@@ -121,7 +116,16 @@
     width: 18%;
     margin-right: 12px;
     color: #666;
+
     @extend %text-ellipsis;
   }
-}
 
+  &:hover {
+    background: #f2f2f2;
+    border: 1px solid #e1e1e1;
+
+    .operation {
+      visibility: visible;
+    }
+  }
+}

@@ -7,15 +7,15 @@
     position: relative;
     height: 23px;
     margin: 0 20px;
-    border-bottom: 1px solid #ccc;
     color: #333;
     font-size: 12px;
+    border-bottom: 1px solid #ccc;
   }
 
   .more {
     float: right;
-    font-weight: 400;
     color: #666;
+    font-weight: 400;
   }
 
   .list {
@@ -25,9 +25,9 @@
 
   .item {
     float: left;
-    margin-top: 14px;
     width: 210px;
     height: 62px;
+    margin-top: 14px;
     background-color: #fafafa;
 
     &:hover {
@@ -56,8 +56,9 @@
 
   .item-nickname,
   .item-desc {
-    margin-top: 8px;
     width: 90%;
+    margin-top: 8px;
+
     @extend %text-ellipsis;
   }
 
@@ -71,6 +72,7 @@
 
   .apply {
     @extend %button;
+
     clear: both;
     margin-left: 20px;
     white-space: nowrap;
@@ -78,16 +80,17 @@
     border-radius: 4px;
 
     &:hover {
-      background-position: right -182px;
       text-decoration: none;
+      background-position: right -182px;
     }
 
-    & > i {
+    > i {
       @extend %button-i;
+
       width: 170px;
       padding: 0 15px 0 20px;
-      background-position: 0 -59px;
       font-weight: 700;
+      background-position: 0 -59px;
 
       &:hover {
         background-position: 0 -141px;

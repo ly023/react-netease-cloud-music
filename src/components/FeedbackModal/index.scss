@@ -2,16 +2,25 @@
 %feedback-btn {
   display: inline-block;
   height: 31px;
-  line-height: 31px;
   overflow: hidden;
-  vertical-align: top;
+  line-height: 31px;
   text-align: center;
+  vertical-align: top;
   cursor: pointer;
+
   @extend %background-button2;
 }
 
 .feedback {
   padding: 40px;
+
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-right: -20px;
+    padding: 5px 6px 6px;
+    border: 1px solid #cdcdcd;
+  }
 }
 
 .feedback-area,
@@ -24,45 +33,41 @@
 .error-msg {
   height: 17px;
   margin-top: 6px;
+  color: #e33232;
   line-height: 17px;
-  color: #E33232;
-}
-
-.feedback {
-  textarea {
-    width: 100%;
-    height: 100px;
-    margin-right: -20px;
-    padding: 5px 6px 6px;
-    border: 1px solid #cdcdcd;
-  }
 }
 
 .feedback-btns {
   margin-top: 30px;
   text-align: center;
+
   .feedback-confirm {
-    color: #FFF;
+    color: #fff;
     background-position: right -428px;
+
     &:hover {
       background-position: right -510px;
+
       > i {
         background-position: 0 -469px;
       }
     }
+
     > i {
       background-position: 0 -387px;
     }
   }
 }
 
-
 .feedback-btn {
   @extend %button;
+
   margin: 0 10px;
   white-space: nowrap;
+
   > i {
     @extend %button-i;
+
     width: 55px;
     padding: 0 15px 0 20px;
     pointer-events: none;
@@ -72,12 +77,15 @@
 .feedback-cancel {
   color: #333;
   background-position: right -100px;
+
   &:hover {
     background-position: right -182px;
-    > i{
+
+    > i {
       background-position: 0 -141px;
     }
   }
+
   > i {
     background-position: 0 -59px;
   }

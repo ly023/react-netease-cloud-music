@@ -6,13 +6,13 @@
 
 .textarea {
   position: relative;
-  padding: 5px 6px 6px;
   width: 100%;
   height: 50px;
-  border: 1px solid #cdcdcd;
-  border-radius: 2px;
+  padding: 5px 6px 6px;
   line-height: 19px;
   word-break: break-all;
+  border: 1px solid #cdcdcd;
+  border-radius: 2px;
 
   &.display {
     position: absolute;
@@ -37,11 +37,12 @@
   .icon {
     display: inline-block;
     float: left;
-    margin: 0 10px 0 0;
     width: 18px;
     height: 18px;
-    @extend %background-icon;
+    margin: 0 10px 0 0;
     cursor: pointer;
+
+    @extend %background-icon;
   }
 
   .emoji-icon {
@@ -55,8 +56,8 @@
   .count {
     float: right;
     margin-right: 10px;
-    line-height: 25px;
     color: #999;
+    line-height: 25px;
 
     &.error {
       color: #c20c0c;
@@ -67,14 +68,15 @@
     float: right;
     width: 46px;
     height: 25px;
-    line-height: 25px;
-    @extend %background-button;
-    background-position: -84px -64px;
     color: #fff;
+    line-height: 25px;
     text-align: center;
     text-decoration: none;
+    background-position: -84px -64px;
     cursor: pointer;
     user-select: none;
+
+    @extend %background-button;
 
     &.loading,
     &:hover {
@@ -82,5 +84,3 @@
     }
   }
 }
-
-

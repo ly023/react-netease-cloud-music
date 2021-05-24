@@ -3,17 +3,137 @@
   overflow-y: -moz-scrollbars-none;
 
   &::-webkit-scrollbar {
-    width: 0 !important
+    width: 0 !important;
   }
 }
 
 .item {
   position: relative;
+  box-sizing: border-box;
   height: 28px;
   padding: 0 6px 0 10px;
-  box-sizing: border-box;
   line-height: 28px;
   cursor: pointer;
+
+  .arrow-play-icon {
+    display: inline-block;
+    width: 10px;
+    height: 13px;
+    margin-top: 8px;
+    background-position: -182px 0;
+    visibility: hidden;
+
+    @extend %background-playlist;
+  }
+
+  .name,
+  .artists,
+  .duration {
+    display: inline-block;
+    padding-left: 10px;
+    vertical-align: top;
+  }
+
+  .name {
+    width: 256px;
+
+    @extend %text-ellipsis;
+
+    color: #ccc;
+  }
+
+  .operation {
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+    visibility: hidden;
+
+    .icon {
+      float: right;
+      height: 16px;
+      margin: 7px 0 0 10px;
+      overflow: hidden;
+      text-indent: -9999px;
+
+      @extend %background-playlist;
+    }
+
+    .delete-icon {
+      width: 13px;
+      background-position: -51px 0;
+
+      &:hover {
+        background-position: -51px -20px;
+      }
+    }
+
+    .download-icon {
+      width: 14px;
+      background-position: -57px -50px;
+
+      &:hover {
+        background-position: -80px -50px;
+      }
+    }
+
+    .share-icon {
+      width: 14px;
+      background-position: 0 0;
+
+      &:hover {
+        background-position: 0 -20px;
+      }
+    }
+
+    .add-icon {
+      width: 16px;
+      background-position: -24px 0;
+
+      &:hover {
+        background-position: -24px -20px;
+      }
+    }
+  }
+
+  .artists {
+    width: 70px;
+
+    @extend %text-ellipsis;
+
+    color: #ccc;
+
+    a {
+      color: #9b9b9b;
+    }
+  }
+
+  .duration {
+    width: 35px;
+    color: #666;
+  }
+
+  .link {
+    position: absolute;
+    top: 0;
+    right: 16px;
+    width: 36px;
+
+    a {
+      display: inline-block;
+      width: 14px;
+      height: 16px;
+      margin: 0 0 0 20px;
+      text-indent: -9999px;
+      vertical-align: middle;
+      background-position: -80px 0;
+
+      @extend %background-playlist;
+
+      &:hover {
+        background-position: -80px -20px;
+      }
+    }
+  }
 
   &.active {
     background-color: rgba(0, 0, 0, 0.3);
@@ -30,30 +150,6 @@
   }
 
   &:hover {
-    .operation {
-      visibility: visible;
-    }
-  }
-
-  .arrow-play-icon {
-    display: inline-block;
-    margin-top: 8px;
-    width: 10px;
-    height: 13px;
-    @extend %background-playlist;
-    background-position: -182px 0;
-    visibility: hidden;
-  }
-
-  .name,
-  .artists,
-  .duration {
-    display: inline-block;
-    padding-left: 10px;
-    vertical-align: top;
-  }
-
-  &:hover {
     background-color: rgba(0, 0, 0, 0.4);
 
     .name,
@@ -61,100 +157,9 @@
     .duration {
       color: #fff;
     }
-  }
-}
 
-.name {
-  width: 256px;
-  @extend %text-ellipsis;
-  color: #ccc;
-}
-
-.operation {
-  display: inline-block;
-  width: 100px;
-  vertical-align: top;
-  visibility: hidden;
-
-  .icon {
-    float: right;
-    height: 16px;
-    overflow: hidden;
-    margin: 7px 0 0 10px;
-    text-indent: -9999px;
-    @extend %background-playlist;
-  }
-
-  .delete-icon {
-    width: 13px;
-    background-position: -51px 0;
-
-    &:hover {
-      background-position: -51px -20px;
-    }
-  }
-
-  .download-icon {
-    width: 14px;
-    background-position: -57px -50px;
-
-    &:hover {
-      background-position: -80px -50px;
-    }
-  }
-
-  .share-icon {
-    width: 14px;
-    background-position: 0 0;
-
-    &:hover {
-      background-position: 0 -20px;
-    }
-  }
-
-  .add-icon {
-    width: 16px;
-    background-position: -24px 0;
-
-    &:hover {
-      background-position: -24px -20px;
-    }
-  }
-}
-
-.artists {
-  width: 70px;
-  @extend %text-ellipsis;
-  color: #ccc;
-
-  a {
-    color: #9b9b9b;
-  }
-}
-
-.duration {
-  width: 35px;
-  color: #666;
-}
-
-.link {
-  position: absolute;
-  top: 0;
-  right: 16px;
-  width: 36px;
-
-  a {
-    display: inline-block;
-    width: 14px;
-    height: 16px;
-    margin: 0 0 0 20px;
-    vertical-align: middle;
-    text-indent: -9999px;
-    @extend %background-playlist;
-    background-position: -80px 0px;
-
-    &:hover {
-      background-position: -80px -20px;
+    .operation {
+      visibility: visible;
     }
   }
 }

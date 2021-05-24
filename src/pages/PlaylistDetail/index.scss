@@ -12,13 +12,13 @@
 
     &::before {
       position: absolute;
-      display: block;
       top: 0;
       left: 0;
-      height: 100%;
+      display: block;
       width: 100%;
-      content: '  ';
+      height: 100%;
       background-color: #f7f7f7;
+      content: '  ';
     }
 
     &::after {
@@ -29,8 +29,8 @@
       width: 100%;
       height: 16px;
       margin-top: -8px;
-      text-align: center;
       color: #999;
+      text-align: center;
       content: '\f127' attr(alt);
     }
   }
@@ -41,7 +41,9 @@
     left: -4px;
     width: 208px;
     height: 208px;
+
     @extend %background-cover;
+
     background-position: 0 -1285px;
     content: '';
   }
@@ -56,7 +58,9 @@
   float: left;
   width: 54px;
   height: 24px;
+
   @extend %background-icon;
+
   background-position: 0 -243px;
 
   .r {
@@ -73,8 +77,8 @@
 .title {
   position: relative;
   margin-left: 64px;
-  font-size: 20px;
   font-weight: 400;
+  font-size: 20px;
   line-height: 24px;
 }
 
@@ -111,10 +115,11 @@
 
   .btn-play {
     float: left;
-    @extend %background-button2;
-    background-position: right -428px;
-    text-decoration: none;
     white-space: nowrap;
+    text-decoration: none;
+    background-position: right -428px;
+
+    @extend %background-button2;
 
     &:hover {
       background-position: right -510px;
@@ -124,12 +129,13 @@
       }
 
       em {
-        background-position: -28px -1622px
+        background-position: -28px -1622px;
       }
     }
 
     i {
       @extend %button-i;
+
       padding: 0 7px 0 8px;
       color: #fff;
       background-position: 0 -387px;
@@ -139,33 +145,38 @@
         width: 20px;
         height: 18px;
         margin: 6px 2px 2px 0;
-        @extend %background-button2;
-        background-position: 0 -1622px;
         overflow: hidden;
+        background-position: 0 -1622px;
+
+        @extend %background-button2;
       }
     }
   }
 
   .btn-play-disabled {
     float: left;
-    padding: 0 5px 0 0;
     margin-right: 6px;
+    padding: 0 5px 0 0;
     font-family: simsun, \5b8b\4f53, sans-serif;
-    @extend %background-button2;
     background-position: right -934px;
+
+    @extend %background-button2;
 
     i {
       @extend %u-button-i;
+
       padding: 0 7px 0 36px;
       color: #bebebe;
-      @extend %background-button2;
       background-position: 0 -891px;
       cursor: default;
+
+      @extend %background-button2;
     }
   }
 
   .btn-add-play {
     @extend %u-button;
+
     margin: 0 5px 0 -3px;
     padding: 0 8px 0 0;
     background-position: 0 -1588px;
@@ -180,6 +191,7 @@
   .btn-download,
   .btn-comment {
     @extend %u-button;
+
     margin-right: 6px;
     padding: 0 5px 0 0;
     background-position: right -1020px;
@@ -190,12 +202,12 @@
 
     i {
       @extend %u-button-i;
+
       padding: 0 2px 0 28px;
     }
   }
 
   .btn-add-favorite {
-
     &.btn-add-favorite-subscribed {
       background-position: right -1192px;
 
@@ -206,20 +218,19 @@
       }
     }
 
-
     &[data-loading="true"] {
       i {
         cursor: default;
       }
 
       i::after {
-        margin: 8px 0 0 6px;
         width: 14px;
         height: 14px;
+        margin: 8px 0 0 6px;
         background: url(~assets/images/loading.gif) no-repeat;
         background-size: 100% 100%;
-        content: '';
         cursor: default;
+        content: '';
       }
     }
 
@@ -283,10 +294,9 @@
   line-height: 18px;
 
   b {
-    font-weight: normal;
     color: #666;
+    font-weight: normal;
   }
-
 
   .tags {
     margin: 20px 0 8px;
@@ -296,10 +306,10 @@
       margin: 0 10px 3px 0;
       padding: 2px 13px;
       color: #777;
-      background-color: #F7F7F7;
-      border: 1px solid #E4E4E4;
-      border-radius: 14px;
       text-decoration: none;
+      background-color: #f7f7f7;
+      border: 1px solid #e4e4e4;
+      border-radius: 14px;
     }
   }
 
@@ -335,11 +345,12 @@
 
         i {
           display: inline-block;
-          vertical-align: middle;
           width: 16px;
           height: 16px;
-          @extend %background-icon;
+          vertical-align: middle;
           background-position: -34px -863px;
+
+          @extend %background-icon;
         }
 
         a {
@@ -359,8 +370,3 @@
     }
   }
 }
-
-
-
-
-

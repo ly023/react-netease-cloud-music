@@ -7,14 +7,18 @@
   font-size: 12px;
   border: 1px solid #fff;
 
+  .operation {
+    visibility: hidden;
+  }
+
   &.even {
     background: #f7f7f7;
     border-color: #f7f7f7;
   }
 
   &:hover {
-    border: 1px solid #e1e1e1;
     background: #f2f2f2;
+    border: 1px solid #e1e1e1;
 
     .operation {
       visibility: visible;
@@ -46,18 +50,21 @@
     left: 0;
     width: 100%;
     height: 100%;
+
     @extend %background-cover;
+
     background-position: -160px 0;
   }
 }
 
 .icon {
   display: inline-block;
-  vertical-align: middle;
   width: 18px;
   height: 18px;
-  @extend %background-table;
+  vertical-align: middle;
   cursor: pointer;
+
+  @extend %background-table;
 
   &.play-icon {
     width: 17px;
@@ -73,8 +80,9 @@
     width: 13px;
     height: 13px;
     margin-right: 8px;
-    @extend %background-icon;
     background-position: 0 -700px;
+
+    @extend %background-icon;
 
     &:hover {
       background-position: -22px -700px;
@@ -103,11 +111,8 @@
 
 .name {
   width: 260px;
-  @extend %text-ellipsis;
-}
 
-.operation {
-  visibility: hidden;
+  @extend %text-ellipsis;
 }
 
 .trackCount {
@@ -119,7 +124,9 @@
 
 .creator {
   width: 150px;
+
   @extend %text-ellipsis;
+
   color: #666;
 }
 

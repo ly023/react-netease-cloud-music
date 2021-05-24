@@ -29,6 +29,7 @@
 
 .name {
   margin-bottom: 6px;
+
   @extend %text-ellipsis;
 }
 

@@ -12,29 +12,30 @@
 .date-icon {
   position: relative;
   float: left;
-  margin: 34px 0 0 54px;
   width: 114px;
   height: 114px;
-  @extend %background-date;
+  margin: 34px 0 0 54px;
   background-position: 0 -270px;
+
+  @extend %background-date;
 }
 
 .day {
   height: 26px;
-  line-height: 26px;
-  font-size: 12px;
   color: #fed9d9;
-  text-shadow: 0 -1px #962626;
+  font-size: 12px;
+  line-height: 26px;
   text-align: center;
+  text-shadow: 0 -1px #962626;
 }
 
 .date {
-  text-align: center;
   color: #202020;
-  font-size: 74px;
-  line-height: 80px;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
+  font-size: 74px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 80px;
+  text-align: center;
 }
 
 .date-mask {
@@ -43,7 +44,9 @@
   left: 0;
   width: 142px;
   height: 107px;
+
   @extend %background-date;
+
   background-position: 0 -400px;
 }
 
@@ -53,10 +56,11 @@
 
   .btn-play {
     float: left;
-    @extend %background-button2;
-    background-position: right -428px;
-    text-decoration: none;
     white-space: nowrap;
+    text-decoration: none;
+    background-position: right -428px;
+
+    @extend %background-button2;
 
     &:hover {
       background-position: right -510px;
@@ -66,12 +70,13 @@
       }
 
       em {
-        background-position: -28px -1622px
+        background-position: -28px -1622px;
       }
     }
 
     i {
       @extend %button-i;
+
       padding: 0 7px 0 8px;
       color: #fff;
       background-position: 0 -387px;
@@ -81,15 +86,17 @@
         width: 20px;
         height: 18px;
         margin: 6px 2px 2px 0;
-        @extend %background-button2;
-        background-position: 0 -1622px;
         overflow: hidden;
+        background-position: 0 -1622px;
+
+        @extend %background-button2;
       }
     }
   }
 
   .btn-add-play {
     @extend %u-button;
+
     margin: 0 8px 0 -3px;
     padding: 0 8px 0 0;
     background-position: 0 -1588px;
@@ -101,6 +108,7 @@
 
   .btn-subscribe {
     @extend %u-button;
+
     margin-right: 6px;
     padding: 0 5px 0 0;
     background-position: right -1020px;
@@ -115,8 +123,9 @@
 
     i {
       @extend %u-button-i;
-      background-position: 0 -977px;
+
       padding: 0 2px 0 28px;
+      background-position: 0 -977px;
     }
   }
 }
@@ -127,9 +136,9 @@
   h3 {
     display: inline-block;
     height: 35px;
+    font-weight: 500;
     font-size: 20px;
     line-height: 28px;
-    font-weight: 500;
   }
 
   .other {
@@ -146,29 +155,30 @@
   margin-bottom: 30px;
 
   .rcmd-title {
-    padding: 5px 0 8px;
     height: 22px;
-    line-height: 22px;
-    font-size: 18px;
-    border-bottom: 1px solid #ccc;
+    padding: 5px 0 8px;
     font-weight: 500;
+    font-size: 18px;
     font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    line-height: 22px;
+    border-bottom: 1px solid #ccc;
 
     .question-icon {
       float: left;
-      margin-right: 6px;
       width: 22px;
       height: 22px;
+      margin-right: 6px;
       vertical-align: middle;
-      @extend %background-icon2;
       background-position: 0 0;
+
+      @extend %background-icon2;
     }
   }
 
   p {
     margin: 12px 0;
-    line-height: 20px;
     color: #666;
+    line-height: 20px;
   }
 
   .summary {
@@ -177,16 +187,17 @@
     background-color: #f7f7f7;
 
     li {
-      padding-bottom: 20px;
       width: 188px;
+      padding-bottom: 20px;
     }
 
     .icon {
       display: inline-block;
-      margin-right: 8px;
       width: 22px;
       height: 22px;
+      margin-right: 8px;
       vertical-align: middle;
+
       @extend %background-icon2;
     }
 

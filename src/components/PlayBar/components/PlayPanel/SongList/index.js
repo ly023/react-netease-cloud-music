@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import VerticalScrollbar from 'components/VerticalScrollbar'
 import Download from 'components/Download'
+import AddToPlaylist from 'components/AddToPlaylist'
 import {formatDuration} from 'utils'
 import emitter from 'utils/eventEmitter'
 import {getArtists} from 'utils/song'
@@ -10,7 +11,6 @@ import Empty from './components/Empty'
 import {CONTENT_HEIGHT} from '../../../constants'
 
 import './index.scss'
-import AddToPlaylist from "components/AddToPlaylist";
 
 const ITEM_HEIGHT = 28
 

@@ -14,11 +14,11 @@
       width: 70px;
       height: 70px;
       margin: 0 33px 25px 0;
-      text-align: center;
       color: #888;
+      text-align: center;
+      text-decoration: none;
       background: url(./images/radio-bg.png) no-repeat 0 9999px;
       cursor: pointer;
-      text-decoration: none;
 
       &:hover {
         background-position: 0 0;
@@ -26,10 +26,10 @@
 
       &.active {
         color: rgb(211, 87, 87);
-        background-position: -70px 0px;
+        background-position: -70px 0;
 
         .icon {
-          background-position: -48px 0px;
+          background-position: -48px 0;
         }
       }
     }
@@ -60,7 +60,7 @@
 
       &.active,
       &:hover {
-        background-position: -30px 0px;
+        background-position: -30px 0;
       }
     }
   }
@@ -72,9 +72,10 @@
     width: 20px;
     height: 30px;
     margin-top: -15px;
-    @extend %swiper-icon;
-    opacity: 0.25;
     cursor: pointer;
+    opacity: 0.25;
+
+    @extend %swiper-icon;
 
     &.disabled,
     &.disabled:hover {

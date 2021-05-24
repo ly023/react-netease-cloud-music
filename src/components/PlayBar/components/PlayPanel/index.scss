@@ -3,23 +3,22 @@
   position: absolute;
   bottom: 47px;
   left: 50%;
-  transform: translateX(-50%);
+  z-index: -1;
   width: 986px;
   height: 300px;
   overflow: hidden;
-  z-index: -1;
+  transform: translateX(-50%);
   transition: height 0.1s ease-in;
-
 }
 
 .content {
   position: absolute;
-  left: 0;
   top: 40px;
+  left: 0;
   width: 986px;
   overflow: hidden;
   background: url(~assets/images/playlist-bg.png) repeat-y -1014px 0;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .img-bg {
@@ -41,14 +40,15 @@
     color: #e2e2e2;
     font-size: 14px;
     line-height: 40px;
+
     @extend %text-ellipsis;
   }
 }
 
 .song-list-wrapper,
 .lyric-wrapper {
-  float: left;
   position: relative;
+  float: left;
 }
 
 .mask {
@@ -57,7 +57,7 @@
   right: 0;
   left: 0;
   background: #121212;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .song-list-wrapper {
@@ -65,8 +65,8 @@
 
   .title {
     width: 100%;
-    border-radius: 5px 0 0;
     border-right: 1px solid #2c2c2c;
+    border-radius: 5px 0 0;
 
     h4 {
       padding-left: 30px;
@@ -88,8 +88,8 @@
 .add-all,
 .clear {
   height: 15px;
-  line-height: 15px;
   color: #ccc;
+  line-height: 15px;
   cursor: pointer;
 
   &:hover {
@@ -102,6 +102,7 @@
     height: 16px;
     margin-right: 6px;
     vertical-align: middle;
+
     @extend %background-playlist;
   }
 }
@@ -118,12 +119,11 @@
   }
 }
 
-
 .line {
-  margin: 0 10px;
   height: 15px;
-  border-left: 1px solid #000;
+  margin: 0 10px;
   border-right: 1px solid #2c2c2c;
+  border-left: 1px solid #000;
 }
 
 .clear {
@@ -139,12 +139,11 @@
   }
 }
 
-
 .lyric-wrapper {
   .title {
     width: 430px;
-    border-radius: 0 5px 0 0;
     text-align: center;
+    border-radius: 0 5px 0 0;
   }
 }
 
@@ -160,7 +159,8 @@
   height: 30px;
   overflow: hidden;
   text-indent: -999px;
-  cursor: pointer;
-  @extend %background-playlist;
   background-position: -195px 9px;
+  cursor: pointer;
+
+  @extend %background-playlist;
 }

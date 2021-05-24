@@ -8,8 +8,8 @@
 
 .item {
   float: left;
-  padding: 0 0 30px 0;
   width: 140px;
+  padding: 0 0 30px 0;
 
   + .item {
     margin-left: 42px;
@@ -21,7 +21,9 @@
   display: inline-block;
   width: 140px;
   height: 140px;
+
   @extend %background-date;
+
   background-position: 0 0;
 
   &:hover {
@@ -31,20 +33,20 @@
 
 .day {
   height: 33px;
-  line-height: 33px;
   color: #fed9d9;
   font-size: 14px;
-  text-shadow: 0 -1px #962626;
+  line-height: 33px;
   text-align: center;
+  text-shadow: 0 -1px #962626;
 }
 
 .date {
-  line-height: 102px;
-  text-align: center;
   color: #202020;
+  font-weight: bold;
   font-size: 94px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
+  line-height: 102px;
+  text-align: center;
 }
 
 .date-mask {
@@ -53,14 +55,16 @@
   left: 0;
   width: 142px;
   height: 107px;
+
   @extend %background-date;
+
   background-position: 0 -150px;
 }
 
 .desc {
   display: block;
-  margin: 8px 0 0;
   max-height: 38px;
+  margin: 8px 0 0;
   overflow: hidden;
   color: #000;
   font-size: 14px;
@@ -77,19 +81,20 @@
   }
 
   .dislike {
-    display: none;
     position: absolute;
     top: 10px;
     left: 0;
     z-index: 1;
+    display: none;
     width: 63px;
-    text-align: center;
-    line-height: 26px;
-    @extend %background-index;
-    background-position: 0 -130px;
     color: #666;
+    line-height: 26px;
+    text-align: center;
+    background-position: 0 -130px;
     cursor: pointer;
     user-select: none;
+
+    @extend %background-index;
   }
 
   &:hover {
@@ -101,8 +106,8 @@
       display: block;
 
       &:hover {
-        background-position: -70px -130px;
         color: #333;
+        background-position: -70px -130px;
       }
     }
   }

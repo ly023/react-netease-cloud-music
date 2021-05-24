@@ -17,13 +17,15 @@
 
   .ok {
     @extend %button;
+
     background-position: right -428px;
 
     i {
       @extend %button-i;
-      background-position: 0 -387px;
+
       padding: 0 15px 0 20px;
       color: #fff;
+      background-position: 0 -387px;
     }
 
     &:hover {
@@ -37,6 +39,7 @@
 
   .cancel {
     @extend %white-button;
+
     color: #333;
     background-position: right -100px;
 
@@ -46,11 +49,6 @@
 
     &:hover {
       background-position: right -182px;
-
-      > i {
-
-      }
     }
-
   }
 }

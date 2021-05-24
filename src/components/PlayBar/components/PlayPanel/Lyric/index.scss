@@ -1,21 +1,23 @@
 .lyric-wrapper {
   line-height: 23px;
+
   @extend %break-word;
 }
 
 .ask-icon {
   position: absolute;
-  right: 25px;
   top: 12px;
-  cursor: pointer;
+  right: 25px;
   z-index: 5;
+  cursor: pointer;
 
   span {
     display: inline-block;
     width: 21px;
     height: 21px;
-    @extend %background-playlist;
     background-position: 0 -50px;
+
+    @extend %background-playlist;
 
     &:hover {
       background-position: -24px -50px;
@@ -25,28 +27,28 @@
 
 .report-popover {
   position: absolute;
-  right: 12px;
   top: 40px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, .75);
-  width: 81px;
+  right: 12px;
   z-index: 5;
+  width: 81px;
   text-align: center;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.75);
 
   a {
     display: inline-block;
     width: 100%;
-    text-align: center;
     padding: 8px 0;
     color: #666;
-    background: #ebebeb;
+    text-align: center;
     text-shadow: 0 1px 0 #fff;
+    background: #ebebeb;
   }
 }
 
 .no-lyric {
   padding-top: 98px;
-  text-align: center;
   color: #999;
+  text-align: center;
 
   a {
     margin-left: 12px;
@@ -60,11 +62,11 @@
   overflow: hidden;
 
   p {
-    color: #989898;
-    word-wrap: break-word;
-    text-align: center;
-    line-height: 32px;
     min-height: 32px;
+    color: #989898;
+    line-height: 32px;
+    text-align: center;
+    word-wrap: break-word;
     transition: color 0.7s linear;
 
     &.active {
@@ -78,7 +80,6 @@
     }
   }
 }
-
 
 //.tip {
 //  padding-top: 110px;

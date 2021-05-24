@@ -9,8 +9,8 @@
   width: 18px;
   height: 16px;
   margin: 0 0 0 4px;
-  vertical-align: middle;
   text-indent: -9999px;
+  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -18,7 +18,9 @@
   width: 13px;
   height: 13px;
   margin-left: 0;
+
   @extend %background-icon;
+
   background-position: 0 -700px;
 
   &:hover {
@@ -28,6 +30,7 @@
 
 .favorite {
   @extend %background-table;
+
   background-position: 0 -174px;
 
   &:hover {
@@ -37,6 +40,7 @@
 
 .share {
   @extend %background-table;
+
   background-position: 0 -195px;
 
   &:hover {
@@ -46,6 +50,7 @@
 
 .download {
   @extend %background-table;
+
   background-position: -81px -174px;
 
   &:hover {
@@ -55,6 +60,7 @@
 
 .delete {
   @extend %background-table;
+
   background-position: 0 -217px;
 
   &:hover {

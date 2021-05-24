@@ -1,6 +1,3 @@
-.wrapper {
-  //@extend %fix-fixed-header;
-}
 
 .title {
   height: 33px;
@@ -8,9 +5,9 @@
 
   h3 {
     float: left;
+    font-weight: 400;
     font-size: 20px;
     font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
-    font-weight: 400;
     line-height: 28px;
   }
 
@@ -49,15 +46,15 @@
   &::before {
     top: 16px;
     left: -17px;
-    border-width: 6px 9px;
     border-color: transparent #cdcdcd transparent transparent;
+    border-width: 6px 9px;
   }
 
   &::after {
     top: 17px;
     left: -14.5px;
-    border-width: 5px 8px;
     border-color: transparent #fff transparent transparent;
+    border-width: 5px 8px;
   }
 }
 
@@ -105,32 +102,37 @@
   }
 
   .v-icon {
-    margin-right: 5px;
     width: 11px;
+    margin-right: 5px;
     vertical-align: -1px;
-    @extend %background-icon;
     background-position: 0 1px;
+
+    @extend %background-icon;
   }
 
   .music-icon {
     margin-right: 5px;
     vertical-align: -2px;
+
     @extend %background-icon2;
+
     background-position: -110px -190px;
   }
 
   .star-icon {
     margin: -3px 5px 0 0;
     vertical-align: -1px;
+
     @extend %background-icon;
+
     background-position: -65px -840px;
   }
 
   .vip-icon {
     display: inline-block;
-    margin-right: 5px;
     width: 26px;
     height: 12px;
+    margin-right: 5px;
     vertical-align: -1px;
     background: url(~assets/images/vip.png) no-repeat center;
     background-size: 100% 100%;
@@ -144,9 +146,9 @@
 
   .package-icon {
     display: inline-block;
-    margin-right: 5px;
     width: 12px;
     height: 12px;
+    margin-right: 5px;
     vertical-align: -2px;
     background: url(~assets/images/package.png) no-repeat center;
     background-size: 100% 100%;
@@ -171,8 +173,8 @@
   }
 
   .comment {
-    word-break: break-all;
     line-height: 20px;
+    word-break: break-all;
   }
 
   .replied {
@@ -193,15 +195,15 @@
     &::before {
       top: -13px;
       left: 16px;
-      border-width: 6px 5px;
       border-color: transparent transparent #dedede transparent;
+      border-width: 6px 5px;
     }
 
     &::after {
       top: -10px;
       left: 17px;
-      border-width: 5px 4px;
       border-color: transparent transparent #f4f4f4 transparent;
+      border-width: 5px 4px;
     }
   }
 
@@ -216,12 +218,13 @@
 
     i {
       display: inline-block;
-      margin: -4px 5px 0 0;
       width: 15px;
       height: 14px;
+      margin: -4px 5px 0 0;
       vertical-align: -2px;
-      @extend %background-icon2;
       background-position: -150px 0;
+
+      @extend %background-icon2;
     }
 
     &.liked i {
@@ -259,10 +262,6 @@
   }
 }
 
-
 .pagination {
   margin: 0 -20px;
 }
-
-
-

@@ -26,6 +26,25 @@
     height: 130px;
   }
 
+  .play-icon {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    left: 94px;
+    z-index: 1;
+    display: none;
+    width: 28px;
+    height: 28px;
+    background-position: 0 -140px;
+    cursor: pointer;
+
+    @extend %background-icon-all;
+
+    &:hover {
+      background-position: 0 -170px;
+    }
+  }
+
   &:hover {
     .play-icon {
       display: inline-block;
@@ -39,31 +58,17 @@
   left: 0;
   width: 153px;
   height: 130px;
+
   @extend %background-cover;
+
   background-position: 0 -845px;
-}
-
-.play-icon {
-  display: none;
-  position: absolute;
-  right: 10px;
-  bottom: 5px;
-  left: 94px;
-  z-index: 1;
-  width: 28px;
-  height: 28px;
-  @extend %background-icon-all;
-  background-position: 0 -140px;
-  cursor: pointer;
-
-  &:hover {
-    background-position: 0 -170px;
-  }
 }
 
 .desc {
   margin: 8px 0 3px;
+
   @extend %text-ellipsis;
+
   color: #000;
   font-size: 14px;
 }

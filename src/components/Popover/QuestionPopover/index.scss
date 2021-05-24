@@ -3,7 +3,9 @@
   width: 18px;
   height: 18px;
   vertical-align: middle;
+
   @extend %background-icon2;
+
   background-position: 0 -50px;
   cursor: pointer;
 

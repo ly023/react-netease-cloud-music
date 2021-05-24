@@ -49,12 +49,12 @@
 .order {
   width: 47px;
   margin: 6px 0 0 0;
-  text-align: center;
   color: #999;
   font-size: 14px;
+  text-align: center;
 
   &.top {
-    color: #da4545
+    color: #da4545;
   }
 
   .fluctuation {
@@ -70,8 +70,9 @@
     .new {
       width: 16px;
       height: 17px;
-      @extend %background-icon;
       background-position: -67px -283px;
+
+      @extend %background-icon;
     }
 
     .stable {
@@ -83,6 +84,7 @@
       width: 6px;
       height: 6px;
       margin: -1px 2px 0 0;
+
       @extend %background-icon;
     }
 
@@ -110,17 +112,18 @@
   height: 40px;
 
   .play-icon {
-    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
+    display: none;
     width: 22px;
     height: 22px;
-    overflow: hidden;
     margin: -11px 0 0 -11px;
-    @extend %background-icon-all;
+    overflow: hidden;
     background-position: 0 -85px;
     cursor: pointer;
+
+    @extend %background-icon-all;
   }
 
   &:hover {
@@ -143,6 +146,7 @@
 .program-name,
 .radio-name {
   display: block;
+
   @extend %text-ellipsis;
 }
 
@@ -154,13 +158,12 @@
   position: relative;
   width: 100px;
   margin-top: 16px;
+  background-color: #dedede;
   border-radius: 4px;
-  background-color: #DEDEDE;
 
   .progress {
     height: 8px;
+    background-color: #c5c5c5;
     border-radius: 4px;
-    background-color: #C5C5C5;
   }
 }
-

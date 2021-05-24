@@ -1,11 +1,11 @@
 
 .wrapper {
   position: absolute;
+  z-index: 100;
   width: 165px;
-  border: 1px solid #cdcdcd;
   padding: 10px 0 0 0;
   background-color: #fff;
-  z-index: 100;
+  border: 1px solid #cdcdcd;
   cursor: default;
   user-select: none;
 }
@@ -19,11 +19,12 @@
 }
 
 .item {
-  padding: 4px 0 4px 11px;
-  margin-bottom: 7px;
   max-width: 156px;
-  @extend %text-ellipsis;
+  margin-bottom: 7px;
+  padding: 4px 0 4px 11px;
   cursor: pointer;
+
+  @extend %text-ellipsis;
 
   &:hover,
   &.active {

@@ -1,24 +1,24 @@
 .wrapper {
   position: fixed;
-  display: inline-block;
   top: 160px;
   left: 0;
   z-index: 9999;
+  display: inline-block;
   box-sizing: border-box;
+  width: 100%;
   margin: 0;
   padding: 0;
-  width: 100%;
-  text-align: center;
   color: #333;
   font-size: 12px;
   line-height: 1.5;
+  text-align: center;
   pointer-events: none;
 }
 
 .notice {
   display: inline-block;
-  padding: 16px;
   min-width: 278px;
+  padding: 16px;
   background-color: #fff;
   border: 1px solid #cdcdcd;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.8);
@@ -34,6 +34,7 @@
 .icon {
   width: 22px;
   height: 22px;
+
   @extend %background-icon2;
 
   &.success-icon {

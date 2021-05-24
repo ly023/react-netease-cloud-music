@@ -6,14 +6,14 @@
     a {
       display: inline-block;
       width: 130px;
-      padding-left: 20px;
       height: 38px;
-      line-height: 38px;
-      font-size: 12px;
+      padding-left: 20px;
       color: #555;
+      font-size: 12px;
+      line-height: 38px;
+      text-decoration: none;
       border: 1px solid #ccc;
       border-radius: 3px;
-      text-decoration: none;
 
       &:first-child {
         float: left;

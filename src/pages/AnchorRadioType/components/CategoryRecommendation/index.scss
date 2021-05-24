@@ -1,7 +1,7 @@
 
 .section {
-  margin-top: 35px;
   min-height: 220px;
+  margin-top: 35px;
 }
 
 .radios {
@@ -26,18 +26,17 @@
     }
 
     .cont {
-
       .name {
         display: block;
         margin: 13px 0 6px;
-        line-height: 16px;
         color: #333;
         font-size: 14px;
+        line-height: 16px;
       }
 
       .desc {
-        line-height: 18px;
         color: #999;
+        line-height: 18px;
       }
     }
   }

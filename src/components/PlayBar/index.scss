@@ -23,6 +23,7 @@
 
 .icon {
   float: left;
+
   @include size(25px, 25px);
 }
 
@@ -36,9 +37,10 @@
 .wrapper {
   position: fixed;
   left: 0;
-  @include size(100%, 53px);
-  zoom: 1;
   z-index: 998;
+  zoom: 1;
+
+  @include size(100%, 53px);
   background: {
     position: 0 0;
     repeat: repeat-x;
@@ -55,9 +57,10 @@
 
 .cont {
   position: relative;
-  @include size(980px, 48px);
-  margin: 5px auto 0;
   z-index: 15;
+  margin: 5px auto 0;
+
+  @include size(980px, 48px);
 }
 
 .btn {
@@ -67,11 +70,11 @@
 
   a {
     float: left;
+
     @extend %background-playbar;
   }
 
   > a {
-
     text-indent: -9999px;
     cursor: pointer;
   }
@@ -79,6 +82,7 @@
   .prev,
   .next {
     @include size(28px, 28px);
+
     margin: 5px 8px 0;
   }
 
@@ -118,23 +122,24 @@
       background-position: -40px -204px;
     }
   }
-
 }
 
 .cover {
-  float: left;
   position: relative;
-  @include size(34px, 34px);
+  float: left;
   margin: 6px 15px 0 0;
 
-  &:after {
-    content: '';
+  @include size(34px, 34px);
+
+  &::after {
     position: absolute;
     top: 0;
     left: 0;
     display: block;
-    @include size(34px, 35px);
     background-position: 0 -80px;
+    content: '';
+
+    @include size(34px, 35px);
   }
 }
 
@@ -151,6 +156,7 @@
 .song-name {
   max-width: 300px;
   color: #e8e8e8;
+
   @extend %text-ellipsis;
 
   &:hover {
@@ -163,6 +169,7 @@
   max-width: 220px;
   margin-left: 15px;
   color: #9b9b9b;
+
   @extend %text-ellipsis;
 
   a {
@@ -172,7 +179,9 @@
 
 .song-source {
   display: inline-block;
+
   @include size(14px, 15px);
+
   margin: 7px 0 0 13px;
   background-position: -110px -103px;
 
@@ -195,8 +204,8 @@
 }
 
 .progress {
-  float: left;
   position: relative;
+  float: left;
   width: 608px;
 }
 
@@ -213,7 +222,6 @@
   border-radius: 6px;
 }
 
-
 .dot,
 .volume-dot {
   background: url(~assets/images/iconall.png) no-repeat;
@@ -222,7 +230,9 @@
 .dot {
   position: absolute;
   top: -7px;
+
   @include size(22px, 22px);
+
   margin-left: -11px;
   background-position: 0 -250px;
 
@@ -233,8 +243,8 @@
 
 .loading {
   position: absolute;
-  left: 5px;
   top: 5px;
+  left: 5px;
   width: 12px;
   height: 12px;
   background: url(~assets/images/loading.gif);
@@ -260,7 +270,7 @@
 }
 
 .current {
-  background-color: #C51219;
+  background-color: #c51219;
 }
 
 .time {
@@ -269,14 +279,14 @@
   color: #797979;
 
   > em {
-    color: #A1A1A1;
+    color: #a1a1a1;
     font-style: normal;
   }
 }
 
 .operation {
-  float: left;
   position: relative;
+  float: left;
   margin: 12px 6px 0 0;
 }
 
@@ -298,8 +308,8 @@
 }
 
 .setting {
-  float: left;
   position: relative;
+  float: left;
   width: 113px;
   padding: 12px 2px 0 13px;
   background-position: -147px -238px;
@@ -328,23 +338,25 @@
 
 .volume-ctrl {
   position: absolute;
-  left: -2px;
   bottom: 11px;
-  @include size(32px, 113px);
+  left: -2px;
   background-position: 0 -503px;
+
+  @include size(32px, 113px);
 }
 
 .volume-line {
   position: absolute;
   bottom: 10px;
   left: 14px;
+
   @include size(4px, 93px);
 }
 
 .volume-current {
   position: absolute;
-  left: 0;
   bottom: 0;
+  left: 0;
   width: 4px;
   background-position: -40px bottom;
 }
@@ -352,7 +364,9 @@
 .volume-dot {
   position: absolute;
   left: -7px;
+
   @include size(18px, 20px);
+
   background-position: -40px -250px;
   cursor: pointer;
 
@@ -373,7 +387,6 @@
   }
 }
 
-
 .shuffle {
   background-position: -66px -248px;
 
@@ -381,7 +394,6 @@
     background-position: -93px -248px;
   }
 }
-
 
 .loop {
   background-position: -66px -344px;
@@ -395,15 +407,15 @@
   display: block;
   width: 38px;
   padding-left: 21px;
+  color: #666;
   line-height: 27px;
+  background-position: -42px -68px;
+  cursor: pointer;
+  user-select: none;
   text: {
     align: center;
     shadow: 0 1px 0 #080707;
   }
-  background-position: -42px -68px;
-  color: #666;
-  cursor: pointer;
-  user-select: none;
 
   &:hover {
     background-position: -42px -98px;
@@ -416,12 +428,13 @@
     clear: both;
     width: 152px;
     height: 49px;
-    @extend %background-playbar;
-    background-position: 0 -287px;
-    text-align: center;
     color: #fff;
     line-height: 37px;
     white-space: nowrap;
+    text-align: center;
+    background-position: 0 -287px;
+
+    @extend %background-playbar;
   }
 }
 
@@ -429,13 +442,17 @@
   position: absolute;
   top: -14px;
   right: 15px;
+
   @include size(52px, 67px);
+
   background-position: 0 -380px;
 }
 
 .lock-icon {
   display: block;
+
   @include size(18px, 18px);
+
   margin: 6px 0 0 17px;
 }
 
@@ -446,7 +463,6 @@
     background-position: -100px -400px;
   }
 }
-
 
 .unlock .lock-icon {
   background-position: -80px -380px;

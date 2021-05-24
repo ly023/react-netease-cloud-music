@@ -9,9 +9,9 @@
   top: 0;
   left: 0;
   z-index: 99;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-size: 14px;
   line-height: 1.5;
 
@@ -22,7 +22,6 @@
 
   &.place-top,
   &.place-bottom {
-
     .arrow {
       left: 50%;
       transform: translateX(-50%) rotate(45deg);
@@ -54,7 +53,6 @@
   }
 
   &.place-bottom-right {
-
     .arrow {
       right: 0;
       transform: translateX(-50%) rotate(45deg);
@@ -63,24 +61,23 @@
 }
 
 .content {
-
   .arrow {
     position: absolute;
     display: block;
+    box-sizing: border-box;
     width: 8.48528137px;
     height: 8.48528137px;
     background: transparent;
     border-style: solid;
     border-width: 4.24264069px;
-    box-sizing: border-box;
   }
 
   .inner {
     padding: 10px;
-    background-color: #fff;
-    background-clip: padding-box;
     color: #666;
     font-size: 12px;
+    background-color: #fff;
+    background-clip: padding-box;
     box-shadow: 0 2px 6px 0 #666;
   }
 }

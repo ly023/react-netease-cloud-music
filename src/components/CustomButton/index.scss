@@ -3,14 +3,14 @@
   display: inline-block;
   padding: 8px 26px;
   overflow: hidden;
-  vertical-align: top;
-  text-align: center;
-  line-height: 1;
   color: #333;
   font-size: 12px;
-  background-color: #F7F7F7;
-  border-radius: 4px;
+  line-height: 1;
+  text-align: center;
+  vertical-align: top;
+  background-color: #f7f7f7;
   border: 1px solid #cdcdcd;
+  border-radius: 4px;
   cursor: pointer;
 
   &:hover {
@@ -19,13 +19,12 @@
 
   &.primary {
     color: #fff;
-    background-color: #2C7DCA;
-    border-color: #2C7DCA;
+    background-color: #2c7dca;
+    border-color: #2c7dca;
 
     &:hover {
-      background-color: #4A94D9;
-      border-color: #4A94D9;
+      background-color: #4a94d9;
+      border-color: #4a94d9;
     }
   }
 }
-

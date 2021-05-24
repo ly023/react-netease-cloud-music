@@ -28,8 +28,8 @@ $margin-left: 48px;
 .input {
   width: 330px;
   height: 19px;
-  line-height: 19px;
   padding: 5px 6px 6px;
+  line-height: 19px;
   border: 1px solid #cdcdcd;
   border-radius: 2px;
 }
@@ -38,18 +38,19 @@ $margin-left: 48px;
   height: 18px;
   margin-top: 6px;
   margin-left: $margin-left;
-  line-height: 18px;
   color: #e33232;
+  line-height: 18px;
 
   .error-icon {
     display: inline-block;
-    overflow: hidden;
-    vertical-align: middle;
     width: 14px;
     height: 14px;
     margin-right: 8px;
-    @extend %background-icon;
+    overflow: hidden;
+    vertical-align: middle;
     background-position: -50px -270px;
+
+    @extend %background-icon;
   }
 }
 

@@ -9,26 +9,26 @@
 }
 
 .tabs {
-  background-position: 0 0;
   background-repeat: repeat-x;
+  background-position: 0 0;
 }
 
 .tab {
   display: inline-block;
+  box-sizing: border-box;
   width: 112px;
   height: 40px;
-  box-sizing: border-box;
+  font-size: 14px;
   line-height: 40px;
   text-align: center;
-  font-size: 14px;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
   cursor: pointer;
   user-select: none;
 
   border: {
     width: 2px 0 1px;
-    style: solid;
     color: #ccc;
+    style: solid;
   }
 
   &:first-child {
@@ -48,17 +48,18 @@
   &.active {
     border: {
       width: 2px 1px 0;
-      style: solid;
       color: #ccc;
+      style: solid;
     }
-    border-top-color: #d13030;
+
     background-color: transparent;
+    border-top-color: #d13030;
   }
 }
 
 .summary {
-  margin: 28px 0 18px;
   height: 16px;
+  margin: 28px 0 18px;
   color: #999;
 
   .total {

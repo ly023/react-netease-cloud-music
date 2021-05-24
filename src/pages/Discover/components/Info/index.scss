@@ -2,7 +2,9 @@
 .sign-in {
   height: 126px;
   padding-top: 0;
+
   @extend %background-index;
+
   background-position: 0 0;
 }
 
@@ -10,26 +12,27 @@
   width: 205px;
   margin: 0 auto;
   padding: 16px 0;
-  line-height: 22px;
   color: #666;
+  line-height: 22px;
 }
 
 .sign-in-btn {
   display: block;
   width: 100px;
   height: 31px;
-  line-height: 31px;
   margin: 0 auto;
-  text-align: center;
   color: #fff;
+  line-height: 31px;
+  text-align: center;
   text-shadow: 0 1px 0 #8a060b;
-  @extend %background-index;
   background-position: 0 -195px;
   cursor: pointer;
 
+  @extend %background-index;
+
   &:hover {
-    background-position: -110px -195px;
     text-decoration: none;
+    background-position: -110px -195px;
   }
 }
 
@@ -57,8 +60,9 @@
 
       .nickname {
         display: block;
-        font-size: 14px;
         font-weight: 700;
+        font-size: 14px;
+
         @extend %text-ellipsis;
       }
 
@@ -66,20 +70,20 @@
         display: inline-block;
         height: 17px;
         margin-top: 5px;
-        overflow: hidden;
         padding-left: 25px;
-        line-height: 18px;
+        overflow: hidden;
         color: #999;
         font-weight: bold;
         font-style: italic;
-        background: url(~assets/images/icon2.png) no-repeat -130px -64px;
+        line-height: 18px;
         text-decoration: none;
+        background: url(~assets/images/icon2.png) no-repeat -130px -64px;
 
         i {
+          display: inline-block;
           float: right;
           width: 8px;
           height: 17px;
-          display: inline-block;
           overflow: hidden;
           vertical-align: middle;
           background: url(~assets/images/icon2.png) no-repeat  -192px -64px;
@@ -89,16 +93,16 @@
       .checkin-btn {
         position: relative;
         display: inline-block;
-        margin-top: 10px;
         height: 31px;
-        line-height: 31px;
+        margin-top: 10px;
         padding: 0 5px 0 0;
+        line-height: 31px;
         text-align: center;
 
         > span {
           display: inline-block;
-          padding: 0 15px 0 20px;
           height: 31px;
+          padding: 0 15px 0 20px;
           line-height: 31px;
         }
       }
@@ -106,81 +110,89 @@
       .point-popover {
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
         width: 100%;
         padding: 0 10px;
+        color: #666;
         font-size: 12px;
-        background-color: #FFFBE5;
+        background-color: #fffbe5;
         border: 2px solid #ffd700;
         border-radius: 4px;
-        color: #666;
-        opacity: 0;
+        transform: translateX(-50%);
         visibility: hidden;
+        opacity: 0;
 
         &.fade {
           animation: fade 2s linear;
         }
 
         @keyframes fade {
-          0%, 50% {
+          0%,
+          50% {
             visibility: visible;
             opacity: 1;
           }
+
           100% {
-            opacity: 0;
             visibility: hidden;
+            opacity: 0;
           }
         }
 
         .point-popover-arrow {
           position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
           top: -20px;
-          border-width: 10px 8px;
-          border-style: solid;
+          left: 50%;
           border-color: transparent transparent #ffd700 transparent;
+          border-style: solid;
+          border-width: 10px 8px;
+          transform: translateX(-50%);
 
           &::after {
             position: absolute;
             top: -5px;
             left: -6px;
-            border-width: 8px 6px;
-            border-style: solid;
             border-color: transparent transparent #fff transparent;
-
+            border-style: solid;
+            border-width: 8px 6px;
             content: '';
           }
         }
 
-        .point-popover-content {
-
-        }
-
         .point {
-          color: $primary-color;
           margin: 0 5px;
+          color: $primary-color;
         }
       }
 
-
       .checkin-disabled {
         @extend %background-button2;
-        background-position: right -346px;
+
         color: #bebebe;
+        background-position: right -346px;
 
         > span {
           color: #bebebe;
-          @extend %background-button2;
           background-position: 0 -305px;
+
+          @extend %background-button2;
         }
       }
 
       .checkin {
         @extend %background-button2;
-        background-position: right -428px;
+
         color: #fff;
+        background-position: right -428px;
         cursor: pointer;
+
+        > span {
+          width: 60px;
+          background-position: 0 -387px;
+          cursor: pointer;
+          pointer-events: none;
+
+          @extend %background-button2;
+        }
 
         &:hover {
           background-position: right -510px;
@@ -188,14 +200,6 @@
           > span {
             background-position: 0 -469px;
           }
-        }
-
-        > span {
-          width: 60px;
-          pointer-events: none;
-          cursor: pointer;
-          @extend %background-button2;
-          background-position: 0 -387px;
         }
       }
     }
@@ -219,8 +223,8 @@
       }
 
       a {
-        text-decoration: none;
         color: #666;
+        text-decoration: none;
 
         &:hover {
           color: #0c73c2;
@@ -230,9 +234,8 @@
 
     strong {
       display: block;
-      font-size: 20px;
       font-weight: normal;
+      font-size: 20px;
     }
   }
 }
-

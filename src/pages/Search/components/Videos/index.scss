@@ -33,46 +33,49 @@
   .playTime {
     position: absolute;
     height: 20px;
+    color: #fff;
     line-height: 20px;
+    text-shadow: -2px 1px rgba(0, 0, 0, 0.4);
 
     @extend %mask;
-    color: #fff;
-    text-shadow: -2px 1px rgba(0, 0, 0, .4);
   }
 
   .time {
     bottom: 0;
     left: 0;
-    padding-left: 5px;
     width: 159px;
+    padding-left: 5px;
     background-position: 0 -25px;
   }
 
   .playTime {
     top: 0;
     right: 0;
-    padding-right: 5px;
-    width: 90px;
     box-sizing: border-box;
+    width: 90px;
+    padding-right: 5px;
     text-align: right;
     background-position: 0 0;
   }
 
   .video-icon {
     display: inline-block;
-    overflow: hidden;
-    vertical-align: middle;
-    margin: -2px 2px 0 0;
     width: 15px;
     height: 10px;
-    @extend %background-icon2;
+    margin: -2px 2px 0 0;
+    overflow: hidden;
+    vertical-align: middle;
     background-position: -60px -310px;
+
+    @extend %background-icon2;
   }
 }
 
 .title {
   margin: 8px 0 3px;
+
   @extend %text-ellipsis;
+
   color: #000;
   font-size: 14px;
 }

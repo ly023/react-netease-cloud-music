@@ -18,7 +18,9 @@
       left: 0;
       width: 100%;
       height: 100%;
+
       @extend %background-cover;
+
       background-position: 0 0;
       content: '';
     }
@@ -27,20 +29,22 @@
 
 .bottom {
   position: absolute;
-  left: 0;
   bottom: 0;
+  left: 0;
   width: 100%;
   height: 27px;
-  background-position: 0 -537px;
-  @extend %background-cover;
   color: #ccc;
+  background-position: 0 -537px;
+
+  @extend %background-cover;
 
   .icon-headset {
     width: 14px;
     height: 11px;
     margin: 9px 5px 0 10px;
-    @extend %background-icon-all;
     background-position: 0 -24px;
+
+    @extend %background-icon-all;
   }
 
   .icon-play {
@@ -50,8 +54,9 @@
     width: 16px;
     height: 17px;
     background-position: 0 0;
-    @extend %background-icon-all;
     cursor: pointer;
+
+    @extend %background-icon-all;
 
     &:hover {
       background-position: 0 -60px;
@@ -78,9 +83,10 @@
 
   .nickname {
     display: inline-block;
-    vertical-align: middle;
     max-width: 76%;
-    @extend %text-ellipsis;
     color: #666;
+    vertical-align: middle;
+
+    @extend %text-ellipsis;
   }
 }
