@@ -1,0 +1,383 @@
+
+.wrapper {
+  background-color: #f9f9f9;
+}
+
+.ranking-wrapper {
+  float: left;
+  width: 240px;
+  padding-top: 40px;
+
+  .subtitle {
+    padding: 0 10px 12px 15px;
+    color: #000;
+    font-size: 14px;
+  }
+
+  .list {
+    margin-bottom: 20px;
+
+    .item {
+      position: relative;
+      height: 42px;
+      padding: 10px 0 10px 20px;
+      cursor: pointer;
+
+      .coverBox {
+        float: left;
+        margin-right: 10px;
+        overflow: hidden;
+
+        .cover {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .name {
+        width: 150px;
+        margin: 0 0 6px 0;
+
+        @extend %text-ellipsis;
+
+        color: #000;
+        text-decoration: none;
+      }
+
+      .status {
+        color: #999;
+      }
+
+      &.selected {
+        background-color: #e6e6e6;
+      }
+
+      &:hover {
+        background-color: #f4f2f2;
+      }
+    }
+  }
+
+  .media {
+    margin-top: 20px;
+  }
+}
+
+.playlist-wrapper {
+  float: left;
+  width: 740px;
+  height: 100%;
+  background-color: #fff;
+
+  .playlist-detail {
+    min-height: 700px;
+    padding: 40px 30px 40px 40px;
+    border-left: 1px solid #ccc;
+
+    .info {
+      overflow: hidden;
+    }
+
+    .cover {
+      position: relative;
+      float: left;
+      width: 150px;
+      height: 150px;
+      padding: 3px;
+      border: 1px solid #ccc;
+
+      img {
+        width: 100%;
+        height: 100%;
+        vertical-align: top;
+      }
+
+      &::after {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 150px;
+        height: 150px;
+
+        @extend %background-cover;
+
+        background-position: -230px -380px;
+        content: '';
+      }
+    }
+
+    .content {
+      float: left;
+      width: 450px;
+      margin-left: 30px;
+    }
+
+    .title {
+      position: relative;
+      margin: 16px 0 4px;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    .time {
+      margin: 12px 0 30px;
+      color: #666;
+
+      .clock-icon {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        margin: 0 5px 0 0;
+        vertical-align: middle;
+
+        @extend %background-icon;
+
+        background-position: -18px -682px;
+      }
+
+      .status {
+        color: #999;
+      }
+    }
+
+    .operation {
+      margin: 0 -10px 0 0;
+      overflow: hidden;
+      user-select: none;
+
+      .btn-play {
+        float: left;
+        white-space: nowrap;
+        text-decoration: none;
+        background-position: right -428px;
+
+        @extend %background-button2;
+
+        &:hover {
+          background-position: right -510px;
+
+          i {
+            background-position: 0 -469px;
+          }
+
+          em {
+            background-position: -28px -1622px;
+          }
+        }
+
+        i {
+          @extend %button-i;
+
+          padding: 0 7px 0 8px;
+          color: #fff;
+          background-position: 0 -387px;
+
+          em {
+            float: left;
+            width: 20px;
+            height: 18px;
+            margin: 6px 2px 2px 0;
+            overflow: hidden;
+            background-position: 0 -1622px;
+
+            @extend %background-button2;
+          }
+        }
+      }
+
+      .btn-play-disabled {
+        float: left;
+        margin-right: 6px;
+        padding: 0 5px 0 0;
+        font-family: simsun, \5b8b\4f53, sans-serif;
+        background-position: right -934px;
+
+        @extend %background-button2;
+
+        i {
+          @extend %u-button-i;
+
+          padding: 0 7px 0 36px;
+          color: #bebebe;
+          background-position: 0 -891px;
+          cursor: default;
+
+          @extend %background-button2;
+        }
+      }
+
+      .btn-add-play {
+        @extend %u-button;
+
+        margin: 0 5px 0 -3px;
+        padding: 0 8px 0 0;
+        background-position: 0 -1588px;
+
+        &:hover {
+          background-position: -40px -1588px;
+        }
+      }
+
+      .btn-add-favorite,
+      .btn-share,
+      .btn-download,
+      .btn-comment {
+        @extend %u-button;
+
+        margin-right: 6px;
+        padding: 0 5px 0 0;
+        background-position: right -1020px;
+
+        &:hover {
+          background-position: right -1106px;
+        }
+
+        i {
+          @extend %u-button-i;
+
+          padding: 0 2px 0 28px;
+        }
+      }
+
+      .btn-add-favorite {
+        &.btn-add-favorite-subscribed {
+          background-position: right -1192px;
+
+          &:hover i,
+          i {
+            color: #bebebe;
+            background-position: 0 -1149px;
+          }
+        }
+
+        &[data-loading="true"] {
+          i {
+            cursor: default;
+          }
+
+          i::after {
+            width: 14px;
+            height: 14px;
+            margin: 8px 0 0 6px;
+            background: url(~assets/images/loading.gif) no-repeat;
+            background-size: 100% 100%;
+            cursor: default;
+            content: '';
+          }
+        }
+
+        i {
+          position: relative;
+          background-position: 0 -977px;
+
+          &::after {
+            display: inline-block;
+            content: attr(data-content);
+          }
+        }
+
+        &:hover {
+          i {
+            background-position: 0 -1063px;
+          }
+        }
+      }
+
+      .btn-share {
+        i {
+          background-position: 0 -1225px;
+        }
+
+        &:hover {
+          i {
+            background-position: 0 -1268px;
+          }
+        }
+      }
+
+      .btn-download {
+        i {
+          background-position: 0 -2761px;
+        }
+
+        &:hover {
+          i {
+            background-position: 0 -2805px;
+          }
+        }
+      }
+
+      .btn-comment {
+        i {
+          line-height: 28px;
+          background-position: 0 -1465px;
+        }
+
+        &:hover {
+          i {
+            background-position: 0 -1508px;
+          }
+        }
+      }
+    }
+
+    .tracks-wrapper {
+      margin: 27px 0 40px 0;
+
+      .table-title {
+        border-bottom: 2px solid $light-primary-color;
+
+        h3 {
+          display: inline-block;
+          height: 35px;
+          font-size: 20px;
+          line-height: 28px;
+        }
+
+        .other {
+          color: #666;
+          font-size: 12px;
+
+          .total {
+            margin: 9px 0 0 20px;
+          }
+
+          .more {
+            float: right;
+            margin-top: 5px;
+
+            .play-count {
+              color: $light-primary-color;
+            }
+          }
+        }
+      }
+    }
+
+    .guide {
+      width: 100%;
+      margin: 30px 0 -10px;
+      text-align: center;
+
+      .text {
+        margin-bottom: 18px;
+        color: #333;
+        font-size: 13px;
+      }
+
+      .download {
+        display: inline-block;
+        width: 120px;
+        height: 30px;
+        color: #fff;
+        font-size: 12px;
+        line-height: 30px;
+        text-align: center;
+        text-decoration: none;
+        background-image: linear-gradient(90deg, #ff5a4c 0%, #ff1d12 100%);
+        border-radius: 18px;
+      }
+    }
+  }
+}

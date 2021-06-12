@@ -168,3 +168,21 @@ export function getLyric(lyricData) {
     }
     return []
 }
+
+export function parseSongs(songs = []) {
+    const newSongs = []
+    if(Array.isArray(songs)) {
+        const len = songs.length
+        for (let i = 0; i < len; i++) {
+            const item = songs[i]
+            newSongs.push({
+                ...item,
+                mv: item.mvid,
+                duration: item.dt,
+                artists: item.ar,
+                album: item.al,
+            })
+        }
+    }
+    return newSongs
+}

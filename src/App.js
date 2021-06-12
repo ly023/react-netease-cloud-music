@@ -1,5 +1,7 @@
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
 import {requestLoginStatus} from 'actions/user'
 import NavBar from 'components/NavBar'
 import PlayBar from 'components/PlayBar'
@@ -7,6 +9,8 @@ import Routes from 'router'
 import KEY_CODE from 'constants/keyCode'
 import {getCsrfToken} from 'utils'
 import ScrollToTop from 'utils/scrollToTop'
+
+dayjs.locale('zh-cn')
 
 function App() {
     const dispatch = useDispatch()

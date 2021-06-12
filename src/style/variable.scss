@@ -130,7 +130,7 @@ $light-primary-color: #c20c0c;
 %title {
   position: relative;
   height: 34px;
-  border-bottom: 2px solid #c20c0c;
+  border-bottom: 2px solid $light-primary-color;
 }
 
 %title-h3 {

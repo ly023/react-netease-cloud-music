@@ -11,17 +11,18 @@ import {DATE_FORMAT, DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {PLAY_TYPE} from 'constants/play'
 import Add from 'components/Add'
 import Play from 'components/Play'
+import AddToPlaylist from 'components/AddToPlaylist'
 import {requestDetail} from 'services/album'
 import {requestAlbum} from 'services/artist'
 import {formatDuration, formatNumber, getThumbnail} from 'utils'
 import emitter from 'utils/eventEmitter'
 import Collapse from 'components/Collapse'
-import ClientDownload from 'components/ClientDownload'
 import SongActions from 'components/SongActions'
+import ClientDownload from 'components/ClientDownload'
 import {getArtists} from 'utils/song'
 
 import './index.scss'
-import AddToPlaylist from "components/AddToPlaylist";
+import SinglePlay from "components/SinglePlay";
 
 @withRouter
 @connect(({user}) => ({
@@ -133,14 +134,14 @@ export default class AlbumDetail extends React.Component {
                                     <div styleName="publish">
                                         <div>
                                             歌手：{
-                                                Array.isArray(detail.artists) && detail.artists.map((artist, i) => {
-                                                    return <span key={artist.id}>
+                                            Array.isArray(detail.artists) && detail.artists.map((artist, i) => {
+                                                return <span key={artist.id}>
                                                         <Link to={`/artist/${artist.id}`}
-                                                            styleName="artist">{artist.name}</Link>
-                                                        {i !== detail.artists.length - 1 ? '/' : ''}
+                                                              styleName="artist">{artist.name}</Link>
+                                                    {i !== detail.artists.length - 1 ? '/' : ''}
                                                     </span>
-                                                })
-                                            }
+                                            })
+                                        }
                                         </div>
                                         <div>发行时间：{dayjs(detail.publishTime).format(DATE_FORMAT)}</div>
                                         <div>发行公司：{detail.company}</div>
@@ -152,7 +153,8 @@ export default class AlbumDetail extends React.Component {
                                         <Add id={detail.id} type={PLAY_TYPE.ALBUM.TYPE}>
                                             <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
                                         </Add>
-                                        <AddToPlaylist songIds={Array.isArray(detail?.songs) ? detail.songs.map(v => v.id) : []}>
+                                        <AddToPlaylist
+                                            songIds={Array.isArray(detail?.songs) ? detail.songs.map(v => v.id) : []}>
                                             <a
                                                 href={null}
                                                 styleName="btn-add-favorite"
@@ -195,69 +197,72 @@ export default class AlbumDetail extends React.Component {
                                 </div>
                                 <table styleName="table">
                                     <thead>
-                                        <tr>
-                                            <th styleName="w1">
-                                                <div styleName="th first"/>
-                                            </th>
-                                            <th>
-                                                <div styleName="th">歌曲标题</div>
-                                            </th>
-                                            <th styleName="w2">
-                                                <div styleName="th">时长</div>
-                                            </th>
-                                            <th styleName="w3">
-                                                <div styleName="th">歌手</div>
-                                            </th>
-                                        </tr>
+                                    <tr>
+                                        <th styleName="w1">
+                                            <div styleName="th first"/>
+                                        </th>
+                                        <th>
+                                            <div styleName="th">歌曲标题</div>
+                                        </th>
+                                        <th styleName="w2">
+                                            <div styleName="th">时长</div>
+                                        </th>
+                                        <th styleName="w3">
+                                            <div styleName="th">歌手</div>
+                                        </th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            Array.isArray(detail.songs) && detail.songs.map((item, index) => {
-                                                const order = index + 1
-                                                const {id, alia: alias} = item
-                                                const privilege = detail.privileges?.[index]
-                                                return <tr key={id}
-                                                    styleName={`track${privilege?.st === -200 ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
-                                                    <td styleName="order">
-                                                        <span styleName="number">{order}</span>
-                                                        <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                            {
-                                                                currentSong?.id === id
-                                                                    ? <span styleName="ply ply-active"/>
-                                                                    : <span styleName="ply"/>
-                                                            }
-                                                        </Play>
-                                                    </td>
-                                                    <td>
-                                                        <div styleName="name">
-                                                            <Link to={`/song/${id}`}>{item.name}</Link>
-                                                            {alias && alias.length ? <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
-                                                            {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                    {
+                                        Array.isArray(detail.songs) && detail.songs.map((item, index) => {
+                                            const order = index + 1
+                                            const {id, alia: alias} = item
+                                            const privilege = detail.privileges?.[index]
+                                            const disabled = privilege?.st === -200
+                                            return <tr key={id}
+                                                       styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
+                                                <td styleName="order">
+                                                    <span styleName="number">{order}</span>
+                                                    <span styleName="play">
+                                                            <SinglePlay
+                                                                id={id}
+                                                                active={currentSong?.id === id}
+                                                                disabled={disabled}
+                                                            />
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                    <div styleName="name">
+                                                        <Link to={`/song/${id}`}>{item.name}</Link>
+                                                        {alias && alias.length ? <span styleName="alias"
+                                                                                       title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
+                                                        {item.mv ?
+                                                            <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div styleName="duration">
+                                                        <span styleName="time">{formatDuration(item.dt)}</span>
+                                                        <div styleName="actions">
+                                                            <SongActions id={item.id}/>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div styleName="duration">
-                                                            <span styleName="time">{formatDuration(item.dt)}</span>
-                                                            <div styleName="actions">
-                                                                <SongActions id={item.id}/>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td styleName="artists">
-                                                        {
-                                                            Array.isArray(item.ar) && item.ar.map((artist, i) => {
-                                                                return <span key={artist.id}
-                                                                    title={getArtists(item.ar)}>
+                                                    </div>
+                                                </td>
+                                                <td styleName="artists">
+                                                    {
+                                                        Array.isArray(item.ar) && item.ar.map((artist, i) => {
+                                                            return <span key={artist.id}
+                                                                         title={getArtists(item.ar)}>
                                                                     <Link to={`/artist/${artist.id}`}
-                                                                        onClick={this.closePanel}>{artist.name}</Link>
-                                                                    {i !== item.ar.length - 1 ? '/' : ''}
+                                                                          onClick={this.closePanel}>{artist.name}</Link>
+                                                                {i !== item.ar.length - 1 ? '/' : ''}
                                                                 </span>
-                                                            })
-                                                        }
-                                                    </td>
-                                                </tr>
-                                            })
-                                        }
+                                                        })
+                                                    }
+                                                </td>
+                                            </tr>
+                                        })
+                                    }
                                     </tbody>
                                 </table>
                             </div>
@@ -282,7 +287,8 @@ export default class AlbumDetail extends React.Component {
                                                 <img src={item.picUrl} alt="cover"/>
                                             </Link>
                                             <div styleName="album-meta">
-                                                <p styleName="album-name"><Link to={albumLink} title={item.name}>{item.name}</Link></p>
+                                                <p styleName="album-name"><Link to={albumLink}
+                                                                                title={item.name}>{item.name}</Link></p>
                                                 <p styleName="album-time">{dayjs(item.publishTime).format(DATE_FORMAT)}</p>
                                             </div>
                                         </li>

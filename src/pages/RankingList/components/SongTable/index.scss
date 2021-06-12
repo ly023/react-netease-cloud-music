@@ -15,23 +15,15 @@
     @extend %background-table;
 
     &.w1 {
-      width: 74px;
-    }
-
-    &.w2 {
-      width: 236px;
+      width: 40px;
     }
 
     &.w3 {
-      width: 110px;
+      width: 91px;
     }
 
     &.w4 {
-      width: 90px;
-    }
-
-    &.w5 {
-      width: 20%;
+      width: 26%;
     }
 
     .th {
@@ -52,9 +44,9 @@
   }
 
   td {
-    height: 18px;
     padding: 6px 10px;
     line-height: 18px;
+    text-align: left;
   }
 
   .even {
@@ -94,12 +86,6 @@
           display: inline-block;
         }
       }
-
-      .album {
-        .dislike {
-          display: inline-block;
-        }
-      }
     }
 
     .order {
@@ -108,26 +94,24 @@
       .number {
         margin-left: 5px;
       }
+    }
 
-      .new {
-        display: inline-block;
-        width: 16px;
-        height: 17px;
-        margin: 0 8px 0 16px;
-        vertical-align: middle;
-        background-position: -67px -283px;
-
-        @extend %background-icon;
-      }
-
-      .play {
-        float: right;
-        height: 17px;
-      }
+    .album-cover {
+      width: 50px;
+      height: 50px;
+      margin-right: 14px;
+      vertical-align: middle;
     }
 
     .name {
-      width: 100%;
+      display: inline-block;
+      max-width: 90%;
+      margin-left: 8px;
+
+      &.top {
+        display: inline-block;
+        max-width: 70%;
+      }
 
       @extend %text-ellipsis;
 
@@ -163,34 +147,6 @@
 
     .artists {
       @extend %text-ellipsis;
-    }
-
-    .album {
-      position: relative;
-
-      a {
-        display: inline-block;
-        width: 90%;
-
-        @extend %text-ellipsis;
-      }
-
-      .dislike {
-        position: absolute;
-        top: 10px;
-        right: 8px;
-        display: none;
-        width: 10px;
-        height: 10px;
-        background-position: -75px -352px;
-        cursor: pointer;
-
-        @extend %background-icon;
-
-        &:hover {
-          background-position: -75px -365px;
-        }
-      }
     }
   }
 }

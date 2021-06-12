@@ -1,0 +1,25 @@
+
+.play {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  background-position: 0 -103px;
+  cursor: pointer;
+
+  @extend %background-table;
+
+  &:hover {
+    background-position: 0 -128px;
+  }
+
+  &.active {
+    background-position: -20px -128px;
+  }
+
+  &.disabled,
+  &.disabled:hover {
+    background-position: 0 -103px;
+    cursor: default;
+    opacity: 0.5;
+  }
+}

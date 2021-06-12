@@ -17,7 +17,7 @@
 import {useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
 
-const EXCLUDE = ['/discover/album']
+const EXCLUDE = ['/discover/album', '/discover/toplist']
 
 export default function ScrollToTop({children}) {
     const {pathname, search} = useLocation()

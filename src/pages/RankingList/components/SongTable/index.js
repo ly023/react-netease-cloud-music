@@ -1,9 +1,9 @@
-import {useCallback, memo} from 'react'
+import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
-import SinglePlay from 'components/SinglePlay'
 import SongActions from 'components/SongActions'
+import SinglePlay from 'components/SinglePlay'
 import {formatDuration} from 'utils'
 import {getArtists} from 'utils/song'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
@@ -11,15 +11,10 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import './index.scss'
 
 function SongTable(props) {
-    const {loading, songs = [], isSelf = false, showDislike = false, onDislikeSuccess} = props
+    const {loading, songs = [], isSelf = false} = props
     const {currentSong = {}} = useShallowEqualSelector(({user}) => ({
         currentSong: user.player.currentSong,
     }))
-
-    const handleDislike = useCallback((id) => {
-        // todo 歌曲不感兴趣
-        onDislikeSuccess(songs.filter(v => v.id !== id))
-    }, [songs, onDislikeSuccess])
 
     return <>
         <table styleName="table">
@@ -28,8 +23,8 @@ function SongTable(props) {
                 <th styleName="w1">
                     <div styleName="th first"/>
                 </th>
-                <th styleName="w2">
-                    <div styleName="th">歌曲标题</div>
+                <th>
+                    <div styleName="th">标题</div>
                 </th>
                 <th styleName="w3">
                     <div styleName="th">时长</div>
@@ -37,27 +32,25 @@ function SongTable(props) {
                 <th styleName="w4">
                     <div styleName="th">歌手</div>
                 </th>
-                <th styleName="w5">
-                    <div styleName="th">专辑</div>
-                </th>
             </tr>
             </thead>
             {Array.isArray(songs) && <tbody>
             {
                 songs.map((item, index) => {
+                    const Top = 3
                     const order = index + 1
-                    const {id, alia: alias} = item
-                    const disabled = false // 没有播放权限
+                    const {id, alia: alias, album} = item
+                    const isTop = order <= Top
+                    const disabled = false // todo 播放权限
                     return <tr key={id}
                                styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                         <td styleName="order">
                             <span styleName="number">{order}</span>
-                            <span styleName="play">
-                            <SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/>
-                            </span>
                         </td>
                         <td>
-                            <div styleName="name">
+                            {isTop ? <img src={album?.picUrl} styleName="album-cover" alt=""/> : null}
+                            <SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/>
+                            <div styleName={`name ${isTop ? 'top' : ''}`}>
                                 <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>
                                 {alias && alias.length ?
                                     <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
@@ -85,11 +78,6 @@ function SongTable(props) {
                                 })
                             }
                         </td>
-                        <td styleName="album">
-                            <Link to={`/album/${item.album?.id}`}>{item.album?.name}</Link>
-                            {showDislike ?
-                                <i styleName="dislike" title="不感兴趣" onClick={() => handleDislike(id)}/> : null}
-                        </td>
                     </tr>
                 })
             }
@@ -102,8 +90,6 @@ function SongTable(props) {
 SongTable.propTypes = {
     songs: PropTypes.array,
     isSelf: PropTypes.bool,
-    showDislike: PropTypes.bool,
-    onDislikeSuccess: PropTypes.func,
 }
 
 export default memo(SongTable)

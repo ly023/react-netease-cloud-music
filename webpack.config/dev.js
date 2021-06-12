@@ -1,7 +1,8 @@
 const path = require('path');
 const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
-const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const openBrowser = require('react-dev-utils/openBrowser');
 
 const apiMocker = require('mocker-api');
 
@@ -12,7 +13,6 @@ module.exports = merge(baseConfig, {
     mode: 'development',
     entry: {
         main: [
-            // 'react-hot-loader/patch', // Make sure react-hot-loader is required before react and react-dom
             '@babel/polyfill',
             './src/index.js' // 入口文件路径
         ]
@@ -21,14 +21,18 @@ module.exports = merge(baseConfig, {
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
         filename: '[name].[hash:8].bundle.js',  // 列在entry中，打包后输出的文件的名称
         chunkFilename: '[name].[chunkhash:8].chunk.js', // 未列在entry中，却又需要被打包出来的文件的名称（通常是要懒加载的文件）
-        publicPath: '/'
+        publicPath: '/',
+    },
+    cache: {
+        type: 'filesystem', // 使用文件缓存
+        // cacheDirectory 默认路径是 node_modules/.cache/webpack
+        // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
     },
     devServer: {
-        open: true,
         hot: true,
         port: config.port,
         historyApiFallback: true,
-        onBeforeSetupMiddleware: function({app}) {
+        onBeforeSetupMiddleware: function ({app}) {
             apiMocker(app, path.resolve('src/mock/index.js'))
         },
         proxy: {
@@ -38,10 +42,13 @@ module.exports = merge(baseConfig, {
                 changeOrigin: true,     // target是域名的话，需要这个参数，
                 secure: false,          // 设置支持https协议的代理
             },
-        }
+        },
+        onAfterSetupMiddleware: function () {
+            openBrowser && openBrowser('http://localhost:' + config.port);
+        },
     },
-    watchOptions : {
-        ignored : /node_modules/, // 不监听node_modules目录下的文件
+    watchOptions: {
+        ignored: /node_modules/, // 不监听node_modules目录下的文件
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -51,6 +58,6 @@ module.exports = merge(baseConfig, {
             favicon: path.join(config.root, 'src/assets/favicon.ico'), // favicon路径
         }),
 
-        new ReactRefreshPlugin(),
+        new ReactRefreshWebpackPlugin(),
     ]
 });

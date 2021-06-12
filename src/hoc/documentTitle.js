@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import {Helmet} from 'react-helmet'
+import {Helmet, HelmetProvider} from 'react-helmet-async'
 
 const documentTitleDecorator = (option = {}) => {
 
@@ -25,11 +25,12 @@ const documentTitleDecorator = (option = {}) => {
 
                 return (
                     <>
-                        <Helmet>
-                            <title>{title}</title>
-                        </Helmet>
+                        <HelmetProvider>
+                            <Helmet>
+                                <title>{title}</title>
+                            </Helmet>
+                        </HelmetProvider>
                         <WrappedComponent {...this.props}/>
-
                     </>
                 )
             }

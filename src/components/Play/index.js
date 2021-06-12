@@ -74,6 +74,8 @@ function Play(props) {
                     }
                 } else {
                     emitPlay = false
+                    // todo
+                    console.log('没有播放权限')
                 }
             }
         // 电台节目
@@ -131,7 +133,7 @@ function Play(props) {
                         newTrackQueue.push(formatTrack(item))
                     } else {
                         // todo
-                        console.log('不可听')
+                        console.log('没有播放权限')
                     }
                 }
             }

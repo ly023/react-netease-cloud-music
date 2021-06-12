@@ -6,7 +6,7 @@ import './index.scss'
 /**
  * @return {null}
  */
-function ListLoading({loading=true}) {
+function ListLoading({loading = true}) {
     return loading ? <div styleName="content">
         <i styleName="icon"/>加载中...
     </div> : null

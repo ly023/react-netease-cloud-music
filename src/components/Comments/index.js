@@ -59,13 +59,14 @@ const ACTION_TYPES = {
 export default class Comments extends React.Component {
     static propTypes = {
         type: PropTypes.oneOf(Object.keys(COMMENT_TYPES)),
-        id: PropTypes.number.isRequired,
+        id: PropTypes.number,
         onRef: PropTypes.func,
     }
 
     static defaultProps = {
         type: Object.keys(COMMENT_TYPES)[0],
-        onRef() {}
+        onRef() {
+        }
     }
 
     constructor(props) {
@@ -146,8 +147,10 @@ export default class Comments extends React.Component {
                 })
                 this.setTotalComment(total)
             }
-        }).finally(()=>{
-            this.setState({commentsLoading: false})
+        }).finally(() => {
+            if (this._isMounted) {
+                this.setState({commentsLoading: false})
+            }
         })
     }
 
@@ -235,7 +238,9 @@ export default class Comments extends React.Component {
                 }
             })
             .finally(() => {
-                this.setState({commentLoading: false})
+                if (this._isMounted) {
+                    this.setState({commentLoading: false})
+                }
             })
     }
 
@@ -278,7 +283,9 @@ export default class Comments extends React.Component {
                 }
             })
             .finally(() => {
-                this.setState({deleteLoading: false})
+                if (this._isMounted) {
+                    this.setState({deleteLoading: false})
+                }
             })
     }
 
@@ -307,7 +314,9 @@ export default class Comments extends React.Component {
                     }
                 })
                 .finally(() => {
-                    this.setState({likeLoading: false})
+                    if (this._isMounted) {
+                        this.setState({likeLoading: false})
+                    }
                 })
         }
     }
@@ -362,7 +371,9 @@ export default class Comments extends React.Component {
                 }
             })
             .finally(() => {
-                this.setState({replyLoading: false})
+                if(this._isMounted) {
+                    this.setState({replyLoading: false})
+                }
             })
     }
 
@@ -419,7 +430,8 @@ export default class Comments extends React.Component {
             let content
             if (repliedComment.content) {
                 content = <>
-                    <Link to={`/user/home/${repliedComment.user?.userId}`} styleName="nickname">{repliedComment.user?.nickname}</Link>
+                    <Link to={`/user/home/${repliedComment.user?.userId}`}
+                          styleName="nickname">{repliedComment.user?.nickname}</Link>
                     {this.getRenderVip(repliedComment)}
                     ：<span dangerouslySetInnerHTML={{__html: msgToHtml(repliedComment.content)}}/>
                     {this.getRenderExpression(repliedComment)}
@@ -452,7 +464,8 @@ export default class Comments extends React.Component {
                     />
                     <div styleName="text">
                         <div styleName="comment">
-                            <Link to={`/user/home/${item?.user?.userId}`} styleName="nickname">{item?.user?.nickname}</Link>
+                            <Link to={`/user/home/${item?.user?.userId}`}
+                                  styleName="nickname">{item?.user?.nickname}</Link>
                             {this.getRenderVip(item)}
                             ：<span dangerouslySetInnerHTML={{__html: msgToHtml(item?.content)}}/>
                             {this.getRenderExpression(item)}
@@ -462,9 +475,11 @@ export default class Comments extends React.Component {
                             <span styleName="time">{formatTimestamp(item?.time)}</span>
                             <div>
                                 {this.isAuthor(item?.user?.userId) ? <>
-                                    <span styleName="delete" onClick={() => this.handleShowDeleteConfirm(item.commentId)}>删除</span>
+                                    <span styleName="delete"
+                                          onClick={() => this.handleShowDeleteConfirm(item.commentId)}>删除</span>
                                     <span styleName="space">|</span></> : null}
-                                <span styleName={`like${item?.liked ? ' liked' : ''}`} onClick={() => this.handleLikeComment(item.commentId, item?.liked)}>
+                                <span styleName={`like${item?.liked ? ' liked' : ''}`}
+                                      onClick={() => this.handleLikeComment(item.commentId, item?.liked)}>
                                     <i/>
                                     {item?.likedCount ? `(${formatNumber(item.likedCount, 5, 1)})` : null}
                                 </span>
@@ -517,7 +532,8 @@ export default class Comments extends React.Component {
                                 }}
                             />
                             <div styleName="editor">
-                                <Editor onRef={this.setEditorRef} follows={follows} onSubmit={this.handleCreateComment} loading={commentLoading}/>
+                                <Editor onRef={this.setEditorRef} follows={follows} onSubmit={this.handleCreateComment}
+                                        loading={commentLoading}/>
                             </div>
                         </div>
                         {

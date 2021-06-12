@@ -22,6 +22,8 @@ function Rank() {
     const isMounted = useRef(false)
 
     useEffect(() => {
+        isMounted.current = true
+
         const fetchRankList = async () => {
             try {
                 setLoading(true)
@@ -33,11 +35,12 @@ function Rank() {
                     setRankList([soaringRank, newRank, hotRank])
                 }
             } finally {
-                setLoading(false)
+                if(isMounted.current) {
+                    setLoading(false)
+                }
             }
         }
 
-        isMounted.current = true
         fetchRankList()
 
         return () => {
@@ -101,16 +104,17 @@ function Rank() {
                                 {
                                     rank.tracks && rank.tracks.slice(0, 10).map((track, idx) => {
                                         let no = idx + 1
-                                        return <li key={track.id}
+                                        const {id, name} = track
+                                        return <li key={id}
                                             styleName={`item${no % 2 === 1 ? ' item-event' : ''}`}>
                                             <span
                                                 styleName={`no ${no <= 3 ? 'no-top' : ''}`}>{no}</span>
-                                            <Link to={`song/${track.id}`}
-                                                styleName='item-name'>{track.name}</Link>
+                                            <Link to={`song/${id}`}
+                                                styleName='item-name'>{name}</Link>
                                             <div styleName='item-operation'>
                                                 <Play
                                                     type={PLAY_TYPE.SINGLE.TYPE}
-                                                    id={track.id}
+                                                    id={id}
                                                 >
                                                     <a
                                                         href={null}
@@ -118,14 +122,14 @@ function Rank() {
                                                         styleName='icon play-icon'
                                                     />
                                                 </Play>
-                                                <Add type={PLAY_TYPE.SINGLE.TYPE} id={track.id}>
+                                                <Add type={PLAY_TYPE.SINGLE.TYPE} id={id}>
                                                     <a
                                                         href={null}
                                                         title={'添加到播放列表'}
                                                         styleName='icon add-icon'
                                                     />
                                                 </Add>
-                                                <AddToPlaylist songIds={[track.id]}>
+                                                <AddToPlaylist songIds={[id]}>
                                                     <a href={null} title={'收藏'} styleName='icon subscribe-icon'/>
                                                 </AddToPlaylist>
                                             </div>
@@ -133,7 +137,7 @@ function Rank() {
                                     })
                                 }
                                 <li styleName="item-more">
-                                    <a href={null} styleName="item-all">查看全部></a>
+                                    <a href={`/discover/toplist?id=${id}`} styleName="item-all">查看全部></a>
                                 </li>
                             </ul>
                         </>

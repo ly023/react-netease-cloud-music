@@ -70,6 +70,11 @@ export default [
         component: importPages('DailyRecommendation'),
     },
     {
+        path: '/discover/toplist',
+        name: '排行榜',
+        component: importPages('RankingList'),
+    },
+    {
         path: '/friend',
         name: '朋友',
         component: importPages('Friend'),

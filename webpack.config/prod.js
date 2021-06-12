@@ -1,20 +1,20 @@
-const webpack = require('webpack');
 const path = require('path');
-const merge = require('webpack-merge');
-const cssnano = require('cssnano');
+const {merge} = require('webpack-merge');
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 const TerserJSPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化资源分析
 
 const config = require('./config');
 const baseConfig = require('./base');
 
 module.exports = merge(baseConfig, {
-    mode: 'production', // webpack v4 指定mode自动配置DefinePlugin
+    mode: 'production',
+    devtool: 'source-map',
     entry: {
         main: [
             '@babel/polyfill',
@@ -29,24 +29,10 @@ module.exports = merge(baseConfig, {
                 terserOptions: {},
             }),
             // css压缩
-            new OptimizeCSSAssetsPlugin({
-                assetNameRegExp: /\.css\.*(?!.*map)/g, // 正则表达式,用于匹配需要优化或者压缩的资源名，默认为/\.css$/g
-                cssProcessor: cssnano,
-                cssProcessorOptions: {
-                    safe: true, // 在安全模式下运行cssnano从而避免潜在的不安全转换
-                    // autoprefixer: false,
-                    autoprefixer: {
-                        disable: true, // 禁用掉cssnano对于浏览器前缀的处理
-                    },
-                    mergeLonghand: false,
-                    discardComments: {
-                        removeAll: true, // 移除注释
-                    }
-                }
-            })
+            new CssMinimizerPlugin(),
         ],
-        namedChunks: true,
-        moduleIds: 'hashed',
+        chunkIds: 'named',
+        moduleIds: 'deterministic',
         runtimeChunk: { // 或 runtimeChunk: true,  将webpack运行时生成代码打包
             // name: entrypoint => `runtime-${entrypoint.name}`,
             name: 'manifest'
@@ -74,7 +60,7 @@ module.exports = merge(baseConfig, {
                     minChunks: 3,
                     chunks: 'all',
                     reuseExistingChunk: true,
-                }
+                },
             }
         },
     },
@@ -84,7 +70,6 @@ module.exports = merge(baseConfig, {
         chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
         publicPath: '/'
     },
-    devtool: 'cheap-module-source-map',
     plugins: [
         // 清除dist文件夹
         new CleanWebpackPlugin(),
@@ -108,17 +93,15 @@ module.exports = merge(baseConfig, {
             // contenthash 将根据资源内容创建出唯一hash，文件内容不变，hash就不变
             filename: 'css/[name].[contenthash:8].css',
         }),
-
-        // 当vender模块没有变化时，保持module.id稳定（缓存vender）
-        new webpack.HashedModuleIdsPlugin(),
-
         // 开启 gzip
         new CompressionPlugin({
-            filename: '[path].gz[query]',
-            algorithm: 'gzip',
             test: /\.(js|html|css)$/,
             threshold: 10240, // 只处理比这个值大的资源。按字节计算
             minRatio: 0.8 // 只有压缩率比这个值小的资源才会被处理
+        }),
+
+        new BundleAnalyzerPlugin({
+            analyzerMode: process.env.ANALYZER_MODE || 'disabled',
         }),
     ]
 })

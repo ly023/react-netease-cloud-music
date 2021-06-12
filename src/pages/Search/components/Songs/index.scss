@@ -29,17 +29,6 @@
 
     @extend %background-table;
 
-    &.play-icon {
-      width: 17px;
-      height: 17px;
-      margin-right: 4px;
-      background-position: 0 -103px;
-
-      &:hover {
-        background-position: 0 -128px;
-      }
-    }
-
     &.mv-icon {
       width: 23px;
       height: 17px;
@@ -89,6 +78,12 @@
         background-position: -104px -174px;
       }
     }
+  }
+
+  .play-icon {
+    height: 17px;
+    margin-right: 4px;
+    vertical-align: middle;
   }
 
   .name {

@@ -1,6 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化资源分析
+const WebpackBar = require('webpackbar');
 
 const config = require('./config');
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -8,6 +8,21 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
+
+const jsLoaders = [
+    {
+        loader: 'thread-loader',
+        options: {
+            workers: 2 // 进程数量 2个
+        }
+    },
+    {
+        loader: 'babel-loader',
+        options: {
+            cacheDirectory: true, // 开启babel缓存，下次构建时会读取之前的缓存
+        }
+    },
+]
 
 module.exports = {
     context: config.root, // 绝对路径，webpack 编译时的基础目录，entry 会相对于此目录查找
@@ -17,17 +32,16 @@ module.exports = {
         rules: [
             {
                 // 编译 js、jsx
-                // 如果项目源码中没有 jsx 文件就不要写 /\.jsx?$/，提升正则表达式性能
                 // test: /\.jsx?$/,
+                // 如果项目源码中没有 jsx 文件就不要写 /\.jsx?$/，提升正则表达式性能
                 test: /\.js$/,
-                // enforce: 'pre', // ESLint 优先级高于其他 JS 相关的 loader
-                use: isDevelopment ? [
-                    {loader: 'babel-loader'},
-                    {loader: 'eslint-loader'},
-                ] : [
-                    {loader: 'babel-loader'},
-                ],
                 exclude: /node_modules/,
+                use: isDevelopment ? [
+                    ...jsLoaders,
+                    {
+                        loader: 'eslint-loader',
+                    }
+                ] : jsLoaders,
             },
             {
                 test: /\.css$/,
@@ -71,10 +85,10 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif|svg|woff|ttf|eot)$/i,
+                test: /\.(png|jpe?g|gif|svg|woff|ttf|eot)$/i, // slick fonts：woff|ttf|eot
                 loader: 'url-loader',
                 options: {
-                    esModule: false, // 启用CommonJS模块语法
+                    esModule: false, // 启用CommonJS模块语法，默认true，https://github.com/webpack-contrib/url-loader#esmodule
                     outputPath: 'images/',  // 路径要与output.publicPath结合
                     limit: 8192, // 小于8k转成base64嵌入到js或css中，减少加载次数
                     name: '[hash:8]-[name].[ext]?[hash:8]',
@@ -105,21 +119,8 @@ module.exports = {
         // 频率出现最高的文件后缀要优先放在最前面，以做到尽快的退出寻找过程
         extensions: ['.js', '.json'],
     },
-    plugins: isDevelopment ? [
-        new BundleAnalyzerPlugin({
-            // analyzerMode: 'server',
-            analyzerMode: 'disabled',
-            analyzerHost: '127.0.0.1',
-            analyzerPort: 8888,
-            reportFilename: 'report.html',
-            defaultSizes: 'parsed',
-            openAnalyzer: true, // 在默认浏览器中自动打开报告
-            generateStatsFile: false, // 是否生成stats.json文件
-            statsFilename: 'stats.json',
-            logLevel: 'info'
-        }),
-    ] : [
-        new MiniCssExtractPlugin(),
+    plugins: [
+        new WebpackBar(), // 编译进度
     ]
 };
 
