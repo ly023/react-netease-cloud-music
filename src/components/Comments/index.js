@@ -481,7 +481,7 @@ export default class Comments extends React.Component {
                                 <span styleName={`like${item?.liked ? ' liked' : ''}`}
                                       onClick={() => this.handleLikeComment(item.commentId, item?.liked)}>
                                     <i/>
-                                    {item?.likedCount ? `(${formatNumber(item.likedCount, 5, 1)})` : null}
+                                    {item?.likedCount ? `(${formatNumber(item.likedCount, 1)})` : null}
                                 </span>
                                 <span styleName="space">|</span>
                                 <span styleName="reply" onClick={() => this.toggleReplyEditor(item.commentId)}>回复</span>

@@ -89,7 +89,7 @@ export default function request(url, fetchOptions = {}, options = {}) {
     }
 
     return fetch(requestUrl, newOptions).then(function checkStatus(response) {
-        if((response.status >= 200 && response.status < 300) || options.isSuccessResponse(response)) {
+        if(options.isSuccessResponse(response)) {
             return response
         }
 

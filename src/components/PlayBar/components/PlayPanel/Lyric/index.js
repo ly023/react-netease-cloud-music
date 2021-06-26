@@ -129,7 +129,7 @@ export default class Lyric extends React.Component {
                             } else {
                                 this.requestAnimationFrameId = window.requestAnimationFrame(scrollDown)
                             }
-                            this.scrollbarRef.current.scrollTop(intervalScrollTop)
+                            this.scrollbarRef.current && this.scrollbarRef.current.scrollTop(intervalScrollTop)
                         }
                         this.requestAnimationFrameId = window.requestAnimationFrame(scrollDown)
                     } else {
@@ -142,7 +142,7 @@ export default class Lyric extends React.Component {
                             } else {
                                 this.requestAnimationFrameId = window.requestAnimationFrame(scrollUp)
                             }
-                            this.scrollbarRef.current.scrollTop(intervalScrollTop)
+                            this.scrollbarRef.current && this.scrollbarRef.current.scrollTop(intervalScrollTop)
                         }
                         this.requestAnimationFrameId = window.requestAnimationFrame(scrollUp)
                     }

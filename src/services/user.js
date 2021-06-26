@@ -25,7 +25,7 @@ export async function requestLoginStatus() {
 }
 
 export async function requestDetail(params) {
-    return request(`${API.detail.url}?${stringify(params)}`)
+    return request(`${API.detail.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
 export async function requestSubContent() {
@@ -40,9 +40,13 @@ export async function requestDailySignIn(body) {
 }
 
 export async function requestPlaylist(params) {
-    return request(`${API.playlist.url}?${stringify(params)}`)
+    return request(`${API.playlist.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
 export async function requestFollows(params) {
-    return request(`${API.follows.url}?${stringify(params)}`)
+    return request(`${API.follows.url}${stringify(params, {addQueryPrefix: true})}`)
+}
+
+export async function requestListeningRankingList(params) {
+    return request(`${API.listeningRankingList.url}${stringify(params, {addQueryPrefix: true})}`)
 }

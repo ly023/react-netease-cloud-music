@@ -8,55 +8,6 @@
   margin: 0 auto;
 }
 
-.tabs {
-  background-repeat: repeat-x;
-  background-position: 0 0;
-}
-
-.tab {
-  display: inline-block;
-  box-sizing: border-box;
-  width: 112px;
-  height: 40px;
-  font-size: 14px;
-  line-height: 40px;
-  text-align: center;
-  background-color: #f8f8f8;
-  cursor: pointer;
-  user-select: none;
-
-  border: {
-    width: 2px 0 1px;
-    color: #ccc;
-    style: solid;
-  }
-
-  &:first-child {
-    width: 114px;
-    border-left-width: 1px;
-  }
-
-  &:last-child {
-    width: 114px;
-    border-right-width: 1px;
-  }
-
-  &:hover {
-    border-top-color: #d13030;
-  }
-
-  &.active {
-    border: {
-      width: 2px 1px 0;
-      color: #ccc;
-      style: solid;
-    }
-
-    background-color: transparent;
-    border-top-color: #d13030;
-  }
-}
-
 .summary {
   height: 16px;
   margin: 28px 0 18px;

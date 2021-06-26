@@ -37,6 +37,7 @@ export default {
         // type: 'POST'
         type: 'GET'
     },
+    // 用户歌单
     userPlaylist: {
         url: `${config.apiHost}/api/user/playlist`,
         type: 'GET'

@@ -72,25 +72,33 @@ export default class NavBar extends React.Component {
             })
     }
 
-    hasSubNav = () => {
+    isBelongToDiscover = () => {
         const {pathname} = this.props.history.location
         return pathname.startsWith('/discover')
             || pathname.startsWith('/song')
             || pathname.startsWith('/playlist')
             || pathname.startsWith('/album')
+            || pathname.startsWith('/artist')
     }
 
     getRenderSubNav = () => {
-        if (this.hasSubNav()) {
+        if (this.isBelongToDiscover()) {
             return <ul styleName="sub-nav-list">
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover" exact={true} activeClassName={styles["sub-nav-active"]}><em>推荐</em></NavLink>
+                    <NavLink
+                        to="/discover"
+                        exact={true}
+                        activeClassName={styles["sub-nav-active"]}
+                    >
+                        <em>推荐</em>
+                    </NavLink>
                 </li>
                 <li styleName="sub-nav-item">
                     <NavLink to="/discover/toplist" activeClassName={styles["sub-nav-active"]}><em>排行榜</em></NavLink>
                 </li>
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover/playlist" activeClassName={styles["sub-nav-active"]}><em>歌单<i/></em></NavLink>
+                    <NavLink to="/discover/playlist"
+                             activeClassName={styles["sub-nav-active"]}><em>歌单<i/></em></NavLink>
                 </li>
                 <li styleName="sub-nav-item">
                     <NavLink to="/discover/radio" activeClassName={styles["sub-nav-active"]}><em>主播电台</em></NavLink>
@@ -123,7 +131,11 @@ export default class NavBar extends React.Component {
                             </a>
                             <ul styleName="link-list">
                                 <li styleName="link-item">
-                                    <NavLink to='/discover' styleName="link" activeClassName={styles["link-active"]}>
+                                    <NavLink
+                                        to='/discover'
+                                        activeClassName={styles["link-active"]}
+                                        styleName={`link${this.isBelongToDiscover() ? " link-active" : ""}`}
+                                    >
                                         发现音乐
                                     </NavLink>
                                 </li>
@@ -196,7 +208,7 @@ export default class NavBar extends React.Component {
                                     </div>
                                     : <div styleName="login">
                                         <span className="link" styleName="login-status login-text"
-                                            onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录</span>
+                                              onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录</span>
                                         <div styleName="login-cont">
                                             <i styleName="arrow"/>
                                             <ul styleName="login-list">
@@ -206,13 +218,15 @@ export default class NavBar extends React.Component {
                                                 <li styleName="login-item"><a href={null}>微信登录</a></li>
                                                 <li styleName="login-item"><a href={null}>QQ登录</a></li>
                                                 <li styleName="login-item"><a href={null}>新浪微博登录</a></li>
-                                                <li styleName="login-item" onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}>网易邮箱账号登录
+                                                <li styleName="login-item"
+                                                    onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}>网易邮箱账号登录
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                             }
-                            <a href='https://music.163.com/login?targetUrl=%2Fst/creator' target='_blank' styleName="video-creator">创作者中心</a>
+                            <a href='https://music.163.com/login?targetUrl=%2Fst/creator' target='_blank'
+                               styleName="video-creator">创作者中心</a>
                             <SearchBar/>
                         </div>
                         <div styleName="sub-nav-wrapper">

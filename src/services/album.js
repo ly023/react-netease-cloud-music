@@ -9,9 +9,9 @@ export async function requestNewestAlbum() {
 
 // 全部新碟
 export async function requestAllNewAlbum(params) {
-    return request(`${API.allNew.url}?${stringify(params)}`)
+    return request(`${API.allNew.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
 export async function requestDetail(params) {
-    return request(`${API.detail.url}?${stringify(params)}`)
+    return request(`${API.detail.url}${stringify(params, {addQueryPrefix: true})}`)
 }

@@ -65,10 +65,10 @@ function Playlists(props) {
                         </Link>
                     }
                     <div styleName="td count">
-                        收藏: {formatNumber(item.bookCount, 5, 1)}
+                        收藏: {formatNumber(item.bookCount, 1)}
                     </div>
                     <div styleName="td count">
-                        收听: {formatNumber(item.playCount, 5, 1)}
+                        收听: {formatNumber(item.playCount, 1)}
                     </div>
                 </div>
             })

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import emitter from 'utils/eventEmitter'
 import {setUserPlayer} from 'actions/user'
-import {getThumbnail} from 'utils'
+import {getThumbnail, setLocalStorage} from 'utils'
 import {isShuffleMode} from 'utils/song'
 import {CONTENT_HEIGHT} from '../../constants'
 import SongList from './SongList'
@@ -111,6 +111,8 @@ export default class PlayPanel extends React.Component {
                 trackQueue: newTrackQueue,
                 playSetting: newPlaySetting
             }))
+            setLocalStorage('trackQueue', newTrackQueue)
+            setLocalStorage('playSetting', newPlaySetting)
         }
         // 随机模式下，重新计算shuffle
         if (isShuffleMode(playSetting)) {

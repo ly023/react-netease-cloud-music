@@ -1,0 +1,126 @@
+
+.subtitle {
+  position: relative;
+  color: #666;
+  font-size: 20px;
+
+  .total {
+    margin: 5px 10px 0;
+    font-size: 12px;
+  }
+}
+
+.type {
+  color: #666;
+  line-height: 26px;
+  cursor: pointer;
+
+  > span {
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    margin: 0 7px;
+    background-color: inherit;
+  }
+
+  &.active {
+    color: #333;
+    font-weight: 700;
+  }
+}
+
+.list {
+  border: 1px solid #e2e2e2;
+  border-top: none;
+
+  .item {
+    height: 38px;
+    overflow: hidden;
+    line-height: 38px;
+
+    .order {
+      float: left;
+      width: 72px;
+      height: 38px;
+      overflow: hidden;
+
+      .order-num {
+        display: inline-block;
+        width: 37px;
+        padding: 0 12px 0 5px;
+        overflow: hidden;
+        color: #666;
+        font-size: 16px;
+        white-space: nowrap;
+        text-align: right;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+      }
+    }
+
+    .song {
+      position: relative;
+      float: left;
+      width: 480px;
+      height: 38px;
+      padding-left: 10px;
+      overflow: hidden;
+
+      .name {
+        color: #333;
+        font-weight: 700;
+      }
+
+      .artists {
+        color: #aeaeae;
+
+        a {
+          color: #aeaeae;
+        }
+
+        em {
+          margin: 0 5px;
+        }
+      }
+    }
+
+    .bar {
+      position: relative;
+      float: right;
+      width: 319px;
+      height: 38px;
+      line-height: 38px;
+
+      .progress {
+        position: absolute;
+        z-index: 1;
+        height: 38px;
+        background-color: #4eb4f5;
+        opacity: 0.1;
+        filter: alpha(opacity=10);
+      }
+
+      .times {
+        position: absolute;
+        left: 10px;
+        z-index: 1;
+        height: 38px;
+        color: #666;
+      }
+    }
+
+    &.even {
+      background-color: #f7f7f7;
+    }
+  }
+}
+
+.more {
+  height: 32px;
+  line-height: 32px;
+  text-align: right;
+
+  > a {
+    color: #666;
+  }
+}

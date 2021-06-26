@@ -32,14 +32,19 @@ export default {
         url: `${config.apiHost}/api/daily_signin`,
         type: 'POST'
     },
+    // 用户关注列表
+    follows: {
+        url: `${config.apiHost}/api/user/follows`,
+        type: 'GET'
+    },
+    // 用户听歌排行榜
+    listeningRankingList: {
+        url: `${config.apiHost}/api/user/record`,
+        type: 'GET'
+    },
     // 用户歌单
     playlist: {
         url: `${config.apiHost}/api/user/playlist`,
         type: 'GET'
     },
-    // 用户关注列表
-    follows: {
-        url: `${config.apiHost}/api/user/follows`,
-        type: 'GET'
-    }
 }

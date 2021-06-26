@@ -7,6 +7,18 @@ $primary-color: #c10d0c;
 // 主题色 浅
 $light-primary-color: #c20c0c;
 
+// 按钮主
+$button-primary-color: #0c72c3;
+
+// 按钮次
+$button-color: #f4f4f4;
+
+// 边框色
+$border-color: #d3d3d3;
+
+// 圆角
+$border-radius: 4px;
+
 // 背景图标
 %background-index {
   background: url(~assets/images/index.png) no-repeat 0 9999px;
@@ -165,5 +177,42 @@ $light-primary-color: #c20c0c;
     color: #666;
     text-decoration: none;
     border-color: #666;
+  }
+}
+
+%new-button-base {
+  display: inline-block;
+  min-width: 40px;
+  height: 28px;
+  padding: 0 15px;
+  font-style: normal;
+  line-height: 28px;
+  text-align: center;
+  border-radius: $border-radius;
+  cursor: pointer;
+}
+
+%new-button {
+  @extend %new-button-base;
+
+  color: #333;
+  background-color: $button-color;
+  border: 1px solid $border-color;
+
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+%new-button-primary {
+  @extend %new-button;
+
+  color: #fff;
+  background-color: $button-primary-color;
+  border-color: $button-primary-color;
+
+  &:hover {
+    background-color: #3d91ec;
+    border-color: #3d91ec;
   }
 }

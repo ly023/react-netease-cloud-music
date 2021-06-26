@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 import {requestDiscoverBanners} from 'services/banners'
 import {getBlur, getThumbnail} from 'utils'
+import {TARGET_TYPE} from './constants'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -56,26 +57,41 @@ function Banner() {
         backgroundSize: '6000px',
     }), [activeUrl])
 
+    const renderImage = useCallback((item) => {
+        const {targetType, targetId, imageUrl} = item
+        const thumbnail = getThumbnail(imageUrl, 730, 284)
+        const image = <img src={thumbnail} alt=""/>
+        switch (targetType) {
+            case TARGET_TYPE.SONG.TYPE:
+                return <Link to={`/song/${targetId}`}>
+                    {image}
+                </Link>
+            case TARGET_TYPE.ALBUM.TYPE:
+                return <Link to={`/album/${targetId}`}>
+                    {image}
+                </Link>
+            default:
+                return image
+        }
+    }, [])
+
+    const renderBanners = useMemo(() => {
+        if(banners.length) {
+            return <Slider {...settings}>
+                {
+                    banners.map((v, i) => {
+                        return <div key={i} styleName="slide">
+                            {renderImage(v)}
+                        </div>
+                    })
+                }
+            </Slider>
+        }
+    }, [banners, settings, renderImage])
+
     return <section style={backgroundStyle}>
         <div styleName='banner'>
-            {
-                banners.length ? <Slider {...settings}>
-                    {
-                        banners.map((v, i) => {
-                            const imageUrl = getThumbnail(v.imageUrl, 730, 284)
-                            return <div key={i} styleName="slide">
-                                {
-                                    v.targetType === 1
-                                        ? <a style={{display: 'block'}} href={`/song/${v.targetId}`}>
-                                            <img src={imageUrl} alt=""/>
-                                        </a>
-                                        : <img src={imageUrl} alt=""/>
-                                }
-                            </div>
-                        })
-                    }
-                </Slider> : null
-            }
+            {renderBanners}
             <div styleName='download'>
                 <Link to='/download' hidefocus='true'>下载客户端</Link>
                 <p>PC 安卓 iPhone WP iPad Mac 六大客户端</p>

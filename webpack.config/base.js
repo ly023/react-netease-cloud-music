@@ -10,17 +10,17 @@ function resolve(dir) {
 }
 
 const jsLoaders = [
-    {
-        loader: 'thread-loader',
-        options: {
-            workers: 2 // 进程数量 2个
-        }
-    },
+    // {
+    //     loader: 'thread-loader',
+    //     options: {
+    //         workers: 2 // 进程数量 2个
+    //     }
+    // },
     {
         loader: 'babel-loader',
-        options: {
-            cacheDirectory: true, // 开启babel缓存，下次构建时会读取之前的缓存
-        }
+        // options: {
+        //     cacheDirectory: true, // 开启babel缓存，下次构建时会读取之前的缓存
+        // }
     },
 ]
 

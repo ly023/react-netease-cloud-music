@@ -7,7 +7,7 @@ import './index.scss'
 function SubTitle(props) {
     const {title, guide, slot} = props
 
-    return <div styleName="title">
+    return <div styleName="title" className="clearfix">
         <h3>{title}</h3>
         {slot ? <div className="fr">{slot}</div> : null}
         {guide && !slot ? <Link className="fr" styleName="guide" to={guide}>更多 ></Link> : null}

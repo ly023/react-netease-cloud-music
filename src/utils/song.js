@@ -1,8 +1,10 @@
+import {Fragment} from 'react'
+import {Link} from 'react-router-dom'
 import {FEE_TYPE, PLAY_MODE, DEFAULT_SECOND} from 'constants/play'
 
 export function hasPrivilege(privilege = {}) {
-    if(privilege.st === 0) {
-        if(FEE_TYPE.FEE.includes(privilege.fee)){
+    if (privilege.st === 0) {
+        if (FEE_TYPE.FEE.includes(privilege.fee)) {
             return privilege.payed !== 0
         }
         return true
@@ -15,7 +17,7 @@ export function isShuffleMode(playSetting) {
 }
 
 export function formatTrack(data = {}, isProgram) {
-    if(isProgram) {
+    if (isProgram) {
         const song = data.mainSong || {}
         return {
             id: song.id,
@@ -52,7 +54,7 @@ export function getArtists(artists = []) {
 }
 
 export function getRenderKeyword(text, keyword) {
-    if(text && keyword) {
+    if (text && keyword) {
         const reg = new RegExp(keyword, 'gi')
         const html = text.replace(reg, (p1) => `<span>${p1}</span>`)
         return <span className="keyword" dangerouslySetInnerHTML={{__html: html}}/>
@@ -60,7 +62,7 @@ export function getRenderKeyword(text, keyword) {
 }
 
 export function getLyricLines(lyric, timePattern) {
-    if(lyric !== '\\') { // 修正
+    if (lyric !== '\\') { // 修正
         const times = lyric.match(timePattern)
         if (times) {
             const lyrics = lyric.split(timePattern).slice(1)
@@ -171,7 +173,7 @@ export function getLyric(lyricData) {
 
 export function parseSongs(songs = []) {
     const newSongs = []
-    if(Array.isArray(songs)) {
+    if (Array.isArray(songs)) {
         const len = songs.length
         for (let i = 0; i < len; i++) {
             const item = songs[i]
@@ -185,4 +187,17 @@ export function parseSongs(songs = []) {
         }
     }
     return newSongs
+}
+
+export function renderArtists(artists) {
+    if (Array.isArray(artists)) {
+       return artists.map((artist, index) => {
+            const {id, name} = artist
+            return <Fragment key={id}>
+                <Link to={`/artist/${id}`}
+                   title={artists.map((v) => v.name).join(' / ')}>{name}</Link>
+                {index !== artists.length - 1 ? ' / ' : null}
+            </Fragment>
+        })
+    }
 }

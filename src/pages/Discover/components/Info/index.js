@@ -98,20 +98,20 @@ function Info() {
         </div>
         <ul styleName="summary">
             <li>
-                <Link to="/1">
+                <Link to="/">
                     <strong>{detail?.profile?.eventCount}</strong>
                     <span>动态</span>
                 </Link>
             </li>
             <li>
-                <Link to="/1">
+                <Link to="/">
                     <strong>{detail?.profile?.follows}</strong>
                     <span>关注</span>
                 </Link>
             </li>
             <li>
-                <Link to="/1">
-                    <strong>{detail?.profile?.cCount}</strong>
+                <Link to="/">
+                    <strong>{detail?.profile?.followeds}</strong>
                     <span>粉丝</span>
                 </Link>
             </li>

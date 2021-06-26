@@ -90,15 +90,15 @@ export default class Discover extends React.Component {
                             <section className="clearfix">
                                 <div styleName="title">
                                     <Link className="fl" styleName="title-text" to='/discover/album'>新碟上架</Link>
-                                    <Link styleName="title-more" to=''>更多<i/></Link>
+                                    <Link styleName="title-more" to='/discover/album'>更多<i/></Link>
                                 </div>
                                 <NewestAlbum/>
                             </section>
                             {/* 榜单 */}
                             <section>
                                 <div styleName='title'>
-                                    <Link className='fl' styleName='title-text' to=''>榜单</Link>
-                                    <Link styleName='title-more' to=''>更多<i/></Link>
+                                    <Link className='fl' styleName='title-text' to='/discover/toplist'>榜单</Link>
+                                    <Link styleName='title-more' to='/discover/toplist'>更多<i/></Link>
                                 </div>
                                 <Rank/>
                             </section>

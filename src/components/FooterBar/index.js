@@ -31,7 +31,7 @@ function FooterBar() {
                         <FeedbackModal visible={feedbackVisible} onCancel={hideFeedback}/>
                     </p>
                     <p styleName='color-2'>
-                        <span styleName='copy-sep-company'>网易公司版权所有©1997-2019</span>杭州乐读科技有限公司运营：<a
+                        <span styleName='copy-sep-company'>网易公司版权所有©1997-2021</span>杭州乐读科技有限公司运营：<a
                         href='http://p1.music.126.net/-DB9zs1FAJq8vg7HOb-yOQ==/3250156395654666.jpg' target='_blank'
                         styleName='link color-2'>浙网文[2018] 3506-263号</a>
                     </p>

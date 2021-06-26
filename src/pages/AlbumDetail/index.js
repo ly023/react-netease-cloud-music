@@ -19,10 +19,10 @@ import emitter from 'utils/eventEmitter'
 import Collapse from 'components/Collapse'
 import SongActions from 'components/SongActions'
 import ClientDownload from 'components/ClientDownload'
+import SinglePlay from 'components/SinglePlay'
 import {getArtists} from 'utils/song'
 
 import './index.scss'
-import SinglePlay from "components/SinglePlay";
 
 @withRouter
 @connect(({user}) => ({
@@ -159,14 +159,14 @@ export default class AlbumDetail extends React.Component {
                                                 href={null}
                                                 styleName="btn-add-favorite"
                                             >
-                                                <i>{detail.subscribedCount ? `(${formatNumber(detail.subscribedCount, 5)})` : '收藏'}</i>
+                                                <i>{detail.subscribedCount ? `(${formatNumber(detail.subscribedCount)})` : '收藏'}</i>
                                             </a>
                                         </AddToPlaylist>
                                         <a
                                             href={null}
                                             styleName="btn-share"
                                         >
-                                            <i>{detail.info?.shareCount ? `(${formatNumber(detail.info?.shareCount, 5)})` : '分享'}</i>
+                                            <i>{detail.info?.shareCount ? `(${formatNumber(detail.info?.shareCount)})` : '分享'}</i>
                                         </a>
                                         <a href={null} styleName="btn-download"><i>下载</i></a>
                                         <a

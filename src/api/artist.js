@@ -12,6 +12,16 @@ export default {
         url: `${config.apiHost}/api/artists`,
         type: 'GET'
     },
+    // 歌手详情
+    detail: {
+        url: `${config.apiHost}/api/artist/detail`,
+        type: 'GET',
+    },
+    // 歌手热门50首歌曲
+    artistTop: {
+        url: `${config.apiHost}/api/artist/top/song`,
+        type: 'GET'
+    },
     album: {
         url: `${config.apiHost}/api/artist/album`,
         type: 'GET'
@@ -22,10 +32,6 @@ export default {
     },
     desc: {
         url: `${config.apiHost}/api/artist/desc`,
-        type: 'GET'
-    },
-    artistTop: {
-        url: `${config.apiHost}/api/artist/top/song`,
         type: 'GET'
     },
     similar: {

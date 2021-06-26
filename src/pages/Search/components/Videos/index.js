@@ -22,7 +22,7 @@ function Videos(props) {
                             }} alt="封面"/>
                         </Link>
                         <span styleName="time">{formatDuration(item.durationms)}</span>
-                        <span styleName="playTime"><span styleName="video-icon"/>{formatNumber(item.playTime, 5, 1)}</span>
+                        <span styleName="playTime"><span styleName="video-icon"/>{formatNumber(item.playTime, 1)}</span>
                     </div>
                     <p styleName="title">
                         <Link to={videoUrl}>

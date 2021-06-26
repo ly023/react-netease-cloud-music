@@ -48,7 +48,7 @@ function HotRcmd() {
                             <Link to={detailLink} styleName="mask"/>
                             <div styleName="bottom">
                                 <span className="fl" styleName="icon-headset"/>
-                                <span className="fl" styleName="play-num">{formatNumber(item.playCount)}</span>
+                                <span className="fl" styleName="play-num">{formatNumber(item.playCount, 1)}</span>
                                 <Play type={PLAY_TYPE.PLAYLIST.TYPE} id={id}>
                                     <span className="fr" styleName="icon-play"/>
                                 </Play>

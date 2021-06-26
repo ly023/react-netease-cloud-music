@@ -111,6 +111,7 @@
       &.top {
         display: inline-block;
         max-width: 70%;
+        vertical-align: middle;
       }
 
       @extend %text-ellipsis;

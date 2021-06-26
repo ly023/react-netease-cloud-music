@@ -100,6 +100,11 @@ export default [
         component: importPages('AlbumDetail'),
     },
     {
+        path: '/artist/:id',
+        name: '歌手详情',
+        component: importPages('ArtistDetail'),
+    },
+    {
         path: '/search',
         name: '搜索',
         component: importPages('Search'),
@@ -108,6 +113,11 @@ export default [
         path: '/user/home/:id',
         name: '用户主页',
         component: importPages('UserHome'),
+    },
+    {
+        path: '/user/songs/rank/:id',
+        name: '用户听歌排行',
+        component: importPages('UserSongsRank'),
     },
     {
         path: '/user/update/:id',

@@ -10,6 +10,7 @@ import {TIP_TIMEOUT} from 'constants'
 import {PLAY_MODE} from 'constants/play'
 import KEY_CODE from 'constants/keyCode'
 import {setUserPlayer} from 'actions/user'
+// import {requestDetail as requestSongDetail} from 'services/song'
 import {
     setLocalStorage,
     getLocalStorage,
@@ -70,7 +71,7 @@ export default class PlayBar extends React.PureComponent {
         this.autoPlay = false
 
         this.audio = new Audio()
-        // this.songUrls = {} // {id: url}
+        // this.cachedSongs = {} // {id: {song}}
 
         this.isDragVolume = false
         this.startVolumeY = 0
@@ -110,7 +111,7 @@ export default class PlayBar extends React.PureComponent {
     }
 
     handleDocumentClick = (e) => {
-        click(e, PLAY_BAR_DOM_ID, ()=>{
+        click(e, PLAY_BAR_DOM_ID, () => {
             this.closePanel()
         })
     }
@@ -173,7 +174,7 @@ export default class PlayBar extends React.PureComponent {
         this.play(trackQueue, index, hasChangeTrackQueue)
 
         // 播放提示
-        if(trackQueue.length) {
+        if (trackQueue.length) {
             this.setState({playedTipVisible: true, addedTipVisible: false})
             if (this.tipTimeout) {
                 window.clearTimeout(this.tipTimeout)
@@ -234,7 +235,7 @@ export default class PlayBar extends React.PureComponent {
         }
     }
 
-    getSongUrlById =(id) => {
+    getSongUrlById = (id) => {
         if (id) {
             return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
         }
@@ -242,19 +243,17 @@ export default class PlayBar extends React.PureComponent {
 
     fetchSongUrl = (id) => {
         this.audio.src = this.getSongUrlById(id)
-        // const cachedUrl = this.songUrls[id]
-        // if(cachedUrl) {
-        //     this.audio.src = cachedUrl
+        // const cachedSong = this.cachedSongs[id]
+        // if (cachedSong) {
         //     return
         // }
-        // requestResource({id: id})
+        // requestSongDetail({ids: id})
         //     .then((res) => {
-        //         if (res && res.code === 200) {
-        //             const song = res.data?.[0] || {}
-        //             const url = song.url
-        //             if (url) {
-        //                 this.songUrls[id] = url
-        //                 this.audio.src = url
+        //         if (res?.code === 200) {
+        //             const song = res.songs?.[0]
+        //             if (song) {
+        //                 this.props.dispatch(setUserPlayer({currentSong: song}))
+        //                 this.cachedSongs[id] = song
         //             }
         //         }
         //     })
@@ -425,7 +424,7 @@ export default class PlayBar extends React.PureComponent {
             if (autoPlay) {
                 nextIndex = index
             } else {
-                nextIndex = index + 1
+                nextIndex = trackQueue.length > 1 ? index + 1 : index
             }
         } else if (mode === PLAY_MODE.ORDER) { // 顺序播放
             nextIndex = index + 1
@@ -445,7 +444,7 @@ export default class PlayBar extends React.PureComponent {
     }
 
     handlePlay = () => {
-        if(isPlaying(this.audio)) {
+        if (isPlaying(this.audio)) {
             this.autoPlay = false
             this.audio.pause()
         } else {
@@ -455,6 +454,10 @@ export default class PlayBar extends React.PureComponent {
     }
 
     playPanelItem = (trackQueue, index) => {
+        // 暂停上一个音频
+        if (isPlaying(this.audio)) {
+            this.audio.pause()
+        }
         this.autoPlay = true
         this.play(trackQueue, index)
         // 随机模式下手动点击播放，重新计算shuffle
@@ -817,7 +820,7 @@ export default class PlayBar extends React.PureComponent {
                     </div>
                     <Link to={`/song/${id}`} styleName="cover" onClick={this.closePanel}>
                         <img
-                            src={getThumbnail(song?.picUrl, 68)}
+                            src={getThumbnail(song?.picUrl || song?.album?.picUrl, 68)}
                             onError={(e) => {
                                 e.target.src = 'http://s4.music.126.net/style/web2/img/default/default_album.jpg'
                             }}
@@ -829,15 +832,18 @@ export default class PlayBar extends React.PureComponent {
                         styleName="progress"
                     >
                         <div styleName="song-info">
-                            <Link to={`/song/${id}`} styleName="song-name" onClick={this.closePanel}>{song.name}{song.program ? '[电台节目]' : ''}</Link>
-                            {song.mvid ? <Link to={`/mv/${song.mvid}`} styleName="mv" onClick={this.closePanel}/> : null}
+                            <Link to={`/song/${id}`} styleName="song-name"
+                                  onClick={this.closePanel}>{song.name}{song.program ? '[电台节目]' : ''}</Link>
+                            {song.mvid ?
+                                <Link to={`/mv/${song.mvid}`} styleName="mv" onClick={this.closePanel}/> : null}
                             {
                                 Array.isArray(artists)
                                     ? <div styleName="singer" title={getArtists(artists)}>
                                         {
                                             artists.map((artist, i) => {
                                                 return <span key={artist.id}>
-                                                    <Link to={`/artist/${artist.id}`} onClick={this.closePanel}>{artist.name}</Link>
+                                                    <Link to={`/artist/${artist.id}`}
+                                                          onClick={this.closePanel}>{artist.name}</Link>
                                                     {i !== artists.length - 1 ? '/' : ''}
                                                 </span>
                                             })
@@ -846,7 +852,9 @@ export default class PlayBar extends React.PureComponent {
                                     : null
                             }
                             {
-                                radio ? <div styleName="singer"><Link to={`/radio/${radio.id}`} onClick={this.closePanel}>{radio.name}</Link></div> : null
+                                radio ? <div styleName="singer"><Link to={`/radio/${radio.id}`}
+                                                                      onClick={this.closePanel}>{radio.name}</Link>
+                                </div> : null
                             }
                             {id ? <Link to="/link" styleName="song-source" onClick={this.closePanel}/> : null}
                         </div>
@@ -910,8 +918,12 @@ export default class PlayBar extends React.PureComponent {
                             {this.getRenderMode(playSetting.mode)}
                         </div>
                         <div styleName="icon playlist-icon" onClick={this.handleSwitchPlayPanel}>
-                            <div style={{display: playedTipVisible ? 'block' : 'none'}} styleName="operation-tip">已开始播放</div>
-                            <div style={{display: addedTipVisible ? 'block' : 'none'}} styleName="operation-tip">已添加到播放列表</div>
+                            <div style={{display: playedTipVisible ? 'block' : 'none'}}
+                                 styleName="operation-tip">已开始播放
+                            </div>
+                            <div style={{display: addedTipVisible ? 'block' : 'none'}}
+                                 styleName="operation-tip">已添加到播放列表
+                            </div>
                             {trackQueue.length}
                         </div>
                     </div>

@@ -288,7 +288,7 @@ $nav-border-color: #202020;
   z-index: 90;
   clear: both;
   box-sizing: border-box;
-  padding: 3px 0;
+  padding: 2px 0;
   background-color: $light-primary-color;
   border-bottom: 1px solid #a40011;
 }
@@ -340,6 +340,11 @@ $nav-border-color: #202020;
       height: 8px;
       background: url(~assets/images/white-r-icon.png);
       background-size: cover;
+    }
+
+    &:hover {
+      background-color: #9b0909;
+      border-radius: 20px;
     }
   }
 }

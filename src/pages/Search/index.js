@@ -8,6 +8,7 @@ import qs from 'qs'
 import {cloneDeep} from 'lodash'
 import Page from 'components/Page'
 import Search from 'components/Search'
+import Tabs from 'components/Tabs'
 import ListLoading from 'components/ListLoading'
 import Empty from 'components/Empty'
 import Pagination from 'components/Pagination'
@@ -250,6 +251,11 @@ export default class SearchPage extends React.Component {
     render() {
         const {activeType, searchValue, value, loading, list, limit, total, current, recQuery} = this.state
 
+        const tabs = Object.keys(SEARCH_TYPE).map((k) => {
+            const {TYPE: key, TEXT: name} = SEARCH_TYPE[k]
+            return {key, name}
+        })
+
         return (
             <Page>
                 <div className="main">
@@ -276,20 +282,7 @@ export default class SearchPage extends React.Component {
                                 }</>
                             }
                         </div>
-                        <ul styleName="tabs">
-                            {
-                                Object.keys(SEARCH_TYPE).map((key) => {
-                                    const {TYPE: type, TEXT: text} = SEARCH_TYPE[key]
-                                    return <li
-                                        key={key}
-                                        onClick={() => this.handleTabChange(type)}
-                                        styleName={`tab${type === activeType ? ' active' : ''}`}
-                                    >
-                                        {text}
-                                    </li>
-                                })
-                            }
-                        </ul>
+                        <Tabs tabs={tabs} activeTabKey={activeType} onChange={this.handleTabChange}/>
                         <ListLoading loading={loading}/>
                         {
                             !loading ? (

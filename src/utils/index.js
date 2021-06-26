@@ -32,16 +32,18 @@ export function getCsrfToken() {
  * @param digits: 保留的小数位
  * @returns {string|number|*}
  */
-export function formatNumber(number, startIndex = 4, digits = 0) {
-    if (!number) {
+export function formatNumber(number, digits = 0) {
+    if (typeof number !== 'number') {
         return 0
     }
-    const start = Number(`1e${startIndex}`)
-    if (number / start > 1) {
-        return `${trunc(number / 1e4, digits)}万`
-    } else {
+    const base = 1e4;
+    const units = ['', '万', '亿']
+
+    if (number < base) {
         return number
     }
+    const exponent = Math.floor(Math.log(number) / Math.log(base))
+    return `${trunc(number / Math.pow(base, exponent), digits)}${units[exponent]}`
 }
 
 /**
@@ -309,6 +311,18 @@ export function getScrollTop() {
 }
 
 /**
+ * 获取当前页面内容高度
+ * @returns {number}
+ */
+export function getScrollHeight() {
+    return document.documentElement.scrollHeight || document.body.scrollHeight
+}
+
+export function getClientHeight() {
+    return document.documentElement.clientHeight || document.body.clientHeight
+}
+
+/**
  * 滚动到指定元素
  * @param el
  * @param offset
@@ -346,4 +360,15 @@ export function bytes(str) {
         }
     }
     return total
+}
+
+export function isEndReached(element, offset = 10) {
+    if (element) {
+        const rectObject = element.getBoundingClientRect()
+        const top = rectObject?.top || 0
+        const scrollTop = getScrollTop()
+        const clientHeight = getClientHeight()
+        return scrollTop + clientHeight + offset >= top
+    }
+    return true
 }

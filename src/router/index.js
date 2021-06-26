@@ -1,6 +1,5 @@
 import {Switch, Route} from 'react-router-dom'
 import PrivateRoute from 'components/PrivateRoute'
-// import {hot} from 'react-hot-loader/root'
 import config from './config'
 
 export default () => <Switch>

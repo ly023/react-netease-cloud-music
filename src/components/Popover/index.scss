@@ -39,11 +39,12 @@
   }
 
   &.place-bottom,
-  &.place-bottom-right {
-    padding-top: 10px;
+  &.place-bottom-right,
+  &.place-bottom-left {
+    padding-top: 16px;
 
     .arrow {
-      top: 6px;
+      top: 12px;
       border-top-color: #fff;
       border-right-color: transparent;
       border-bottom-color: transparent;
@@ -55,6 +56,13 @@
   &.place-bottom-right {
     .arrow {
       right: 0;
+      transform: translateX(-50%) rotate(45deg);
+    }
+  }
+
+  &.place-bottom-left {
+    .arrow {
+      left: 18px;
       transform: translateX(-50%) rotate(45deg);
     }
   }

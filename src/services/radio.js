@@ -9,22 +9,22 @@ export async function requestCategories() {
 
 // 电台节目榜
 export async function requestProgramRank(params) {
-    return request(`${API.programRank.url}?${stringify(params)}`)
+    return request(`${API.programRank.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
 // 电台分类推荐
 export async function requestCategoryRecommendation(params) {
-    return request(`${API.categoryRecommendation.url}?${stringify(params)}`)
+    return request(`${API.categoryRecommendation.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
 // 类别热门电台
 export async function requestCategoryHot(params) {
-    return request(`${API.categoryHot.url}?${stringify(params)}`)
+    return request(`${API.categoryHot.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
 // 电台节目详情
 export async function requestDetail(params) {
-    return request(`${API.detail.url}?${stringify(params)}`)
+    return request(`${API.detail.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
 // 首页热门主播mock

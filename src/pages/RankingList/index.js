@@ -210,14 +210,14 @@ function RankingList() {
                                                 href={null}
                                                 styleName="btn-share"
                                             >
-                                                <i>{detail?.shareCount ? `(${formatNumber(detail.shareCount, 5)})` : '分享'}</i>
+                                                <i>{detail?.shareCount ? `(${formatNumber(detail.shareCount)})` : '分享'}</i>
                                             </a>
                                             <a href={null} styleName="btn-download"><i>下载</i></a>
                                             <a
                                                 href={null}
                                                 styleName="btn-comment"
                                                 onClick={handleComment}>
-                                                <i>{detail?.commentCount ? `(${detail.commentCount})` : '评论'}</i>
+                                                <i>({detail.commentCount})</i>
                                             </a>
                                         </div>
                                     </div>

@@ -1,7 +1,7 @@
 /**
  * 歌曲详情页
  */
-import {Component, Fragment} from 'react'
+import {Component} from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Page from 'components/Page'
@@ -17,7 +17,7 @@ import {requestDetail, requestLyric, requestSimilar as requestSimilarSongs} from
 import {requestSimilar as requestSimilarPlaylists} from 'services/playlist'
 import {getThumbnail} from 'utils'
 import emitter from 'utils/eventEmitter'
-import {getArtists, getLyric} from 'utils/song'
+import {getArtists, getLyric, renderArtists} from 'utils/song'
 
 import './index.scss'
 
@@ -203,7 +203,12 @@ export default class Song extends Component {
         const lyricElement = this.getRenderLyric(lyric)
         const isVip = FEE_TYPE.FEE.includes(detail?.fee)
         const hasCopyright = detail?.privilege?.st === 0
-        const title = detail ? `${detail?.name || ''} - ${getArtists(detail?.ar)} - 单曲 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
+
+        const alias = detail?.alia && detail.alia.length ? detail?.alia.map((v, i)=> `${v}${i !== detail?.alia.length - 1 ? '、' : ''}`) : ''
+
+        const name = `${detail?.name || ''}${alias ? `（${alias}）` : ''}`
+
+        const title = detail ? `${name} - ${getArtists(detail?.ar)} - 单曲 - ${DEFAULT_DOCUMENT_TITLE}` : DEFAULT_DOCUMENT_TITLE
 
         return (
             <Page title={title}>
@@ -228,21 +233,13 @@ export default class Song extends Component {
                                         <span>{detail?.name}</span>
                                         {detail?.mv ? <Link to={`/mv/${detail?.mv}`} title="播放mv" styleName="mv-link"><i/></Link> : null}
                                         {detail?.alia && detail.alia.length ? <div styleName="alias">
-                                            {detail?.alia.map((v, i)=> `${v}${i !== detail?.alia.length - 1 ? '、' : ''}`)}
+                                            {alias}
                                         </div> : null}
                                     </div>
                                     <div styleName="desc">
                                         歌手：
                                         <span>
-                                            {
-                                                Array.isArray(detail?.ar) && detail.ar.map((ar, idx) => {
-                                                    return <Fragment key={ar.id}>
-                                                        <a href={`/artist/${ar.id}`}
-                                                            title={detail?.ar.map((v) => v.name).join(' / ')}>{ar.name}</a>
-                                                        {idx !== detail.ar.length - 1 ? ' / ' : null}
-                                                    </Fragment>
-                                                })
-                                            }
+                                            {renderArtists(detail?.ar)}
                                         </span>
                                     </div>
                                     <div styleName="desc">

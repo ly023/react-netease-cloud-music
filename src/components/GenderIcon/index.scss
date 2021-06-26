@@ -1,0 +1,12 @@
+
+.male,
+.female {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+
+  @extend %background-icon;
+
+  background-position: -41px -57px;
+}

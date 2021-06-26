@@ -1,0 +1,176 @@
+
+.head-box {
+  margin-bottom: 40px;
+  overflow: hidden;
+
+  .avatar {
+    float: left;
+    width: 180px;
+    height: 180px;
+    margin-right: 40px;
+    padding: 3px;
+    background: #fff;
+    border: 1px solid #dadada;
+  }
+
+  .info {
+    float: left;
+    width: 670px;
+
+    .meta {
+      margin-bottom: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #ddd;
+
+      .nickname-box {
+        .nickname {
+          display: inline-block;
+          font-weight: 500;
+          font-size: 22px;
+          vertical-align: middle;
+        }
+
+        .level {
+          display: inline-block;
+          height: 19px;
+          margin-left: 10px;
+          padding-left: 29px;
+          overflow: hidden;
+          color: #e03a24;
+          font-weight: bold;
+          font-size: 14px;
+          font-style: italic;
+          line-height: 21px;
+          text-decoration: none;
+          vertical-align: middle;
+          background: url(~assets/images/icon2.png) no-repeat -135px -190px;
+
+          i {
+            display: inline-block;
+            float: right;
+            width: 9px;
+            height: 19px;
+            overflow: hidden;
+            vertical-align: middle;
+            background: url(~assets/images/icon2.png) no-repeat  -191px -190px;
+          }
+        }
+
+        .gender {
+          margin-left: 10px;
+        }
+
+        .btn-send {
+          @extend %new-button;
+
+          margin: 0 15px 0 20px;
+        }
+
+        .btn-follow {
+          @extend %new-button-primary;
+
+          .plus {
+            margin-right: 6px;
+            color: #fff;
+            font-weight: 700;
+            font-style: normal;
+          }
+        }
+
+        .btn-right {
+          float: right;
+          margin-left: 20px;
+
+          @extend %new-button;
+        }
+      }
+
+      // 认证
+      .identity {
+        margin: 8px 0 0;
+        color: #666;
+      }
+    }
+
+    .summary {
+      overflow: hidden;
+
+      li {
+        float: left;
+        margin-bottom: 15px;
+        padding: 0 40px 0 0;
+        color: #666;
+        font-size: 12px;
+
+        + li {
+          padding-left: 20px;
+        }
+
+        &:not(:last-child) {
+          border-right: 1px solid #e4e4e4;
+        }
+
+        strong {
+          font-size: 24px;
+        }
+
+        a {
+          color: #666;
+          text-decoration: none;
+
+          &:hover {
+            color: #0c73c2;
+          }
+        }
+      }
+
+      strong {
+        display: block;
+        font-weight: normal;
+        font-size: 20px;
+      }
+    }
+
+    .extra {
+      .row {
+        margin-bottom: 5px;
+        color: #666;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.box {
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  font-size: 20px;
+
+  .subtitle-text {
+    position: relative;
+
+    .reg {
+      position: absolute;
+      top: -2px;
+      font-size: 12px;
+      transform: scale(0.9);
+      zoom: 0.9;
+    }
+  }
+}
+
+.list {
+  margin: 30px 0 0 -50px;
+
+  .item {
+    display: inline-block;
+    float: left;
+    width: 140px;
+    height: 166px;
+    padding: 0 0 30px 50px;
+    overflow: hidden;
+    line-height: 1.4;
+  }
+}

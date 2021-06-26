@@ -83,10 +83,24 @@
         background-position: 0 -578px;
       }
     }
+
+    .slick-slide {
+      z-index: -1;
+
+      &.slick-active.slick-current {
+        z-index: 1;
+      }
+    }
   }
 
-  .slide img {
-    vertical-align: top;
+  .slide {
+    a {
+      display: block;
+    }
+
+    img {
+      vertical-align: top;
+    }
   }
 
   .download {

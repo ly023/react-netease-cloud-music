@@ -7,7 +7,7 @@ const placements = [
     'top',
     'bottom',
     'bottomLeft',
-    'bottomRight'
+    'bottomRight',
 ]
 
 function Popover(props) {
@@ -17,7 +17,6 @@ function Popover(props) {
 
     const childrenRef = useRef()
     const innerRef = useRef()
-
 
     const onlyChildren = Children.only(children)
 
@@ -64,10 +63,14 @@ function Popover(props) {
                     top: childrenHeight,
                     left: - (contentWidth - childrenWidth)
                 }
+            } else if(placement === 'bottomLeft') {
+                return {
+                    top: childrenHeight,
+                    left: - childrenWidth / 2
+                }
             }
         }
     }, [placement, childrenRef, innerRef])
-
 
     const innerStyle = {
         ...style,
