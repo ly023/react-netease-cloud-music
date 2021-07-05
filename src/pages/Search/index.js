@@ -98,7 +98,7 @@ export default class SearchPage extends React.Component {
             ...query,
             [type]: value
         }
-        const path = `${pathname}?${qs.stringify(newQuery)}`
+        const path = `${pathname}${qs.stringify(newQuery, {addQueryPrefix: true})}`
         this.props.history.replace(path)
     }
 

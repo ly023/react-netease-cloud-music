@@ -2,19 +2,19 @@ import config from 'config'
 
 export default {
     music:{
-        url: `${config.apiHost}/api/comment/music`,
+        url: `${config.apiHost}/comment/music`,
         type: 'GET'
     },
     album: {
-        url: `${config.apiHost}/api/comment/album`,
+        url: `${config.apiHost}/comment/album`,
         type: 'GET'
     },
     playlist: {
-        url: `${config.apiHost}/api/comment/playlist`,
+        url: `${config.apiHost}/comment/playlist`,
         type: 'GET'
     },
     mv: {
-        url: `${config.apiHost}/api/comment/mv`,
+        url: `${config.apiHost}/comment/mv`,
         type: 'GET'
     },
     // 发送、删除评论
@@ -24,7 +24,7 @@ export default {
     // content :要发送的内容
     // commentId :回复的评论id
     comment: {
-        url: `${config.apiHost}/api/comment`,
+        url: `${config.apiHost}/comment`,
         type: 'GET'
     },
     // 给评论点赞
@@ -33,7 +33,7 @@ export default {
     // cid : 评论 id
     // t : 是否点赞, 1 为点赞, 0 为取消点赞
     like: {
-        url: `${config.apiHost}/api/comment/like`,
+        url: `${config.apiHost}/comment/like`,
         type: 'GET'
     }
 }

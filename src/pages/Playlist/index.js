@@ -89,7 +89,7 @@ function Playlist() {
             cat: getUrlParameter('cat') || undefined,
             order: getUrlParameter('order') || undefined,
             page
-        })}`
+        }, {addQueryPrefix: true})}`
         history.push(url)
     }, [history, pathname])
 

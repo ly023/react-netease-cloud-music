@@ -276,6 +276,31 @@ export function generateRandomString(length = 8) {
 }
 
 /**
+ * 获取url所有参数
+ * @param url
+ * @returns {{}}
+ */
+export function getUrlParameters(url) {
+    if (!url || typeof url !== 'string') {
+        url = window.location.href
+    }
+    // 使用 /\?([^/?#:]+)#?/ 正则来匹配 ? 与 #（#为位置标识符）之间的非/?#:字符
+    const queryString = url.match(/\?([^/?#:]+)#?/)?.[1]
+
+    if (!queryString) {
+        return {}
+    }
+
+    const queryObj = queryString.split('&').reduce((params, block) => {
+        // 如果未赋值，则默认为空字符串
+        const [k, v = ''] = block.split('=')
+        params[k] = decodeURIComponent(v)
+        return params
+    }, {})
+    return queryObj
+}
+
+/**
  * 获取url参数
  * @param name
  * @returns {string}
@@ -371,4 +396,18 @@ export function isEndReached(element, offset = 10) {
         return scrollTop + clientHeight + offset >= top
     }
     return true
+}
+
+export function getUrlPaginationParams(defaultLimit = 30, defaultOffset = 0) {
+    let limit = defaultLimit
+    const urlLimit = getUrlParameter('limit')
+    if (urlLimit && /^\+?[1-9][0-9]*$/.test(urlLimit)) {
+        limit = Number(limit)
+    }
+    let offset = defaultOffset
+    const urlOffset = getUrlParameter('offset')
+    if (urlOffset && /^\d+$/.test(urlOffset)) {
+        offset = Number(offset)
+    }
+    return {limit, offset}
 }

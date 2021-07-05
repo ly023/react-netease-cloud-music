@@ -1,12 +1,13 @@
 
 .tabs {
+  display: flex;
   background-repeat: repeat-x;
   background-position: 0 0;
 
   .tab {
     display: inline-block;
+    flex: 1;
     box-sizing: border-box;
-    width: 112px;
     height: 40px;
     font-size: 14px;
     line-height: 40px;
@@ -22,12 +23,10 @@
     }
 
     &:first-child {
-      width: 114px;
       border-left-width: 1px;
     }
 
     &:last-child {
-      width: 114px;
       border-right-width: 1px;
     }
 

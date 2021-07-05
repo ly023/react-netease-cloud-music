@@ -1,8 +1,8 @@
 const hotAnchorMockData = require('./discover-hot-anchor')
 
 const proxy = {
-    'GET /api/dj/hot/anchor': hotAnchorMockData,
-    // 'POST /api/login/account': (req, res) => {
+    'GET /dj/hot/anchor': hotAnchorMockData,
+    // 'POST /login/account': (req, res) => {
     //     const { password, username } = req.body
     //     if (password === '888888' && username === 'admin') {
     //         return res.send({
@@ -15,7 +15,7 @@ const proxy = {
     //         return res.send({ status: 'error', code: 403 })
     //     }
     // },
-    // 'DELETE /api/user/:id': (req, res) => {
+    // 'DELETE /user/:id': (req, res) => {
     //     console.log('---->', req.body)
     //     console.log('---->', req.params.id)
     //     res.send({ status: 'ok', message: '删除成功！' })

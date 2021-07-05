@@ -1,3 +1,3 @@
 export default {
-    apiHost: 'http://localhost:3001'
+    apiHost: '/base'
 }

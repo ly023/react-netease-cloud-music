@@ -23,11 +23,11 @@ module.exports = merge(baseConfig, {
         chunkFilename: '[name].[chunkhash:8].chunk.js', // 未列在entry中，却又需要被打包出来的文件的名称（通常是要懒加载的文件）
         publicPath: '/',
     },
-    cache: {
-        type: 'filesystem', // 使用文件缓存
+    // cache: {
+    //     type: 'filesystem', // 使用文件缓存
         // cacheDirectory 默认路径是 node_modules/.cache/webpack
         // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
-    },
+    // },
     devServer: {
         hot: true,
         port: config.port,
@@ -36,9 +36,9 @@ module.exports = merge(baseConfig, {
             apiMocker(app, path.resolve('src/mock/index.js'))
         },
         proxy: {
-            '/api': {
+            '/base': {
                 target: 'http://localhost:' + config.proxyPort,
-                pathRewrite: {'^/api': ''},
+                pathRewrite: {'^/base': ''},
                 changeOrigin: true,     // target是域名的话，需要这个参数，
                 secure: false,          // 设置支持https协议的代理
             },

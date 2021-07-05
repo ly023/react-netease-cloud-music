@@ -2,27 +2,27 @@ import config from 'config'
 
 export default {
     categories: {
-        url: `${config.apiHost}/api/dj/catelist`,
+        url: `${config.apiHost}/dj/catelist`,
         type: 'GET'
     },
     categoryRecommendation: {
-        url: `${config.apiHost}/api/dj/recommend/type`,
+        url: `${config.apiHost}/dj/recommend/type`,
         type: 'GET'
     },
     categoryHot: {
-        url: `${config.apiHost}/api/dj/radio/hot`,
+        url: `${config.apiHost}/dj/radio/hot`,
         type: 'GET'
     },
     programRank: {
-        url: `${config.apiHost}/api/dj/program/toplist`,
+        url: `${config.apiHost}/dj/program/toplist`,
         type: 'GET'
     },
     detail: {
-        url: `${config.apiHost}/api/dj/program/detail`,
+        url: `${config.apiHost}/dj/program/detail`,
         type: 'GET'
     },
     hotAnchorMock: {
-        url: `${config.apiHost}/api/dj/hot/anchor`,
+        url: `${config.apiHost}/dj/hot/anchor`,
         type: 'GET'
     }
 }

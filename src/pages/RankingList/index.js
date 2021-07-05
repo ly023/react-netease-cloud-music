@@ -217,7 +217,7 @@ function RankingList() {
                                                 href={null}
                                                 styleName="btn-comment"
                                                 onClick={handleComment}>
-                                                <i>({detail.commentCount})</i>
+                                                <i>({detail?.commentCount || 0})</i>
                                             </a>
                                         </div>
                                     </div>

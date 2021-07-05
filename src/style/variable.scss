@@ -196,6 +196,7 @@ $border-radius: 4px;
   @extend %new-button-base;
 
   color: #333;
+  text-decoration: none;
   background-color: $button-color;
   border: 1px solid $border-color;
 

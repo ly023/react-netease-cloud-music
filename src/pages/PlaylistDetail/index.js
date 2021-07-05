@@ -165,10 +165,10 @@ export default class PlaylistDetail extends Component {
                                     <span styleName="label"/>
                                     <h2 styleName="title">{detail.name}</h2>
                                     <div styleName="creator">
-                                        <Link to="/" styleName="avatar">
+                                        <Link to={`/user/home/${detail.creator?.userId}`} styleName="avatar">
                                             <img src={getThumbnail(detail.creator?.avatarUrl, 120)} alt=""/>
                                         </Link>
-                                        <Link to="/" styleName="nickname">{detail.creator?.nickname}</Link>
+                                        <Link to={`/user/home/${detail.creator?.userId}`} styleName="nickname">{detail.creator?.nickname}</Link>
                                         <span
                                             styleName="time">{dayjs(detail.createTime).format(DATE_FORMAT)} 创建</span>
                                     </div>
@@ -183,11 +183,12 @@ export default class PlaylistDetail extends Component {
                                         <SubscribePlaylist
                                             id={detail.id}
                                             type={detail.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
+                                            disabled={isSelf}
                                             onSuccess={this.handleSubscribeSuccess}
                                         >
                                             <a
                                                 href={null}
-                                                styleName={`btn-add-favorite ${detail.subscribed ? 'btn-add-favorite-subscribed' : ''}`}
+                                                styleName={`btn-add-favorite ${detail.subscribed ? 'btn-add-favorite-subscribed' : ''} ${isSelf ? 'btn-add-favorite-dis' : ''}`}
                                             >
                                                 <i data-content={detail.subscribedCount ? `(${formatNumber(detail.subscribedCount)})` : '收藏'}/>
                                             </a>
@@ -203,7 +204,7 @@ export default class PlaylistDetail extends Component {
                                             href={null}
                                             styleName="btn-comment"
                                             onClick={this.handleComment}>
-                                            <i>({detail.commentCount})</i>
+                                            <i>({detail?.commentCount || 0})</i>
                                         </a>
                                     </div>
                                     <div styleName="desc">
@@ -230,7 +231,7 @@ export default class PlaylistDetail extends Component {
                                 <div styleName="table-title">
                                     <h3>歌曲列表</h3>
                                     <span styleName="other">
-                                        <span styleName="total">{detail.songs?.length}首歌</span>
+                                        <span styleName="total">{detail.trackIds?.length}首歌</span>
                                         <span styleName="more">播放：<strong styleName="play-count">{detail.playCount}</strong>次</span>
                                         <span styleName="out-chain"><i/><a href={null}>生成外链播放器</a></span>
                                     </span>

@@ -5,37 +5,37 @@ export default {
      * 歌手分类列表
      */
     list: {
-        url: `${config.apiHost}/api/artist/list`,
+        url: `${config.apiHost}/artist/list`,
         type: 'GET'
     },
     songs: {
-        url: `${config.apiHost}/api/artists`,
+        url: `${config.apiHost}/artists`,
         type: 'GET'
     },
     // 歌手详情
     detail: {
-        url: `${config.apiHost}/api/artist/detail`,
+        url: `${config.apiHost}/artist/detail`,
         type: 'GET',
     },
     // 歌手热门50首歌曲
     artistTop: {
-        url: `${config.apiHost}/api/artist/top/song`,
+        url: `${config.apiHost}/artist/top/song`,
         type: 'GET'
     },
     album: {
-        url: `${config.apiHost}/api/artist/album`,
+        url: `${config.apiHost}/artist/album`,
         type: 'GET'
     },
     mv: {
-        url: `${config.apiHost}/api/artist/mv`,
+        url: `${config.apiHost}/artist/mv`,
         type: 'GET'
     },
     desc: {
-        url: `${config.apiHost}/api/artist/desc`,
+        url: `${config.apiHost}/artist/desc`,
         type: 'GET'
     },
     similar: {
-        url: `${config.apiHost}/api/simi/artist`,
+        url: `${config.apiHost}/simi/artist`,
         type: 'GET'
     },
 }

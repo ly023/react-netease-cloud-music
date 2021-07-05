@@ -208,13 +208,23 @@
   }
 
   .btn-add-favorite {
-    &.btn-add-favorite-subscribed {
+    &.btn-add-favorite-subscribed,
+    &.btn-add-favorite-dis {
       background-position: right -1192px;
 
       &:hover i,
       i {
         color: #bebebe;
         background-position: 0 -1149px;
+      }
+    }
+
+    &.btn-add-favorite-dis {
+      cursor: default;
+
+      &:hover i,
+      i {
+        cursor: default;
       }
     }
 

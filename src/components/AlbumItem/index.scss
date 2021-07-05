@@ -1,15 +1,12 @@
 .box {
   position: relative;
   display: inline-block;
-  width: 153px;
-  height: 178px;
-  overflow: hidden;
+  width: 100%;
 
   .cover {
     position: relative;
     display: block;
-    width: 153px;
-    height: 130px;
+    width: 100%;
 
     a {
       display: inline-block;
@@ -24,10 +21,14 @@
       background-position: 0 -845px;
 
       @extend %background-cover;
+
+      &.small {
+        background-position: -170px -850px;
+      }
     }
 
     img {
-      width: 130px;
+      vertical-align: top;
     }
 
     .play-icon {

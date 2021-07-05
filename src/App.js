@@ -9,6 +9,7 @@ import Routes from 'router'
 import KEY_CODE from 'constants/keyCode'
 import {getCsrfToken} from 'utils'
 import ScrollToTop from 'utils/scrollToTop'
+import './App.scss'
 
 dayjs.locale('zh-cn')
 

@@ -2,11 +2,11 @@ import config from 'config'
 
 export default {
     rankList: {
-        url: `${config.apiHost}/api/top/list`,
+        url: `${config.apiHost}/top/list`,
         type: 'GET'
     },
     all: {
-        url: `${config.apiHost}/api/toplist`,
+        url: `${config.apiHost}/toplist`,
         type: 'GET'
     }
 }

@@ -1,6 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackBar = require('webpackbar');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const config = require('./config');
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -120,7 +120,7 @@ module.exports = {
         extensions: ['.js', '.json'],
     },
     plugins: [
-        new WebpackBar(), // 编译进度
+        new ProgressBarPlugin(), // 编译进度
     ]
 };
 

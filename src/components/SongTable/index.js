@@ -11,14 +11,14 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import './index.scss'
 
 function SongTable(props) {
-    const {loading, songs = [], isSelf = false, showDislike = false, onDislikeSuccess} = props
+    const {loading = false, songs = [], isSelf = false, showDislike = false, onDislikeSuccess} = props
     const {currentSong = {}} = useShallowEqualSelector(({user}) => ({
         currentSong: user.player.currentSong,
     }))
 
     const handleDislike = useCallback((id) => {
         // todo 歌曲不感兴趣
-        onDislikeSuccess(songs.filter(v => v.id !== id))
+        onDislikeSuccess && onDislikeSuccess(songs.filter(v => v.id !== id))
     }, [songs, onDislikeSuccess])
 
     return <>
@@ -47,7 +47,7 @@ function SongTable(props) {
                 songs.map((item, index) => {
                     const order = index + 1
                     const {id, alia: alias} = item
-                    const disabled = false // 没有播放权限
+                    const disabled = false // todo 没有播放权限
                     return <tr key={id}
                                styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                         <td styleName="order">

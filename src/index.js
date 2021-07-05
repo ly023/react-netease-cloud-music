@@ -5,8 +5,6 @@ import configureStore from 'store/configureStore'
 import rootSaga from 'sagas'
 import App from './App'
 
-import './style/index.scss'
-
 const store = configureStore()
 store.runSaga(rootSaga)
 

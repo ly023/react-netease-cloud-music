@@ -78,10 +78,10 @@ function RadioRank(props) {
 
     const handlePageChange = useCallback((page) => {
         setCurrent(page)
-        const url = `${pathname}?${stringify({
+        const url = `${pathname}${stringify({
             order: getUrlParameter('order') || undefined,
             page
-        })}`
+        }, {addQueryPrefix: true})}`
         history.push(url)
     }, [history, pathname])
 

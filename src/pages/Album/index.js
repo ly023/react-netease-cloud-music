@@ -3,12 +3,12 @@ import {Link, useHistory, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
 import Page from 'components/Page'
 import ListLoading from 'components/ListLoading'
+import AlbumItem from 'components/AlbumItem'
 import Empty from 'components/Empty'
 import Pagination from 'components/Pagination'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {requestNewestAlbum, requestAllNewAlbum} from 'services/album'
 import {getUrlParameter} from 'utils'
-import AlbumItem from './components/AlbumItem'
 
 import './index.scss'
 
@@ -69,7 +69,7 @@ function Album() {
         const page = getPage()
         const query = {
             ...params,
-            area: getUrlParameter('area'),
+            area: getUrlParameter('area') || 'ALL',
             offset: (page - 1) * DEFAULT_LIMIT
         }
         try {
@@ -91,10 +91,10 @@ function Album() {
 
     const handlePageChange = useCallback((page) => {
         setCurrent(page)
-        const url = `${pathname}?${stringify({
+        const url = `${pathname}${stringify({
             area: getUrlParameter('area') || undefined,
             page
-        })}`
+        }, {addQueryPrefix: true})}`
         history.push(url)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, params, pathname])
@@ -119,7 +119,7 @@ function Album() {
                             {
                                 newestAlbum.map((item) => {
                                     return <div key={item.id} styleName="item">
-                                        <AlbumItem item={item}/>
+                                        <AlbumItem item={item} showArtistName/>
                                     </div>
                                 })
                             }
@@ -131,7 +131,7 @@ function Album() {
                     <div className="fl" styleName="tabs">
                         {/* todo 专辑分类 */}
                         <div styleName="tab">
-                            <Link to="/discover/album">全部</Link>
+                            <Link to="/discover/album?area=ALL">全部</Link>
                             <span>|</span>
                         </div>
                         <div styleName="tab">
@@ -158,7 +158,7 @@ function Album() {
                             {
                                 allNewAlbum.map((item) => {
                                     return <div key={item.id} styleName="item">
-                                        <AlbumItem item={item}/>
+                                        <AlbumItem item={item} showArtistName/>
                                     </div>
                                 })
                             }

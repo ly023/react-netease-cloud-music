@@ -157,7 +157,7 @@ function UserHome(props) {
                 <div styleName="btn-follow"><i styleName="plus">+</i>关注</div>
                 {
                     [USER_AUTH_TYPE.ARTIST, USER_AUTH_TYPE.MUSICIAN].includes(profile?.userType)
-                        ? <div styleName="btn-right">查看歌手页</div>
+                        ? <a href={`/artist/${profile?.artistId}`} styleName="btn-right">查看歌手页</a>
                         : null
                 }
             </>

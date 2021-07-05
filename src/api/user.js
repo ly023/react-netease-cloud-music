@@ -2,49 +2,49 @@ import config from 'config'
 
 export default {
     mobileLogin: {
-        url: `${config.apiHost}/api/login/cellphone`,
+        url: `${config.apiHost}/login/cellphone`,
         type: 'POST'
     },
     emailLogin: {
-        url: `${config.apiHost}/api/login`,
+        url: `${config.apiHost}/login`,
         type: 'POST'
     },
     logout: {
-        url: `${config.apiHost}/api/logout`,
+        url: `${config.apiHost}/logout`,
         type: 'POST'
     },
     // 登录状态
     loginStatus: {
-        url: `${config.apiHost}/api/login/status`,
+        url: `${config.apiHost}/login/status`,
         type: 'GET'
     },
     detail: {
-        url: `${config.apiHost}/api/user/detail`,
+        url: `${config.apiHost}/user/detail`,
         type: 'GET'
     },
     // 获取用户信息 , 歌单，收藏，mv, dj 数量
     subContent: {
-        url: `${config.apiHost}/api/user/subcount`,
+        url: `${config.apiHost}/user/subcount`,
         type: 'GET'
     },
     // 签到
     dailySignIn: {
-        url: `${config.apiHost}/api/daily_signin`,
+        url: `${config.apiHost}/daily_signin`,
         type: 'POST'
     },
     // 用户关注列表
     follows: {
-        url: `${config.apiHost}/api/user/follows`,
+        url: `${config.apiHost}/user/follows`,
         type: 'GET'
     },
     // 用户听歌排行榜
     listeningRankingList: {
-        url: `${config.apiHost}/api/user/record`,
+        url: `${config.apiHost}/user/record`,
         type: 'GET'
     },
     // 用户歌单
     playlist: {
-        url: `${config.apiHost}/api/user/playlist`,
+        url: `${config.apiHost}/user/playlist`,
         type: 'GET'
     },
 }

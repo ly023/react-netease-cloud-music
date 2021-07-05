@@ -21,14 +21,6 @@
         "corejs": 2
       }
     ],
-    [
-      "import",
-      {
-        "libraryName": "react-music163",
-        "libraryDirectory": "es",
-        "style": "css"
-      }
-    ],
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-modules-commonjs",
     "@babel/plugin-syntax-import-meta",
