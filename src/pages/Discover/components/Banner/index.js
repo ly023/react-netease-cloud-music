@@ -89,7 +89,7 @@ function Banner() {
         }
     }, [banners, settings, renderImage])
 
-    return <section style={backgroundStyle}>
+    return <section style={backgroundStyle} styleName="wrapper">
         <div styleName='banner'>
             {renderBanners}
             <div styleName='download'>

@@ -402,12 +402,12 @@ export function getUrlPaginationParams(defaultLimit = 30, defaultOffset = 0) {
     let limit = defaultLimit
     const urlLimit = getUrlParameter('limit')
     if (urlLimit && /^\+?[1-9][0-9]*$/.test(urlLimit)) {
-        limit = Number(limit)
+        limit = Number(urlLimit)
     }
     let offset = defaultOffset
     const urlOffset = getUrlParameter('offset')
     if (urlOffset && /^\d+$/.test(urlOffset)) {
-        offset = Number(offset)
+        offset = Number(urlOffset)
     }
     return {limit, offset}
 }

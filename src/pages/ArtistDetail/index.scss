@@ -1,0 +1,63 @@
+
+.head-box {
+  margin: -8px 0 0;
+  overflow: hidden;
+
+  .nickname {
+    height: 34px;
+    color: #333;
+    font-size: 24px;
+    line-height: 24px;
+
+    .alias {
+      padding-left: 10px;
+      color: #999;
+      font-size: 14px;
+      line-height: 32px;
+    }
+  }
+
+  .cover-box {
+    position: relative;
+    width: 640px;
+    height: 300px;
+
+    .mask {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: url(~assets/images/ban-mask.png) no-repeat;
+
+      .head-bottom {
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+        padding-right: 20px;
+
+        .home-btn,
+        .subscribe-btn {
+          @extend %new-button-base;
+
+          color: #fff;
+          text-decoration: none;
+          background-color: rgba(0, 0, 0, 0.4);
+          border: 1px solid #2e2e2e;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+          }
+        }
+
+        .subscribe-btn {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}
+
+.client {
+  margin: 20px 0;
+}

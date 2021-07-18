@@ -3,7 +3,7 @@ import {
     REQUEST_LOGIN_STATUS,
     SET_USER_INFO,
     SET_USER_PLAYER, SET_USER_COMMENT_INFO,
-} from 'actions/actionTypes'
+} from 'actions/types'
 
 export function requestMobileLogin(payload, success, fail) {
     return {

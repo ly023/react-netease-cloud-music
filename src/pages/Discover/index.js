@@ -13,7 +13,6 @@ import PersonalizedRcmd from './components/PersonalizedRcmd'
 import Rank from './components/Rank'
 import Info from './components/Info'
 import Singer from './components/Singer'
-import Anchor from './components/Anchor'
 
 import './index.scss'
 
@@ -109,8 +108,6 @@ export default class Discover extends React.Component {
                         <Info/>
                         {/* 入驻歌手 */}
                         <Singer/>
-                        {/* 热门主播 */}
-                        <Anchor/>
                     </div>
                 </div>
             </Page>

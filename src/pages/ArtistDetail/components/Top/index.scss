@@ -1,0 +1,57 @@
+
+.actions {
+  margin: 20px 0 10px;
+  overflow: hidden;
+
+  .btn-play {
+    float: left;
+    white-space: nowrap;
+    text-decoration: none;
+    background-position: right -428px;
+
+    @extend %background-button2;
+
+    &:hover {
+      background-position: right -510px;
+
+      i {
+        background-position: 0 -469px;
+      }
+
+      em {
+        background-position: -28px -1622px;
+      }
+    }
+
+    i {
+      @extend %button-i;
+
+      padding: 0 7px 0 8px;
+      color: #fff;
+      background-position: 0 -387px;
+
+      em {
+        float: left;
+        width: 20px;
+        height: 18px;
+        margin: 6px 2px 2px 0;
+        overflow: hidden;
+        background-position: 0 -1622px;
+
+        @extend %background-button2;
+      }
+    }
+  }
+
+  .btn-add-play {
+    @extend %u-button;
+
+    margin: 0 5px 0 -3px;
+    padding: 0 8px 0 0;
+    background-position: 0 -1588px;
+
+    &:hover {
+      background-position: -40px -1588px;
+    }
+  }
+}

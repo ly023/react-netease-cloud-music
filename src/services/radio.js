@@ -27,7 +27,7 @@ export async function requestDetail(params) {
     return request(`${API.detail.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
-// 首页热门主播mock
-export async function requestHotAnchorMock() {
-    return request(API.hotAnchorMock.url, null, {errorShow: false})
+// 热门主播
+export async function requestHotAnchor(params) {
+    return request(`${API.requestHotAnchor.url}${stringify(params, {addQueryPrefix: true})}`)
 }

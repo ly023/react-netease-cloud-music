@@ -1,4 +1,4 @@
-import {SET_NAV_HEIGHT} from 'actions/actionTypes'
+import {SET_NAV_HEIGHT} from 'actions/types'
 
 const initialState = {
     navHeight: 0

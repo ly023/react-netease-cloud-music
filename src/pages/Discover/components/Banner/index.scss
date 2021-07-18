@@ -21,6 +21,10 @@
   text-indent: -9999px;
 }
 
+.wrapper {
+  transition: background 0.3s ease-in;
+}
+
 .banner {
   position: relative;
   z-index: 1;

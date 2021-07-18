@@ -1,0 +1,123 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  td {
+    height: 18px;
+    padding: 4px 10px;
+    line-height: 18px;
+  }
+
+  .even {
+    td {
+      background-color: #f7f7f7;
+    }
+  }
+
+  .track {
+    color: #333;
+
+    &.disabled * {
+      color: #bbb;
+    }
+
+    &.disabled:hover {
+      .duration {
+        color: #bbb;
+
+        .time {
+          display: inline-block;
+        }
+
+        .actions {
+          display: none;
+        }
+      }
+    }
+
+    &:hover {
+      .duration {
+        .time {
+          display: none;
+        }
+
+        .actions {
+          display: inline-block;
+        }
+      }
+
+      .album {
+        .dislike {
+          display: inline-block;
+        }
+      }
+    }
+
+    .order {
+      width: 74px;
+      min-width: 74px;
+      color: #999;
+
+      .number {
+        margin-left: 5px;
+      }
+
+      .play {
+        float: right;
+        height: 17px;
+        line-height: 15px;
+      }
+    }
+
+    .name {
+      width: 248px;
+
+      @extend %text-ellipsis;
+
+      .alias {
+        color: #aeaeae;
+      }
+
+      .mv-icon {
+        display: inline-block;
+        width: 23px;
+        height: 17px;
+        margin: 0 0 0 4px;
+        vertical-align: middle;
+        background-position: 0 -151px;
+        cursor: pointer;
+
+        @extend %background-table;
+
+        &:hover {
+          background-position: -30px -151px;
+        }
+      }
+    }
+
+    .duration {
+      width: 70px;
+      color: #666;
+
+      .actions {
+        display: none;
+        cursor: pointer;
+      }
+    }
+
+    .album {
+      position: relative;
+      width: 128px;
+      min-width: 128px;
+      max-width: 128px;
+
+      a {
+        display: inline-block;
+        width: 90%;
+
+        @extend %text-ellipsis;
+      }
+    }
+  }
+}

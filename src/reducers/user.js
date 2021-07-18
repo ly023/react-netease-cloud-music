@@ -1,4 +1,4 @@
-import {SET_USER_COMMENT_INFO, SET_USER_INFO, SET_USER_PLAYER} from 'actions/actionTypes'
+import {SET_USER_COMMENT_INFO, SET_USER_INFO, SET_USER_PLAYER} from 'actions/types'
 import {PLAY_MODE} from 'constants/play'
 
 function getDefaultPlaySetting() {

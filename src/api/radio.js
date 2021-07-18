@@ -21,7 +21,7 @@ export default {
         url: `${config.apiHost}/dj/program/detail`,
         type: 'GET'
     },
-    hotAnchorMock: {
+    requestHotAnchor: {
         url: `${config.apiHost}/dj/hot/anchor`,
         type: 'GET'
     }

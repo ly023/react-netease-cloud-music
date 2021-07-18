@@ -1,0 +1,31 @@
+
+.box {
+  margin-top: 30px;
+
+  .subtitle {
+    position: relative;
+    margin: 28px 0 8px 0;
+    padding-left: 12px;
+    color: #333;
+    font-weight: 700;
+    font-size: 14px;
+
+    &::after {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      display: block;
+      width: 3px;
+      height: 14px;
+      margin-right: 7px;
+      background-color: #c10d0c;
+      content: '';
+    }
+  }
+
+  .desc {
+    color: #666;
+    line-height: 25px;
+    text-indent: 2em;
+  }
+}

@@ -9,7 +9,7 @@ import {
     // takeEvery, // 每次都会触发相应的函数
 } from 'redux-saga/effects'
 
-import {REQUEST_MOBILE_LOGIN, REQUEST_LOGIN_STATUS} from 'actions/actionTypes'
+import {REQUEST_MOBILE_LOGIN, REQUEST_LOGIN_STATUS} from 'actions/types'
 import {mobileLogin, loginStatus} from './user'
 
 const rootSaga = function* root() {
