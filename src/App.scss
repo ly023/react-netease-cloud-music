@@ -124,6 +124,7 @@ textarea {
   }
 
   .main {
+    display: flex;
     width: 980px;
     min-height: 700px;
     margin: 0 auto;
@@ -134,16 +135,14 @@ textarea {
     border-width: 0 1px;
 
     .gutter {
+      width: 100%;
       padding: 40px;
     }
 
     .left-wrapper {
-      float: left;
-      width: 100%;
-      margin-right: -270px;
+      flex: 1;
 
       .left {
-        margin-right: 271px;
         padding: 37px 30px 40px 40px;
         border-right: 1px solid #d3d3d3;
       }
@@ -151,7 +150,7 @@ textarea {
 
     .right-wrapper {
       position: relative;
-      float: right;
+      flex-shrink: 0;
       box-sizing: border-box;
       width: 270px;
       padding: 20px 40px 40px 30px;

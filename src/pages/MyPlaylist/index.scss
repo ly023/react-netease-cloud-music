@@ -1,0 +1,21 @@
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.sidebar {
+  position: fixed;
+  width: 240px;
+  border-left: 1px solid #d3d3d3;
+}
+
+.content {
+  position: relative;
+  width: 740px;
+  margin-left: 240px;
+  padding: 40px;
+  background-color: #fff;
+  border-left: 1px solid #d3d3d3;
+}

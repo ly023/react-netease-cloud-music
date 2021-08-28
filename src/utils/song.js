@@ -80,7 +80,10 @@ export function getLyricLines(lyric, timePattern) {
 }
 
 export function getSecond(parts) {
-    return Number(parts[1] || 0) * 60 + Number(parts[2] || 0) + Number(parts[3] || 0)
+    if (parts) {
+        return Number(parts[1] || 0) * 60 + Number(parts[2] || 0) + Number(parts[3] || 0)
+    }
+    return 0
 }
 
 export function formatLyric(lines, timePattern) {
@@ -191,11 +194,11 @@ export function parseSongs(songs = []) {
 
 export function renderArtists(artists) {
     if (Array.isArray(artists)) {
-       return artists.map((artist, index) => {
+        return artists.map((artist, index) => {
             const {id, name} = artist
             return <Fragment key={id}>
                 <Link to={`/artist/${id}`}
-                   title={artists.map((v) => v.name).join(' / ')}>{name}</Link>
+                      title={artists.map((v) => v.name).join(' / ')}>{name}</Link>
                 {index !== artists.length - 1 ? ' / ' : null}
             </Fragment>
         })

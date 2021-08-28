@@ -140,7 +140,7 @@ export default class NavBar extends React.Component {
                                     </NavLink>
                                 </li>
                                 <li styleName="link-item">
-                                    <NavLink to='/2' styleName="link" activeClassName={styles["link-active"]}>
+                                    <NavLink to='/my/music' styleName="link" activeClassName={styles["link-active"]}>
                                         我的音乐
                                     </NavLink>
                                 </li>
@@ -150,14 +150,14 @@ export default class NavBar extends React.Component {
                                     </NavLink>
                                 </li>
                                 <li styleName="link-item">
-                                    <NavLink to='/4' styleName="link" activeClassName={styles["link-active"]}>
+                                    <a href="https://music.163.com/store/product" target="_blank" rel="noreferrer" styleName="link">
                                         商城
-                                    </NavLink>
+                                    </a>
                                 </li>
                                 <li styleName="link-item">
-                                    <NavLink to='/5' styleName="link" activeClassName={styles["link-active"]}>
+                                    <a href="https://music.163.com/st/musician" target="_blank" rel="noreferrer" styleName="link">
                                         音乐人
-                                    </NavLink>
+                                    </a>
                                 </li>
                                 <li styleName="link-item">
                                     <NavLink to='/download' styleName="link" activeClassName={styles["link-active"]}>

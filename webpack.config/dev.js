@@ -29,6 +29,9 @@ module.exports = merge(baseConfig, {
         // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
     // },
     devServer: {
+        client: {
+            overlay: false, // https://webpack.docschina.org/configuration/dev-server/#overlay
+        },
         hot: true,
         port: config.port,
         historyApiFallback: true,

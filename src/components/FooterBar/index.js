@@ -18,13 +18,13 @@ function FooterBar() {
             <div styleName='wrapper'>
                 <div styleName='copy'>
                     <p>
-                        <a href='https://music.163.com/html/web2/service.html' target='_blank'
+                        <a href='https://music.163.com/html/web2/service.html' target="_blank" rel="noreferrer"
                            styleName='link color-1'>服务条款</a><span
                         styleName='copy-line'>|</span>
-                        <a href='https://music.163.com/html/web2/privacy.html' target='_blank'
+                        <a href='https://music.163.com/html/web2/privacy.html' target="_blank" rel="noreferrer"
                            styleName='link color-1'>隐私政策</a><span
                         styleName='copy-line'>|</span>
-                        <a href='https://music.163.com/st/staticdeal/complaints.html' target='_blank'
+                        <a href='https://music.163.com/st/staticdeal/complaints.html' target="_blank" rel="noreferrer"
                            styleName='link color-1'>版权投诉指引</a><span
                         styleName='copy-line'>|</span>
                         <a styleName='link color-1' hidefocus='true' onClick={showFeedback}>意见反馈</a>

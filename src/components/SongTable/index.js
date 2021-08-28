@@ -52,9 +52,7 @@ function SongTable(props) {
                                styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                         <td styleName="order">
                             <span styleName="number">{order}</span>
-                            <span styleName="play">
-                            <SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/>
-                            </span>
+                            <span styleName="play"><SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/></span>
                         </td>
                         <td>
                             <div styleName="name">

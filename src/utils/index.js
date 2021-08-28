@@ -28,7 +28,6 @@ export function getCsrfToken() {
 /**
  * 格式化数字
  * @param number
- * @param startIndex: 转换的起步指数
  * @param digits: 保留的小数位
  * @returns {string|number|*}
  */
@@ -332,7 +331,8 @@ export function replaceUrlParamVal(name, replaceWith, url) {
  * @returns {number}
  */
 export function getScrollTop() {
-    return document.documentElement.scrollTop || document.body.scrollTop
+    // safari: window.pageYOffset
+    return document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
 }
 
 /**

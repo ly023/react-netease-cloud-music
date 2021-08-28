@@ -1,12 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {createForm, formShape} from 'rc-form'
-import areaCode from 'constants/areaCode'
 import FormItem from 'components/FormItem'
 import KEY_CODE from 'constants/keyCode'
 import {isValidMobileNumber} from 'utils'
+import {requestCountryCodeList} from 'services/constants'
 
 import styles from '../../index.scss'
+
+function parseCountryCodeList(data) {
+    if (Array.isArray(data)) {
+        let countries = []
+        data.forEach((item) => {
+            countries = countries.concat(item.countryList)
+        })
+        return countries
+    }
+    return []
+}
 
 @createForm()
 export default class Mobile extends React.Component {
@@ -19,9 +30,31 @@ export default class Mobile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            countryCode: areaCode[0][3],
+            countries: [],
+            countryCode: 0,
             areaCodeSelectVisible: false,
             responseError: ''
+        }
+        this._isMounted = false
+    }
+
+    componentDidMount() {
+        this._isMounted = true
+        this.fetchCountryCodeList()
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
+    }
+
+    fetchCountryCodeList = async () => {
+        const res = await requestCountryCodeList()
+        if (this._isMounted) {
+            const countryCodeList = parseCountryCodeList(res.data)
+            this.setState({
+                countries: countryCodeList,
+                countryCode: countryCodeList[0]?.code,
+            })
         }
     }
 
@@ -34,7 +67,7 @@ export default class Mobile extends React.Component {
     handleChangeCountryCode = (index) => {
         this.setState({
             areaCodeSelectVisible: false,
-            countryCode: areaCode[index][3],
+            countryCode: this.state.countries[index].code,
         })
     }
 
@@ -58,7 +91,7 @@ export default class Mobile extends React.Component {
 
     handleEnterKey = (e) => {
         const keyCode = e.nativeEvent.which || e.nativeEvent.keyCode
-        if(keyCode === KEY_CODE.ENTER){
+        if (keyCode === KEY_CODE.ENTER) {
             this.handleSubmit()
         }
     }
@@ -96,15 +129,14 @@ export default class Mobile extends React.Component {
 
     render() {
         const {getFieldDecorator, getFieldError} = this.props.form
-        const {countryCode, areaCodeSelectVisible, responseError, loading} = this.state
+        const {countries, countryCode, areaCodeSelectVisible, responseError, loading} = this.state
 
         const errorMessage = this.getErrorMessage()
 
         return (
             <div styleName="login-mobile">
                 <FormItem classname={styles["login-phone-wrapper"]} error={getFieldError('phone')}>
-                    <span styleName="login-code-current"
-                        onClick={() => this.setAreaCodeSelectVisible(!areaCodeSelectVisible)}>
+                    <span styleName="login-code-current" onClick={() => this.setAreaCodeSelectVisible(!areaCodeSelectVisible)}>
                         <span>+{countryCode}</span>
                         <span styleName="login-icon login-arrow"/>
                     </span>
@@ -131,11 +163,12 @@ export default class Mobile extends React.Component {
                     {/*国家区号列表*/}
                     <ul styleName="login-code-options" className={areaCodeSelectVisible ? null : 'hide'}>
                         {
-                            areaCode.map((item, index) => {
-                                return <li key={item[0]} className="clearfix" styleName="login-code-item"
-                                    onClick={() => this.handleChangeCountryCode(index)}>
-                                    <span className="fl">{item[1]}</span>
-                                    <span className="fr">+{item[3]}</span>
+                            countries.map((item, index) => {
+                                const {en, zh, code} = item
+                                return <li key={en} className="clearfix" styleName="login-code-item"
+                                           onClick={() => this.handleChangeCountryCode(index)}>
+                                    <span className="fl">{zh}</span>
+                                    <span className="fr">+{code}</span>
                                 </li>
                             })
                         }

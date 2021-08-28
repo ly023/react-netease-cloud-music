@@ -192,7 +192,6 @@ export default class AlbumDetail extends React.Component {
                                     <h3>包含歌曲列表</h3>
                                     <span styleName="other">
                                         <span styleName="total">{detail?.songs?.length}首歌</span>
-                                        <span styleName="out-chain"><i/><a href={null}>生成外链播放器</a></span>
                                     </span>
                                 </div>
                                 <table styleName="table">

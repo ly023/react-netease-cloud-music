@@ -20,7 +20,7 @@ export default function PrivateRoute({component: Component, ...rest}) {
                     {...rest}
                     render={props => isLogin
                         ? <Component {...props}/>
-                        : <Redirect to="/404"/>}
+                        : <Redirect to="/401"/>}
                 />
             )
         }

@@ -5,7 +5,7 @@ import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 import {requestDiscoverBanners} from 'services/banners'
-import {getBlur, getThumbnail} from 'utils'
+import {getBlur} from 'utils'
 import {TARGET_TYPE} from './constants'
 
 import 'slick-carousel/slick/slick.css'
@@ -59,8 +59,7 @@ function Banner() {
 
     const renderImage = useCallback((item) => {
         const {targetType, targetId, imageUrl} = item
-        const thumbnail = getThumbnail(imageUrl, 730, 284)
-        const image = <img src={thumbnail} alt=""/>
+        const image = <img src={imageUrl} alt="" style={{width: 730, height: 284}}/>
         switch (targetType) {
             case TARGET_TYPE.SONG.TYPE:
                 return <Link to={`/song/${targetId}`}>

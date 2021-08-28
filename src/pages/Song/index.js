@@ -223,9 +223,6 @@ export default class Song extends Component {
                                             alt="封面"
                                         />
                                     </div>
-                                    <div styleName="out-chain">
-                                        <i/><a href={null}>生成外链播放器</a>
-                                    </div>
                                 </div>
                                 <div styleName="content">
                                     {isVip ? <span styleName="vip-label">VIP单曲</span> : <span styleName="label"/>}

@@ -8,7 +8,9 @@ import loadable from '@loadable/component'
 // const importViews = file => loadable(() => import(`pages/${file}`))
 
 function importPages(filename) {
-    return loadable(() => import(`pages/${filename}`))
+    return loadable(() => import(`pages/${filename}`), {
+        // fallback: <PageLoading/>,
+    })
 }
 
 export default [
@@ -110,6 +112,21 @@ export default [
         component: importPages('Search'),
     },
     {
+        path: '/my/music',
+        name: '我的音乐',
+        exact: true,
+        meta: {
+            requiresAuth: true
+        },
+        component: () => <Redirect to={'/my/music/playlist/:id'}/>
+    },
+    {
+        path: '/my/music/playlist/:id',
+        name: '我创建的歌单',
+        exact: true,
+        component: importPages('MyPlaylist'),
+    },
+    {
         path: '/user/home/:id',
         name: '用户主页',
         component: importPages('UserHome'),
@@ -126,6 +143,10 @@ export default [
             requiresAuth: true
         },
         component: importPages('UserUpdate'),
+    },
+    {
+        path: '/401',
+        component: importPages('401'),
     },
     {
         path: '*',

@@ -80,6 +80,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+  word-break: break-all;
 }
 
 .creator {
@@ -347,26 +348,6 @@
 
       .total {
         margin: 9px 0 0 20px;
-      }
-
-      .out-chain {
-        float: right;
-        margin: 5px 20px 0 0;
-
-        i {
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          vertical-align: middle;
-          background-position: -34px -863px;
-
-          @extend %background-icon;
-        }
-
-        a {
-          color: #4996d1;
-          text-decoration: underline;
-        }
       }
 
       .more {

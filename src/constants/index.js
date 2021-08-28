@@ -1,6 +1,8 @@
 import defaultAvatar from 'assets/images/default-avatar.jpg'
 import defaultArtistAvatar from 'assets/images/default-artist-avatar.jpeg'
 
+export const HEADER_HEIGHT = 75
+
 export const DEFAULT_DOCUMENT_TITLE = '网易云音乐'
 
 export const DEFAULT_AVATAR = defaultAvatar
