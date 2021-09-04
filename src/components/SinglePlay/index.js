@@ -4,7 +4,7 @@
 import {useMemo} from 'react'
 import PropTypes from 'prop-types'
 import Play from 'components/Play'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 
 import './index.scss'
 

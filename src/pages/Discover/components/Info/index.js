@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, memo} from 'react'
+import {useState, useEffect, useCallback, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import {DEFAULT_AVATAR} from 'constants'
 import emitter from 'utils/eventEmitter'
@@ -50,10 +50,9 @@ function Info() {
             })
     }
 
-    const handleLogin = () => {
-        // 事件通知
+    const handleLogin = useCallback(() => {
         emitter.emit('login')
-    }
+    }, [])
 
     useEffect(() => {
         const fetchDetail = async () => {

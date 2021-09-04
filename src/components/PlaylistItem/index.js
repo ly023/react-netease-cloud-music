@@ -2,7 +2,7 @@ import {useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import Play from 'components/Play'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import {formatNumber, getThumbnail} from 'utils'
 
 import './index.scss'

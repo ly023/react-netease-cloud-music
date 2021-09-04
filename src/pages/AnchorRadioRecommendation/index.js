@@ -4,7 +4,7 @@ import Page from 'components/Page'
 import ListLoading from 'components/ListLoading'
 import Play from 'components/Play'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import {requestRecommendation} from 'services/program'
 import {getThumbnail} from 'utils'
 

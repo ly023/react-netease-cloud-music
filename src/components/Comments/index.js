@@ -65,8 +65,7 @@ export default class Comments extends React.Component {
 
     static defaultProps = {
         type: Object.keys(COMMENT_TYPES)[0],
-        onRef() {
-        }
+        onRef() {}
     }
 
     constructor(props) {
@@ -99,6 +98,9 @@ export default class Comments extends React.Component {
         this._isMounted = true
         this.props.onRef(this)
         this.requestFunc = COMMENT_TYPES[this.props.type].REQUEST
+        if(Number.isNaN(this.props.id)) {
+            return
+        }
         this.fetchFollows()
         this.fetchComments()
     }
@@ -132,6 +134,7 @@ export default class Comments extends React.Component {
     }
 
     fetchComments = (offset = 0) => {
+        const {id} = this.props
         const params = {
             id: this.props.id,
             offset

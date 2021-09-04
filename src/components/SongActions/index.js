@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import PropTypes from 'prop-types'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import Add from 'components/Add'
 import AddToPlaylist from 'components/AddToPlaylist'
 

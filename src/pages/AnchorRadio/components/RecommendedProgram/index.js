@@ -2,7 +2,7 @@ import {useState, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
 import Play from 'components/Play'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import {requestRecommendation as requestRecommendProgram} from 'services/program'
 import {getThumbnail} from 'utils'
 

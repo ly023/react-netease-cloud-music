@@ -1,6 +1,6 @@
 .wrapper {
   box-sizing: border-box;
-  padding: 30px 0;
+  padding: 30px 0 50px;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -89,6 +89,7 @@
   }
 
   .meta {
+    position: relative;
     flex: 1;
 
     .name {
@@ -102,6 +103,48 @@
 
     .count {
       color: #999;
+    }
+
+    .actions {
+      position: absolute;
+      right: 8px;
+      bottom: 0;
+      visibility: hidden;
+
+      .edit {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        margin-right: 10px;
+        background-position: 0 -270px;
+        cursor: pointer;
+
+        @extend %background-icon;
+
+        &:hover {
+          background-position: -20px -270px;
+        }
+      }
+
+      .delete {
+        display: inline-block;
+        width: 13px;
+        height: 14px;
+        background-position: 0 -284px;
+        cursor: pointer;
+
+        @extend %background-icon;
+
+        &:hover {
+          background-position: -20px -284px;
+        }
+      }
+    }
+
+    &:hover {
+      .actions {
+        visibility: visible;
+      }
     }
   }
 }

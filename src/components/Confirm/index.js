@@ -7,11 +7,13 @@ function Confirm(props) {
     const {title = '提示', content, okText = '确定', cancelText = '取消', onOk, onCancel, confirmLoading = false} = props
 
     return <Modal {...props} title={title}>
-        <div styleName="content">{content}</div>
-        <div styleName="buttons">
-            <button styleName="ok" disabled={confirmLoading} onClick={onOk}><i>{okText}</i></button>
-            <button styleName="cancel" onClick={onCancel}><i>{cancelText}</i></button>
-        </div>
+       <div styleName="body">
+           <div styleName="content">{content}</div>
+           <div styleName="buttons">
+               <button styleName="ok" disabled={confirmLoading} onClick={onOk}><i>{okText}</i></button>
+               <button styleName="cancel" onClick={onCancel}><i>{cancelText}</i></button>
+           </div>
+       </div>
     </Modal>
 }
 

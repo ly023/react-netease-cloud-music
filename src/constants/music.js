@@ -29,3 +29,5 @@ export const FEE_TYPE = {
 }
 
 export const DEFAULT_SECOND = -1
+
+export const DEFAULT_PLAYLIST_TYPE = 5 // 默认歌单（我喜欢的歌单）

@@ -1,6 +1,6 @@
 import {Fragment} from 'react'
 import {Link} from 'react-router-dom'
-import {FEE_TYPE, PLAY_MODE, DEFAULT_SECOND} from 'constants/play'
+import {FEE_TYPE, PLAY_MODE, DEFAULT_SECOND} from 'constants/music'
 
 export function hasPrivilege(privilege = {}) {
     if (privilege.st === 0) {

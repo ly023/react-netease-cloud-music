@@ -59,6 +59,11 @@ export async function updateUserPlaylist(params) {
     return request(`${API.updateUserPlaylist.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
+// 删除用户歌单 id=xxx 多个id用逗号隔开
+export async function deleteUserPlaylist(params) {
+    return request(`${API.deleteUserPlaylist.url}${stringify(params, {addQueryPrefix: true})}`)
+}
+
 // 对歌单添加或删除歌曲
 export async function updateUserPlaylistSongs(params) {
     return request(`${API.updateUserPlaylistSongs.url}${stringify(params, {addQueryPrefix: true})}`)

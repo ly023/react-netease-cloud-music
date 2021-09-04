@@ -5,6 +5,14 @@ import React from 'react'
 import Page from 'components/Page'
 import Popover from './components/Popover'
 import VersionModal from './components/VersionModal'
+import pcImage from './images/pc-client.jpeg'
+import mobileImage from './images/mobile-client.jpeg'
+import codeImage from './images/code.png'
+import bg1Image from './images/b1.jpg'
+import bg2Image from './images/b2.jpg'
+import bg3Image from './images/b3.jpg'
+import bg4Image from './images/b4.jpg'
+import bg5Image from './images/b5.jpg'
 
 import './index.scss'
 
@@ -131,7 +139,7 @@ export default class Download extends React.Component {
                         </div>
                         <div styleName="pc">
                             <div styleName="banner-title">在电脑上听</div>
-                            <img src={require('./images/pc-client.jpeg')} alt=""/>
+                            <img src={pcImage} alt=""/>
                             <div styleName="type">
                                 <span><i styleName="icon icon-mac"/>macOS</span>
                                 <span><i styleName="icon icon-win"/>Windows</span>
@@ -140,7 +148,7 @@ export default class Download extends React.Component {
                         </div>
                         <div styleName="mobile">
                             <div styleName="banner-title">在手机上听</div>
-                            <img src={require('./images/mobile-client.jpeg')} alt=""/>
+                            <img src={mobileImage} alt=""/>
                             <div styleName="type">
                                 <span><i styleName="icon icon-ios"/>iPhone</span>
                                 <span><i styleName="icon icon-android"/>Android</span>
@@ -151,7 +159,7 @@ export default class Download extends React.Component {
                                     placement="top"
                                     getPopupContainer={() => document.getElementById('mobile-download')}
                                     content={<div styleName="mobile-code">
-                                        <img src={require("./images/code.png")}/>
+                                        <img src={codeImage} alt=""/>
                                         <p>扫描二维码下载</p>
                                     </div>}
                                 >
@@ -173,7 +181,7 @@ export default class Download extends React.Component {
                             </p>
                         </div>
                         <div className="fr">
-                            <img useMap="#testtool" src={require("./images/b1.jpg")} alt="千万曲库 首首CD音质"/>
+                            <img useMap="#testtool" src={bg1Image} alt="千万曲库 首首CD音质"/>
                             <map name="testtool">
                                 <area
                                     style={{cursor: "default"}}
@@ -187,7 +195,7 @@ export default class Download extends React.Component {
                 </div>
                 <div styleName="cont cont-2">
                     <div className="clearfix" styleName="wrapper">
-                        <div className="fl"><img src={require("./images/b2.jpg")} alt="千位明星 亲自推荐音乐"/>
+                        <div className="fl"><img src={bg2Image} alt="千位明星 亲自推荐音乐"/>
                         </div>
                         <div className="fr">
                             <h3 styleName="title">千位明星 亲自推荐音乐</h3>
@@ -204,14 +212,14 @@ export default class Download extends React.Component {
                             <p styleName="des">分享，发现更多全新好音乐</p>
                         </div>
                         <div className="fr">
-                            <img src={require("./images/b3.jpg")} alt="社交关系 发现全新音乐"/>
+                            <img src={bg3Image} alt="社交关系 发现全新音乐"/>
                         </div>
                     </div>
                 </div>
                 <div styleName="cont cont-4">
                     <div className="clearfix" styleName="wrapper">
                         <div className="fl">
-                            <img src={require("./images/b4.jpg")} alt="手机电脑 歌单实时同步"/>
+                            <img src={bg4Image} alt="手机电脑 歌单实时同步"/>
                         </div>
                         <div className="fr">
                             <h3 styleName="title">手机电脑 歌单实时同步</h3>
@@ -230,12 +238,12 @@ export default class Download extends React.Component {
                             <p styleName="des">用<em>听歌识曲</em>功能，几秒钟就知道歌名</p>
                         </div>
                         <div className="fr">
-                            <img src={require("./images/b5.jpg")} alt="听歌识曲 助你疯狂猜歌"/>
+                            <img src={bg5Image} alt="听歌识曲 助你疯狂猜歌"/>
                         </div>
                     </div>
                 </div>
                 <div styleName="code">
-                    <img src={require("./images/code.png")}/>
+                    <img src={codeImage} alt=""/>
                     <p>扫描二维码下载</p>
                 </div>
                 <VersionModal visible={linuxVersionVisible} onCancel={this.handleCancelVersionModal}/>

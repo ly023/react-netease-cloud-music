@@ -1,7 +1,7 @@
 import {useCallback, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import Add from 'components/Add'
 import Play from 'components/Play'

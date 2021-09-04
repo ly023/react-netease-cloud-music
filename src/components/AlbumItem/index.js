@@ -3,7 +3,7 @@ import Proptypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import Play from 'components/Play'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import {getThumbnail} from 'utils'
 
 import './index.scss'

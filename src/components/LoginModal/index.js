@@ -32,14 +32,6 @@ export default class LoginModal extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-
-    }
-
     changeMode  = (mode) => {
         this.setState({mode})
     }

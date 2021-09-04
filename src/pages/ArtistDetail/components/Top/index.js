@@ -5,7 +5,7 @@ import {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import Add from 'components/Add'
 import Play from 'components/Play'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import {requestArtistTop} from 'services/artist'
 import SongList from './components/SongList'
 

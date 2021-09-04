@@ -1,0 +1,28 @@
+
+.wrapper {
+  width: 100%;
+  margin-top: 104px;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-weight: normal;
+  font-size: 32px;
+}
+
+.tip {
+  font-size: 16px;
+
+  + .tip {
+    margin: 8px 0 30px;
+  }
+}
+
+.login-btn {
+  @extend %new-button-primary;
+
+  width: 167px;
+  height: 45px;
+  font-size: 18px;
+}

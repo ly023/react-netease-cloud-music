@@ -93,7 +93,7 @@ module.exports = {
                     limit: 8192, // 小于8k转成base64嵌入到js或css中，减少加载次数
                     name: '[hash:8]-[name].[ext]?[hash:8]',
                 }
-            }
+            },
         ]
     },
     resolve: {

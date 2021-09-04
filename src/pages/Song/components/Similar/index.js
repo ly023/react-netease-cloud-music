@@ -4,7 +4,7 @@
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import Add from 'components/Add'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import Play from 'components/Play'
 import {getArtists} from 'utils/song'
 

@@ -8,7 +8,7 @@ export default {
         url: `${config.apiHost}/playlist/catlist`,
         type: 'GET'
     },
-    hotCategory:{
+    hotCategory: {
         url: `${config.apiHost}/playlist/hot`,
         type: 'GET'
     },
@@ -28,7 +28,7 @@ export default {
         url: `${config.apiHost}/simi/playlist`,
         type: 'GET'
     },
-    related :{
+    related: {
         url: `${config.apiHost}/related/playlist`,
         type: 'GET'
     },
@@ -48,6 +48,10 @@ export default {
     },
     updateUserPlaylist: {
         url: `${config.apiHost}/playlist/update`,
+        type: 'GET'
+    },
+    deleteUserPlaylist: {
+        url: `${config.apiHost}/playlist/delete`,
         type: 'GET'
     },
     updateUserPlaylistSongs: {

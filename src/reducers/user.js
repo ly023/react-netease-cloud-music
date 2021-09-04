@@ -1,5 +1,5 @@
 import {SET_USER_COMMENT_INFO, SET_USER_INFO, SET_USER_PLAYER} from 'actions/types'
-import {PLAY_MODE} from 'constants/play'
+import {PLAY_MODE} from 'constants/music'
 
 function getDefaultPlaySetting() {
     return {

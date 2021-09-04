@@ -115,9 +115,6 @@ export default [
         path: '/my/music',
         name: '我的音乐',
         exact: true,
-        meta: {
-            requiresAuth: true
-        },
         component: () => <Redirect to={'/my/music/playlist/:id'}/>
     },
     {

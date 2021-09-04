@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {requestLyric} from 'services/song'
 import VerticalScrollbar from 'components/VerticalScrollbar'
-import {DEFAULT_SECOND} from 'constants/play'
+import {DEFAULT_SECOND} from 'constants/music'
 import {getLyric} from 'utils/song'
 import {CONTENT_HEIGHT} from '../../../constants'
 

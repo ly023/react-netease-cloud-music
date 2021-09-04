@@ -1,8 +1,11 @@
 import {useState, useEffect, useCallback, useRef} from 'react'
 import {useHistory} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
+import Confirm from 'components/Confirm'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestPlaylist} from 'services/user'
+import {deleteUserPlaylist} from 'services/playlist'
+import {DEFAULT_PLAYLIST_TYPE} from 'constants/music'
 import {getThumbnail, getUrlParameter} from 'utils'
 
 import './index.scss'
@@ -21,6 +24,9 @@ function MyMusicSidebar(props) {
     const [playlistLoading, setPlaylistLoading] = useState(false)
     const [createdPlaylists, setCreatedPlaylists] = useState([])
     const [collectedPlaylists, setCollectedPlaylists] = useState([])
+    const [confirmVisible, setConfirmVisible] = useState(false)
+    const [activePlaylistId, setActivePlaylistId] = useState()
+    const [deleteLoading, setDeleteLoading] = useState(false)
 
     const isMounted = useRef(false)
 
@@ -36,7 +42,7 @@ function MyMusicSidebar(props) {
                     uid: userId,
                 })
                 const data = res?.playlist || []
-                if (invalidPlaylistId) {
+                if (invalidPlaylistId || !data.find(v => v.id === playlistId)) {
                     const firstPlaylistId = data[0]?.id
                     if (firstPlaylistId) {
                         history.push(`/my/music/playlist/${firstPlaylistId}?reload=true`)
@@ -69,7 +75,7 @@ function MyMusicSidebar(props) {
     useEffect(() => {
         isMounted.current = true
 
-        if(!reload) {
+        if (!reload) {
             fetchPlaylists()
         }
 
@@ -86,30 +92,10 @@ function MyMusicSidebar(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [reload])
 
-    const handleSelectPlaylist = useCallback((item) => {
-        const {id} = item
+    const handleSelectPlaylist = useCallback((id) => {
         const url = `/my/music/playlist/${id}`
         history.push(url)
     }, [history])
-
-    const renderPlaylist = useCallback((data) => {
-        return <ul>
-            {
-                data.map((item) => {
-                    const {id, name, coverImgUrl, trackCount} = item
-                    const selected = id === playlistId
-                    return <li key={id} styleName={`item ${selected ? 'selected' : ''}`}
-                               onClick={() => handleSelectPlaylist(item)}>
-                        <img src={getThumbnail(coverImgUrl, 140)} alt="歌单封面" styleName="cover"/>
-                        <div styleName="meta">
-                            <div title={name} styleName="name">{name}</div>
-                            <div styleName="count">{trackCount}首</div>
-                        </div>
-                    </li>
-                })
-            }
-        </ul>
-    }, [playlistId, handleSelectPlaylist])
 
     const handleChangeCreatedPlaylistsVisible = useCallback(() => {
         setCreatedPlaylistsVisible(!createdPlaylistsVisible)
@@ -118,6 +104,89 @@ function MyMusicSidebar(props) {
     const handleChangeCollectedPlaylistsVisible = useCallback(() => {
         setCollectedPlaylistsVisible(!collectedPlaylistsVisible)
     }, [collectedPlaylistsVisible])
+
+    const handleShowDeleteConfirm = useCallback((e, id) => {
+        e.stopPropagation()
+        setActivePlaylistId(id)
+        setConfirmVisible(true)
+    }, [])
+
+    const handleCancelDeleteConfirm = useCallback(() => {
+        setActivePlaylistId()
+        setConfirmVisible(false)
+    }, [])
+
+    const replaceUrl = useCallback((activeIndex, playlists) => {
+        if (playlistId === activePlaylistId) {
+            const nextPlaylistId = playlists[activeIndex] ? playlists[activeIndex].id :  playlists[0].id
+            const url = `/my/music/playlist/${nextPlaylistId}`
+            history.replace(url)
+        }
+    }, [history, playlistId, activePlaylistId])
+
+    const filterPlaylists = useCallback((id) => {
+        let activeIndex = -1
+        const newCreatedPlaylist = createdPlaylists.filter((v, i) => {
+            if (v.id === id) {
+                activeIndex = i
+            }
+            return v.id !== id
+        })
+        if (newCreatedPlaylist.length === createdPlaylists.length) {
+            const newCollectedPlaylists = collectedPlaylists.filter((v, i) => {
+                if (v.id === id) {
+                    activeIndex = i
+                }
+                return v.id !== id
+            })
+            setCollectedPlaylists(newCollectedPlaylists)
+            replaceUrl(activeIndex, newCollectedPlaylists)
+            return
+        }
+        replaceUrl(activeIndex, newCreatedPlaylist)
+        setCreatedPlaylists(newCreatedPlaylist)
+    }, [createdPlaylists, collectedPlaylists, replaceUrl])
+
+    const handleDeletePlaylist = useCallback(async () => {
+        try {
+            setDeleteLoading(true)
+            const res = await deleteUserPlaylist({
+                id: activePlaylistId,
+            })
+            if (res?.code === 200) {
+                filterPlaylists(activePlaylistId)
+                handleCancelDeleteConfirm()
+            }
+        } finally {
+            if (isMounted.current) {
+                setDeleteLoading(false)
+            }
+        }
+    }, [activePlaylistId, filterPlaylists, handleCancelDeleteConfirm])
+
+    const renderPlaylist = useCallback((data) => {
+        return <ul>
+            {
+                data.map((item) => {
+                    const {id, specialType, name, coverImgUrl, trackCount} = item
+                    const selected = id === playlistId
+
+                    return <li key={id} styleName={`item ${selected ? 'selected' : ''}`}
+                               onClick={() => handleSelectPlaylist(id)}>
+                        <img src={getThumbnail(coverImgUrl, 140)} alt="歌单封面" styleName="cover"/>
+                        <div styleName="meta">
+                            <div title={name} styleName="name">{name}</div>
+                            <div styleName="count">{trackCount}首</div>
+                            {specialType === DEFAULT_PLAYLIST_TYPE ? null : <div styleName="actions">
+                                <span styleName="edit"/>
+                                <span styleName="delete" onClick={(e) => handleShowDeleteConfirm(e, id)}/>
+                            </div>}
+                        </div>
+                    </li>
+                })
+            }
+        </ul>
+    }, [playlistId, handleSelectPlaylist, handleShowDeleteConfirm])
 
     return <div styleName="wrapper" style={style}>
         <h2 styleName="subtitle">我的歌手</h2>
@@ -148,6 +217,13 @@ function MyMusicSidebar(props) {
                 {renderPlaylist(collectedPlaylists)}
             </div>
         </div>
+        <Confirm
+            visible={confirmVisible}
+            confirmLoading={deleteLoading}
+            content='确定删除歌单？'
+            onCancel={handleCancelDeleteConfirm}
+            onOk={handleDeletePlaylist}
+        />
     </div>
 }
 

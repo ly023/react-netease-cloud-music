@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {getThumbnail} from 'utils'
 import {requestProgramRank} from 'services/radio'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import Play from 'components/Play'
 import ListLoading from 'components/ListLoading'
 

@@ -10,7 +10,7 @@ import ListLoading from 'components/ListLoading'
 import SubscribePlaylist from 'components/SubscribePlaylist'
 import AddToPlaylist from 'components/AddToPlaylist'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
-import {PLAY_TYPE} from 'constants/play'
+import {PLAY_TYPE} from 'constants/music'
 import {requestRankList} from 'services/toplist'
 import {getThumbnail} from 'utils'
 
