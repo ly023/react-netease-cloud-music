@@ -9,7 +9,7 @@
   border: 1px solid #fff;
 
   &.even {
-    background: #f7f7f7;
+    background: $bg-color;
     border-color: #f7f7f7;
   }
 
@@ -110,7 +110,7 @@
   .album {
     width: 18%;
     margin-right: 12px;
-    color: #666;
+    color: $font-color;
 
     @extend %text-ellipsis;
   }

@@ -88,7 +88,7 @@
       // 认证
       .identity {
         margin: 8px 0 0;
-        color: #666;
+        color: $font-color;
       }
     }
 
@@ -99,7 +99,7 @@
         float: left;
         margin-bottom: 15px;
         padding: 0 40px 0 0;
-        color: #666;
+        color: $font-color;
         font-size: 12px;
 
         + li {
@@ -115,7 +115,7 @@
         }
 
         a {
-          color: #666;
+          color: $font-color;
           text-decoration: none;
 
           &:hover {
@@ -134,7 +134,7 @@
     .extra {
       .row {
         margin-bottom: 5px;
-        color: #666;
+        color: $font-color;
         font-size: 12px;
       }
     }
@@ -161,7 +161,61 @@
   }
 }
 
-.list {
+.radios {
+  margin-bottom: 24px;
+
+  border: {
+    width: 0 1px 1px;
+    color: #e5e5e5;
+    style: solid;
+  }
+
+  .radio {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+
+    &.odd {
+      background-color: $bg-color;
+    }
+
+    &:hover {
+      background-color: #eee;
+    }
+
+    .cover {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      margin-left: 20px;
+    }
+
+    .name {
+      display: inline-block;
+      width: 500px;
+      margin-left: 10px;
+      padding-right: 38px;
+
+      @extend %text-ellipsis;
+    }
+
+    .sub-count {
+      display: inline-block;
+      width: 216px;
+      margin-left: 10px;
+      color: $font-color;
+    }
+
+    .program-count {
+      display: inline-block;
+      width: 44px;
+      margin-left: 10px;
+      color: $font-color;
+    }
+  }
+}
+
+.playlist {
   margin: 30px 0 0 -50px;
 
   .item {

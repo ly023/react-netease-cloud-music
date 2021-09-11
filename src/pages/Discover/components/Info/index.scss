@@ -12,7 +12,7 @@
   width: 205px;
   margin: 0 auto;
   padding: 16px 0;
-  color: #666;
+  color: $font-color;
   line-height: 22px;
 }
 
@@ -112,7 +112,7 @@
         left: 50%;
         width: 100%;
         padding: 0 10px;
-        color: #666;
+        color: $font-color;
         font-size: 12px;
         background-color: #fffbe5;
         border: 2px solid #ffd700;
@@ -223,7 +223,7 @@
       }
 
       a {
-        color: #666;
+        color: $font-color;
         text-decoration: none;
 
         &:hover {

@@ -11,10 +11,14 @@ export const PLAY_TYPE = {
         TYPE: 'album',
         TEXT: '专辑'
     },
+    RADIO: {
+        TYPE: 'ratio',
+        TEXT: '电台'
+    },
     PROGRAM: {
         TYPE: 'program',
         TEXT: '电台节目'
-    }
+    },
 }
 
 export const PLAY_MODE = {

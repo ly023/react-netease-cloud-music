@@ -9,7 +9,7 @@ import {PLAY_TYPE} from 'constants/music'
 import './index.scss'
 
 function SinglePlay(props) {
-    const {id, active = false, disabled = false} = props
+    const {id, type = PLAY_TYPE.SINGLE.TYPE, active = false, disabled = false} = props
 
     const iconClassName = useMemo(() => {
         let extraStyleName = ''
@@ -21,13 +21,14 @@ function SinglePlay(props) {
         return `play ${extraStyleName}`
     }, [active, disabled])
 
-    return <Play id={id} type={PLAY_TYPE.SINGLE.TYPE}>
-        <span styleName={iconClassName} />
+    return <Play id={id} type={type}>
+        <span styleName={iconClassName}/>
     </Play>
 }
 
 SinglePlay.propTypes = {
     id: PropTypes.number,
+    type: PropTypes.oneOf([PLAY_TYPE.SINGLE.TYPE, PLAY_TYPE.PROGRAM.TYPE]),
     active: PropTypes.bool,
     disabled: PropTypes.bool,
 }

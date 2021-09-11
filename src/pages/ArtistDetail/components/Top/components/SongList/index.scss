@@ -11,12 +11,12 @@
 
   .even {
     td {
-      background-color: #f7f7f7;
+      background-color: $bg-color;
     }
   }
 
   .track {
-    color: #333;
+    color: $font-primary-color;
 
     &.disabled * {
       color: #bbb;
@@ -98,7 +98,7 @@
 
     .duration {
       width: 70px;
-      color: #666;
+      color: $font-color;
 
       .actions {
         display: none;

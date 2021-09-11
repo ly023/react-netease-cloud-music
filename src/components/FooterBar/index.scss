@@ -41,7 +41,7 @@
 
 .copy-sep-email {
   margin-left: 14px;
-  color: #333;
+  color: $font-primary-color;
 }
 
 .color-1 {
@@ -49,7 +49,7 @@
 }
 
 .color-2 {
-  color: #666;
+  color: $font-color;
 }
 
 .enter {
@@ -60,7 +60,7 @@
     float: left;
     width: 60px;
     height: 70px;
-    color: #666;
+    color: $font-color;
     text-align: center;
 
     &:not(:first-child) {

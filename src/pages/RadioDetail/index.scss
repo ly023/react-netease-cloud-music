@@ -1,0 +1,338 @@
+
+.head-box {
+  display: flex;
+
+  .cover-box {
+    position: relative;
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    margin-right: 28px;
+
+    .cover {
+      width: 100%;
+      height: 100%;
+      vertical-align: top;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: $bg-color;
+        content: '  ';
+      }
+
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 16px;
+        margin-top: -8px;
+        color: #999;
+        text-align: center;
+        content: '\f127' attr(alt);
+      }
+    }
+
+    &::after {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 208px;
+      height: 208px;
+
+      @extend %background-cover;
+
+      background-position: 0 -1285px;
+      content: '';
+    }
+  }
+
+  .info {
+    flex: 1;
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 20px;
+      font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+      line-height: 24px;
+
+      .label {
+        display: inline-block;
+        width: 55px;
+        height: 24px;
+        margin-right: 10px;
+
+        @extend %background-icon;
+
+        background-position: 0 -1014px;
+      }
+    }
+
+    .creator {
+      height: 35px;
+      margin: 12px 0 20px;
+
+      .avatar,
+      .nickname {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .avatar {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+      }
+
+      .nickname {
+        color: #0c73c2;
+      }
+    }
+
+    .operation {
+      margin-bottom: 25px;
+
+      .btn-play,
+      .btn-share {
+        @extend %new-button;
+      }
+
+      .btn-subscribe {
+        @extend %new-button-primary;
+      }
+
+      .btn-play {
+        margin-left: 6px;
+
+        .play-icon {
+          display: inline-block;
+          width: 18px;
+          height: 18px;
+          margin-right: 4px;
+          vertical-align: text-top;
+          background-position: -267px -268px;
+
+          @extend %background-index;
+        }
+      }
+
+      .btn-share {
+        margin-left: 6px;
+      }
+    }
+
+    .desc {
+      padding: 0 0 10px;
+      color: #999;
+      white-space: pre-wrap;
+    }
+
+    .category {
+      display: inline-block;
+      height: 16px;
+      margin-right: 8px;
+      padding: 0 6px;
+      color: #c00;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid #c00;
+
+      &:hover {
+        background-color: #fbeeee;
+      }
+    }
+  }
+}
+
+.programs-wrapper {
+  margin-top: 26px;
+
+  .subtitle {
+    border-bottom: 2px solid $light-primary-color;
+
+    h3 {
+      display: inline-block;
+      height: 35px;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    .total {
+      margin: 9px 0 0 20px;
+      color: $font-color;
+    }
+
+    .other {
+      .sorter {
+        float: right;
+
+        .desc,
+        .asc {
+          display: inline-block;
+          height: 25px;
+          background: url('~assets/images/radio.png') no-repeat 50%;
+          cursor: pointer;
+        }
+
+        .desc {
+          width: 29px;
+          background-position: 0 0;
+
+          &:hover {
+            background-position: 0 -60px;
+          }
+
+          &.selected {
+            background-position: 0 -30px;
+            cursor: default;
+          }
+        }
+
+        .asc {
+          width: 28px;
+          background-position: -40px 0;
+
+          &:hover {
+            background-position: -40px -60px;
+          }
+
+          &.selected {
+            background-position: -40px -30px;
+            cursor: default;
+          }
+        }
+      }
+    }
+  }
+
+  .program {
+    display: flex;
+    align-items: center;
+    height: 55px;
+
+    &.odd {
+      background-color: $bg-color;
+    }
+
+    &:hover {
+      background-color: #eee;
+    }
+
+    .order {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 62px;
+      padding: 0 10px;
+
+      .num {
+        width: 25px;
+        margin-left: 10px;
+        color: #999;
+      }
+    }
+
+    .name-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 230px;
+      padding-right: 10px;
+
+      &:hover {
+        .actions {
+          display: inline-block;
+        }
+      }
+
+      .name {
+        flex: 1;
+        color: $font-primary-color;
+        line-height: 55px;
+
+        @extend %text-ellipsis;
+      }
+
+      .actions {
+        display: none;
+
+        .icon {
+          display: inline-block;
+          width: 18px;
+          height: 16px;
+          margin: 0 0 0 4px;
+          text-indent: -9999px;
+          vertical-align: middle;
+          cursor: pointer;
+        }
+
+        .add {
+          width: 13px;
+          height: 13px;
+          margin-left: 0;
+
+          @extend %background-icon;
+
+          background-position: 0 -700px;
+
+          &:hover {
+            background-position: -22px -700px;
+          }
+        }
+
+        .share {
+          @extend %background-table;
+
+          background-position: 0 -195px;
+
+          &:hover {
+            background-position: -20px -195px;
+          }
+        }
+
+        .download {
+          @extend %background-table;
+
+          background-position: -81px -174px;
+
+          &:hover {
+            background-position: -104px -174px;
+          }
+        }
+      }
+    }
+
+    .listener-count {
+      width: 60px;
+      padding: 0 10px;
+      color: $font-color;
+    }
+
+    .liked-count {
+      width: 70px;
+      padding: 0 10px;
+      color: $font-color;
+    }
+
+    .time {
+      width: 68px;
+      padding: 0 10px;
+      color: #999;
+    }
+
+    .duration {
+      padding: 0 10px;
+      color: #999;
+      text-align: left;
+    }
+  }
+}

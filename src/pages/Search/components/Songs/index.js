@@ -59,7 +59,7 @@ function Songs(props) {
                             })
                         }
                     </span>
-                    <a href={null} styleName="td album">《{getRenderKeyword(item.album?.name, keyword)}》</a>
+                    <Link to={`/album/${item.album?.id}`} styleName="td album">《{getRenderKeyword(item.album?.name, keyword)}》</Link>
                     <span styleName="td">{formatDuration(item.duration)}</span>
                 </div>
             })

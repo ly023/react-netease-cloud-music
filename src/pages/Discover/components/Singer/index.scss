@@ -7,14 +7,14 @@
     position: relative;
     height: 23px;
     margin: 0 20px;
-    color: #333;
+    color: $font-primary-color;
     font-size: 12px;
     border-bottom: 1px solid #ccc;
   }
 
   .more {
     float: right;
-    color: #666;
+    color: $font-color;
     font-weight: 400;
   }
 
@@ -67,7 +67,7 @@
   }
 
   .item-desc {
-    color: #666;
+    color: $font-color;
   }
 
   .apply {

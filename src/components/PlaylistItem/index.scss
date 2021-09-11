@@ -88,7 +88,7 @@
   .nickname {
     display: inline-block;
     max-width: 76%;
-    color: #666;
+    color: $font-color;
     vertical-align: middle;
 
     @extend %text-ellipsis;

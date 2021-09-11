@@ -142,7 +142,7 @@
   }
 
   .other {
-    color: #666;
+    color: $font-color;
     font-size: 12px;
 
     .total {
@@ -177,14 +177,14 @@
 
   p {
     margin: 12px 0;
-    color: #666;
+    color: $font-color;
     line-height: 20px;
   }
 
   .summary {
     padding: 17px 0 0 12px;
     color: #999;
-    background-color: #f7f7f7;
+    background-color: $bg-color;
 
     li {
       width: 188px;

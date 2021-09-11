@@ -8,7 +8,7 @@
   th {
     height: 38px;
     vertical-align: top;
-    background-color: #f7f7f7;
+    background-color: $bg-color;
     background-repeat: repeat-x;
     background-position: 0 0;
 
@@ -37,7 +37,7 @@
     .th {
       height: 18px;
       padding: 8px 10px;
-      color: #666;
+      color: $font-color;
       font-weight: 400;
       line-height: 18px;
       text-align: left;
@@ -59,12 +59,12 @@
 
   .even {
     td {
-      background-color: #f7f7f7;
+      background-color: $bg-color;
     }
   }
 
   .track {
-    color: #333;
+    color: $font-primary-color;
 
     &.disabled * {
       color: #bbb;
@@ -154,7 +154,7 @@
     }
 
     .duration {
-      color: #666;
+      color: $font-color;
 
       .actions {
         display: none;

@@ -7,7 +7,7 @@
   margin: 40px 0 -40px;
   padding: 0 20px;
   line-height: 48px;
-  background-color: #f7f7f7;
+  background-color: $bg-color;
   border-top: 1px solid #c6c6c6;
   border-radius: 0 0 4px 4px;
 
@@ -64,7 +64,7 @@
   background-position: right -100px;
 
   > i {
-    color: #333;
+    color: $font-primary-color;
     background-position: 0 -59px;
   }
 
@@ -120,7 +120,7 @@
   height: 32px;
   padding: 0 10px 0 7px;
   overflow: hidden;
-  color: #333;
+  color: $font-primary-color;
   line-height: 32px;
   cursor: pointer;
 
@@ -183,7 +183,7 @@
 
   > label,
   .login-option-link {
-    color: #666;
+    color: $font-color;
   }
 
   .login-option-link {

@@ -103,7 +103,7 @@
   }
 
   span {
-    color: #333;
+    color: $font-primary-color;
   }
 }
 
@@ -295,7 +295,7 @@
 
 .no-lyric {
   margin-top: 13px;
-  color: #666;
+  color: $font-color;
 }
 
 .lyric {
@@ -352,7 +352,7 @@
 }
 
 .lyric-user-info {
-  color: #666;
+  color: $font-color;
 
   a {
     color: #0c73c2;

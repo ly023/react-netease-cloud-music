@@ -134,7 +134,6 @@ export default class Comments extends React.Component {
     }
 
     fetchComments = (offset = 0) => {
-        const {id} = this.props
         const params = {
             id: this.props.id,
             offset

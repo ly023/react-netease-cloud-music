@@ -133,12 +133,12 @@
 
 .note {
   padding: 11px 10px;
-  color: #666;
+  color: $font-color;
   word-break: break-all;
   border-bottom: 1px solid #e2e2e2;
 
   a {
-    color: #666;
+    color: $font-color;
     text-decoration: none;
 
     &.active,

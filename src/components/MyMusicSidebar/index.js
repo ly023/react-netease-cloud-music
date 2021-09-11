@@ -70,7 +70,7 @@ function MyMusicSidebar(props) {
                 }
             }
         }
-    }, [history, invalidPlaylistId, userId, createdPlaylists, collectedPlaylists])
+    }, [history, invalidPlaylistId, playlistId, userId, createdPlaylists, collectedPlaylists])
 
     useEffect(() => {
         isMounted.current = true

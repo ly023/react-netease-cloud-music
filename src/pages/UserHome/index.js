@@ -5,7 +5,7 @@ import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import {throttle} from 'lodash'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
-import {requestDetail as requestUserDetail, requestPlaylist} from 'services/user'
+import {requestDetail as requestUserDetail, requestPlaylist, requestRadios} from 'services/user'
 import {DEFAULT_AVATAR, DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {USER_AUTH_TYPE} from 'constants/user'
 import Page from 'components/Page'
@@ -14,7 +14,7 @@ import RankingList from 'components/ListenMusicRankingList'
 import SubTitle from 'components/SubTitle'
 import ListLoading from 'components/ListLoading'
 import PlaylistItem from 'components/PlaylistItem'
-import {isEndReached} from 'utils'
+import {getThumbnail, isEndReached} from 'utils'
 
 import './index.scss'
 
@@ -41,6 +41,7 @@ function UserHome(props) {
     const [playlistLoading, setPlaylistLoading] = useState(false)
     const [createdPlaylists, setCreatedPlaylists] = useState([])
     const [collectedPlaylists, setCollectedPlaylists] = useState([])
+    const [radios, setRadios] = useState([])
 
     const isMounted = useRef(false)
 
@@ -50,8 +51,15 @@ function UserHome(props) {
 
     const isSelf = useMemo(() => isLogin && userInfo?.userId === userId, [isLogin, userInfo, userId])
 
+    const fetchRadios = useCallback(async () => {
+        const res = await requestRadios({uid: userId})
+        if (isMounted.current) {
+            setRadios(res?.djRadios || [])
+        }
+    }, [userId])
+
     const fetchPlaylists = useCallback(async (query) => {
-        if(playlistLoading) {
+        if (playlistLoading) {
             return
         }
         try {
@@ -125,6 +133,9 @@ function UserHome(props) {
                 const res = await requestUserDetail({uid: userId})
                 if (isMounted.current) {
                     setUserDetail(res)
+                    // 用户创建的电台
+                    fetchRadios()
+                    // 用户歌单
                     fetchPlaylists(getDefaultParams())
                 }
             } catch (e) {
@@ -165,8 +176,29 @@ function UserHome(props) {
 
     }, [userDetail, isSelf, profile])
 
+    const renderRadios = useCallback(() => {
+        return <ul styleName="radios">
+            {
+                radios.map((radio, index) => {
+                    const {id, name, picUrl, subCount, programCount} = radio
+                    const radioUrl = `/radio/${id}`
+                    return <li key={id} styleName={`radio ${index % 2 ? 'odd' : ''}`}>
+                        <Link to={radioUrl} styleName="cover">
+                            <img src={getThumbnail(picUrl, 50)} alt=""/>
+                        </Link>
+                        <Link to={radioUrl} styleName="name" title={name}>
+                            {name}
+                        </Link>
+                        <span styleName="sub-count">订阅{subCount}次</span>
+                        <span styleName="program-count">{programCount}期</span>
+                    </li>
+                })
+            }
+        </ul>
+    }, [radios])
+
     const renderPlaylist = useCallback((data) => {
-        return <ul styleName="list">
+        return <ul styleName="playlist">
             {
                 data.map((item, index) => {
                     const parseItem = {
@@ -239,6 +271,12 @@ function UserHome(props) {
                         </div>
                     </div>
                 </div>
+                {
+                    radios.length ? <div className="clearfix">
+                        <SubTitle title={<span styleName="subtitle">{playlistSubtitlePrefix}创建的电台</span>}/>
+                        {renderRadios(radios)}
+                    </div> : null
+                }
                 {
                     (peopleCanSeeMyPlayRecord || isSelf) ? <div styleName="box">
                         <RankingList

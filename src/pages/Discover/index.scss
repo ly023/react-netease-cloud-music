@@ -7,7 +7,7 @@
   @extend %background-index;
 
   .title-text {
-    color: #333;
+    color: $font-primary-color;
     font-weight: normal;
     font-size: 20px;
     line-height: 28px;
@@ -17,7 +17,7 @@
   .title-more {
     float: right;
     margin-top: 9px;
-    color: #666;
+    color: $font-color;
 
     > i {
       display: inline-block;
@@ -73,7 +73,7 @@
       display: inline-block;
 
       > a {
-        color: #666;
+        color: $font-color;
       }
 
       > span {

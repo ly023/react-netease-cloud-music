@@ -11,7 +11,7 @@ $margin-left: 48px;
 .label {
   position: relative;
   margin-right: 10px;
-  color: #333;
+  color: $font-primary-color;
   font-size: 12px;
 
   &::after {

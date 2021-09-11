@@ -55,6 +55,14 @@ function Info() {
     }, [])
 
     useEffect(() => {
+        isMounted.current = true
+
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
+
+    useEffect(() => {
         const fetchDetail = async () => {
             const res = await requestDetail({uid: userId})
             if (isMounted.current) {
@@ -62,14 +70,10 @@ function Info() {
             }
         }
 
-        isMounted.current = true
         if(userId) {
             fetchDetail()
         }
 
-        return () => {
-            isMounted.current = false
-        }
     }, [userId])
 
     const avatarUrl = detail?.profile?.avatarUrl || ''

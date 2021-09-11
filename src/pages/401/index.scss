@@ -1,7 +1,7 @@
 
 .wrapper {
   min-width: 982px;
-  background-color: $bg-color;
+  background-color: $bg-primary-color;
 }
 
 .forbidden {
@@ -12,7 +12,7 @@
 
 .note {
   margin-top: 35px;
-  color: #666;
+  color: $font-color;
   font-size: 18px;
   font-family: "Microsoft Yahei", sans-serif;
 }

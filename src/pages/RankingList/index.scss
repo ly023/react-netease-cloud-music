@@ -122,7 +122,7 @@
 
     .time {
       margin: 12px 0 30px;
-      color: #666;
+      color: $font-color;
 
       .clock-icon {
         display: inline-block;
@@ -336,7 +336,7 @@
         }
 
         .other {
-          color: #666;
+          color: $font-color;
           font-size: 12px;
 
           .total {
@@ -362,7 +362,7 @@
 
       .text {
         margin-bottom: 18px;
-        color: #333;
+        color: $font-primary-color;
         font-size: 13px;
       }
 

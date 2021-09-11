@@ -2,7 +2,7 @@
 .wrapper {
   margin: 20px 0 0;
   overflow: hidden;
-  background-color: $bg-color;
+  background-color: $bg-primary-color;
   border: 1px solid #d3d3d3;
 }
 
@@ -154,7 +154,7 @@
     float: left;
     width: 35px;
     height: 32px;
-    color: #666;
+    color: $font-color;
     font-size: 16px;
     text-align: center;
 

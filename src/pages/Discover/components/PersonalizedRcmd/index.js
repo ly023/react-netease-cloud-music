@@ -19,6 +19,14 @@ function PersonalizedRcmd() {
     const isMounted = useRef(false)
 
     useEffect(() => {
+        isMounted.current = true
+
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
+
+    useEffect(() => {
         const fetchRcmdPlaylist = async () => {
             setLoading(true)
             const res = await requestRcmdPlaylist()
@@ -29,14 +37,10 @@ function PersonalizedRcmd() {
             }
         }
 
-        isMounted.current = true
         if (isLogin) {
             fetchRcmdPlaylist()
         }
 
-        return () => {
-            isMounted.current = false
-        }
     }, [isLogin])
 
     const handleDislike = () => {

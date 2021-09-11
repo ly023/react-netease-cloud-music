@@ -102,6 +102,11 @@ export default [
         component: importPages('AlbumDetail'),
     },
     {
+        path: '/radio/:id',
+        name: '电台详情',
+        component: importPages('RadioDetail'),
+    },
+    {
         path: '/artist/:id',
         name: '歌手详情',
         component: importPages('ArtistDetail'),

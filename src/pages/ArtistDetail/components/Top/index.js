@@ -21,6 +21,13 @@ function Top(props) {
     useEffect(() => {
         isMounted.current = true
 
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
+
+
+    useEffect(() => {
         const fetchSongs = async () => {
             try {
                 setLoading(true)
@@ -39,9 +46,6 @@ function Top(props) {
 
         fetchSongs()
 
-        return () => {
-            isMounted.current = false
-        }
     }, [artistId])
 
     return <>

@@ -7,7 +7,7 @@ body {
   position: relative;
   min-width: 1100px;
   overflow-x: hidden;
-  background-color: $bg-color;
+  background-color: $bg-primary-color;
 }
 
 body,
@@ -15,7 +15,7 @@ textarea,
 select,
 input,
 button {
-  color: #333;
+  color: $font-primary-color;
   font-size: 12px;
   font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
   -webkit-text-size-adjust: none;
@@ -32,7 +32,7 @@ h6 {
 }
 
 a {
-  color: #333;
+  color: $font-primary-color;
   text-decoration: none;
 
   &:hover {
@@ -143,6 +143,7 @@ textarea {
       flex: 1;
 
       .left {
+        min-height: 700px;
         padding: 37px 30px 40px 40px;
         border-right: 1px solid #d3d3d3;
       }

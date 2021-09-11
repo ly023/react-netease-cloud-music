@@ -12,7 +12,7 @@
   }
 
   &.even {
-    background: #f7f7f7;
+    background: $bg-color;
     border-color: #f7f7f7;
   }
 
@@ -127,7 +127,7 @@
 
   @extend %text-ellipsis;
 
-  color: #666;
+  color: $font-color;
 }
 
 .count {

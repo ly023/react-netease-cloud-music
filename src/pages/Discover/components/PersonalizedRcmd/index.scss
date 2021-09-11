@@ -87,7 +87,7 @@
     z-index: 1;
     display: none;
     width: 63px;
-    color: #666;
+    color: $font-color;
     line-height: 26px;
     text-align: center;
     background-position: 0 -130px;
@@ -106,7 +106,7 @@
       display: block;
 
       &:hover {
-        color: #333;
+        color: $font-primary-color;
         background-position: -70px -130px;
       }
     }

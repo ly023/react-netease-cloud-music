@@ -16,6 +16,13 @@ function CategoryRecommendation({type}) {
     useEffect(() => {
         isMounted.current = true
 
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
+
+    useEffect(() => {
+
         const fetchCategoryRecommendation = async () => {
             setLoading(true)
             try {
@@ -31,9 +38,6 @@ function CategoryRecommendation({type}) {
 
         fetchCategoryRecommendation()
 
-        return () => {
-            isMounted.current = false
-        }
     }, [type])
 
     return <div styleName="section">

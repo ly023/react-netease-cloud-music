@@ -3,12 +3,12 @@
   display: inline-block;
   padding: 8px 26px;
   overflow: hidden;
-  color: #333;
+  color: $font-primary-color;
   font-size: 12px;
   line-height: 1;
   text-align: center;
   vertical-align: top;
-  background-color: #f7f7f7;
+  background-color: $bg-color;
   border: 1px solid #cdcdcd;
   border-radius: 4px;
   cursor: pointer;

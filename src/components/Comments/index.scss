@@ -14,7 +14,7 @@
   .count {
     float: left;
     margin: 9px 0 0 20px;
-    color: #666;
+    color: $font-color;
   }
 }
 
@@ -156,7 +156,7 @@
 
   .comment,
   .replied {
-    color: #666;
+    color: $font-color;
 
     a {
       margin-right: 5px;
@@ -247,7 +247,7 @@
 
   .delete,
   .reply {
-    color: #666;
+    color: $font-color;
     cursor: pointer;
 
     &:hover {

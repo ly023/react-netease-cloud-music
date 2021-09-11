@@ -18,6 +18,13 @@ function SimilarArtists(props) {
     useEffect(() => {
         isMounted.current = true
 
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
+
+
+    useEffect(() => {
         const fetchSimilarArtists = async () => {
             try {
                 setLoading(true)
@@ -34,10 +41,6 @@ function SimilarArtists(props) {
         }
         if (artistId) {
             fetchSimilarArtists()
-        }
-
-        return () => {
-            isMounted.current = false
         }
     }, [artistId])
 

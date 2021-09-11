@@ -13,16 +13,16 @@ export default {
         url: `${config.apiHost}/dj/radio/hot`,
         type: 'GET'
     },
-    programRank: {
-        url: `${config.apiHost}/dj/program/toplist`,
-        type: 'GET'
-    },
-    detail: {
-        url: `${config.apiHost}/dj/program/detail`,
-        type: 'GET'
-    },
     requestHotAnchor: {
         url: `${config.apiHost}/dj/hot/anchor`,
         type: 'GET'
-    }
+    },
+    detail: {
+        url: `${config.apiHost}/dj/detail`,
+        type: 'GET',
+    },
+    programs: {
+        url: `${config.apiHost}/dj/program`,
+        type: 'GET',
+    },
 }

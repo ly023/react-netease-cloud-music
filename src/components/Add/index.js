@@ -11,9 +11,12 @@ import {setUserPlayer} from 'actions/user'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
 import {requestDetail as requestSongDetail} from 'services/song'
 import {requestDetail as requestAlbumDetail} from 'services/album'
+import {requestDetail as requestProgramDetail} from 'services/program'
 import {setLocalStorage} from 'utils'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
+
+const types = Object.keys(PLAY_TYPE).map((key) => PLAY_TYPE[key].TYPE)
 
 function Add(props) {
     const dispatch = useDispatch()
@@ -70,6 +73,30 @@ function Add(props) {
                         }
                         dispatch(setUserPlayer({shuffle: newShuffle}))
                     }
+                }
+            }
+        }// 电台节目
+        else if (type === PLAY_TYPE.PROGRAM.TYPE) {
+            const trackIndex = localTrackQueue.findIndex((v) => v.program.id === id)
+            if (trackIndex !== -1) {
+                trackQueue = localTrackQueue
+                emitter.emit('add')
+            } else {
+                const res = await requestProgramDetail({id})
+                emitter.emit('add')
+                hasChangeTrackQueue = true
+                const track = formatTrack(res?.program, true)
+                trackQueue = localTrackQueue.concat([track])
+                const newTrackIndex = trackQueue.length - 1
+                // 随机模式重新计算shuffle
+                if (isShuffleMode(playSetting)) {
+                    const {shuffle} = selectedState
+                    const shuffleIndex = shuffle.findIndex((v) => v === newTrackIndex)
+                    let newShuffle = [...shuffle]
+                    if (shuffleIndex === -1) {
+                        newShuffle = _.shuffle(shuffle.concat([newTrackIndex]))
+                    }
+                    dispatch(setUserPlayer({shuffle: newShuffle}))
                 }
             }
         } else {
@@ -138,7 +165,7 @@ function Add(props) {
 }
 
 Add.propTypes = {
-    type: PropTypes.oneOf([PLAY_TYPE.SINGLE.TYPE, PLAY_TYPE.PLAYLIST.TYPE, PLAY_TYPE.ALBUM.TYPE]).isRequired,
+    type: PropTypes.oneOf(types).isRequired,
     id: PropTypes.number,
     songs: PropTypes.array,
 }

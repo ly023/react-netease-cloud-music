@@ -47,4 +47,9 @@ export default {
         url: `${config.apiHost}/user/playlist`,
         type: 'GET'
     },
+    // 用户创建的电台
+    radios: {
+        url: `${config.apiHost}/user/audio`,
+        type: 'GET'
+    }
 }

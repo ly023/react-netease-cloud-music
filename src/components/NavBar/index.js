@@ -79,6 +79,8 @@ export default class NavBar extends React.Component {
             || pathname.startsWith('/playlist')
             || pathname.startsWith('/album')
             || pathname.startsWith('/artist')
+            || pathname.startsWith('/radio')
+            || pathname.startsWith('/program')
     }
 
     getRenderSubNav = () => {

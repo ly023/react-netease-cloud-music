@@ -37,7 +37,7 @@
   width: 113px;
   height: 45px;
   margin: 0 0 10px 10px;
-  color: #333;
+  color: $font-primary-color;
   font-size: 12px;
   font-family: PingFangSC-Regular, sans-serif;
   line-height: 45px;
@@ -286,7 +286,7 @@
 }
 
 .des {
-  color: #666;
+  color: $font-color;
   font-size: 16px;
   line-height: 24px;
 

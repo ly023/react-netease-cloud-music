@@ -7,7 +7,7 @@
   padding: 0 16px 0 30px;
   overflow: hidden;
   white-space: nowrap;
-  background-color: $bg-color;
+  background-color: $bg-primary-color;
   border: 1px solid #d3d3d3;
 
   :global {
@@ -126,7 +126,7 @@
     }
 
     .name {
-      color: #666;
+      color: $font-color;
     }
   }
 }

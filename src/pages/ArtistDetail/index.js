@@ -38,6 +38,13 @@ function ArtistDetail(props) {
     useEffect(() => {
         isMounted.current = true
 
+        return() => {
+            isMounted.current = false
+        }
+    }, [])
+
+    useEffect(() => {
+
         const fetchDetail = async () => {
             try {
                 const res = await requestDetail({id: artistId})
@@ -55,9 +62,6 @@ function ArtistDetail(props) {
 
         fetchDetail()
 
-        return() => {
-            isMounted.current = false
-        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [artistId])
 
@@ -110,7 +114,7 @@ function ArtistDetail(props) {
                             <img src={getThumbnail(artist?.cover, 640, 300)} alt=""/>
                             <div styleName="mask">
                                 <div styleName="head-bottom">
-                                    <Link to={`/user/home/${artistUserId}`} styleName="home-btn"><i/>个人主页</Link>
+                                    {artistUserId ? <Link to={`/user/home/${artistUserId}`} styleName="home-btn"><i/>个人主页</Link> : null}
                                     <span styleName="subscribe-btn"><i/>收藏</span>
                                 </div>
                             </div>

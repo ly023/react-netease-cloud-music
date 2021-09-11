@@ -52,7 +52,7 @@ function RecommendedProgram() {
                             <Link styleName="program-name" to={`/program/${id}`}>{name}</Link>
                             <Link styleName="radio-name" to={`/radio/${radio?.id}`}>{radio?.name}</Link>
                         </div>
-                        <Link styleName="category" to={`/discover/radio/category?id=${radio?.categoryId}`}>{radio?.category}</Link>
+                        <Link styleName="category" to={`/discover/radio/category/${radio?.categoryId}`}>{radio?.category}</Link>
                     </li>
                 })
             }

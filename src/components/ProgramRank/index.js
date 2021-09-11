@@ -2,7 +2,7 @@ import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {getThumbnail} from 'utils'
-import {requestProgramRank} from 'services/radio'
+import {requestProgramRank} from 'services/program'
 import {PLAY_TYPE} from 'constants/music'
 import Play from 'components/Play'
 import ListLoading from 'components/ListLoading'
@@ -18,7 +18,14 @@ function ProgramRank(props) {
     useEffect(() => {
         isMounted.current = true
 
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
+
+    useEffect(() => {
         const limit = type === 'part' ? 10 : 100
+
         const fetchProgramRank = async () => {
             try {
                 setLoading(true)
@@ -31,13 +38,7 @@ function ProgramRank(props) {
                 setLoading(false)
             }
         }
-
         fetchProgramRank()
-
-        return () => {
-            isMounted.current = false
-        }
-
     }, [type, onLoad])
 
     const getFluctuation = useCallback((rank, lastRank) => {
@@ -66,6 +67,9 @@ function ProgramRank(props) {
                     // todo percent
                     const percent = '50%'
 
+                    const radioUrl = `/radio/${radio.id}`
+                    const programUrl = `/program/${program.id}`
+
                     return <li key={id} styleName={`item ${isFullType ? 'full' : ''} ${order % 2 === 0 ? 'even' : ''}`}>
                         <div className="fl" styleName={`order ${order <= 3 ? 'top' : ''}`}>
                             {order < 10 ? `0${order}` : order}
@@ -82,12 +86,12 @@ function ProgramRank(props) {
                         {
                             isFullType
                                 ? <>
-                                    <Link to="" className="fl" styleName="program-name">{program.name}</Link>
-                                    <Link to="" className="fl" styleName="radio-name">{radio.name}</Link>
+                                    <Link to={programUrl} className="fl" styleName="program-name">{program.name}</Link>
+                                    <Link to={radioUrl} className="fl" styleName="radio-name">{radio.name}</Link>
                                 </>
                                 : <div className="fl" styleName="cont">
-                                    <Link to="" styleName="program-name">{program.name}</Link>
-                                    <Link to="" styleName="radio-name">{radio.name}</Link>
+                                    <Link to={programUrl} styleName="program-name">{program.name}</Link>
+                                    <Link to={radioUrl} styleName="radio-name">{radio.name}</Link>
                                 </div>
                         }
                         {

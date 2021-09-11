@@ -1,7 +1,7 @@
 
 .subtitle {
   position: relative;
-  color: #666;
+  color: $font-color;
   font-size: 20px;
 
   .total {
@@ -11,7 +11,7 @@
 }
 
 .type {
-  color: #666;
+  color: $font-color;
   line-height: 26px;
   cursor: pointer;
 
@@ -24,7 +24,7 @@
   }
 
   &.active {
-    color: #333;
+    color: $font-primary-color;
     font-weight: 700;
   }
 }
@@ -49,7 +49,7 @@
         width: 37px;
         padding: 0 12px 0 5px;
         overflow: hidden;
-        color: #666;
+        color: $font-color;
         font-size: 16px;
         white-space: nowrap;
         text-align: right;
@@ -67,7 +67,7 @@
       overflow: hidden;
 
       .name {
-        color: #333;
+        color: $font-primary-color;
         font-weight: 700;
       }
 
@@ -105,12 +105,12 @@
         left: 10px;
         z-index: 1;
         height: 38px;
-        color: #666;
+        color: $font-color;
       }
     }
 
     &.even {
-      background-color: #f7f7f7;
+      background-color: $bg-color;
     }
   }
 }
@@ -121,6 +121,6 @@
   text-align: right;
 
   > a {
-    color: #666;
+    color: $font-color;
   }
 }
