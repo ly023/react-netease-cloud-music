@@ -12,7 +12,7 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 function SubscribePlaylist(props) {
     const {isLogin} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin}))
 
-    const {id, type, disabled = false, onSuccess} = props
+    const {children, id, type, disabled = false, onSuccess} = props
     const [loading, setLoading] = useState(false)
 
     const validateLogin = useCallback(() => {
@@ -44,7 +44,6 @@ function SubscribePlaylist(props) {
         }
     }, [validateLogin, disabled, loading, id, type, onSuccess])
 
-    const {children} = props
     const onlyChildren = Children.only(children)
 
     return (

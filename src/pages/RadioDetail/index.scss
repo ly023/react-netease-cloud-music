@@ -1,4 +1,3 @@
-
 .head-box {
   display: flex;
 
@@ -22,7 +21,7 @@
         width: 100%;
         height: 100%;
         background-color: $bg-color;
-        content: '  ';
+        content: "  ";
       }
 
       &::after {
@@ -35,7 +34,7 @@
         margin-top: -8px;
         color: #999;
         text-align: center;
-        content: '\f127' attr(alt);
+        content: "\f127" attr(alt);
       }
     }
 
@@ -49,7 +48,7 @@
       @extend %background-cover;
 
       background-position: 0 -1285px;
-      content: '';
+      content: "";
     }
   }
 
@@ -61,7 +60,7 @@
       align-items: center;
       font-weight: 500;
       font-size: 20px;
-      font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+      font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
       line-height: 24px;
 
       .label {
@@ -179,7 +178,7 @@
         .asc {
           display: inline-block;
           height: 25px;
-          background: url('~assets/images/radio.png') no-repeat 50%;
+          background: url("~assets/images/radio.png") no-repeat 50%;
           cursor: pointer;
         }
 

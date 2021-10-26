@@ -21,7 +21,7 @@
   color: #000;
   font-weight: 700;
   font-size: 14px;
-  font-family: simsun, \5b8b\4f53;
+  font-family: simsun, " \5b8b\4f53", sans-serif;
   cursor: pointer;
   user-select: none;
 }
@@ -94,7 +94,7 @@
 
     .name {
       width: 140px;
-      margin: 0 0 8px 0;
+      margin: 0 0 8px;
 
       @extend %text-ellipsis;
 

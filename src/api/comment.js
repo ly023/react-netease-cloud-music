@@ -13,6 +13,7 @@ export default {
         url: `${config.apiHost}/comment/playlist`,
         type: 'GET'
     },
+    // mv评论，?id=5436712, limit, offset
     mv: {
         url: `${config.apiHost}/comment/mv`,
         type: 'GET'

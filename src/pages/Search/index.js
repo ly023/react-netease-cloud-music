@@ -21,6 +21,7 @@ import Albums from './components/Albums'
 import Videos from './components/Videos'
 import Lyrics from './components/Lyrics'
 import Playlists from './components/Playlists'
+import Users from './components/Users'
 
 import './index.scss'
 
@@ -210,6 +211,11 @@ export default class SearchPage extends React.Component {
                     list: result.playlists || [],
                     total: result.playlistCount || 0
                 }
+            case SEARCH_TYPE.USER.TYPE:
+                return  {
+                    list: result.userprofiles || [],
+                    total: result.userprofileCount || 0
+                }
             default:
                 return {
                     list: [],
@@ -244,6 +250,8 @@ export default class SearchPage extends React.Component {
                 return <Lyrics keyword={searchValue} list={list}/>
             case SEARCH_TYPE.PLAYLIST.TYPE:
                 return <Playlists keyword={searchValue} list={list} onSubscribeSuccess={this.handleSubscribePlaylistSuccess}/>
+            case SEARCH_TYPE.USER.TYPE:
+                return <Users keyword={searchValue} list={list}/>
             default:
         }
     }

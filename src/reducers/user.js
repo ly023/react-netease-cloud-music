@@ -34,7 +34,7 @@ export default function user(state = initialState, action) {
             const {userInfo = {}} = action
             return {
                 ...state,
-                isLogin: true,
+                isLogin: !!userInfo.profile,
                 userInfo: userInfo.profile || {}
             }
         case SET_USER_PLAYER:

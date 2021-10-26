@@ -18,7 +18,7 @@
     width: 209px;
     height: 177px;
     background-position: 0 -986px;
-    content: '';
+    content: "";
   }
 }
 
@@ -42,7 +42,7 @@
     left: 34px;
     width: 8px;
     height: 8px;
-    background: url(~assets/images/white-r-icon@3x.png) no-repeat 50%;
+    background: url("~assets/images/white-r-icon@3x.png") no-repeat 50%;
     background-size: cover;
   }
 }
@@ -114,7 +114,7 @@
     float: left;
     margin-right: 6px;
     padding: 0 5px 0 0;
-    font-family: simsun, \5b8b\4f53, sans-serif;
+    font-family: simsun, " \5b8b\4f53", sans-serif;
     background-position: right -934px;
 
     @extend %background-button2;
@@ -222,7 +222,7 @@
   > h3 {
     color: $font-primary-color;
     font-size: 12px;
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
   }
 
   .description {
@@ -232,7 +232,7 @@
 }
 
 .tracks-wrapper {
-  margin: 27px 0 40px 0;
+  margin: 27px 0 40px;
 
   .table-title {
     border-bottom: 2px solid $light-primary-color;
@@ -408,7 +408,7 @@
   .album-title {
     @extend %title-underline-h3;
 
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
   }
 
   .album-item {

@@ -1,4 +1,3 @@
-
 .login-guide {
   width: 224px;
   padding: 0 35px 3px 40px;
@@ -13,7 +12,7 @@
 
 .login-guide-platform {
   height: 120px;
-  background: url(~assets/images/platform.png) no-repeat 13px 0;
+  background: url("~assets/images/platform.png") no-repeat 13px 0;
 }
 
 .login-guide-item {
@@ -29,7 +28,7 @@
     height: 38px;
     margin-right: 14px;
     vertical-align: middle;
-    background: url(~assets/images/logo.png) no-repeat 0 9999px;
+    background: url("~assets/images/logo.png") no-repeat 0 9999px;
   }
 
   .login-guide-item-wechat {

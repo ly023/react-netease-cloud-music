@@ -56,7 +56,7 @@ function Playlists(props) {
                         </SubscribePlaylist>
                         <a href={null} styleName="icon share-icon" title="分享"/>
                     </div>
-                    <div styleName="td trackCount">
+                    <div styleName="td track-count">
                         {item.trackCount}首
                     </div>
                     {

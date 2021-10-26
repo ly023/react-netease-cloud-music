@@ -1,5 +1,5 @@
 %background-sprite {
-  background: url(~assets/images/sprite.png) no-repeat 0 9999px;
+  background: url("~assets/images/sprite.png") no-repeat 0 9999px;
 }
 
 .title {
@@ -104,12 +104,12 @@
   width: 10px;
   height: 11px;
   cursor: pointer;
-  opacity: 0.9;
+  opacity: 90%;
 
   @extend %background-icon2;
 
   &:hover {
-    opacity: 1;
+    opacity: 100%;
   }
 }
 

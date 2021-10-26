@@ -1,4 +1,3 @@
-
 .wrapper {
   width: 100%;
   padding: 40px;
@@ -12,7 +11,7 @@
     float: left;
     font-weight: normal;
     font-size: 24px;
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
   }
 
   .category-btn-wrapper {
@@ -60,7 +59,7 @@
     line-height: 30px;
     text-align: center;
     background-color: $light-primary-color;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0 0 3px rgb(0 0 0 / 50%) inset;
   }
 }
 

@@ -1,0 +1,62 @@
+.list {
+  margin-top: 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  border: 1px solid #fff;
+
+  &.even {
+    background: $bg-color;
+    border-color: #f7f7f7;
+  }
+
+  .avatar {
+    flex-shrink: 0;
+    width: 50px;
+    margin: 5px 10px;
+  }
+
+  .name {
+    flex: 1;
+    min-width: 0;
+    margin: 0 10px;
+
+    .nickname {
+      font-size: 14px;
+    }
+
+    .signature {
+      margin-top: 10px;
+      color: #999;
+
+      @extend %text-ellipsis;
+    }
+  }
+
+  .operation {
+    width: 96px;
+    margin: 0 10px;
+
+    .follow {
+      @extend %new-button;
+    }
+  }
+
+  .count {
+    width: 96px;
+    margin: 0 10px;
+    color: #999;
+  }
+
+  &:hover {
+    background: #f2f2f2;
+    border: 1px solid #e1e1e1;
+
+    .operation {
+      visibility: visible;
+    }
+  }
+}

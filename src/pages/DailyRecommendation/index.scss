@@ -1,12 +1,12 @@
 %background-date {
-  background: url(~assets/images/date.png) no-repeat 0 9999px;
+  background: url("~assets/images/date.png") no-repeat 0 9999px;
 }
 
 .header {
   position: relative;
   width: 638px;
   height: 180px;
-  background: url(~assets/images/recmd-daily.jpg) no-repeat;
+  background: url("~assets/images/recmd-daily.jpg") no-repeat;
 }
 
 .date-icon {
@@ -159,7 +159,7 @@
     padding: 5px 0 8px;
     font-weight: 500;
     font-size: 18px;
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
     line-height: 22px;
     border-bottom: 1px solid #ccc;
 

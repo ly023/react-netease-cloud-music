@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
 import SinglePlay from 'components/SinglePlay'
 import SongActions from 'components/SongActions'
+import Empty from 'components/Empty'
 import {formatDuration} from 'utils'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
@@ -18,7 +19,7 @@ function SongList(props) {
 
     return <>
         <table styleName="table">
-            {Array.isArray(songs) && <tbody>
+            {Array.isArray(songs) && songs.length ? <tbody>
             {
                 songs.map((item, index) => {
                     const order = index + 1
@@ -54,7 +55,7 @@ function SongList(props) {
                     </tr>
                 })
             }
-            </tbody>}
+            </tbody> : <Empty tip="暂无音乐"/>}
         </table>
         <ListLoading loading={loading}/>
     </>

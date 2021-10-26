@@ -1,7 +1,8 @@
-import {useCallback, memo} from 'react'
+import {useCallback, useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
+import Empty from 'components/Empty'
 import SinglePlay from 'components/SinglePlay'
 import SongActions from 'components/SongActions'
 import {formatDuration} from 'utils'
@@ -21,7 +22,17 @@ function SongTable(props) {
         onDislikeSuccess && onDislikeSuccess(songs.filter(v => v.id !== id))
     }, [songs, onDislikeSuccess])
 
-    return <>
+    const renderTip = useMemo(() => {
+        if(loading) {
+            return <ListLoading />
+        }
+        if(songs?.length) {
+            return null
+        }
+        return <Empty tip="暂无音乐"/>
+    }, [loading, songs])
+
+    return Array.isArray(songs) && songs.length ? <>
         <table styleName="table">
             <thead>
             <tr>
@@ -42,7 +53,7 @@ function SongTable(props) {
                 </th>
             </tr>
             </thead>
-            {Array.isArray(songs) && <tbody>
+            <tbody>
             {
                 songs.map((item, index) => {
                     const order = index + 1
@@ -91,10 +102,9 @@ function SongTable(props) {
                     </tr>
                 })
             }
-            </tbody>}
+            </tbody>
         </table>
-        <ListLoading loading={loading}/>
-    </>
+    </> : renderTip
 }
 
 SongTable.propTypes = {

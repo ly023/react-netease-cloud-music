@@ -59,6 +59,40 @@ export const SEARCH_TYPE = {
     }
 }
 
+export const VIDEO_TYPE = {
+    MV: {
+        TYPE: 0,
+    },
+    VIDEO: {
+        TYPE: 1,
+    }
+}
+
+// 资源类型
+export const RESOURCE_TYPE = {
+    MV: {
+        TYPE: 1,
+        TEXT: 'mv'
+    },
+    RADIO: {
+        TYPE: 4,
+        TEXT: '电台'
+    },
+    VIDEO: {
+        TYPE: 5,
+        TEXT: '视频'
+    },
+    POST: {
+        TYPE: 6,
+        TEXT: '动态'
+    }
+}
+
+export const RESOURCE_ACTION_TYPE = {
+    OK: 1,
+    CANCEL: 0
+}
+
 export const PLAYLIST_COLLECTION_TYPE = {
     OK: 1,
     CANCEL: 2

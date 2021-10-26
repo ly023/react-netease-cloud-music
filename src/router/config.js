@@ -92,6 +92,11 @@ export default [
         component: importPages('Song'),
     },
     {
+        path: '/mv/:id',
+        name: 'MV详情',
+        component: importPages('MVDetail'),
+    },
+    {
         path: '/playlist/:id',
         name: '歌单详情',
         component: importPages('PlaylistDetail'),

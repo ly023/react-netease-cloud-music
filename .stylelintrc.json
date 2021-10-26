@@ -1,7 +1,7 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-rational-order"],
   "plugins": ["stylelint-order", "stylelint-scss"],
-  "syntax": "scss",
+  "customSyntax": "postcss-scss",
   "rules": {
     "selector-pseudo-class-no-unknown": [
       true,

@@ -1,6 +1,6 @@
 .banner-wrapper {
   width: 100%;
-  background: #222 url(./images/bg.png) no-repeat center 0;
+  background: #222 url("./images/bg.png") no-repeat center 0;
   background-size: cover;
 }
 
@@ -28,7 +28,7 @@
   padding: 20px 0 0 10px;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 50%);
 }
 
 .client {
@@ -41,7 +41,7 @@
   font-size: 12px;
   font-family: PingFangSC-Regular, sans-serif;
   line-height: 45px;
-  background: rgba(0, 0, 0, 0.08);
+  background: rgb(0 0 0 / 8%);
   cursor: pointer;
 
   em {
@@ -62,27 +62,27 @@
 }
 
 .client.client-aos > i {
-  background: url(images/clients/aos.png) no-repeat 50%;
+  background: url("images/clients/aos.png") no-repeat 50%;
   background-size: 100% 100%;
 }
 
 .client.client-ios > i {
-  background: url(images/clients/ios.png) no-repeat 50%;
+  background: url("images/clients/ios.png") no-repeat 50%;
   background-size: 100% 100%;
 }
 
 .client.client-mac > i {
-  background: url(images/clients/mac.png) no-repeat 50%;
+  background: url("images/clients/mac.png") no-repeat 50%;
   background-size: 100% 100%;
 }
 
 .client.client-pc > i {
-  background: url(images/clients/pc.png) no-repeat 50%;
+  background: url("images/clients/pc.png") no-repeat 50%;
   background-size: 100% 100%;
 }
 
 .client.client-linux > i {
-  background: url(images/clients/linux.png) no-repeat 50%;
+  background: url("images/clients/linux.png") no-repeat 50%;
   background-size: 100% 100%;
 }
 
@@ -103,12 +103,12 @@
     margin-top: 20px;
     margin-right: 6px;
     vertical-align: text-bottom;
-    background: url(./images/download.png) no-repeat;
+    background: url("./images/download.png") no-repeat;
     background-size: contain;
   }
 
   &:hover {
-    opacity: 0.7;
+    opacity: 70%;
   }
 }
 
@@ -155,7 +155,7 @@
   color: #fff;
   font-size: 22px;
   text-align: center;
-  opacity: 0.8;
+  opacity: 80%;
 }
 
 .type {
@@ -178,25 +178,25 @@
 
     &.icon-mac {
       margin-right: 11px;
-      background: url(./images/mac.png) no-repeat 50%;
+      background: url("./images/mac.png") no-repeat 50%;
       background-size: contain;
     }
 
     &.icon-win {
       margin: 0 11px 0 30px;
-      background: url(./images/windows.png) no-repeat 50%;
+      background: url("./images/windows.png") no-repeat 50%;
       background-size: contain;
     }
 
     &.icon-ios {
       margin-right: 11px;
-      background: url(./images/ios.png) no-repeat 50%;
+      background: url("./images/ios.png") no-repeat 50%;
       background-size: contain;
     }
 
     &.icon-android {
       margin: 0 11px 0 30px;
-      background: url(./images/android.png) no-repeat 50%;
+      background: url("./images/android.png") no-repeat 50%;
       background-size: contain;
     }
   }
@@ -217,7 +217,7 @@
   user-select: none;
 
   &:hover {
-    opacity: 0.7;
+    opacity: 70%;
   }
 }
 
@@ -227,7 +227,7 @@
   height: 21px;
   margin-right: 3px;
   vertical-align: -3px;
-  background: url(./images/ncode.png) no-repeat center;
+  background: url("./images/ncode.png") no-repeat center;
   background-size: contain;
 }
 
@@ -238,7 +238,7 @@
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 50%);
 }
 
 .code {
@@ -279,7 +279,7 @@
 }
 
 .title {
-  padding: 45px 0 5px 0;
+  padding: 45px 0 5px;
   font-weight: normal;
   font-size: 40px;
   font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;

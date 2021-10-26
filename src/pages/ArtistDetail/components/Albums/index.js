@@ -95,7 +95,7 @@ function Albums(props) {
             !loading ? (
                 albums.length ? <ul styleName="list" ref={listWrapperRef}>
                     {renderItems}
-                </ul> : <Empty/>
+                </ul> : <Empty tip="暂无专辑"/>
             ) : ''
         }
         <Pagination

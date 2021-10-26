@@ -28,12 +28,15 @@ function PersonalizedRcmd() {
 
     useEffect(() => {
         const fetchRcmdPlaylist = async () => {
-            setLoading(true)
-            const res = await requestRcmdPlaylist()
-            if (isMounted.current) {
-                const data = res?.recommend || []
-                setLoading(false)
-                setPlaylist(data.slice(0, 3))
+            try {
+                setLoading(true)
+                const res = await requestRcmdPlaylist()
+                if (isMounted.current) {
+                    const data = res?.recommend || []
+                    setLoading(false)
+                    setPlaylist(data.slice(0, 3))
+                }
+            } catch (e) {
             }
         }
 

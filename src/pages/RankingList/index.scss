@@ -1,4 +1,3 @@
-
 .wrapper {
   background-color: #f9f9f9;
 }
@@ -23,7 +22,7 @@
       padding: 10px 0 10px 20px;
       cursor: pointer;
 
-      .coverBox {
+      .cover-box {
         float: left;
         margin-right: 10px;
         overflow: hidden;
@@ -36,7 +35,7 @@
 
       .name {
         width: 150px;
-        margin: 0 0 6px 0;
+        margin: 0 0 6px;
 
         @extend %text-ellipsis;
 
@@ -102,7 +101,7 @@
         @extend %background-cover;
 
         background-position: -230px -380px;
-        content: '';
+        content: "";
       }
     }
 
@@ -190,7 +189,7 @@
         float: left;
         margin-right: 6px;
         padding: 0 5px 0 0;
-        font-family: simsun, \5b8b\4f53, sans-serif;
+        font-family: simsun, " \5b8b\4f53", sans-serif;
         background-position: right -934px;
 
         @extend %background-button2;
@@ -260,10 +259,10 @@
             width: 14px;
             height: 14px;
             margin: 8px 0 0 6px;
-            background: url(~assets/images/loading.gif) no-repeat;
+            background: url("~assets/images/loading.gif") no-repeat;
             background-size: 100% 100%;
             cursor: default;
-            content: '';
+            content: "";
           }
         }
 
@@ -323,7 +322,7 @@
     }
 
     .tracks-wrapper {
-      margin: 27px 0 40px 0;
+      margin: 27px 0 40px;
 
       .table-title {
         border-bottom: 2px solid $light-primary-color;

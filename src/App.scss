@@ -17,8 +17,8 @@ input,
 button {
   color: $font-primary-color;
   font-size: 12px;
-  font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
-  -webkit-text-size-adjust: none;
+  font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+  text-size-adjust: none;
   outline: none;
 }
 
@@ -28,7 +28,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Microsoft YaHei, Arial, Helvetica, sans-serif;
+  font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -99,7 +99,7 @@ textarea {
       clear: both;
       height: 0;
       visibility: hidden;
-      content: '.';
+      content: ".";
     }
   }
 

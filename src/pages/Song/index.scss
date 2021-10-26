@@ -25,8 +25,8 @@
     left: -4px;
     width: 206px;
     height: 205px;
-    background: url(~assets/images/coverall.png) no-repeat -140px -580px;
-    content: '';
+    background: url("~assets/images/coverall.png") no-repeat -140px -580px;
+    content: "";
   }
 }
 
@@ -58,7 +58,7 @@
   color: #fff;
   font-size: 13px;
   line-height: 25px;
-  background: url(~assets/images/label.png) center;
+  background: url("~assets/images/label.png") center;
   background-size: 100% 100%;
 }
 
@@ -68,7 +68,7 @@
   margin-bottom: 14px;
   margin-left: 64px;
   font-size: 24px;
-  font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+  font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
 
   .alias {
     margin: 1px 0 5px;
@@ -119,7 +119,7 @@
     margin-right: 4px;
     padding: 0 5px 0 0;
     white-space: nowrap;
-    background: url(~assets/images/vip-play.png) center;
+    background: url("~assets/images/vip-play.png") center;
     background-size: 100% 100%;
     cursor: pointer;
     user-select: none;
@@ -176,7 +176,7 @@
     float: left;
     margin-right: 6px;
     padding: 0 5px 0 0;
-    font-family: simsun, \5b8b\4f53, sans-serif;
+    font-family: simsun, " \5b8b\4f53", sans-serif;
     background-position: right -934px;
 
     @extend %background-button2;
@@ -263,8 +263,8 @@
 
     &.btn-vip-download {
       margin-right: 6px;
-      font-family: simsun, \5b8b\4f53 sans-serif;
-      background: url(~assets/images/vip-download.png) no-repeat center;
+      font-family: simsun, " \5b8b\4f53", sans-serif;
+      background: url("~assets/images/vip-download.png") no-repeat center;
       background-size: 100% 100%;
 
       i {
@@ -373,7 +373,7 @@
   .title-underline {
     @extend %title-underline-h3;
 
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
   }
 
   .singer {
@@ -408,12 +408,12 @@
     width: 10px;
     height: 11px;
     cursor: pointer;
-    opacity: 0.9;
+    opacity: 90%;
 
     @extend %background-icon2;
 
     &:hover {
-      opacity: 1;
+      opacity: 100%;
     }
   }
 

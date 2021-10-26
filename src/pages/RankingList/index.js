@@ -109,7 +109,7 @@ function RankingList() {
                         const selected = currentRank?.id === id
                         return <li key={id} styleName={`item ${selected ? 'selected' : ''}`}
                                    onClick={() => handleSelect(item)}>
-                            <div styleName="coverBox">
+                            <div styleName="cover-box">
                                 <div styleName="cover">
                                     <img src={coverImgUrl} alt=""/>
                                 </div>
@@ -238,9 +238,9 @@ function RankingList() {
                                     {renderGuide}
                                 </div>
                                 <Comments
-                                    onRef={setCommentsRef}
                                     type="PLAYLIST"
                                     id={currentId}
+                                    onRef={setCommentsRef}
                                 />
                             </>
                     }

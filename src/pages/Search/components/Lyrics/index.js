@@ -30,7 +30,7 @@ function Lyrics(props) {
                             {
                                 transNames && transNames.length
                                     ?
-                                    <span styleName="transNames" title={transNames.join('、')}> - ({transNames.join('、')})</span>
+                                    <span styleName="trans-names" title={transNames.join('、')}> - ({transNames.join('、')})</span>
                                     : ''
                             }
                             {item.mvid ? <Link to={`/mv/${item.mvid}`} styleName="icon mv-icon"/> : null}

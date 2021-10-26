@@ -32,7 +32,7 @@ function responseCatch(e) {
 
 
 function defaultGetErrorHandler(response, responseBodyJson){
-    const errorText = get(responseBodyJson, 'meta.message', get(codeMessage, response.status, get(response, 'statusText', '')))
+    const errorText = get(responseBodyJson, 'msg', get(codeMessage, response.status, get(response, 'statusText', '')))
     return {
         errorText,
         response,

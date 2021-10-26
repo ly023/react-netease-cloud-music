@@ -1,4 +1,3 @@
-
 .head-box {
   margin-bottom: 40px;
   overflow: hidden;
@@ -43,7 +42,7 @@
           line-height: 21px;
           text-decoration: none;
           vertical-align: middle;
-          background: url(~assets/images/icon2.png) no-repeat -135px -190px;
+          background: url("~assets/images/icon2.png") no-repeat -135px -190px;
 
           i {
             display: inline-block;
@@ -52,7 +51,7 @@
             height: 19px;
             overflow: hidden;
             vertical-align: middle;
-            background: url(~assets/images/icon2.png) no-repeat  -191px -190px;
+            background: url("~assets/images/icon2.png") no-repeat  -191px -190px;
           }
         }
 

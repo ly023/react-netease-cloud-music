@@ -96,6 +96,17 @@ export default class Mobile extends React.Component {
         }
     }
 
+    setAuthCooKie = (cookieStr) => {
+        if(typeof cookieStr === 'string') {
+            const cookies = cookieStr.split(';;')
+            let csrfCookie = cookies.find(s => s.startsWith('__csrf'))
+            if(csrfCookie) {
+                csrfCookie = csrfCookie.replace('__csrf', 'CSRF')
+               document.cookie = csrfCookie
+            }
+        }
+    }
+
     handleSubmit = () => {
         const {form, onLogin, afterLogin} = this.props
         form.validateFields({first: true}, (errors, values) => {
@@ -113,7 +124,8 @@ export default class Mobile extends React.Component {
                 this.setState({loading: true})
 
                 onLogin && onLogin(payload,
-                    () => {
+                    (res) => {
+                        this.setAuthCooKie(res?.cookie)
                         this.setState({loading: false})
                         afterLogin && afterLogin()
                     },
@@ -136,7 +148,8 @@ export default class Mobile extends React.Component {
         return (
             <div styleName="login-mobile">
                 <FormItem classname={styles["login-phone-wrapper"]} error={getFieldError('phone')}>
-                    <span styleName="login-code-current" onClick={() => this.setAreaCodeSelectVisible(!areaCodeSelectVisible)}>
+                    <span styleName="login-code-current"
+                          onClick={() => this.setAreaCodeSelectVisible(!areaCodeSelectVisible)}>
                         <span>+{countryCode}</span>
                         <span styleName="login-icon login-arrow"/>
                     </span>

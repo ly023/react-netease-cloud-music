@@ -37,3 +37,6 @@ export async function requestDesc(params) {
     return request(`${API.desc.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
+export async function requestSubscribe(params) {
+    return request(`${API.subscribe.url}${stringify(params, {addQueryPrefix: true})}`)
+}

@@ -137,7 +137,7 @@
     left: 0;
     display: block;
     background-position: 0 -80px;
-    content: '';
+    content: "";
 
     @include size(34px, 35px);
   }
@@ -212,7 +212,7 @@
 .progress-cont {
   position: relative;
   width: 493px;
-  background: url(~assets/images/statbar.png) no-repeat 0 0;
+  background: url("~assets/images/statbar.png") no-repeat 0 0;
 }
 
 .progress-cont,
@@ -224,7 +224,7 @@
 
 .dot,
 .volume-dot {
-  background: url(~assets/images/iconall.png) no-repeat;
+  background: url("~assets/images/iconall.png") no-repeat;
 }
 
 .dot {
@@ -247,7 +247,7 @@
   left: 5px;
   width: 12px;
   height: 12px;
-  background: url(~assets/images/loading.gif);
+  background: url("~assets/images/loading.gif");
 
   &.hidden {
     visibility: hidden;

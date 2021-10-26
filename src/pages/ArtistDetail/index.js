@@ -65,10 +65,6 @@ function ArtistDetail(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [artistId])
 
-    useEffect(() => {
-
-    }, [])
-
     const handleTabChange = useCallback((key) => {
         history.push(`${pathname}?tab=${key}`)
     }, [history, pathname])
@@ -115,7 +111,7 @@ function ArtistDetail(props) {
                             <div styleName="mask">
                                 <div styleName="head-bottom">
                                     {artistUserId ? <Link to={`/user/home/${artistUserId}`} styleName="home-btn"><i/>个人主页</Link> : null}
-                                    <span styleName="subscribe-btn"><i/>收藏</span>
+                                    <button styleName="subscribe-btn"><i/>收藏</button>
                                 </div>
                             </div>
                         </div>

@@ -1,12 +1,12 @@
 %background-sprite {
-  background: url(~assets/images/sprite.png) no-repeat 0 9999px;
+  background: url("~assets/images/sprite.png") no-repeat 0 9999px;
 }
 
 .multiple-client {
   .title {
     @extend %title-underline-h3;
 
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
   }
 
   .bg {

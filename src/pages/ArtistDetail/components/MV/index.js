@@ -100,7 +100,7 @@ function MV(props) {
             !loading ? (
                 videos.length ? <ul styleName="list" ref={listWrapperRef}>
                     {renderItems}
-                </ul> : <Empty/>
+                </ul> : <Empty tip="暂无MV"/>
             ) : ''
         }
         <Pagination

@@ -6,6 +6,7 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestDetail, requestDailySignIn} from 'services/user'
 
 import './index.scss'
+import message from "components/Message";
 
 function Info() {
     const {isLogin, userInfo: {userId}} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin, userInfo: user.userInfo}))
@@ -38,7 +39,7 @@ function Info() {
             })
             .catch((err) => {
                 // 未登录/重复签到
-                console.log(err, err.msg)
+                message.error({content: err.errorText})
             })
             .finally(() => {
                 if (isMounted.current) {

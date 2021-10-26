@@ -8,6 +8,7 @@ import {SEARCH_TYPE} from 'constants'
 import KEY_CODE from 'constants/keyCode'
 import {click, generateRandomString, getLocalStorage, getUrlParameter, setLocalStorage} from 'utils'
 import {getArtists, getRenderKeyword} from 'utils/song'
+import {getVideoPathname} from 'utils/video'
 import {requestSearchSuggest} from 'services/search'
 
 import './index.scss'
@@ -237,7 +238,8 @@ export default class Search extends React.Component {
     }
 
     getRenderMVItem = (item) => {
-        return <Link to={`/mv/${item.id}`}>MV:{this.getRenderKeyword(`${item.name}-${item.artistName}`)}</Link>
+        const pathname = getVideoPathname(item?.type, item?.id)
+        return <Link to={pathname}>MV:{this.getRenderKeyword(`${item.name}-${item.artistName}`)}</Link>
     }
 
     getRenderPlaylistItem = (item) => {

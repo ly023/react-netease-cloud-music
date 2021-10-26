@@ -34,11 +34,12 @@ function Singer() {
         <ul styleName="list">
             {
                 artists.map((item) => {
-                    return <li key={item.id} styleName="item">
-                        <Link to={`/user/home/${item.accountId}`}>
-                            <img src={getThumbnail(item.picUrl, 62)} styleName="item-avatar" alt="头像"/>
+                    const {id, accountId, name, alias, picUrl} = item
+                    return <li key={id} styleName="item">
+                        <Link to={`/user/home/${accountId}`}>
+                            <img src={getThumbnail(picUrl, 62)} styleName="item-avatar" alt="头像"/>
                             <div styleName="item-info">
-                                <h4 styleName="item-nickname">{item.name}{item.alias?.[0]}</h4>
+                                <h4 styleName="item-nickname">{name}{alias?.[0]}</h4>
                                 <p styleName="item-desc">暂无描述</p>
                             </div>
                         </Link>

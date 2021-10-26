@@ -49,17 +49,19 @@ function Top(props) {
     }, [artistId])
 
     return <>
-        <div styleName="actions">
-            <div className="fl">
-                <Play type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
-                    <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
-                </Play>
-                <Add type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
-                    <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
-                </Add>
-            </div>
-            <div className="fr"/>
-        </div>
+        {
+            songs.length ? <div styleName="actions">
+                <div className="fl">
+                    <Play type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
+                        <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                    </Play>
+                    <Add type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
+                        <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                    </Add>
+                </div>
+                <div className="fr"/>
+            </div> : null
+        }
         <SongList loading={loading} songs={songs}/>
     </>
 }

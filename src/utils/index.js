@@ -18,11 +18,26 @@ export function getCookie(name) {
 }
 
 /**
+ * 删除cookie
+ * @param name
+ * @param path
+ * @param domain
+ */
+export function deleteCookie(name, path, domain) {
+    if (getCookie(name)) {
+        document.cookie = name + "=" +
+            ((path) ? ";path=" + path : "") +
+            ((domain) ? ";domain=" + domain : "") +
+            ";expires=Thu, 01 Jan 1970 00:00:01 GMT"
+    }
+}
+
+/**
  * 获取cookie中的csrf token
  * @returns {string}
  */
 export function getCsrfToken() {
-    return getCookie('__csrf')
+    return getCookie('CSRF')
 }
 
 /**

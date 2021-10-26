@@ -1,4 +1,3 @@
-
 .title {
   height: 33px;
   border-bottom: 2px solid $light-primary-color;
@@ -7,7 +6,7 @@
     float: left;
     font-weight: 400;
     font-size: 20px;
-    font-family: Microsoft Yahei, Arial, Helvetica, sans-serif;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
     line-height: 28px;
   }
 
@@ -40,7 +39,7 @@
   &::after {
     position: absolute;
     border-style: solid;
-    content: '';
+    content: "";
   }
 
   &::before {
@@ -134,13 +133,13 @@
     height: 12px;
     margin-right: 5px;
     vertical-align: -1px;
-    background: url(~assets/images/vip.png) no-repeat center;
+    background: url("~assets/images/vip.png") no-repeat center;
     background-size: 100% 100%;
   }
 
   .vip-year-icon {
     width: 39px;
-    background: url(~assets/images/vip-year.png) no-repeat center;
+    background: url("~assets/images/vip-year.png") no-repeat center;
     background-size: 100% 100%;
   }
 
@@ -150,7 +149,7 @@
     height: 12px;
     margin-right: 5px;
     vertical-align: -2px;
-    background: url(~assets/images/package.png) no-repeat center;
+    background: url("~assets/images/package.png") no-repeat center;
     background-size: 100% 100%;
   }
 
@@ -189,20 +188,20 @@
     &::after {
       position: absolute;
       border-style: solid;
-      content: '';
+      content: "";
     }
 
     &::before {
       top: -13px;
       left: 16px;
-      border-color: transparent transparent #dedede transparent;
+      border-color: transparent transparent #dedede;
       border-width: 6px 5px;
     }
 
     &::after {
       top: -10px;
       left: 17px;
-      border-color: transparent transparent #f4f4f4 transparent;
+      border-color: transparent transparent #f4f4f4;
       border-width: 5px 4px;
     }
   }

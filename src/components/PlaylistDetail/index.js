@@ -224,9 +224,9 @@ export default class PlaylistDetail extends Component {
                     <SongTable loading={detailLoading} songs={detail?.songs || []} isSelf={isSelf}/>
                 </div>
                 <Comments
-                    onRef={this.setCommentsRef}
                     type="PLAYLIST"
                     id={this.props.id}
+                    onRef={this.setCommentsRef}
                 />
             </>
         )

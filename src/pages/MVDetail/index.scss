@@ -1,0 +1,177 @@
+.title-wrapper {
+  margin-bottom: 8px;
+
+  .title {
+    max-width: 100%;
+    margin: -10px 0 0;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
+
+.player {
+  width: 640px;
+  height: 360px;
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &.mv-icon {
+    width: 29px;
+    height: 18px;
+    margin: -10px 5px 0 0;
+
+    @extend %background-icon2;
+
+    background-position: -230px -480px;
+  }
+
+  &.like-icon {
+    width: 17px;
+    height: 15px;
+    margin: -2px 6px 0 0;
+
+    @extend %background-button2;
+
+    background-position: 0 -95px;
+
+    &.liked {
+      background-position: -30px -95px;
+    }
+  }
+
+  &.subscribe-icon {
+    width: 23px;
+    height: 30px;
+    margin-right: 6px;
+
+    @extend %background-icon2;
+
+    background-position: -108px -14px;
+  }
+
+  &.share-icon {
+    width: 23px;
+    height: 30px;
+    margin-right: 6px;
+
+    @extend %background-icon2;
+
+    background-position: -87px -14px;
+  }
+}
+
+.artist-name {
+  margin-left: 8px;
+  color: #0c73c2;
+}
+
+.title-underline {
+  @extend %title-underline-h3;
+
+  font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+}
+
+.about {
+  margin: 16px 0 32px;
+  color: #999;
+  font-size: 12px;
+  line-height: 18px;
+
+  .desc {
+    margin-top: 10px;
+    color: $font-primary-color;
+  }
+}
+
+.actions {
+  margin: 12px 0 45px;
+
+  .btn {
+    margin-right: 10px;
+
+    @extend %new-button;
+  }
+}
+
+.mvs {
+  margin-bottom: 32px;
+
+  .mv {
+    display: flex;
+    font-size: 12px;
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    .cover {
+      position: relative;
+      flex-shrink: 0;
+      width: 96px;
+      height: 54px;
+
+      .mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 20px;
+        padding-right: 5px;
+        color: #fff;
+        line-height: 20px;
+        text-align: right;
+        background-color: rgb(0 0 0 / 40%);
+
+        .icon {
+          display: inline-block;
+          width: 15px;
+          height: 10px;
+          margin: -2px 2px 0 0;
+
+          @extend %background-icon2;
+
+          background-position: -60px -310px;
+        }
+      }
+    }
+
+    .meta {
+      flex: 1;
+      min-width: 0;
+      margin-left: 10px;
+
+      .name {
+        display: block;
+
+        @extend %text-ellipsis;
+
+        line-height: 21px;
+      }
+
+      .duration {
+        color: #999;
+        line-height: 16px;
+      }
+
+      .artist {
+        @extend %text-ellipsis;
+
+        color: #999;
+        line-height: 16px;
+
+        > a {
+          color: #999;
+        }
+      }
+    }
+  }
+}
+
+.client {
+  margin: 20px 0;
+}
