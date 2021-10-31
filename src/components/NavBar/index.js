@@ -1,4 +1,4 @@
-import React from 'react'
+import {Component, createRef} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
 import emitter from 'utils/eventEmitter'
@@ -16,7 +16,7 @@ import styles from './index.scss'
     isLogin: user.isLogin,
     userInfo: user.userInfo,
 }))
-export default class NavBar extends React.Component {
+export default class NavBar extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -24,7 +24,7 @@ export default class NavBar extends React.Component {
             loginVisible: false,
             loginMode: LOGIN_MODE.GUIDE.TYPE
         }
-        this.navRef = React.createRef()
+        this.navRef = createRef()
     }
 
     componentDidMount() {

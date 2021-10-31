@@ -92,11 +92,6 @@ export default [
         component: importPages('Song'),
     },
     {
-        path: '/mv/:id',
-        name: 'MV详情',
-        component: importPages('MVDetail'),
-    },
-    {
         path: '/playlist/:id',
         name: '歌单详情',
         component: importPages('PlaylistDetail'),
@@ -105,6 +100,16 @@ export default [
         path: '/album/:id',
         name: '专辑详情',
         component: importPages('AlbumDetail'),
+    },
+    {
+        path: '/mv/:id',
+        name: 'MV详情',
+        component: importPages('MVDetail'),
+    },
+    {
+        path: '/video/:id',
+        name: '视频详情',
+        component: importPages('VideoDetail'),
     },
     {
         path: '/radio/:id',

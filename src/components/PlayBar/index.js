@@ -1,7 +1,7 @@
 /**
  * 底部播放条
  */
-import React from 'react'
+import {PureComponent, createRef} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import _ from 'lodash'
@@ -41,7 +41,7 @@ const PLAY_BAR_DOM_ID = 'play-bar'
 @connect(({user}) => ({
     player: user.player
 }))
-export default class PlayBar extends React.PureComponent {
+export default class PlayBar extends PureComponent {
     constructor(props) {
         super(props)
 
@@ -62,9 +62,9 @@ export default class PlayBar extends React.PureComponent {
             addedTipVisible: false,
         }
 
-        this.progressRef = React.createRef()
-        this.volumeDotRef = React.createRef()
-        this.volumeLineRef = React.createRef()
+        this.progressRef = createRef()
+        this.volumeDotRef = createRef()
+        this.volumeLineRef = createRef()
 
         this.timeoutId = 0
         this.songPlayedIntervalId = 0

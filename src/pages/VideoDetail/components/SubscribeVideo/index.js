@@ -1,18 +1,18 @@
 /**
- * 点赞/取消点赞资源（mv,电台,视频,动态）
+ * 收藏/取消收藏视频
  */
 import {useState, useCallback, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import message from 'components/Message'
-import {RESOURCE_ACTION_TYPE, RESOURCE_TYPE} from 'constants'
-import {requestLike} from 'services/resource'
+import {RESOURCE_ACTION_TYPE} from 'constants'
+import {requestSubscribe} from 'services/video'
 import emitter from 'utils/eventEmitter'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
-function LikeResource(props) {
+function SubscribeVideo(props) {
     const {isLogin} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin}))
 
-    const {children, id, type, status, onSuccess} = props
+    const {children, id, status, onSuccess} = props
     const [loading, setLoading] = useState(false)
 
     const validateLogin = useCallback(() => {
@@ -30,14 +30,13 @@ function LikeResource(props) {
         if (validateLogin()) {
             setLoading(true)
             const newStatus = status ? RESOURCE_ACTION_TYPE.CANCEL : RESOURCE_ACTION_TYPE.OK
-            requestLike({
-                type,
-                id,
+            requestSubscribe({
+                id: id,
                 t: newStatus,
             })
                 .then((res) => {
-                    if (res?.code === 200) {
-                        const content = newStatus ? '点赞成功' : '取消点赞成功'
+                    if(res?.code === 200) {
+                        const content = newStatus ? '收藏成功' : '取消收藏成功'
                         message.success({content})
                         onSuccess && onSuccess(newStatus)
                     }
@@ -46,7 +45,7 @@ function LikeResource(props) {
                     setLoading(false)
                 })
         }
-    }, [validateLogin, loading, type, id, status, onSuccess])
+    }, [validateLogin, loading, id, status, onSuccess])
 
     const onlyChildren = Children.only(children)
 
@@ -57,11 +56,10 @@ function LikeResource(props) {
     )
 }
 
-LikeResource.propTypes = {
-    type: PropTypes.oneOf(Object.values(RESOURCE_TYPE).map(v => v.TYPE)),
-    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+SubscribeVideo.propTypes = {
+    id: PropTypes.number,
     status: PropTypes.bool,
     onSuccess: PropTypes.func,
 }
 
-export default LikeResource
+export default SubscribeVideo

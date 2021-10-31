@@ -1,11 +1,11 @@
-import React from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {LOGIN_MODE} from 'constants/login'
 import '../../index.scss'
 import './index.scss'
 
 
-export default class Guide extends React.Component {
+export default class Guide extends Component {
 
     static propTypes = {
         changeMode: PropTypes.func,

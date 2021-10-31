@@ -1,7 +1,7 @@
 /**
  * 歌曲、歌单、专辑、mv...评论
  */
-import React from 'react'
+import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
@@ -15,8 +15,8 @@ import message from 'components/Message'
 import Confirm from 'components/Confirm'
 import {requestFollows} from 'services/user'
 import {
-    requestMusicComments, requestPlaylistComments, requestAlbumComments, requestMVComments,
-    comment, like
+    requestMusicComments, requestPlaylistComments, requestAlbumComments, requestMVComments,requestVideoComments,
+    comment, like,
 } from 'services/comment'
 import {formatNumber, formatTimestamp, generateGuid, getThumbnail, scrollIntoView} from 'utils'
 import Editor from './components/Editor'
@@ -41,7 +41,11 @@ const COMMENT_TYPES = {
     MV: {
         TYPE: 1,
         REQUEST: requestMVComments
-    }
+    },
+    VIDEO: {
+        TYPE: 5,
+        REQUEST: requestVideoComments
+    },
 }
 
 const ACTION_TYPES = {
@@ -56,10 +60,10 @@ const ACTION_TYPES = {
     userInfo: user.userInfo,
     activeCommentId: user.activeCommentId
 }))
-export default class Comments extends React.Component {
+export default class Comments extends Component {
     static propTypes = {
         type: PropTypes.oneOf(Object.keys(COMMENT_TYPES)),
-        id: PropTypes.number,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         onRef: PropTypes.func,
     }
 

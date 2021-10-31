@@ -1,7 +1,7 @@
 /**
  * 搜索组件
  */
-import React from 'react'
+import {Component, createRef} from 'react'
 import PropTypes from 'prop-types'
 import {withRouter, Link} from 'react-router-dom'
 import {SEARCH_TYPE} from 'constants'
@@ -14,7 +14,7 @@ import {requestSearchSuggest} from 'services/search'
 import './index.scss'
 
 @withRouter
-export default class Search extends React.Component {
+export default class Search extends Component {
 
     static propTypes = {
         type: PropTypes.oneOf(['navSearch', 'pageSearch']).isRequired,
@@ -43,7 +43,7 @@ export default class Search extends React.Component {
             mvSupportVisible: false
         }
 
-        this.inputRef = React.createRef()
+        this.inputRef = createRef()
         this.focus = false
     }
 

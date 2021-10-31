@@ -1,4 +1,4 @@
-import React from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -12,7 +12,7 @@ import './index.scss'
 
 @withRouter
 @connect()
-export default class LoginModal extends React.Component {
+export default class LoginModal extends Component {
 
     static propTypes = {
         visible: PropTypes.bool,

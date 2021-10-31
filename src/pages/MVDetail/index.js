@@ -1,19 +1,19 @@
 /**
- * 电台详情页
+ * MV详情页
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'services/mv'
 import Page from 'components/Page'
-import CustomPlayer from './components/CustomPlayer'
+import CustomPlayer from 'components/CustomPlayer'
 import Comments from 'components/Comments'
 import ClientDownload from 'components/ClientDownload'
 import LikeResource from 'components/LikeResource'
 import {RESOURCE_TYPE} from 'constants'
 import {formatDuration, getThumbnail} from 'utils'
+import SubscribeMV from './components/SubscribeMV'
 
 import './index.scss'
-import SubscribeMV from "pages/MVDetail/components/SubscribeMV";
 
 function MVDetail(props) {
     const history = useHistory()
@@ -21,7 +21,7 @@ function MVDetail(props) {
     const mvId = Number(props.match?.params?.id)
 
     const [detail, setDetail] = useState(null)
-    const [videoUrl, setVideoUrl] = useState('')
+    const [resources, setResource] = useState([])
     const [info, setInfo] = useState(null)
     const [similarMVs, setSimilarMVs] = useState([])
 
@@ -35,7 +35,7 @@ function MVDetail(props) {
                 const res = await requestVideoUrl({id: mvId, r: highestDefinition})
                 if (isMounted.current) {
                     const url = res?.data?.url
-                    setVideoUrl(url)
+                    setResource([{name: highestDefinition.toString(), url}])
                 }
             } catch (e) {
 
@@ -152,7 +152,7 @@ function MVDetail(props) {
                         <Link to={`/artist/${detail?.artistId}`} styleName="artist-name">{detail?.artistName}</Link>
                     </div>
                     <div styleName="player">
-                        <CustomPlayer url={videoUrl}/>
+                        <CustomPlayer urls={resources}/>
                     </div>
                     <div styleName="actions">
                         <LikeResource type={RESOURCE_TYPE.MV.TYPE} id={mvId} status={!!info?.liked} onSuccess={handleLikedSuccess}>

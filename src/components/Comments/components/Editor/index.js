@@ -1,7 +1,7 @@
 /**
  * 编辑器
  */
-import React from 'react'
+import {Component, createRef} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {DOUBLE_BYTE_CHAR_PATTERN} from 'constants'
@@ -21,7 +21,7 @@ const MAX_WORDS_NUMBER = 140
     isLogin: user.isLogin,
     userInfo: user.userInfo,
 }))
-export default class Editor extends React.Component {
+export default class Editor extends Component {
 
     static propTypes = {
         onRef: PropTypes.func,
@@ -37,20 +37,18 @@ export default class Editor extends React.Component {
     static defaultProps = {
         follows: [],
         initialValue: '',
-        onRef() {
-        },
+        onRef() {},
         submitText: '评论',
-        onSubmit() {
-        },
+        onSubmit() {},
         loading: false,
     }
 
     constructor(props) {
         super(props)
         this.state = this.getInitialState()
-        this.inputRef = React.createRef()
-        this.displayRef = React.createRef()
-        this.markRef = React.createRef()
+        this.inputRef = createRef()
+        this.displayRef = createRef()
+        this.markRef = createRef()
     }
 
     getInitialState = () => {

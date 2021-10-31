@@ -18,6 +18,11 @@ export default {
         url: `${config.apiHost}/comment/mv`,
         type: 'GET'
     },
+    // 视频评论, ?id=89ADDE33C0AAE8EC14B99F6750DB954D, limit, offset
+    video: {
+        url: `${config.apiHost}/comment/video`,
+        type: 'GET'
+    },
     // 发送、删除评论
     // t: 0 删除, 1 发送, 2 回复
     // type: 数字,资源类型,对应歌曲,mv,专辑,歌单,电台,视频

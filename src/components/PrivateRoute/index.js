@@ -1,11 +1,11 @@
-import React from 'react'
+import {Component} from 'react'
 import {withRouter, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getCsrfToken} from 'utils'
 
 export default function PrivateRoute({component: Component, ...rest}) {
     @withRouter
-    class Authentication extends React.Component {
+    class Authentication extends Component {
 
         isLogin = () => {
             const csrfToken = getCsrfToken()

@@ -1,4 +1,4 @@
-import React from 'react'
+import {Component, createRef} from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 
@@ -11,7 +11,7 @@ const iconType = {
     error: 'error-icon',
 }
 
-class Notification extends React.Component {
+class Notification extends Component {
 
     static propTypes = {
         type: PropTypes.oneOf(['success', 'error']),
@@ -32,7 +32,7 @@ class Notification extends React.Component {
         this.state = {
             style: {}
         }
-        this.messageRef = React.createRef()
+        this.messageRef = createRef()
     }
 
     componentDidMount() {

@@ -1,4 +1,4 @@
-import React from 'react'
+import {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import KEY_CODE from 'constants/keyCode'
@@ -14,7 +14,7 @@ const COMPLETE_TIP = '轻敲空格完成输入'
     isLogin: user.isLogin,
     userInfo: user.userInfo
 }))
-export default class AtList extends React.PureComponent {
+export default class AtList extends PureComponent {
 
     static propTypes = {
         visible: PropTypes.bool,

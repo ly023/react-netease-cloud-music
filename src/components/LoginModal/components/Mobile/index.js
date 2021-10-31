@@ -1,4 +1,4 @@
-import React from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {createForm, formShape} from 'rc-form'
 import FormItem from 'components/FormItem'
@@ -20,7 +20,7 @@ function parseCountryCodeList(data) {
 }
 
 @createForm()
-export default class Mobile extends React.Component {
+export default class Mobile extends Component {
     static propTypes = {
         form: formShape,
         onLogin: PropTypes.func,

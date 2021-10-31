@@ -22,6 +22,11 @@ export async function requestMVComments(params) {
     return request(`${API.mv.url}${stringify(params, {addQueryPrefix: true})}`)
 }
 
+// 视频评论
+export async function requestVideoComments(params) {
+    return request(`${API.video.url}${stringify(params, {addQueryPrefix: true})}`)
+}
+
 // 发送、删除评论
 export async function comment(params) {
     return request(`${API.comment.url}${stringify(params, {addQueryPrefix: true})}`)

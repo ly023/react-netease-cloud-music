@@ -1,11 +1,11 @@
-import React from 'react'
+import {Component, createRef} from 'react'
 import {createPortal} from 'react-dom'
 import PropTypes from 'prop-types'
 import './index.scss'
 
 const EDGE = 0
 
-export default class Modal extends React.Component {
+export default class Modal extends Component {
 
     static propTypes = {
         visible: PropTypes.bool,
@@ -27,7 +27,7 @@ export default class Modal extends React.Component {
         this.state = {
             positionStyle: {}
         }
-        this.modalRef = React.createRef()
+        this.modalRef = createRef()
     }
 
     componentDidUpdate(prevProps) {

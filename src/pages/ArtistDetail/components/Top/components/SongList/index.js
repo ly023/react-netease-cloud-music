@@ -17,16 +17,14 @@ function SongList(props) {
         currentSong: user.player.currentSong,
     }))
 
-    return <>
-        <table styleName="table">
-            {Array.isArray(songs) && songs.length ? <tbody>
+    return <>{Array.isArray(songs) && songs.length ? <table styleName="table">
+            <tbody>
             {
                 songs.map((item, index) => {
                     const order = index + 1
                     const {id, alia: alias} = item
                     const disabled = false // todo 没有播放权限
-                    return <tr key={id}
-                               styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
+                    return <tr key={id} styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                         <td styleName="order">
                             <span styleName="number">{order}</span>
                             <span styleName="play">
@@ -55,10 +53,12 @@ function SongList(props) {
                     </tr>
                 })
             }
-            </tbody> : <Empty tip="暂无音乐"/>}
+            </tbody>
         </table>
+        : <Empty tip="暂无音乐"/>}
         <ListLoading loading={loading}/>
     </>
+
 }
 
 SongList.propTypes = {

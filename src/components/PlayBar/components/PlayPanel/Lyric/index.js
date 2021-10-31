@@ -1,7 +1,7 @@
 /**
  * 歌词
  */
-import React from 'react'
+import {Component, createRef} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -20,7 +20,7 @@ const DURATION = 1000 // 动画执行时间
     isPlaying: user.player.isPlaying,
     currentPlayedTime: user.player.currentPlayedTime
 }))
-export default class Lyric extends React.Component {
+export default class Lyric extends Component {
     static propTypes = {
         visible: PropTypes.bool,
         height: PropTypes.number,
@@ -41,7 +41,7 @@ export default class Lyric extends React.Component {
         }
         this.requestedSongId = 0
         this.requestAnimationFrameId = 0
-        this.scrollbarRef = React.createRef()
+        this.scrollbarRef = createRef()
         this.hasLyric = false
         this.formattedLyric = null
     }

@@ -1,4 +1,4 @@
-import React from 'react'
+import {PureComponent, createRef} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import VerticalScrollbar from 'components/VerticalScrollbar'
@@ -14,7 +14,7 @@ import './index.scss'
 
 const ITEM_HEIGHT = 28
 
-export default class SongList extends React.PureComponent {
+export default class SongList extends PureComponent {
     static propTypes = {
         height: PropTypes.number,
         trackQueue: PropTypes.array,
@@ -32,7 +32,7 @@ export default class SongList extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {}
-        this.scrollbarRef = React.createRef()
+        this.scrollbarRef = createRef()
     }
 
     componentDidUpdate(prevProps) {

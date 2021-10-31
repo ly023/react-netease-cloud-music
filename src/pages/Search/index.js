@@ -1,7 +1,7 @@
 /**
  * 搜索页
  */
-import React from 'react'
+import {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 import qs from 'qs'
@@ -34,7 +34,7 @@ function getUrlType() {
 }
 
 @withRouter
-export default class SearchPage extends React.Component {
+export default class SearchPage extends Component {
     constructor(props) {
         super(props)
         const searchValue = getUrlParameter('s')

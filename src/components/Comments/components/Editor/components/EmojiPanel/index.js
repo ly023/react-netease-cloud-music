@@ -1,4 +1,4 @@
-import React from 'react'
+import {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {click} from 'utils'
 import {EMOJI, EMOJI_PREFIX_URL} from '../../constants'
@@ -8,7 +8,7 @@ import './index.scss'
 const LIMIT = 50
 const DOM_ID = 'emoji-panel'
 
-export default class EmojiPanel extends React.PureComponent {
+export default class EmojiPanel extends PureComponent {
 
     static propTypes = {
         visible: PropTypes.bool,

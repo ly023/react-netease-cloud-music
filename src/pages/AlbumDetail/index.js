@@ -1,7 +1,7 @@
 /**
  * 专辑详情页
  */
-import React from 'react'
+import {Component} from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
@@ -29,7 +29,7 @@ import './index.scss'
     isLogin: user.isLogin,
     currentSong: user.player.currentSong
 }))
-export default class AlbumDetail extends React.Component {
+export default class AlbumDetail extends Component {
     constructor(props) {
         super(props)
         this.state = this.getInitialState()

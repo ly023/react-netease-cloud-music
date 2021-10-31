@@ -1,7 +1,7 @@
 /**
  * 发现音乐-推荐
  */
-import React from 'react'
+import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Page from 'components/Page'
@@ -19,7 +19,7 @@ import './index.scss'
 @connect(({user}) => ({
     isLogin: user.isLogin,
 }))
-export default class Discover extends React.Component {
+export default class Discover extends Component {
     constructor(props) {
         super(props)
         this.state = {

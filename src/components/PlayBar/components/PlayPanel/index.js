@@ -1,4 +1,4 @@
-import React from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import emitter from 'utils/eventEmitter'
@@ -15,7 +15,7 @@ import './index.scss'
     playSetting: user.player.playSetting,
     shuffle: user.player.shuffle
 }))
-export default class PlayPanel extends React.Component {
+export default class PlayPanel extends Component {
 
     static propTypes = {
         visible: PropTypes.bool,

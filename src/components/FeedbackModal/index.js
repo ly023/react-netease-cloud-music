@@ -1,9 +1,9 @@
-import React from 'react'
+import {Component} from 'react'
 import PropTypes from 'prop-types'
 import Modal from 'components/Modal'
 import './index.scss'
 
-export default class FeedbackModal extends React.Component {
+export default class FeedbackModal extends Component {
 
     static propTypes = {
         visible: PropTypes.bool,
