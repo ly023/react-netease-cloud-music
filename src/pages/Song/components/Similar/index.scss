@@ -104,12 +104,12 @@
   width: 10px;
   height: 11px;
   cursor: pointer;
-  opacity: 90%;
+  opacity: 0.9;
 
   @extend %background-icon2;
 
   &:hover {
-    opacity: 100%;
+    opacity: 1;
   }
 }
 

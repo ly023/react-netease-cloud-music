@@ -119,7 +119,7 @@
         border-radius: 4px;
         transform: translateX(-50%);
         visibility: hidden;
-        opacity: 0%;
+        opacity: 0;
 
         &.fade {
           animation: fade 2s linear;
@@ -129,12 +129,12 @@
           0%,
           50% {
             visibility: visible;
-            opacity: 100%;
+            opacity: 1;
           }
 
           100% {
             visibility: hidden;
-            opacity: 0%;
+            opacity: 0;
           }
         }
 

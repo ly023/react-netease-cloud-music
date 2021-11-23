@@ -6,7 +6,7 @@
   z-index: 2;
   width: 6px;
   background: #000;
-  opacity: 50%;
+  opacity: 0.5;
   filter: alpha(opacity=50);
 }
 
@@ -18,7 +18,7 @@
   border: 1px solid #a6a6a6;
   border-radius: 5px;
   cursor: pointer;
-  opacity: 80%;
+  opacity: 0.8;
   filter: alpha(opacity=80);
 
   span {

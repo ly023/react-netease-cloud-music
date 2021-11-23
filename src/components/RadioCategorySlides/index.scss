@@ -25,7 +25,7 @@
       }
 
       &.active {
-        color: rgb(211 87 87);
+        color: #d35757;
         background-position: -70px 0;
 
         .icon {
@@ -73,13 +73,13 @@
     height: 30px;
     margin-top: -15px;
     cursor: pointer;
-    opacity: 25%;
+    opacity: 0.25;
 
     @extend %swiper-icon;
 
     &.disabled,
     &.disabled:hover {
-      opacity: 8%;
+      opacity: 0.08;
     }
   }
 
@@ -88,7 +88,7 @@
     background-position: 0 -30px;
 
     &:hover {
-      opacity: 40%;
+      opacity: 0.4;
     }
   }
 
@@ -97,7 +97,7 @@
     background-position: -30px -30px;
 
     &:hover {
-      opacity: 40%;
+      opacity: 0.4;
     }
   }
 }

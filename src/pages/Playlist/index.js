@@ -123,7 +123,7 @@ function Playlist() {
                                             coverUrl: item.coverImgUrl
                                         }
                                         return <li key={`${item.id}-${index}`} styleName="item">
-                                            <PlaylistItem item={parseItem} showCreator/>
+                                            <PlaylistItem item={parseItem} ellipsis showCreator/>
                                         </li>
                                     })
                                 }

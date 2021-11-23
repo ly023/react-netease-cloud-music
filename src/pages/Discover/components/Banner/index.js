@@ -38,7 +38,12 @@ function Banner() {
     const beforeChange = useCallback((oldIndex, newIndex) => {
         const banner = banners[newIndex]
         if (banner) {
-            setActiveUrl(banner.imageUrl)
+            const {imageUrl} = banner
+            // let img = new Image()
+            // img.src = getBlur(imageUrl)
+            // img.onload = function() {
+            setActiveUrl(imageUrl)
+            // }
         }
     }, [banners])
 
