@@ -17,7 +17,6 @@ module.exports = merge(baseConfig, {
     devtool: 'source-map',
     entry: {
         main: [
-            '@babel/polyfill',
             './src/index.js'
         ],
     },

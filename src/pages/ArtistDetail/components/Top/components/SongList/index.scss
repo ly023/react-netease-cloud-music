@@ -71,6 +71,8 @@
     }
 
     .name {
+      display: inline-flex;
+      align-items: center;
       width: 248px;
 
       @extend %text-ellipsis;

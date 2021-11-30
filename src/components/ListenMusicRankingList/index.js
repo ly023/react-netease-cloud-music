@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Link, useHistory} from 'react-router-dom'
 import Empty from 'components/Empty'
 import SinglePlay from 'components/SinglePlay'
+import SongActions from 'components/SongActions'
 import ListLoading from 'components/ListLoading'
 import SubTitle from 'components/SubTitle'
 import QuestionPopover from 'components/Popover/QuestionPopover'
@@ -108,12 +109,11 @@ function ListenMusicRankingList(props) {
             return <div>
                 <ul styleName="list">
                     {rankingList.map((rank, index) => {
-                        const {song, playCount} = rank
+                        const {song, playCount, score} = rank
                         const {id, name, ar} = song
                         const order = index + 1
                         const isEven = !!(order % 2)
-                        const firstPlayCount = rankingList[0].playCount
-                        const percent = (playCount / firstPlayCount) * 100
+                        const percent = score
                         return <div key={id} styleName={`item ${isEven ? 'even' : ''}`}>
                             <div styleName="order">
                                 <span styleName="order-num">{order}.</span>
@@ -122,6 +122,9 @@ function ListenMusicRankingList(props) {
                             <div styleName="song">
                                 <Link styleName="name" to={`/song/${id}`}>{name}</Link>
                                 <span styleName="artists"><em>-</em>{renderArtists(ar)}</span>
+                                <div styleName="actions">
+                                    <SongActions id={id}/>
+                                </div>
                             </div>
                             <div styleName="bar">
                                 <div styleName="progress" style={{width: `${percent}%`}}/>

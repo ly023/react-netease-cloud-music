@@ -1,4 +1,4 @@
-import {useEffect, useState, useMemo} from 'react'
+import {useEffect, useState, useMemo, useRef} from 'react'
 import Page from 'components/Page'
 import authDecorator from 'hoc/auth'
 import {requestLoginStatus} from 'services/user'
@@ -8,8 +8,11 @@ import LoginTip from './components/LoginTip'
 function Friend() {
     const [loading, setLoading] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
+    const mounted = useRef(false)
 
     useEffect(() => {
+        mounted.current = true
+
         const csrfToken = getCsrfToken()
         if (csrfToken) {
             setLoading(true)
@@ -17,14 +20,18 @@ function Friend() {
                 .then((res) => {
                     const data = res?.data
                     if (!data?.profile) {
-                        setShowLogin(true)
+                        mounted.current && setShowLogin(true)
                     }
                 })
                 .finally(() => {
-                    setLoading(false)
+                    mounted.current && setLoading(false)
                 })
         } else {
             setShowLogin(true)
+        }
+
+        return () => {
+            mounted.current = false
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -41,7 +48,7 @@ function Friend() {
         </div>
     }, [loading, showLogin])
 
-    return <Page showFooter>
+    return <Page showFooter={!loading && !showLogin}>
         {renderContent}
     </Page>
 }

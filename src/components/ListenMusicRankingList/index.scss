@@ -37,7 +37,17 @@
     overflow: hidden;
     line-height: 38px;
 
+    &:hover {
+      background-color: #eee;
+
+      .song .actions {
+        display: inline-block;
+      }
+    }
+
     .order {
+      display: inline-flex;
+      align-items: center;
       float: left;
       width: 72px;
       height: 38px;
@@ -80,6 +90,11 @@
         em {
           margin: 0 5px;
         }
+      }
+
+      .actions {
+        display: none;
+        float: right;
       }
     }
 

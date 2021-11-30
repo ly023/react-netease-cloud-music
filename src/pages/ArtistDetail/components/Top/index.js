@@ -7,6 +7,7 @@ import Add from 'components/Add'
 import Play from 'components/Play'
 import {PLAY_TYPE} from 'constants/music'
 import {requestArtistTop} from 'services/artist'
+import {parseSongs} from 'utils/song'
 import SongList from './components/SongList'
 
 import './index.scss'
@@ -33,7 +34,7 @@ function Top(props) {
                 setLoading(true)
                 const res = await requestArtistTop({id: artistId})
                 if (isMounted.current) {
-                    setSongs(res?.songs || [])
+                    setSongs(parseSongs(res?.songs || []))
                 }
             } catch (e) {
 

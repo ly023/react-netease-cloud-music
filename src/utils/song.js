@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 import {FEE_TYPE, PLAY_MODE, DEFAULT_SECOND} from 'constants/music'
 
 export function hasPrivilege(privilege = {}) {
-    if (privilege.st === 0) {
+    // todo st === -100
+    if (privilege.st === 0 || privilege.st === -100) {
         if (FEE_TYPE.FEE.includes(privilege.fee)) {
             return privilege.payed !== 0
         }
@@ -182,7 +183,7 @@ export function parseSongs(songs = []) {
             const item = songs[i]
             newSongs.push({
                 ...item,
-                mv: item.mvid,
+                mv: item.mvid || item.mv,
                 duration: item.dt,
                 artists: item.ar,
                 album: item.al,

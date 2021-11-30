@@ -13,7 +13,6 @@ module.exports = merge(baseConfig, {
     mode: 'development',
     entry: {
         main: [
-            '@babel/polyfill',
             './src/index.js' // 入口文件路径
         ]
     },
