@@ -1,5 +1,6 @@
 const path = require('path');
 const {merge} = require('webpack-merge');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const openBrowser = require('react-dev-utils/openBrowser');
@@ -24,8 +25,8 @@ module.exports = merge(baseConfig, {
     },
     // cache: {
     //     type: 'filesystem', // 使用文件缓存
-        // cacheDirectory 默认路径是 node_modules/.cache/webpack
-        // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
+    // cacheDirectory 默认路径是 node_modules/.cache/webpack
+    // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
     // },
     devServer: {
         client: {
@@ -53,6 +54,11 @@ module.exports = merge(baseConfig, {
         ignored: /node_modules/, // 不监听node_modules目录下的文件
     },
     plugins: [
+        new ESLintPlugin({
+            // extensions: ['ts', 'tsx'],
+            // emitWarning: true,
+        }),
+
         new HtmlWebpackPlugin({
             filename: path.join(config.root, 'dist/index.html'),  // 生成的html存放路径，相对于path
             template: path.join(config.root, 'index.html'), // 模板文件

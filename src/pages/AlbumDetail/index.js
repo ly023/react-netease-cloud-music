@@ -276,7 +276,7 @@ export default class AlbumDetail extends Component {
                     <div className="right-wrapper">
                         {/* todo 喜欢这张专辑的人 */}
                         <div styleName="other-albums">
-                            <h3 styleName="album-title">他的其他热门专辑</h3>
+                            <h3 styleName="album-title">Ta的其他热门专辑</h3>
                             <ul>
                                 {
                                     albums.map((item) => {

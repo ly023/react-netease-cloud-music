@@ -58,13 +58,13 @@ function SimilarArtists(props) {
         }
     }, [artists])
 
-    return <>
+    return artists?.length ? <>
         <h3 styleName="title">相似歌手</h3>
         <ListLoading loading={loading}/>
         <ul styleName="list">
             {renderItems}
         </ul>
-    </>
+    </> : null
 }
 
 SimilarArtists.propTypes = {

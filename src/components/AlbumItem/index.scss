@@ -60,16 +60,18 @@
     display: block;
 
     @extend %text-ellipsis;
-
-    font-size: 14px;
   }
 
   .title {
     margin: 8px 0 3px;
     color: #000;
+    font-size: 14px;
+    height: 20px;
   }
 
   .name {
     color: $font-color;
+    font-size: 12px;
+    height: 16px;
   }
 }

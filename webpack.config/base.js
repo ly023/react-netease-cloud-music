@@ -36,12 +36,7 @@ module.exports = {
                 // 如果项目源码中没有 jsx 文件就不要写 /\.jsx?$/，提升正则表达式性能
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: isDevelopment ? [
-                    ...jsLoaders,
-                    {
-                        loader: 'eslint-loader',
-                    }
-                ] : jsLoaders,
+                use: jsLoaders,
             },
             {
                 test: /\.css$/,

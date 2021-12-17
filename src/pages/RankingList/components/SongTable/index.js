@@ -9,6 +9,7 @@ import {getArtists} from 'utils/song'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
 import './index.scss'
+import {getThumbnail} from "../../../../utils";
 
 function SongTable(props) {
     const {loading, songs = [], isSelf = false} = props
@@ -48,7 +49,7 @@ function SongTable(props) {
                             <span styleName="number">{order}</span>
                         </td>
                         <td>
-                            {isTop ? <img src={album?.picUrl} styleName="album-cover" alt=""/> : null}
+                            {isTop ? <img src={getThumbnail(album?.picUrl, 50)} styleName="album-cover" alt=""/> : null}
                             <SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/>
                             <div styleName={`name ${isTop ? 'top' : ''}`}>
                                 <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>
