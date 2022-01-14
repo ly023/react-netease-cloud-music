@@ -8,7 +8,7 @@ import _ from 'lodash'
 import emitter from 'utils/eventEmitter'
 import {TIP_TIMEOUT} from 'constants'
 import {PLAY_MODE} from 'constants/music'
-import KEY_CODE from 'constants/keyCode'
+import KEY from 'constants/keyboardEventKey'
 import {setUserPlayer} from 'actions/user'
 // import {requestDetail as requestSongDetail} from 'services/song'
 import {
@@ -20,7 +20,7 @@ import {
     click,
 } from 'utils'
 import {isShuffleMode, getArtists} from 'utils/song'
-import AddToPlaylist from 'components/AddToPlaylist'
+import AddToPlaylist from 'components/business/AddToPlaylist'
 import {isPlaying} from './utils'
 import PlayPanel from './components/PlayPanel'
 
@@ -277,7 +277,7 @@ export default class PlayBar extends PureComponent {
         this.songPlayedIntervalId = window.setInterval(() => {
             const {buffered, currentTime, duration} = this.audio
 
-            console.log('playedInterval', currentTime)
+            // console.log('playedInterval', currentTime)
 
             if (buffered.length) {
                 let playedPercent = (100 * currentTime / duration).toFixed(2)
@@ -295,9 +295,18 @@ export default class PlayBar extends PureComponent {
     }
 
     keyDownEventListener = (e) => {
-        const {keyCode} = e
-        if (keyCode === KEY_CODE.F8) { // 暂停
+        e.preventDefault()
+        const {key} = e
+        if (key === KEY.F8 || key === KEY.SPACE) { // 播放 暂停
             this.handlePlay()
+            return
+        }
+        if(key === KEY.F7) {
+            this.handlePlayPrev()
+            return
+        }
+        if(key === KEY.F9) {
+            this.handlePlayNext()
         }
     }
 
@@ -444,10 +453,13 @@ export default class PlayBar extends PureComponent {
     }
 
     handlePlay = () => {
-        if (isPlaying(this.audio)) {
-            this.autoPlay = false
-            this.audio.pause()
-        } else {
+        const {trackQueue} = this.props.player
+        if(trackQueue.length) {
+            if (isPlaying(this.audio)) {
+                this.autoPlay = false
+                this.audio.pause()
+                return
+            }
             this.autoPlay = true
             this.playAudio()
         }

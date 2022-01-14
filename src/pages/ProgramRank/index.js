@@ -4,7 +4,7 @@
 import {useState, useMemo} from 'react'
 import dayjs from 'dayjs'
 import Page from 'components/Page'
-import ProgramRank from 'components/ProgramRank'
+import ProgramRank from 'components/business/ProgramRank'
 import QuestionPopover from 'components/Popover/QuestionPopover'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 

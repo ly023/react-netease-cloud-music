@@ -3,13 +3,15 @@ import {connect} from 'react-redux'
 import {withRouter, NavLink, Link} from 'react-router-dom'
 import emitter from 'utils/eventEmitter'
 import {LOGIN_MODE} from 'constants/login'
-import LoginModal from 'components/LoginModal'
+import LoginModal from 'components/business/LoginModal'
 import {setNavHeight} from 'actions/base'
 import {requestLogout} from 'services/user'
 import {getThumbnail, deleteCookie} from 'utils'
 import SearchBar from './components/SearchBar'
 
 import styles from './index.scss'
+
+const MAX_HEIGHT = 103
 
 @withRouter
 @connect(({user}) => ({
@@ -44,7 +46,7 @@ export default class NavBar extends Component {
         const navHeight = this.navRef.current.offsetHeight
         if (navHeight) {
             this.setState({
-                style: {height: navHeight}
+                style: {height: Math.min(navHeight, MAX_HEIGHT)}
             })
             this.props.dispatch(setNavHeight({navHeight}))
         }
@@ -132,9 +134,9 @@ export default class NavBar extends Component {
                 <div style={style}>
                     <div styleName="wrapper" ref={this.navRef}>
                         <div styleName="cont">
-                            <a href='/' styleName="logo">
+                            <Link to='/' styleName="logo">
                                 <span styleName="logo-text">网易云音乐</span>
-                            </a>
+                            </Link>
                             <ul styleName="link-list">
                                 <li styleName="link-item">
                                     <NavLink

@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react'
-import FeedbackModal from 'components/FeedbackModal'
+import FeedbackModal from 'components/business/FeedbackModal'
 import './index.scss'
 
 function FooterBar() {

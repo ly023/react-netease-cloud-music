@@ -1,6 +1,6 @@
 # react-netease-cloud-music
 
-仿网易云音乐PC端Web版，练手项目，react + redux + redux-saga
+仿网易云音乐PC端Web版，练手项目，react + redux + redux-saga + webpack
 
 #### API
 

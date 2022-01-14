@@ -3,7 +3,7 @@
  */
 import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
-import Play from 'components/Play'
+import Play from 'components/business/Play'
 import {PLAY_TYPE} from 'constants/music'
 import ListLoading from 'components/ListLoading'
 import {formatNumber, getThumbnail} from 'utils'

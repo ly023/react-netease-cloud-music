@@ -3,8 +3,8 @@
  */
 import {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
-import Add from 'components/Add'
-import Play from 'components/Play'
+import Add from 'components/business/Add'
+import Play from 'components/business/Play'
 import {PLAY_TYPE} from 'constants/music'
 import {requestArtistTop} from 'services/artist'
 import {parseSongs} from 'utils/song'

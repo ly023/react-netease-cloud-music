@@ -3,9 +3,9 @@
  */
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-import Add from 'components/Add'
+import Add from 'components/business/Add'
 import {PLAY_TYPE} from 'constants/music'
-import Play from 'components/Play'
+import Play from 'components/business/Play'
 import {getArtists} from 'utils/song'
 
 import './index.scss'

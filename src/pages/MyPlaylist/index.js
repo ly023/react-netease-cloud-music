@@ -1,12 +1,12 @@
 import {useEffect, useState, useMemo} from 'react'
 import Page from 'components/Page'
-import MyMusicSidebar from 'components/MyMusicSidebar'
-import PlaylistDetail from 'components/PlaylistDetail'
+import PlaylistDetail from 'components/business/PlaylistDetail'
 import authDecorator from 'hoc/auth'
 import {requestLoginStatus} from 'services/user'
 import useWindowSize from 'utils/useWindowSize'
 import {getCsrfToken} from 'utils'
 import LoginTip from './components/LoginTip'
+import MyMusicSidebar from './components/MyMusicSidebar'
 
 import './index.scss'
 

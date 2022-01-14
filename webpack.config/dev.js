@@ -28,6 +28,7 @@ module.exports = merge(baseConfig, {
     // cacheDirectory 默认路径是 node_modules/.cache/webpack
     // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
     // },
+    devtool: 'cheap-module-source-map',
     devServer: {
         client: {
             overlay: false, // https://webpack.docschina.org/configuration/dev-server/#overlay

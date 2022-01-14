@@ -5,7 +5,7 @@ import {useState, useEffect, useMemo, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 import {PLAY_TYPE} from 'constants/music'
-import Play from 'components/Play'
+import Play from 'components/business/Play'
 import {requestNewestAlbum} from 'services/album'
 import {getThumbnail} from 'utils'
 

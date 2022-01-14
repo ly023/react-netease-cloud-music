@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 import Page from 'components/Page'
-import RadioCategorySlides from 'components/RadioCategorySlides'
+import RadioCategorySlides from 'components/business/RadioCategorySlides'
 import CategoryRecommendation  from './components/CategoryRecommendation'
 import RadioRank from './components/RadioRank'
 

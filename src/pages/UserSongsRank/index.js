@@ -5,7 +5,7 @@ import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestDetail as requestUserDetail} from 'services/user'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import Page from 'components/Page'
-import RankingList from 'components/ListenMusicRankingList'
+import RankingList from 'components/business/ListenMusicRankingList'
 
 function UserSongsRank(props) {
     const history = useHistory()

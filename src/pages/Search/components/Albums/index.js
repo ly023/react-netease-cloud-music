@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {DEFAULT_ARTIST_AVATAR} from 'constants'
 import {PLAY_TYPE} from 'constants/music'
-import Play from 'components/Play'
+import Play from 'components/business/Play'
 import {getThumbnail} from 'utils'
 import {getRenderKeyword} from 'utils/song'
 
