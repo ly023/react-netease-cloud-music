@@ -295,9 +295,8 @@ export default class PlayBar extends PureComponent {
     }
 
     keyDownEventListener = (e) => {
-        e.preventDefault()
         const {key} = e
-        if (key === KEY.F8 || key === KEY.SPACE) { // 播放 暂停
+        if (key === KEY.F8) { // 播放 暂停
             this.handlePlay()
             return
         }

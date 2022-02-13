@@ -154,7 +154,7 @@ export default class NavBar extends Component {
                                 </li>
                                 <li styleName="link-item">
                                     <NavLink to='/friend' styleName="link" activeClassName={styles["link-active"]}>
-                                        朋友
+                                        关注
                                     </NavLink>
                                 </li>
                                 <li styleName="link-item">

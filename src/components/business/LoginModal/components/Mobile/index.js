@@ -164,6 +164,7 @@ export default class Mobile extends Component {
                                 validateTrigger: false
                             })(
                                 <input
+                                    autoComplete="off"
                                     type="number"
                                     placeholder="请输入手机号"
                                     styleName="login-input login-phone-number"
@@ -199,6 +200,7 @@ export default class Mobile extends Component {
                             validateTrigger: false
                         })(
                             <input
+                                autoComplete="off"
                                 type="password"
                                 styleName="login-input"
                                 placeholder="请输入密码"

@@ -78,7 +78,7 @@ export default [
     },
     {
         path: '/friend',
-        name: '朋友',
+        name: '关注',
         component: importPages('Friend'),
     },
     {
