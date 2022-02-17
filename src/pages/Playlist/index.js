@@ -2,7 +2,7 @@
  * 发现音乐-歌单
  */
 import {useState, useEffect, useMemo, useCallback, useRef} from 'react'
-import {Link, useHistory, useLocation} from 'react-router-dom'
+import {Link, useNavigate, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
 import Page from 'components/Page'
 import ListLoading from 'components/ListLoading'
@@ -19,7 +19,7 @@ import './index.scss'
 const DEFAULT_LIMIT = 35
 
 function Playlist() {
-    const history = useHistory()
+    const navigate = useNavigate()
     const {pathname, search} = useLocation()
     const [current, setCurrent] = useState(0)
     const [total, setTotal] = useState(0)
@@ -90,8 +90,8 @@ function Playlist() {
             order: getUrlParameter('order') || undefined,
             page
         }, {addQueryPrefix: true})}`
-        history.push(url)
-    }, [history, pathname])
+        navigate(url)
+    }, [navigate, pathname])
 
     const documentTitle = useMemo(() => {
         return `${catText}歌单 - 歌单 - ${DEFAULT_DOCUMENT_TITLE}`

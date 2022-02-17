@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'react-router-dom'
+import withRouter from 'hoc/withRouter'
 import {connect} from 'react-redux'
 import Modal from 'components/Modal'
 import {LOGIN_MODE} from 'constants/login'
@@ -12,7 +12,7 @@ import './index.scss'
 
 @withRouter
 @connect()
-export default class LoginModal extends Component {
+class LoginModal extends Component {
 
     static propTypes = {
         visible: PropTypes.bool,
@@ -42,7 +42,7 @@ export default class LoginModal extends Component {
 
     afterLogin = () => {
         this.props.onCancel?.()
-        this.props.history.go(0)
+        this.props.navigate.go(0)
     }
 
     getRenderMode = (mode) => {
@@ -105,6 +105,9 @@ export default class LoginModal extends Component {
         )
     }
 }
+
+export default LoginModal
+
 // function mapStateToProps(state) {
 //     return {user: state.user}
 // }

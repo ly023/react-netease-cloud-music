@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
-import {Link, useHistory, useLocation} from 'react-router-dom'
+import {Link, useNavigate, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
 import Page from 'components/Page'
 import ListLoading from 'components/ListLoading'
@@ -15,7 +15,7 @@ import './index.scss'
 const DEFAULT_LIMIT = 35
 
 function Album() {
-    const history = useHistory()
+    const navigate = useNavigate()
     const {pathname, search} = useLocation()
     const [newestAlbum, setNewestAlbum] = useState([])
     const [allNewAlbum, setAllNewAlbum] = useState([])
@@ -95,9 +95,9 @@ function Album() {
             area: getUrlParameter('area') || undefined,
             page
         }, {addQueryPrefix: true})}`
-        history.push(url)
+        navigate(url)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history, params, pathname])
+    }, [navigate, params, pathname])
 
     useEffect(()=>{
         fetchAllNewAlbum()

@@ -1,6 +1,6 @@
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Empty from 'components/Empty'
 import SinglePlay from 'components/business/SinglePlay'
 import SongActions from 'components/business/SongActions'
@@ -25,7 +25,7 @@ const ORDER_TYPES = {
 }
 
 function ListenMusicRankingList(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const {userId, listenSongs, limit} = props
 
@@ -63,7 +63,7 @@ function ListenMusicRankingList(props) {
                     setRankingList(limit ? data.slice(0, limit) : data)
                 } else if(code === -2){
                     if(!limit) {
-                        history.push('/404')
+                        navigate('/404')
                     }
                 }
             }
@@ -72,7 +72,7 @@ function ListenMusicRankingList(props) {
                 setLoading(false)
             }
         }
-    }, [userId, limit, history])
+    }, [userId, limit, navigate])
 
     const handleChangeOrderType = useCallback((type) => {
         setOrderType(type)

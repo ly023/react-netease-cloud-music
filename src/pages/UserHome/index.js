@@ -2,8 +2,9 @@
  * 用户主页
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {throttle} from 'lodash'
+import withRouter from 'hoc/withRouter'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestDetail as requestUserDetail, requestPlaylist, requestRadios} from 'services/user'
 import {DEFAULT_AVATAR, DEFAULT_DOCUMENT_TITLE} from 'constants'
@@ -28,7 +29,7 @@ function getDefaultParams() {
 }
 
 function UserHome(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const {isLogin, userInfo} = useShallowEqualSelector(({user}) => ({
         isLogin: user.isLogin,
@@ -47,7 +48,7 @@ function UserHome(props) {
 
     const playlistRef = useRef()
 
-    const userId = Number(props.match?.params?.id)
+    const userId = Number(props.params?.id)
 
     const isSelf = useMemo(() => isLogin && userInfo?.userId === userId, [isLogin, userInfo, userId])
 
@@ -141,7 +142,7 @@ function UserHome(props) {
             } catch (e) {
                 const code = e?.responseJson?.code
                 if (code === 404) {
-                    history.push('/404')
+                    navigate('/404')
                 }
             }
         }
@@ -310,4 +311,4 @@ function UserHome(props) {
     </Page>
 }
 
-export default UserHome
+export default withRouter(UserHome)

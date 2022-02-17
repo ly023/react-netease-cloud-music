@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback, useRef} from 'react'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
 import Confirm from 'components/Confirm'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
@@ -11,7 +11,7 @@ import {getThumbnail, getUrlParameter} from 'utils'
 import './index.scss'
 
 function MyMusicSidebar(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const {userId} = useShallowEqualSelector(({user}) => ({userId: user.userInfo?.userId}))
 
@@ -45,7 +45,7 @@ function MyMusicSidebar(props) {
                 if (invalidPlaylistId || !data.find(v => v.id === playlistId)) {
                     const firstPlaylistId = data[0]?.id
                     if (firstPlaylistId) {
-                        history.push(`/my/music/playlist/${firstPlaylistId}?reload=true`)
+                        navigate(`/my/music/playlist/${firstPlaylistId}?reload=true`)
                         return
                     }
                 }
@@ -70,7 +70,7 @@ function MyMusicSidebar(props) {
                 }
             }
         }
-    }, [history, invalidPlaylistId, playlistId, userId, createdPlaylists, collectedPlaylists])
+    }, [navigate, invalidPlaylistId, playlistId, userId, createdPlaylists, collectedPlaylists])
 
     useEffect(() => {
         isMounted.current = true
@@ -94,8 +94,8 @@ function MyMusicSidebar(props) {
 
     const handleSelectPlaylist = useCallback((id) => {
         const url = `/my/music/playlist/${id}`
-        history.push(url)
-    }, [history])
+        navigate(url)
+    }, [navigate])
 
     const handleChangeCreatedPlaylistsVisible = useCallback(() => {
         setCreatedPlaylistsVisible(!createdPlaylistsVisible)
@@ -120,9 +120,9 @@ function MyMusicSidebar(props) {
         if (playlistId === activePlaylistId) {
             const nextPlaylistId = playlists[activeIndex] ? playlists[activeIndex].id :  playlists[0].id
             const url = `/my/music/playlist/${nextPlaylistId}`
-            history.replace(url)
+            navigate(url, {replace: true})
         }
-    }, [history, playlistId, activePlaylistId])
+    }, [navigate, playlistId, activePlaylistId])
 
     const filterPlaylists = useCallback((id) => {
         let activeIndex = -1

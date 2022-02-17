@@ -1,10 +1,9 @@
 import React from 'react'
-import {withRouter, Route, Redirect} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getCsrfToken} from 'utils'
 
-export default function PrivateRoute({component: Component, ...rest}) {
-    @withRouter
+export default function Private({component: Component, ...rest}) {
     class Authentication extends React.Component {
 
         isLogin = () => {
@@ -15,14 +14,7 @@ export default function PrivateRoute({component: Component, ...rest}) {
         render() {
             const isLogin = this.isLogin()
 
-            return (
-                <Route
-                    {...rest}
-                    render={props => isLogin
-                        ? <Component {...props}/>
-                        : <Redirect to="/401"/>}
-                />
-            )
+            return isLogin ? <Component {...rest}/> : <Navigate to='/401'/>
         }
     }
 

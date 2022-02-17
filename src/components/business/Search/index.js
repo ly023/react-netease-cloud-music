@@ -3,7 +3,8 @@
  */
 import {Component, createRef} from 'react'
 import PropTypes from 'prop-types'
-import {withRouter, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import withRouter from 'hoc/withRouter'
 import {SEARCH_TYPE} from 'constants'
 import KEY from 'constants/keyboardEventKey'
 import {click, generateRandomString, getLocalStorage, getUrlParameter, setLocalStorage} from 'utils'
@@ -108,7 +109,7 @@ export default class Search extends Component {
         if (keyCode === KEY.ENTER && activeUrl) {
             e.preventDefault()
             this.hideResult()
-            this.props.history.push(activeUrl)
+            this.props.navigate(activeUrl)
         }
     }
 
@@ -124,7 +125,7 @@ export default class Search extends Component {
         this.hideResult()
         if (keyword !== searchValue && keyword && keyword.trim()) {
             const type = getUrlParameter('type') || SEARCH_TYPE.SONG.TYPE
-            this.props.history.push(`/search?s=${window.encodeURIComponent(keyword)}&type=${type}`)
+            this.props.navigate(`/search?s=${window.encodeURIComponent(keyword)}&type=${type}`)
             this.props.onPressEnter()
             this.inputRef.current.blur()
         }
@@ -361,4 +362,5 @@ export default class Search extends Component {
         )
     }
 }
+
 

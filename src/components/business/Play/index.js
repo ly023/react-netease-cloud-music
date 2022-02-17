@@ -15,6 +15,7 @@ import {requestDetail as requestProgramDetail} from 'services/program'
 import {requestPrograms} from 'services/radio'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
+import message from "components/Message";
 
 const types = Object.keys(PLAY_TYPE).map((key)=> PLAY_TYPE[key].TYPE)
 
@@ -76,12 +77,13 @@ function Play(props) {
                 } else {
                     emitPlay = false
                     // todo
+                    message.error({content: '没有播放权限'})
                     console.log('没有播放权限')
                 }
             }
         // 电台节目
         } else if(type === PLAY_TYPE.PROGRAM.TYPE) {
-            const trackIndex = localTrackQueue.findIndex((v) => v.program.id === id)
+            const trackIndex = localTrackQueue.findIndex((v) => v.id === id)
             if (trackIndex !== -1) {
                 trackQueue = localTrackQueue
                 index = trackIndex

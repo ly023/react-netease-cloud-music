@@ -295,6 +295,7 @@ export default class PlayBar extends PureComponent {
     }
 
     keyDownEventListener = (e) => {
+        // todo 目前加shift才有效
         const {key} = e
         if (key === KEY.F8) { // 播放 暂停
             this.handlePlay()

@@ -1,6 +1,7 @@
 import {useState, useEffect, useCallback, useRef} from 'react'
-import {withRouter, Link, useHistory, useLocation} from 'react-router-dom'
+import {Link, useNavigate, useLocation} from 'react-router-dom'
 import {stringify} from 'qs'
+import withRouter from 'hoc/withRouter'
 import SubTitle from 'components/SubTitle'
 import ListLoading from 'components/ListLoading'
 import Pagination from 'components/Pagination'
@@ -12,10 +13,10 @@ import './index.scss'
 const DEFAULT_LIMIT = 30
 
 function RadioRank(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
     const {pathname, search} = useLocation()
 
-    const {match} = props
+    const {params: urlParams} = props
 
     const getPage = useCallback(() => {
         const page = getUrlParameter('page')
@@ -26,7 +27,7 @@ function RadioRank(props) {
     }, [])
 
     const [params, setParams] = useState({
-        cateId: match.params.id,
+        cateId: urlParams.id,
         order: getUrlParameter('order') || undefined,
         limit: DEFAULT_LIMIT,
         offset: (getPage() - 1) * DEFAULT_LIMIT
@@ -82,8 +83,8 @@ function RadioRank(props) {
             order: getUrlParameter('order') || undefined,
             page
         }, {addQueryPrefix: true})}`
-        history.push(url)
-    }, [history, pathname])
+        navigate(url)
+    }, [navigate, pathname])
 
     return <div>
         <SubTitle title="电台排行榜" slot={<div styleName="tabs">

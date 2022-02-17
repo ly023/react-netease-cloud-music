@@ -1,23 +1,31 @@
-import {Switch, Route} from 'react-router-dom'
-import PrivateRoute from 'components/PrivateRoute'
+import {Routes, Route, useNavigate, useLocation} from 'react-router-dom'
+import Private from 'components/Private'
 import config from './config'
 
-export default () => <Switch>
-    {
-        config.map(({path, component: Component, exact, routes = [], meta = {}}, key) => {
-            const {requiresAuth} = meta
-            const option = {key, exact, path, routes}
+function Router() {
+    const navigate = useNavigate()
+    const location = useLocation()
 
-            // 需要登录验证的路由
-            return requiresAuth
-                ? <PrivateRoute {...option} component={Component}/>
-                : <Route
+    return <Routes>
+        {
+            config.map(({path, component: Component, routes = [], meta = {}}, key) => {
+                const {requiresAuth} = meta
+                const option = {
+                    key,
+                    path,
+                    routes,
+                    navigate,
+                    location,
+                }
+
+                // 分普通路由和需要登录验证的路由
+                return <Route
                     {...option}
-                    render={props => {
-                        return <Component {...props} routes={routes}/>
-                    }}
+                    element={requiresAuth ? <Private component={Component} {...option}/> : <Component {...option} />}
                 />
-        })
-    }
-</Switch>
+            })
+        }
+    </Routes>
+}
 
+export default Router

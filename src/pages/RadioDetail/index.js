@@ -2,9 +2,10 @@
  * 电台详情页
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
-import {Link, useHistory, useLocation} from 'react-router-dom'
+import {Link, useNavigate, useLocation} from 'react-router-dom'
 import dayjs from 'dayjs'
 import {stringify} from 'qs'
+import withRouter from 'hoc/withRouter'
 import {requestDetail, requestPrograms} from 'services/radio'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import Page from 'components/Page'
@@ -30,12 +31,12 @@ const ACTION_TYPES = {
 }
 
 function RadioDetail(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
     const {pathname, search} = useLocation()
 
     const {currentSong} = useShallowEqualSelector(({user}) => ({currentSong: user.player.currentSong}))
 
-    const radioId = Number(props.match?.params?.id)
+    const radioId = Number(props.params?.id)
 
     const [detail, setDetail] = useState(null)
     const [programsLoading, setProgramsLoading] = useState(false)
@@ -77,7 +78,7 @@ function RadioDetail(props) {
                 if (res?.code === 200) {
                     setDetail(res?.data)
                 } else if (res?.code === 404) {
-                    history.push('/404')
+                    navigate('/404')
                 }
             }
         }
@@ -109,8 +110,8 @@ function RadioDetail(props) {
             limit,
             offset,
         }, {addQueryPrefix: true})}`
-        history.push(url)
-    }, [history, pathname])
+        navigate(url)
+    }, [navigate, pathname])
 
     const handleSort = useCallback((asc) => {
         const urlParams = getUrlParameters()
@@ -119,8 +120,8 @@ function RadioDetail(props) {
             offset: 0,
             asc,
         }, {addQueryPrefix: true})}`
-        history.push(url)
-    }, [history, pathname])
+        navigate(url)
+    }, [navigate, pathname])
 
     const renderItems = useMemo(() => {
         if (Array.isArray(programs)) {
@@ -257,4 +258,4 @@ function RadioDetail(props) {
     </Page>
 }
 
-export default RadioDetail
+export default withRouter(RadioDetail)

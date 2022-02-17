@@ -3,7 +3,7 @@
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {useLocation, useHistory, Link} from 'react-router-dom'
+import {useLocation, useNavigate, Link} from 'react-router-dom'
 import {stringify} from 'qs'
 import ListLoading from 'components/ListLoading'
 import Empty from 'components/Empty'
@@ -16,7 +16,7 @@ const DEFAULT_LIMIT = 100
 
 function MV(props) {
     const {pathname, search} = useLocation()
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const {artistId} = props
     const [videos, setVideos] = useState([])
@@ -73,8 +73,8 @@ function MV(props) {
             limit,
             offset,
         }, {addQueryPrefix: true})}`
-        history.push(url)
-    }, [history, pathname])
+        navigate(url)
+    }, [navigate, pathname])
 
     const renderItems = useMemo(() => {
         if (Array.isArray(videos)) {

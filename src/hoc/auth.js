@@ -3,9 +3,11 @@ import {connect} from 'react-redux'
 import {requestLoginStatus} from 'services/user'
 import {setUserInfo} from 'actions/user'
 import {getCsrfToken} from 'utils'
+import withRouter from 'hoc/withRouter'
 
 const authDecorator = () => {
     return (WrappedComponent) => {
+        @withRouter
         @connect()
         class AuthEnhance extends Component {
             static displayName = 'authEnhance'

@@ -11,7 +11,7 @@ import MyMusicSidebar from './components/MyMusicSidebar'
 import './index.scss'
 
 function MyPlaylist(props) {
-    const playlistId = Number(props.match?.params?.id)
+    const playlistId = Number(props?.params?.id)
 
     const {contentHeight} = useWindowSize()
 

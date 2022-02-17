@@ -2,10 +2,10 @@
  * 搜索页
  */
 import {Component} from 'react'
-import {withRouter} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 import qs from 'qs'
 import {cloneDeep} from 'lodash'
+import withRouter from 'hoc/withRouter'
 import Page from 'components/Page'
 import Search from 'components/business/Search'
 import Tabs from 'components/Tabs'
@@ -93,14 +93,14 @@ export default class SearchPage extends Component {
     }
 
     setUrlQuery = (type, value) => {
-        const {pathname, search} = this.props.history.location
+        const {pathname, search} = this.props.location
         const query = qs.parse(search, {ignoreQueryPrefix: true})
         const newQuery = {
             ...query,
             [type]: value
         }
         const path = `${pathname}${qs.stringify(newQuery, {addQueryPrefix: true})}`
-        this.props.history.replace(path)
+        this.props.navigate(path, {replace: true})
     }
 
     getTypeText = (activeType) => {

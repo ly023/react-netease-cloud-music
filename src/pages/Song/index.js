@@ -2,8 +2,9 @@
  * 歌曲详情页
  */
 import {Component} from 'react'
-import {withRouter, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import withRouter from 'hoc/withRouter'
 import Page from 'components/Page'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {FEE_TYPE, PLAY_TYPE} from 'constants/music'
@@ -52,7 +53,7 @@ export default class Song extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.id !== prevProps.match.params.id) {
+        if (this.props.params.id !== prevProps.params.id) {
             this.setState(this.getInitialState())
             this.fetchData()
         }
@@ -63,7 +64,7 @@ export default class Song extends Component {
     }
 
     fetchData = () => {
-        const {id} = this.props.match.params
+        const {id} = this.props.params
         if (id) {
             this.fetchDetail(id)
             this.fetchLyric(id)
@@ -303,7 +304,7 @@ export default class Song extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <Comments onRef={this.setCommentsRef} id={Number(this.props.match.params.id)} setTotalComment={this.setTotalComment}/>
+                            <Comments onRef={this.setCommentsRef} id={Number(this.props.params.id)} setTotalComment={this.setTotalComment}/>
                         </div>
                     </div>
                     <div className="right-wrapper">

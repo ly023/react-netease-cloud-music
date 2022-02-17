@@ -2,7 +2,7 @@
  * MV详情页
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'services/mv'
 import Page from 'components/Page'
 import CustomPlayer from 'components/CustomPlayer'
@@ -16,9 +16,9 @@ import SubscribeMV from './components/SubscribeMV'
 import './index.scss'
 
 function MVDetail(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
-    const mvId = Number(props.match?.params?.id)
+    const mvId = Number(props.params?.id)
 
     const [detail, setDetail] = useState(null)
     const [resources, setResource] = useState([])
@@ -56,7 +56,7 @@ function MVDetail(props) {
                         fetchVideoUrls(definitions)
                     }
                 } else if (res?.code === 404) {
-                    history.push('/404')
+                    navigate('/404')
                 }
             }
         }

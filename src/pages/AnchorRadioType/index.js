@@ -1,4 +1,5 @@
 import {useMemo} from 'react'
+import withRouter from 'hoc/withRouter'
 import Page from 'components/Page'
 import RadioCategorySlides from 'components/business/RadioCategorySlides'
 import CategoryRecommendation  from './components/CategoryRecommendation'
@@ -7,12 +8,11 @@ import RadioRank from './components/RadioRank'
 import './index.scss'
 
 function AnchorRadioType(props) {
-    const {match} = props
+    const {params} = props
 
     const categoryId = useMemo(() => {
-        const {id} = match.params
-        return parseInt(id, 10)
-    }, [match])
+        return parseInt(params.id, 10)
+    }, [params])
 
     return <Page>
         <div className="main">
@@ -27,4 +27,4 @@ function AnchorRadioType(props) {
     </Page>
 }
 
-export default AnchorRadioType
+export default withRouter(AnchorRadioType)

@@ -53,12 +53,12 @@ function PersonalizedRcmd() {
     return loading ? <ListLoading loading={loading}/>
         : <ul styleName="list">
             <li styleName="item">
-                <Link to="discover/recommend/daily" styleName="item-date" title="每日歌曲推荐">
+                <Link to="/discover/recommend/daily" styleName="item-date" title="每日歌曲推荐">
                     <p styleName="day">{WEEKDAY[new Date().getDay() - 1]}</p>
                     <p styleName="date">{new Date().getDate()}</p>
                     <div styleName="date-mask"/>
                 </Link>
-                <Link to="discover/recommend/daily" styleName="desc" title="每日歌曲推荐">
+                <Link to="/discover/recommend/daily" styleName="desc" title="每日歌曲推荐">
                     每日歌曲推荐
                 </Link>
                 <p styleName="sub-desc">

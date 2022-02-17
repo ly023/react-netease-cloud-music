@@ -2,7 +2,7 @@
  * 视频详情页
  */
 import {useEffect, useState, useCallback, useMemo, useRef, Fragment} from 'react'
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'services/video'
 import Page from 'components/Page'
 import CustomPlayer from 'components/CustomPlayer'
@@ -16,9 +16,9 @@ import {formatDuration, formatNumber, formatTimestamp, getThumbnail} from 'utils
 import './index.scss'
 
 function VideoDetail(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
-    const videoId = props.match?.params?.id
+    const videoId = props.params?.id
 
     const [detail, setDetail] = useState(null)
     const [resources, setResource] = useState([])
@@ -52,7 +52,7 @@ function VideoDetail(props) {
                         fetchVideoUrls(definitions)
                     }
                 } else if (res?.code === 404) {
-                    history.push('/404')
+                    navigate('/404')
                 }
             }
         }

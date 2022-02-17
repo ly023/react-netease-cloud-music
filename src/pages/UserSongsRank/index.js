@@ -1,5 +1,5 @@
 import {useEffect, useState, useRef} from 'react'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import authDecorator from 'hoc/auth'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestDetail as requestUserDetail} from 'services/user'
@@ -8,9 +8,9 @@ import Page from 'components/Page'
 import RankingList from 'components/business/ListenMusicRankingList'
 
 function UserSongsRank(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
-    const userId = props.match?.params?.id
+    const userId = props.params?.id
 
     const {userInfo} = useShallowEqualSelector(({user}) => ({
         userInfo: user.userInfo,
@@ -28,12 +28,12 @@ function UserSongsRank(props) {
                 const res = await requestUserDetail({uid: userId})
                 if (isMounted.current) {
                     if (res?.code === -2) {
-                        history.push('/401')
+                        navigate('/401')
                     } else {
                         if (res?.peopleCanSeeMyPlayRecord || (userInfo?.userId === Number(userId))) {
                             setUserDetail(res)
                         } else {
-                            history.push('/404')
+                            navigate('/404')
                         }
                         setUserDetail(res)
                     }
@@ -41,7 +41,7 @@ function UserSongsRank(props) {
             } catch (e) {
                 const code = e?.responseJson?.code
                 if (code === 404) {
-                    history.push('/404')
+                    navigate('/404')
                 }
             }
         }

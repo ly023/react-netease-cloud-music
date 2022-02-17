@@ -1,6 +1,8 @@
 import {Component, createRef} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, NavLink, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import withRouter from 'hoc/withRouter'
+import NavLink from 'components/NavLink'
 import emitter from 'utils/eventEmitter'
 import {LOGIN_MODE} from 'constants/login'
 import LoginModal from 'components/business/LoginModal'
@@ -77,7 +79,7 @@ export default class NavBar extends Component {
     }
 
     isBelongToDiscover = () => {
-        const {pathname} = this.props.history.location
+        const {pathname} = this.props.location
         return pathname.startsWith('/discover')
             || pathname.startsWith('/song')
             || pathname.startsWith('/playlist')
@@ -95,27 +97,51 @@ export default class NavBar extends Component {
                 <li styleName="sub-nav-item">
                     <NavLink
                         to="/discover"
-                        exact={true}
-                        activeClassName={styles["sub-nav-active"]}
+                        end
+                        activeClassName={styles['sub-nav-active']}
                     >
                         <em>推荐</em>
                     </NavLink>
                 </li>
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover/toplist" activeClassName={styles["sub-nav-active"]}><em>排行榜</em></NavLink>
+                    <NavLink
+                        to="/discover/toplist"
+                        activeClassName={styles['sub-nav-active']}
+                    >
+                        <em>排行榜</em>
+                    </NavLink>
                 </li>
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover/playlist"
-                             activeClassName={styles["sub-nav-active"]}><em>歌单<i/></em></NavLink>
+                    <NavLink
+                        to="/discover/playlist"
+                        activeClassName={styles['sub-nav-active']}
+                    >
+                        <em>歌单<i/></em>
+                    </NavLink>
                 </li>
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover/radio" activeClassName={styles["sub-nav-active"]}><em>主播电台</em></NavLink>
+                    <NavLink
+                        to="/discover/radio"
+                        activeClassName={styles['sub-nav-active']}
+                    >
+                        <em>主播电台</em>
+                    </NavLink>
                 </li>
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover/4" activeClassName={styles["sub-nav-active"]}><em>歌手</em></NavLink>
+                    <NavLink
+                        to="/discover/4"
+                        activeClassName={styles['sub-nav-active']}
+                    >
+                        <em>歌手</em>
+                    </NavLink>
                 </li>
                 <li styleName="sub-nav-item">
-                    <NavLink to="/discover/album" activeClassName={styles["sub-nav-active"]}><em>新碟上架</em></NavLink>
+                    <NavLink
+                        to="/discover/album"
+                        activeClassName={styles['sub-nav-active']}
+                    >
+                        <em>新碟上架</em>
+                    </NavLink>
                 </li>
             </ul>
         }
@@ -141,19 +167,25 @@ export default class NavBar extends Component {
                                 <li styleName="link-item">
                                     <NavLink
                                         to='/discover'
-                                        activeClassName={styles["link-active"]}
-                                        styleName={`link${this.isBelongToDiscover() ? " link-active" : ""}`}
+                                        className={styles['link']}
+                                        activeClassName={styles['link-active']}
                                     >
                                         发现音乐
                                     </NavLink>
                                 </li>
                                 <li styleName="link-item">
-                                    <NavLink to='/my/music' styleName="link" activeClassName={styles["link-active"]}>
+                                    <NavLink
+                                        to='/my/music'
+                                        className={styles['link']}
+                                        activeClassName={styles['link-active']}                                   >
                                         我的音乐
                                     </NavLink>
                                 </li>
                                 <li styleName="link-item">
-                                    <NavLink to='/friend' styleName="link" activeClassName={styles["link-active"]}>
+                                    <NavLink
+                                        to='/friend'
+                                        className={styles['link']}
+                                        activeClassName={styles['link-active']}                                   >
                                         关注
                                     </NavLink>
                                 </li>
@@ -168,7 +200,11 @@ export default class NavBar extends Component {
                                     </a>
                                 </li>
                                 <li styleName="link-item">
-                                    <NavLink to='/download' styleName="link" activeClassName={styles["link-active"]}>
+                                    <NavLink
+                                        to='/download'
+                                        className={styles['link']}
+                                        activeClassName={styles['link-active']}
+                                    >
                                         下载客户端<i styleName="tag-hot"/>
                                     </NavLink>
                                 </li>
@@ -249,4 +285,3 @@ export default class NavBar extends Component {
         )
     }
 }
-

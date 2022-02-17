@@ -2,9 +2,10 @@
  * 专辑详情页
  */
 import {Component} from 'react'
-import {withRouter, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
+import withRouter from 'hoc/withRouter'
 import Page from 'components/Page'
 import Comments from 'components/business/Comments'
 import {DATE_FORMAT, DEFAULT_DOCUMENT_TITLE} from 'constants'
@@ -29,7 +30,7 @@ import './index.scss'
     isLogin: user.isLogin,
     currentSong: user.player.currentSong
 }))
-export default class AlbumDetail extends Component {
+class AlbumDetail extends Component {
     constructor(props) {
         super(props)
         this.state = this.getInitialState()
@@ -48,7 +49,7 @@ export default class AlbumDetail extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.id !== prevProps.match.params.id) {
+        if (this.props.params.id !== prevProps.params.id) {
             this.setState(this.getInitialState())
             this.fetchData()
         }
@@ -59,7 +60,7 @@ export default class AlbumDetail extends Component {
     }
 
     fetchData = () => {
-        const {id} = this.props.match.params
+        const {id} = this.props.params
         if (id) {
             this.fetchDetail(id)
         }
@@ -269,7 +270,7 @@ export default class AlbumDetail extends Component {
                             <Comments
                                 onRef={this.setCommentsRef}
                                 type="ALBUM"
-                                id={Number(this.props.match.params.id)}
+                                id={Number(this.props.params.id)}
                             />
                         </div>
                     </div>
@@ -302,3 +303,5 @@ export default class AlbumDetail extends Component {
         )
     }
 }
+
+export default AlbumDetail

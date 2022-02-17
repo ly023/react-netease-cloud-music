@@ -3,7 +3,7 @@
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {useLocation, useHistory} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {stringify} from 'qs'
 import ListLoading from 'components/ListLoading'
 import AlbumItem from 'components/business/AlbumItem'
@@ -17,7 +17,7 @@ const DEFAULT_LIMIT = 12
 
 function Albums(props) {
     const {pathname, search} = useLocation()
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const {artistId} = props
     const [albums, setAlbums] = useState([])
@@ -73,8 +73,8 @@ function Albums(props) {
             limit,
             offset,
         }, {addQueryPrefix: true})}`
-        history.push(url)
-    }, [history, pathname])
+        navigate(url)
+    }, [navigate, pathname])
 
     const renderItems = useMemo(() => {
         if (Array.isArray(albums)) {
