@@ -1,4 +1,4 @@
-import {forwardRef} from 'React'
+import {forwardRef} from 'react'
 import {NavLink as BaseNavLink} from 'react-router-dom'
 
 const NavLink = forwardRef(({activeClassName, activeStyle, ...restProps}, ref) => {
