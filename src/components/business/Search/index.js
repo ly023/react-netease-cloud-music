@@ -325,7 +325,7 @@ export default class Search extends Component {
                     <div styleName="layout">
                         <div styleName="list">
                             <p styleName="note">
-                                <Link to={searchUrl} styleName={searchUrl === activeUrl ? 'active' : ''} onClick={this.hideResult}>搜 "{keyword}" 相关用户</Link> >
+                                <Link to={searchUrl} styleName={searchUrl === activeUrl ? 'active' : ''} onClick={this.hideResult}>搜 &quot;{keyword}&quot; 相关用户</Link> >
                             </p>
                             {
                                 result && Object.keys(result).length

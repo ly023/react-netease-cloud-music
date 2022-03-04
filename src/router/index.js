@@ -2,7 +2,7 @@ import {Routes, Route, useNavigate, useLocation} from 'react-router-dom'
 import Private from 'components/Private'
 import config from './config'
 
-function Router() {
+function RouterConfig() {
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -28,4 +28,4 @@ function Router() {
     </Routes>
 }
 
-export default Router
+export default RouterConfig

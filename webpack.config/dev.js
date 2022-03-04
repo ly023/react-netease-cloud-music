@@ -19,15 +19,10 @@ module.exports = merge(baseConfig, {
     },
     output: {
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
-        filename: '[name].[hash:8].bundle.js',  // 列在entry中，打包后输出的文件的名称
+        filename: '[name].[chunkhash:8].bundle.js',  // 对应 entry 里面的输入文件经webpack打包后输出文件的文件名
         chunkFilename: '[name].[chunkhash:8].chunk.js', // 未列在entry中，却又需要被打包出来的文件的名称（通常是要懒加载的文件）
         publicPath: '/',
     },
-    // cache: {
-    //     type: 'filesystem', // 使用文件缓存
-    // cacheDirectory 默认路径是 node_modules/.cache/webpack
-    // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
-    // },
     devtool: 'cheap-module-source-map',
     devServer: {
         client: {

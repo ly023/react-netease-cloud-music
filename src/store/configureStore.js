@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
+import {composeWithDevTools} from '@redux-devtools/extension'
 // import logger from 'redux-logger'
 import AppReducer from 'reducers'
 
@@ -17,14 +17,20 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default function configureStore() {
+    const composeEnhancers = composeWithDevTools({
+        // Specify name here, actionsDenylist, actionsCreators and other options if needed
+    })
+
+    const store = createStore(
+        AppReducer,
+        // 忽略preloadedState
+        // mount it on the Store
+        composeEnhancers(
+            applyMiddleware(...middlewares)
+        ))
 
     return {
-        ...createStore(
-            AppReducer,
-            // 忽略preloadedState
-            // mount it on the Store
-            composeWithDevTools(applyMiddleware(...middlewares))
-        ),
+        ...store,
         runSaga: sagaMiddleware.run
     }
 }

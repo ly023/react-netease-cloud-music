@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import PropTypes from 'prop-types'
 import './index.scss'
 
 const Threshold = 10
@@ -7,19 +6,24 @@ const Threshold = 10
 let timeoutTimer = 0
 let intervalTimer = 0
 
-function BackTop(props) {
+interface BackTopProps {
+    step?: number,
+    delayInMs?: number,
+}
+
+function BackTop(props: BackTopProps) {
     const [visible, setVisible] = useState(false)
     const {step = 50, delayInMs = 0} = props
 
     const scrollStep = () => {
         if (window.pageYOffset === 0) {
-            clearInterval(intervalTimer)
+            window.clearInterval(intervalTimer)
         }
         window.scroll(0, window.pageYOffset - step)
     }
 
     const scrollToTop = () => {
-        intervalTimer = setInterval(() => {
+        intervalTimer = window.setInterval(() => {
             scrollStep()
         }, delayInMs)
     }
@@ -27,7 +31,7 @@ function BackTop(props) {
     useEffect(() => {
         const scroll = () => {
             if (timeoutTimer) {
-                clearTimeout(timeoutTimer)
+                window.clearTimeout(timeoutTimer)
             }
 
             timeoutTimer = window.setTimeout(() => {
@@ -43,8 +47,8 @@ function BackTop(props) {
         window.addEventListener('scroll', scroll)
 
         return () => {
-            clearTimeout(timeoutTimer)
-            clearInterval(intervalTimer)
+            window.clearTimeout(timeoutTimer)
+            window.clearInterval(intervalTimer)
             window.removeEventListener('scroll', scroll)
         }
     }, [])
@@ -52,11 +56,6 @@ function BackTop(props) {
     return <div className={visible ? 'block' : 'hide'} styleName='back' onClick={scrollToTop}>
         回到顶部
     </div>
-}
-
-BackTop.propTypes = {
-    step: PropTypes.number,
-    delayInMs: PropTypes.number,
 }
 
 export default BackTop

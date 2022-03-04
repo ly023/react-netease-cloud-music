@@ -42,7 +42,7 @@ class LoginModal extends Component {
 
     afterLogin = () => {
         this.props.onCancel?.()
-        this.props.navigate.go(0)
+        this.props.navigate(0)
     }
 
     getRenderMode = (mode) => {
@@ -96,7 +96,8 @@ class LoginModal extends Component {
         const {mode} = this.state
 
         return (
-            <Modal {...this.props} title={this.getTitle(mode)}>
+            // <Modal {...this.props} title={this.getTitle(mode)}>
+            <Modal {...this.props}>
                 <div styleName="cont">
                     {this.getRenderMode(mode)}
                     {this.getRenderModeTip(mode)}

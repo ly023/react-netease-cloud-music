@@ -277,7 +277,7 @@ export default class SearchPage extends Component {
                             />
                         </div>
                         <div styleName="summary">
-                            { loading ? null : <>搜索"{searchValue}"，找到<span styleName="total"> {total} </span>{this.getTypeText(activeType)}
+                            { loading ? null : <>搜索&quot;{searchValue}&quot;，找到<span styleName="total"> {total} </span>{this.getTypeText(activeType)}
                                 {
                                     Array.isArray(recQuery) && recQuery.length ? <>
                                     ，您是不是要搜：{

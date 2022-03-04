@@ -1,11 +1,28 @@
-import {useEffect, useRef} from 'react'
-import PropTypes from 'prop-types'
-import Player from 'xgplayer'
+import React, {useEffect, useRef} from 'react'
+import Player, {IPlayerOptions} from 'xgplayer/dist/simple_player'
+import definition from 'xgplayer/dist/controls/definition'
+import download from 'xgplayer/dist/controls/download'
+import pip from 'xgplayer/dist/controls/pip'
+import play from 'xgplayer/dist/controls/play'
+import playbackRate from 'xgplayer/dist/controls/playbackRate'
+import rotate from 'xgplayer/dist/controls/rotate'
+import screenShot from 'xgplayer/dist/controls/screenShot'
+import volume from 'xgplayer/dist/controls/volume'
 
 const DefaultPlayOptions = {
+    controlPlugins: [
+        definition,
+        download,
+        pip,
+        play,
+        playbackRate,
+        rotate,
+        screenShot,
+        volume,
+    ],
     videoInit: true, // 初始化显示视频首帧
     volume: 0.8, // 默认音量
-    autoplay: true, // 自动播放
+    autoplay: false, // 自动播放
     download: true, // 视频下载
     fluid: true, // 放器宽度跟随父元素的宽度大小变化
     playbackRate: [0.5, 0.75, 1, 1.5, 2], // 倍速播放
@@ -22,22 +39,33 @@ const DefaultPlayOptions = {
     definitionActive: 'click', // 清晰度切换配置
 }
 
-function CustomPlayer(props) {
+interface UrlObject {
+    name: string,
+    url: string,
+}
+
+interface CustomPlayerProps {
+    urls: UrlObject[],
+}
+
+function CustomPlayer(props: CustomPlayerProps) {
     const {urls = []} = props
 
-    const playerWrapRef = useRef()
-    const playerRef = useRef()
+    const playerWrapRef = useRef() as React.RefObject<HTMLDivElement>
+    const playerRef = useRef<any>()
 
     useEffect(() => {
         if (urls?.length) {
             if (playerRef.current) {
                 playerRef.current.destroy(playerWrapRef.current)
             }
+
             playerRef.current = new Player({
                 el: playerWrapRef.current,
                 url: urls[urls.length - 1].url,
                 ...DefaultPlayOptions,
-            })
+            } as IPlayerOptions)
+
             if(urls.length > 1) {
                 // 清晰度切换配置
                 playerRef.current.emit('resourceReady', urls)
@@ -48,13 +76,6 @@ function CustomPlayer(props) {
     return (
         <div ref={playerWrapRef}/>
     )
-}
-
-CustomPlayer.propTypes = {
-    urls: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-        url: PropTypes.string,
-    }))
 }
 
 export default CustomPlayer

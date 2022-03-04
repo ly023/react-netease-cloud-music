@@ -27,7 +27,7 @@ function FooterBar() {
                         <a href='https://music.163.com/st/staticdeal/complaints.html' target="_blank" rel="noreferrer"
                            styleName='link color-1'>版权投诉指引</a><span
                         styleName='copy-line'>|</span>
-                        <a styleName='link color-1' hidefocus='true' onClick={showFeedback}>意见反馈</a>
+                        <a styleName='link color-1' onClick={showFeedback}>意见反馈</a>
                         <FeedbackModal visible={feedbackVisible} onCancel={hideFeedback}/>
                     </p>
                     <p styleName='color-2'>

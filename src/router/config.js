@@ -8,6 +8,8 @@ import loadable from '@loadable/component'
 // const importViews = file => loadable(() => import(`pages/${file}`))
 
 function importPages(filename) {
+    // webpackChunkName 重定义chunkName 清楚是哪个路由的文件
+    // return loadable(() => import(/* webpackChunkName: "[request]" */`pages/${filename}`), {
     return loadable(() => import(`pages/${filename}`), {
         // fallback: <PageLoading/>,
     })

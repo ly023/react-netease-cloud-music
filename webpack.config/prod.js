@@ -57,7 +57,7 @@ module.exports = merge(baseConfig, {
         ],
         chunkIds: 'named',
         moduleIds: 'deterministic',
-        runtimeChunk: { // 或 runtimeChunk: true,  将webpack运行时生成代码打包
+        runtimeChunk: { // 或runtimeChunk: true，将webpack运行时生成代码打包，为运行时代码创建一个额外的 chunk，减少 entry chunk 体积
             // name: entrypoint => `runtime-${entrypoint.name}`,
             name: 'manifest'
         },
@@ -65,24 +65,22 @@ module.exports = merge(baseConfig, {
         splitChunks: {
             maxInitialRequests: 5,
             cacheGroups: {
-                polyfill: {
-                    test: /[\\/]node_modules[\\/](core-js|raf|@babel|babel)[\\/]/,
-                    name: 'polyfill',
-                    priority: 2,
-                    chunks: 'all',
-                    reuseExistingChunk: true,
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
                 },
                 dll: {
-                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
                     name: 'react',
-                    priority: 1,
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
                     chunks: 'all',
+                    priority: 10,
                     reuseExistingChunk: true,
                 },
                 commons: {
                     name: 'commons',
-                    minChunks: 3,
                     chunks: 'all',
+                    priority: 1,
+                    minChunks: 2,
                     reuseExistingChunk: true,
                 },
             }
@@ -116,8 +114,10 @@ module.exports = merge(baseConfig, {
         new MiniCssExtractPlugin({
             // contenthash 将根据资源内容创建出唯一hash，文件内容不变，hash就不变
             filename: 'css/[name].[contenthash:8].css',
+            ignoreOrder: true, // Conflicting order
         }),
         // 开启 gzip
+        // 如果服务端没有开启gzip，或者没有开启静态gzip,前端没必要gzip压缩
         new CompressionPlugin({
             test: /\.(js|html|css)$/,
             threshold: 10240, // 只处理比这个值大的资源。按字节计算
@@ -127,5 +127,5 @@ module.exports = merge(baseConfig, {
         new BundleAnalyzerPlugin({
             analyzerMode: process.env.ANALYZER_MODE || 'disabled',
         }),
-    ]
+    ],
 })

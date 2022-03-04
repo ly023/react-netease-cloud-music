@@ -2,7 +2,7 @@
  * MV详情页
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'services/mv'
 import Page from 'components/Page'
 import CustomPlayer from 'components/CustomPlayer'
@@ -15,10 +15,11 @@ import SubscribeMV from './components/SubscribeMV'
 
 import './index.scss'
 
-function MVDetail(props) {
+function MVDetail() {
     const navigate = useNavigate()
+    const urlParams = useParams()
 
-    const mvId = Number(props.params?.id)
+    const mvId = Number(urlParams?.id)
 
     const [detail, setDetail] = useState(null)
     const [resources, setResource] = useState([])

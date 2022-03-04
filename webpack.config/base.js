@@ -10,17 +10,14 @@ function resolve(dir) {
 }
 
 const jsLoaders = [
-    // {
-    //     loader: 'thread-loader',
-    //     options: {
-    //         workers: 2 // 进程数量 2个
-    //     }
-    // },
+    {
+        loader: 'thread-loader',
+        options: {
+            workers: 2 // 进程数量 2个
+        }
+    },
     {
         loader: 'babel-loader',
-        // options: {
-        //     cacheDirectory: true, // 开启babel缓存，下次构建时会读取之前的缓存
-        // }
     },
 ]
 
@@ -34,7 +31,7 @@ module.exports = {
                 // 编译 js、jsx
                 // test: /\.jsx?$/,
                 // 如果项目源码中没有 jsx 文件就不要写 /\.jsx?$/，提升正则表达式性能
-                test: /\.js$/,
+                test: /\.(j|t)sx?$/,
                 exclude: /node_modules/,
                 use: jsLoaders,
             },
@@ -86,10 +83,15 @@ module.exports = {
                     esModule: false, // 启用CommonJS模块语法，默认true，https://github.com/webpack-contrib/url-loader#esmodule
                     outputPath: 'images/',  // 路径要与output.publicPath结合
                     limit: 8192, // 小于8k转成base64嵌入到js或css中，减少加载次数
-                    name: '[hash:8]-[name].[ext]?[hash:8]',
+                    name: '[hash:8]-[name].[ext]?[hash:8]', // 这个hash是loader自己定义的占位符，和webpack hash不一样
                 }
             },
         ]
+    },
+    cache: {
+        type: 'filesystem', // 使用文件缓存 webpack 5
+        // cacheDirectory 默认路径是 node_modules/.cache/webpack
+        // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
     },
     resolve: {
         alias: {
@@ -112,10 +114,10 @@ module.exports = {
         // 省略后缀名
         // resolve.extensions 列表要尽可能的小，不要把项目中不可能存在的情况写到后缀尝试列表中
         // 频率出现最高的文件后缀要优先放在最前面，以做到尽快的退出寻找过程
-        extensions: ['.js', '.json'],
+        extensions: ['.js', '.ts', '.tsx', '.json'],
     },
     plugins: [
         new ProgressBarPlugin(), // 编译进度
-    ]
+    ],
 };
 

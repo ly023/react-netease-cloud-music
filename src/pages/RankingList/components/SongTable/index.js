@@ -2,14 +2,13 @@ import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
-import SongActions from 'components/business/SongActions'
 import SinglePlay from 'components/business/SinglePlay'
-import {formatDuration} from 'utils'
+import SongActions from 'components/business/SongActions'
+import {formatDuration, getThumbnail} from 'utils'
 import {getArtists} from 'utils/song'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
 import './index.scss'
-import {getThumbnail} from "../../../../utils";
 
 function SongTable(props) {
     const {loading, songs = [], isSelf = false} = props

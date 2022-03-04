@@ -1,43 +1,54 @@
-import {Component, createRef} from 'react'
+import {Component, createRef, CSSProperties, MouseEvent} from 'react'
 import {createPortal} from 'react-dom'
-import PropTypes from 'prop-types'
 import './index.scss'
 
 const EDGE = 0
 
-export default class Modal extends Component {
+interface ModalProps {
+    visible?: boolean,
+    title?: string,
+    mask?: boolean,
+    width?: number,
+    height?: number,
+    onCancel?: () => void,
+}
 
-    static propTypes = {
-        visible: PropTypes.bool,
-        title: PropTypes.string,
-        mask: PropTypes.bool,
-        width: PropTypes.number,
-        height: PropTypes.number,
-        onCancel: PropTypes.func,
-    }
+interface ModalState {
+    positionStyle: CSSProperties,
+}
 
-    static defaultProps = {
+export default class Modal extends Component<ModalProps, ModalState> {
+
+    // todo defaultProps checking
+    static defaultProps : ModalProps = {
         visible: false,
         mask: false,
         width: 530,
+        title: '',
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            positionStyle: {}
-        }
-        this.modalRef = createRef()
-    }
+   state: ModalState = {
+        positionStyle: {},
+   }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: ModalProps) {
         if (!prevProps.visible && this.props.visible) {
+            // @ts-ignore
             const {clientWidth: modalClientWidth, clientHeight: modalClientHeight} = this.modalRef.current
             this.modalClientWidth = modalClientWidth
             this.modalClientHeight = modalClientHeight
             this.setPosition()
         }
     }
+
+    modalRef = createRef<HTMLDivElement>()
+    modalClientWidth = 0
+    modalClientHeight = 0
+    isDrag = false
+    startPosX = 0
+    startPosY = 0
+    top = 0
+    left = 0
 
     setPosition = () => {
         const {clientWidth, clientHeight} = document.documentElement
@@ -48,22 +59,23 @@ export default class Modal extends Component {
         })
     }
 
-    handleMouseDown = (e) => {
+    handleMouseDown = (e: MouseEvent) => {
         if (this.isDrag) {
             return
         }
 
         this.startPosX = e.clientX
         this.startPosY = e.clientY
-        let rectObj = this.modalRef.current.getBoundingClientRect()
-        this.top = rectObj.top
-        this.left = rectObj.left
-        this.isDrag = true
-
-        this.bindEvent()
+        if(this.modalRef.current) {
+            let rectObj = this.modalRef.current.getBoundingClientRect()
+            this.top = rectObj.top
+            this.left = rectObj.left
+            this.isDrag = true
+            this.bindEvent()
+        }
     }
 
-    handleMouseMove = (e) => {
+    handleMouseMove = (e: MouseEvent) => {
         if (!this.isDrag) {
             return
         }
@@ -80,7 +92,7 @@ export default class Modal extends Component {
         })
     }
 
-    getRightPosition = (top, left) => {
+    getRightPosition = (top: number, left: number) => {
         const {clientWidth, clientHeight} = document.documentElement
         const maxTop = clientHeight - this.modalClientHeight - EDGE
         const maxLeft = clientWidth - this.modalClientWidth - EDGE
@@ -99,12 +111,15 @@ export default class Modal extends Component {
         return {top, left}
     }
 
-    bindEvent = (remove) => {
+    bindEvent = (remove: boolean = false) => {
         let functionName = 'addEventListener'
         if (remove) {
             functionName = 'removeEventListener'
         }
+        // todo No index signature with a parameter of type 'string' was found on type 'Document'.
+        // @ts-ignore
         document[functionName]('mousemove', this.handleMouseMove, false)
+        // @ts-ignore
         document[functionName]('mouseup', this.handleMouseUp, false)
     }
 
@@ -118,14 +133,14 @@ export default class Modal extends Component {
         onCancel && onCancel()
     }
 
-    handleModalClick = (e) => {
+    handleModalClick = (e: MouseEvent) => {
         e.stopPropagation()
     }
 
     render() {
         const {visible, title, width, height, mask, children} = this.props
         const {positionStyle} = this.state
-        const modalRoot = document.getElementById('modal-root')
+        const modalRoot = document.getElementById('modal-root') as HTMLDivElement
 
         const contentStyle = {
             width,

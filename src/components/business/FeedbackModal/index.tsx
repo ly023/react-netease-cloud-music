@@ -1,28 +1,33 @@
-import {Component} from 'react'
-import PropTypes from 'prop-types'
+import {Component, ChangeEvent} from 'react'
 import Modal from 'components/Modal'
 import './index.scss'
 
-export default class FeedbackModal extends Component {
+interface FeedbackModalProps {
+    visible?: boolean,
+    onCancel?: () => void
+}
 
-    static propTypes = {
-        visible: PropTypes.bool,
-        onCancel: PropTypes.func,
-    }
+interface FeedbackModalParams {
+    [propName: string]: any,
+}
 
+interface FeedbackModalState {
+    params: FeedbackModalParams,
+    errorMsg: string,
+}
+
+export default class FeedbackModal extends Component<FeedbackModalProps, FeedbackModalState> {
     static defaultProps = {
         visible: false,
+        onCancel: () => {}
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            params: {},
-            errorMsg: ''
-        }
+    state: FeedbackModalState = {
+        params: {},
+        errorMsg: '',
     }
 
-    handleChange = (key, e) => {
+    handleChange = (key: string, e: ChangeEvent & {target: HTMLTextAreaElement}) => {
         let value = e && e.target ? e.target.value : ''
 
         this.setState((prevState) => {
@@ -59,7 +64,7 @@ export default class FeedbackModal extends Component {
     }
 
     render() {
-        const {errorMsg} = this.state
+        const {errorMsg  = ''} = this.state
 
         return (
             <Modal {...this.props} title="意见反馈">
@@ -80,15 +85,11 @@ export default class FeedbackModal extends Component {
                     {errorMsg ? <div styleName="error-msg">{errorMsg}</div> : null}
                     <div styleName="feedback-btns">
                         <a
-                            href={null}
                             styleName="feedback-btn feedback-confirm"
-                            hidefocus="true"
                             onClick={this.sendFeedback}
                         ><i>发送意见</i></a>
                         <a
-                            href={null}
                             styleName="feedback-btn feedback-cancel"
-                            hidefocus="true"
                             onClick={this.handleCancel}
                         ><i>取 消</i></a>
                     </div>

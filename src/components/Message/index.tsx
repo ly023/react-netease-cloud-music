@@ -1,5 +1,4 @@
-import {Component, createRef} from 'react'
-import PropTypes from 'prop-types'
+import React, {Component, createRef, CSSProperties} from 'react'
 import ReactDOM from 'react-dom'
 
 import './index.scss'
@@ -11,28 +10,24 @@ const iconType = {
     error: 'error-icon',
 }
 
-class Notification extends Component {
+interface NotificationProps {
+    type: 'success' | 'error',
+    content: string | React.ReactNode,
+    duration: number,
+    onClose: () => void
+}
 
-    static propTypes = {
-        type: PropTypes.oneOf(['success', 'error']),
-        content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-        duration: PropTypes.number,
-        onClose: PropTypes.func
-    }
+interface NotificationState {
+    style: CSSProperties,
+}
+
+class Notification extends Component<NotificationProps, NotificationState> {
 
     static defaultProps = {
         type: 'success',
         content: 'success',
         duration: DEFAULT_DURATION,
         onClose() {},
-    }
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            style: {}
-        }
-        this.messageRef = createRef()
     }
 
     componentDidMount() {
@@ -44,12 +39,17 @@ class Notification extends Component {
         this.clearCloseTimer()
     }
 
+    messageRef = createRef<HTMLDivElement>()
+    closeTimer = 0
+
     setTop = () => {
         const {clientHeight} = document.documentElement
-        const messageClientHeight = this.messageRef.current.clientHeight
-        this.setState({
-            style: {top: (clientHeight - messageClientHeight) / 2}
-        })
+        if(this.messageRef.current) {
+            const messageClientHeight = this.messageRef.current.clientHeight
+            this.setState({
+                style: {top: (clientHeight - messageClientHeight) / 2}
+            })
+        }
     }
 
     close = () => {
@@ -80,16 +80,20 @@ class Notification extends Component {
     }
 }
 
-let wrapper
+let wrapper: HTMLElement | null
+
+interface MessageConfig extends NotificationProps {
+    getContainer?: () => HTMLElement | Document
+}
 
 const message = {
-    open: (config) => {
+    open: (config: MessageConfig) => {
 
-        function destroy(div) {
+        function destroy(div: HTMLElement) {
             if(div){
                 // unmountComponentAtNode() https://reactjs.org/docs/react-dom.html#unmountcomponentatnode
                 ReactDOM.unmountComponentAtNode(div)
-                div.parentNode.removeChild(div)
+                div.parentNode?.removeChild(div)
                 wrapper = null
             }
         }
@@ -107,13 +111,13 @@ const message = {
         } else {
             document.body.appendChild(wrapper)
         }
-
+        // @ts-ignore
         ReactDOM.render(<Notification {...props} onClose={()=> destroy(wrapper)}/>, wrapper)
     },
-    success: (config) => {
+    success: (config: MessageConfig) => {
         message.open({...config, type: 'success'})
     },
-    error: (config) => {
+    error: (config: MessageConfig) => {
         message.open({...config, type: 'error'})
     }
 }
