@@ -65,15 +65,25 @@ module.exports = merge(baseConfig, {
         splitChunks: {
             maxInitialRequests: 5,
             cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                },
-                dll: {
+                react: {
                     name: 'react',
                     test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
                     chunks: 'all',
                     priority: 10,
+                    reuseExistingChunk: true,
+                },
+                player: {
+                    name: 'player',
+                    test: /[\\/]node_modules[\\/]xgplayer[\\/]/,
+                    chunks: 'all',
+                    priority: 5,
+                    reuseExistingChunk: true,
+                },
+                virtualized: {
+                    name: 'virtualized',
+                    test: /[\\/]node_modules[\\/](react-window|react-virtualized-auto-sizer)[\\/]/,
+                    chunks: 'all',
+                    priority: 2,
                     reuseExistingChunk: true,
                 },
                 commons: {
@@ -90,6 +100,7 @@ module.exports = merge(baseConfig, {
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
         filename: 'js/[name].[chunkhash:8].bundle.js',
         chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
+        assetModuleFilename: 'images/[hash][ext][query]',
         publicPath: '/'
     },
     plugins: [
@@ -114,6 +125,7 @@ module.exports = merge(baseConfig, {
         new MiniCssExtractPlugin({
             // contenthash 将根据资源内容创建出唯一hash，文件内容不变，hash就不变
             filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].chunk.css',
             ignoreOrder: true, // Conflicting order
         }),
         // 开启 gzip

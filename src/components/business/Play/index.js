@@ -4,7 +4,7 @@
 import {useCallback, memo, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
-import _ from 'lodash'
+import {shuffle as _shuffle} from 'lodash'
 import emitter from 'utils/eventEmitter'
 import {PLAY_TYPE} from 'constants/music'
 import {setUserPlayer} from 'actions/user'
@@ -32,7 +32,7 @@ function Play(props) {
     const setShuffle = useCallback((trackQueue, startIndex) => {
         const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
         indexes.splice(startIndex, 1)
-        const shuffle = [startIndex].concat(_.shuffle(indexes))
+        const shuffle = [startIndex].concat(_shuffle(indexes))
         dispatch(setUserPlayer({shuffle}))
     }, [dispatch])
 
@@ -70,7 +70,7 @@ function Play(props) {
                         const shuffleIndex = shuffle.findIndex((v) => v === index)
                         let newShuffle = [...shuffle]
                         if (shuffleIndex === -1) {
-                            newShuffle = _.shuffle(shuffle.concat([index]))
+                            newShuffle = _shuffle(shuffle.concat([index]))
                         }
                         dispatch(setUserPlayer({shuffle: newShuffle}))
                     }
@@ -98,7 +98,7 @@ function Play(props) {
                     const shuffleIndex = shuffle.findIndex((v) => v === index)
                     let newShuffle = [...shuffle]
                     if (shuffleIndex === -1) {
-                        newShuffle = _.shuffle(shuffle.concat([index]))
+                        newShuffle = _shuffle(shuffle.concat([index]))
                     }
                     dispatch(setUserPlayer({shuffle: newShuffle}))
                 }

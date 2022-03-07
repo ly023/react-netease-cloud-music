@@ -5,3 +5,7 @@ declare module 'react' {
         styleName?: string
     }
 }
+
+declare module '*.jpg'
+declare module '*.png'
+declare module '*.jpeg'

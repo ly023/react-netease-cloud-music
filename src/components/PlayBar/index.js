@@ -4,7 +4,7 @@
 import {PureComponent, createRef} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import _ from 'lodash'
+import {shuffle as _shuffle} from 'lodash'
 import emitter from 'utils/eventEmitter'
 import {TIP_TIMEOUT} from 'constants'
 import {PLAY_MODE} from 'constants/music'
@@ -163,7 +163,7 @@ export default class PlayBar extends PureComponent {
     createShuffle = (index, trackQueue) => {
         const indexes = Array.from({length: trackQueue.length}, (_, i) => i)
         indexes.splice(index, 1)
-        const shuffle = [index].concat(_.shuffle(indexes))
+        const shuffle = [index].concat(_shuffle(indexes))
         this.props.dispatch(setUserPlayer({shuffle}))
     }
 

@@ -5,7 +5,6 @@ import download from 'xgplayer/dist/controls/download'
 import pip from 'xgplayer/dist/controls/pip'
 import play from 'xgplayer/dist/controls/play'
 import playbackRate from 'xgplayer/dist/controls/playbackRate'
-import rotate from 'xgplayer/dist/controls/rotate'
 import screenShot from 'xgplayer/dist/controls/screenShot'
 import volume from 'xgplayer/dist/controls/volume'
 
@@ -16,7 +15,6 @@ const DefaultPlayOptions = {
         pip,
         play,
         playbackRate,
-        rotate,
         screenShot,
         volume,
     ],
@@ -27,10 +25,6 @@ const DefaultPlayOptions = {
     fluid: true, // 放器宽度跟随父元素的宽度大小变化
     playbackRate: [0.5, 0.75, 1, 1.5, 2], // 倍速播放
     defaultPlaybackRate: 1, // 初始播放速度
-    rotate: {   // 视频旋转按钮配置项
-        innerRotate: true, // 只旋转内部video
-        clockwise: true, // 旋转方向是否为顺时针
-    },
     screenShot: { // 截图，默认为 .png 格式
         saveImg: true,
         quality: 1,

@@ -78,13 +78,16 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|ttf|eot)$/i, // slick fonts：woff|ttf|eot
-                loader: 'url-loader',
-                options: {
-                    esModule: false, // 启用CommonJS模块语法，默认true，https://github.com/webpack-contrib/url-loader#esmodule
-                    outputPath: 'images/',  // 路径要与output.publicPath结合
-                    limit: 8192, // 小于8k转成base64嵌入到js或css中，减少加载次数
-                    name: '[hash:8]-[name].[ext]?[hash:8]', // 这个hash是loader自己定义的占位符，和webpack hash不一样
-                }
+                // loader: 'url-loader', // 废弃
+                type: 'asset', // webpack 5新增
+                parser: {
+                   dataUrlCondition: {
+                       maxSize: 8192, // 8k
+                   }
+                },
+                generator: {
+                   filename: 'images/[hash][ext][query]'
+                },
             },
         ]
     },
