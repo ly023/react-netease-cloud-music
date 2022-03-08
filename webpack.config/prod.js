@@ -20,6 +20,13 @@ module.exports = merge(baseConfig, {
             './src/index.js'
         ],
     },
+    output: {
+        path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
+        filename: 'js/[name].[chunkhash:8].bundle.js',
+        chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
+        assetModuleFilename: 'images/[hash][ext][query]',
+        publicPath: '/'
+    },
     optimization: {
         // 设置Optimization.minimizer会覆盖webpack默认的js压缩，因此需要指定js压缩插件
         minimizer: [
@@ -63,28 +70,30 @@ module.exports = merge(baseConfig, {
         },
         // 分割代码块
         splitChunks: {
-            maxInitialRequests: 5,
             cacheGroups: {
-                react: {
-                    name: 'react',
-                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-                    chunks: 'all',
-                    priority: 10,
-                    reuseExistingChunk: true,
+                vendors: {
+                    name: `vendors`,
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    chunks: 'initial',
                 },
                 player: {
                     name: 'player',
                     test: /[\\/]node_modules[\\/]xgplayer[\\/]/,
                     chunks: 'all',
-                    priority: 5,
-                    reuseExistingChunk: true,
+                    priority: 20,
+                },
+                react: {
+                    name: 'react',
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    chunks: 'all',
+                    priority: 20,
                 },
                 virtualized: {
                     name: 'virtualized',
                     test: /[\\/]node_modules[\\/](react-window|react-virtualized-auto-sizer)[\\/]/,
                     chunks: 'all',
-                    priority: 2,
-                    reuseExistingChunk: true,
+                    priority: 20,
                 },
                 commons: {
                     name: 'commons',
@@ -95,13 +104,6 @@ module.exports = merge(baseConfig, {
                 },
             }
         },
-    },
-    output: {
-        path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
-        filename: 'js/[name].[chunkhash:8].bundle.js',
-        chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
-        assetModuleFilename: 'images/[hash][ext][query]',
-        publicPath: '/'
     },
     plugins: [
         // 清除dist文件夹
