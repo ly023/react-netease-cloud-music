@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {cloneDeep} from 'lodash'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {setUserCommentInfo} from 'actions/user'
 import {DEFAULT_AVATAR, PAGINATION_LIMIT} from 'constants'
 import ListLoading from 'components/ListLoading'
@@ -172,7 +172,7 @@ export default class Comments extends Component {
         if (isLogin) {
             return true
         }
-        emitter.emit('login')
+        pubsub.publish('login')
         return false
     }
 

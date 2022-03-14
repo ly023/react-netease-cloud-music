@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import {DOUBLE_BYTE_CHAR_PATTERN} from 'constants'
 import KEY from 'constants/keyboardEventKey'
 import {getCursorPosition} from 'utils'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import message from 'components/Message'
 
 import EmojiPanel from './components/EmojiPanel'
@@ -130,7 +130,7 @@ export default class Editor extends Component {
         if (isLogin) {
             return true
         }
-        emitter.emit('login')
+        pubsub.publish('login')
         return false
     }
 

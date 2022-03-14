@@ -2,7 +2,7 @@ import {useState, useEffect, useCallback, useRef, cloneElement, Children} from '
 import PropTypes from 'prop-types'
 import Modal from 'components/Modal'
 import message from 'components/Message'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {updateUserPlaylistSongs} from 'services/playlist'
 import Playlist from './components/Playlist'
@@ -36,7 +36,7 @@ function AddToPlaylist(props) {
             setVisible(true)
             return
         }
-        emitter.emit('login')
+        pubsub.publish('login')
     }, [userId])
 
     const handleCancel = useCallback(() => {

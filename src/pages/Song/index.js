@@ -17,7 +17,7 @@ import ClientDownload from 'components/business/ClientDownload'
 import {requestDetail, requestLyric, requestSimilar as requestSimilarSongs} from 'services/song'
 import {requestSimilar as requestSimilarPlaylists} from 'services/playlist'
 import {getThumbnail} from 'utils'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {getArtists, getLyric, renderArtists} from 'utils/song'
 
 import './index.scss'
@@ -189,7 +189,7 @@ export default class Song extends Component {
         if (isLogin) {
             return true
         }
-        emitter.emit('login')
+        pubsub.publish('login')
         return false
     }
 

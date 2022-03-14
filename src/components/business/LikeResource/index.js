@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import message from 'components/Message'
 import {RESOURCE_ACTION_TYPE, RESOURCE_TYPE} from 'constants'
 import {requestLike} from 'services/resource'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
 function LikeResource(props) {
@@ -19,7 +19,7 @@ function LikeResource(props) {
         if (isLogin) {
             return true
         }
-        emitter.emit('login')
+        pubsub.publish('login')
         return false
     }, [isLogin])
 

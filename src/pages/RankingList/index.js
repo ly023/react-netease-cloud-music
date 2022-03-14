@@ -7,7 +7,7 @@ import {requestAllTopList} from 'services/toplist'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {formatNumber, getThumbnail, getUrlParameter} from 'utils'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {parseSongs} from 'utils/song'
 import {PLAY_TYPE} from 'constants/music'
 import Add from 'components/business/Add'
@@ -135,7 +135,7 @@ function RankingList() {
         if (isLogin) {
             return true
         }
-        emitter.emit('login')
+        pubsub.publish('login')
         return false
     }, [isLogin])
 

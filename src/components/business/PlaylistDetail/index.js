@@ -15,7 +15,7 @@ import SongTable from 'components/business/SongTable'
 import SubscribePlaylist from 'components/business/SubscribePlaylist'
 import {requestDetail} from 'services/playlist'
 import {formatNumber, getThumbnail} from 'utils'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 
 import './index.scss'
 
@@ -110,7 +110,7 @@ export default class PlaylistDetail extends Component {
         if (isLogin) {
             return true
         }
-        emitter.emit('login')
+        pubsub.publish('login')
         return false
     }
 

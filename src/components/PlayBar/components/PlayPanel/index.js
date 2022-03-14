@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {setUserPlayer} from 'actions/user'
 import {getThumbnail, setLocalStorage} from 'utils'
 import {isShuffleMode} from 'utils/song'
@@ -52,7 +52,7 @@ export default class PlayPanel extends Component {
         if (isShuffleMode(playSetting)) {
             this.props.dispatch(setUserPlayer({shuffle: []}))
         }
-        emitter.emit('play', {
+        pubsub.publish('play', {
             trackQueue: [],
             index: 0,
             hasChangeTrackQueue: true
@@ -75,7 +75,7 @@ export default class PlayPanel extends Component {
             if (isShuffleMode(playSetting)) {
                 this.props.dispatch(setUserPlayer({shuffle: []}))
             }
-            emitter.emit('play', {
+            pubsub.publish('play', {
                 trackQueue: [],
                 index: 0,
                 hasChangeTrackQueue: true
@@ -96,7 +96,7 @@ export default class PlayPanel extends Component {
                 index: newPlayIndex,
                 hasChangeTrackQueue: true
             }
-            emitter.emit('play', emitData)
+            pubsub.publish('play', emitData)
         } else {
             newPlayIndex = playIndex
             if (deleteIndex < playIndex) {

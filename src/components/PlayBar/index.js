@@ -5,7 +5,7 @@ import {PureComponent, createRef} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {shuffle as _shuffle} from 'lodash'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {TIP_TIMEOUT} from 'constants'
 import {PLAY_MODE} from 'constants/music'
 import KEY from 'constants/keyboardEventKey'
@@ -92,9 +92,9 @@ export default class PlayBar extends PureComponent {
 
         this.getInitialSetting()
 
-        emitter.on('play', this.emitterOnPlay)
-        emitter.on('add', this.emitterOnAdd)
-        emitter.on('close', this.emitterOnClose)
+        this.playSubscribeId = pubsub.subscribe('play', this.emitterOnPlay)
+        this.addSubscribeId = pubsub.subscribe('add', this.emitterOnAdd)
+        this.closeSubscribeId = pubsub.subscribe('close', this.emitterOnClose)
 
         this.progressWidth = this.progressRef.current.offsetWidth
     }
@@ -105,9 +105,8 @@ export default class PlayBar extends PureComponent {
 
         window.clearTimeout(this.timeoutId)
         window.clearInterval(this.songPlayedIntervalId)
-        emitter.removeListener('play', this.emitterOnPlay)
-        emitter.removeListener('add', this.emitterOnAdd)
-        emitter.removeListener('close', this.emitterOnClose)
+
+        pubsub.unsubscribe(this.playSubscribeId, this.addSubscribeId, this.closeSubscribeId)
     }
 
     handleDocumentClick = (e) => {
@@ -167,7 +166,8 @@ export default class PlayBar extends PureComponent {
         this.props.dispatch(setUserPlayer({shuffle}))
     }
 
-    emitterOnPlay = ({trackQueue, index, hasChangeTrackQueue, autoPlay}) => {
+    emitterOnPlay = (eventType, emitData) => {
+        const {trackQueue, index, hasChangeTrackQueue, autoPlay} = emitData
         if (autoPlay) {
             this.autoPlay = true
         }

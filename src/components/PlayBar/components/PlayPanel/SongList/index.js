@@ -5,7 +5,7 @@ import VerticalScrollbar from 'components/VerticalScrollbar'
 import Download from 'components/business/Download'
 import AddToPlaylist from 'components/business/AddToPlaylist'
 import {formatDuration} from 'utils'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {getArtists} from 'utils/song'
 import Empty from './components/Empty'
 import {CONTENT_HEIGHT} from '../../../constants'
@@ -103,7 +103,7 @@ export default class SongList extends PureComponent {
 
     handleRedirect = (e) => {
         e.stopPropagation()
-        emitter.emit('close')
+        pubsub.publish('close')
     }
 
     render() {

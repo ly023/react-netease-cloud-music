@@ -16,7 +16,7 @@ import AddToPlaylist from 'components/business/AddToPlaylist'
 import {requestDetail} from 'services/album'
 import {requestAlbum} from 'services/artist'
 import {formatDuration, formatNumber, getThumbnail} from 'utils'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import Collapse from 'components/Collapse'
 import SinglePlay from 'components/business/SinglePlay'
 import SongActions from 'components/business/SongActions'
@@ -101,7 +101,7 @@ class AlbumDetail extends Component {
         if (isLogin) {
             return true
         }
-        emitter.emit('login')
+        pubsub.publish('login')
         return false
     }
 

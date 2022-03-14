@@ -5,7 +5,7 @@ import {useCallback, memo, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import {shuffle as _shuffle} from 'lodash'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {PLAY_TYPE} from 'constants/music'
 import {setUserPlayer} from 'actions/user'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
@@ -168,7 +168,7 @@ function Play(props) {
                 hasChangeTrackQueue: hasChangeTrackQueue,
                 autoPlay: true
             }
-            emitter.emit('play', emitData)
+            pubsub.publish('play', emitData)
         }
     }, [dispatch, type, id, songs, selectedState, setShuffle])
 

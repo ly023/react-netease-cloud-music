@@ -1,7 +1,7 @@
 import {useState, useEffect, useCallback, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import {DEFAULT_AVATAR} from 'constants'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestDetail, requestDailySignIn} from 'services/user'
 
@@ -52,7 +52,7 @@ function Info() {
     }
 
     const handleLogin = useCallback(() => {
-        emitter.emit('login')
+        pubsub.publish('login')
     }, [])
 
     useEffect(() => {

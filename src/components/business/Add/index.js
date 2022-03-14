@@ -5,7 +5,7 @@ import {useCallback, cloneElement, Children, memo} from 'react'
 import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import {shuffle as _shuffle} from 'lodash'
-import emitter from 'utils/eventEmitter'
+import pubsub from 'utils/pubsub'
 import {PLAY_TYPE} from 'constants/music'
 import {setUserPlayer} from 'actions/user'
 import {requestDetail as requestPlaylistDetail} from 'services/playlist'
@@ -51,14 +51,14 @@ function Add(props) {
             if (trackIndex !== -1) {
                 trackQueue = localTrackQueue
                 // 提示
-                emitter.emit('add')
+                pubsub.publish('add')
             } else {
                 const res = await requestSongDetail({ids: id})
                 const song = res?.songs?.[0] || {}
                 const privilege = res?.privileges?.[0] || {}
 
                 if (hasPrivilege(privilege)) {
-                    emitter.emit('add')
+                    pubsub.publish('add')
                     hasChangeTrackQueue = true
                     const track = formatTrack(song)
                     trackQueue = localTrackQueue.concat([track])
@@ -80,10 +80,10 @@ function Add(props) {
             const trackIndex = localTrackQueue.findIndex((v) => v.program.id === id)
             if (trackIndex !== -1) {
                 trackQueue = localTrackQueue
-                emitter.emit('add')
+                pubsub.publish('add')
             } else {
                 const res = await requestProgramDetail({id})
-                emitter.emit('add')
+                pubsub.publish('add')
                 hasChangeTrackQueue = true
                 const track = formatTrack(res?.program, true)
                 trackQueue = localTrackQueue.concat([track])
@@ -134,7 +134,7 @@ function Add(props) {
                 }
             }
             if (additionalTrackQueue.length) {
-                emitter.emit('add')
+                pubsub.publish('add')
                 hasChangeTrackQueue = true
                 trackQueue = localTrackQueue.concat(additionalTrackQueue)
                 // 随机模式下重新计算shuffle
@@ -144,7 +144,7 @@ function Add(props) {
             } else {
                 trackQueue = localTrackQueue
                 if (songs.length) {
-                    emitter.emit('add')
+                    pubsub.publish('add')
                 }
             }
         }
