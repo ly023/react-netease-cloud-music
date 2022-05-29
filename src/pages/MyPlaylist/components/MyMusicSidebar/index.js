@@ -97,13 +97,13 @@ function MyMusicSidebar(props) {
         navigate(url)
     }, [navigate])
 
-    const handleChangeCreatedPlaylistsVisible = useCallback(() => {
+    const handleChangeCreatedPlaylistsVisible = () => {
         setCreatedPlaylistsVisible(!createdPlaylistsVisible)
-    }, [createdPlaylistsVisible])
+    }
 
-    const handleChangeCollectedPlaylistsVisible = useCallback(() => {
+    const handleChangeCollectedPlaylistsVisible = () => {
         setCollectedPlaylistsVisible(!collectedPlaylistsVisible)
-    }, [collectedPlaylistsVisible])
+    }
 
     const handleShowDeleteConfirm = useCallback((e, id) => {
         e.stopPropagation()

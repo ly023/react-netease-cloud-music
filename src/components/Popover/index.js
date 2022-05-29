@@ -20,21 +20,21 @@ function Popover(props) {
 
     const onlyChildren = Children.only(children)
 
-    const setChildrenRef = useCallback((el) => {
+    const setChildrenRef = (el) => {
         childrenRef.current = el
-    }, [])
+    }
 
-    const handleClick = useCallback(() => {
+    const handleClick = () => {
         setVisible(!visible)
-    }, [visible])
+    }
 
-    const handleMouseEnter = useCallback(() => {
+    const handleMouseEnter = () => {
         setVisible(true)
-    }, [])
+    }
 
-    const handleMouseLeave = useCallback(() => {
+    const handleMouseLeave = () => {
         setVisible(false)
-    }, [])
+    }
 
     const element = trigger === 'click' ? cloneElement(onlyChildren, {
         ref: setChildrenRef,

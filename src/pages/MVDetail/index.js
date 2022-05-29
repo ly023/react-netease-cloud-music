@@ -1,7 +1,7 @@
 /**
  * MV详情页
  */
-import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
+import {useEffect, useState, useMemo, useRef} from 'react'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'services/mv'
 import Page from 'components/Page'
@@ -100,25 +100,25 @@ function MVDetail() {
         }
     }, [])
 
-    const setCommentsRef = useCallback((ref) => {
+    const setCommentsRef = (ref) => {
         commentsRef.current = ref
-    }, [])
+    }
 
-    const handleLikedSuccess = useCallback((status) => {
+    const handleLikedSuccess = (status) => {
         setInfo({
             ...info,
             liked: status,
             likedCount: status ? ++info.likedCount : --info.likedCount
         })
-    }, [info])
+    }
 
-    const handleSubscribeSuccess = useCallback((status) => {
+    const handleSubscribeSuccess = (status) => {
         setDetail({
             ...detail,
             subed: status,
             subCount: status ? ++detail.subCount : --detail.subCount,
         })
-    }, [detail])
+    }
 
     const renderMVs = useMemo(() => {
         return <ul styleName="mvs">

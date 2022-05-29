@@ -8,7 +8,7 @@ import Pagination from 'components/Pagination'
 import AlbumItem from 'components/business/AlbumItem'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {requestNewestAlbum, requestAllNewAlbum} from 'services/album'
-import {getUrlParameter} from 'utils'
+import {getUrlParameter, getUrlPage} from 'utils'
 
 import './index.scss'
 
@@ -22,18 +22,10 @@ function Album() {
     const isMounted = useRef(false)
     const listWrapperRef = useRef()
 
-    const getPage = useCallback(() => {
-        const page = getUrlParameter('page')
-        if (/^\+?[1-9][0-9]*$/.test(page)) {
-            return Number(page)
-        }
-        return 1
-    }, [])
-
     const [params, setParams] = useState({
         area: getUrlParameter('area'),
         limit: DEFAULT_LIMIT,
-        offset: (getPage() - 1) * DEFAULT_LIMIT
+        offset: (getUrlPage() - 1) * DEFAULT_LIMIT
     })
     const [current, setCurrent] = useState(0)
     const [total, setTotal] = useState(0)
@@ -66,7 +58,7 @@ function Album() {
 
     const fetchAllNewAlbum = useCallback(async () => {
         setTopLoading(true)
-        const page = getPage()
+        const page = getUrlPage()
         const query = {
             ...params,
             area: getUrlParameter('area') || 'ALL',

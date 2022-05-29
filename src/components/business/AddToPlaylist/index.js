@@ -39,20 +39,20 @@ function AddToPlaylist(props) {
         pubsub.publish('login')
     }, [userId])
 
-    const handleCancel = useCallback(() => {
+    const handleCancel = () => {
         setVisible(false)
-    }, [])
+    }
 
-    const showCreatePlaylistModal = useCallback(() => {
+    const showCreatePlaylistModal = () => {
         setVisible(false)
         setCreateModalVisible(true)
-    }, [])
+    }
 
-    const handleCreateModalCancel = useCallback(() => {
+    const handleCreateModalCancel = () => {
         setCreateModalVisible(false)
-    }, [])
+    }
 
-    const getErrorMessage = useCallback((code) => {
+    const getErrorMessage = (code) => {
         switch (code) {
             case 502:
                 return '歌曲已存在！'
@@ -61,7 +61,7 @@ function AddToPlaylist(props) {
             default:
                 return '添加失败，请稍后再试！'
         }
-    }, [])
+    }
 
     const updatePlaylistSongs = useCallback((playlistId) => {
         if (updateLoading) {
@@ -86,11 +86,11 @@ function AddToPlaylist(props) {
         }).finally(() => {
             setUpdateLoading(false)
         })
-    }, [updateLoading, songIds, handleCancel, handleCreateModalCancel, getErrorMessage])
+    }, [updateLoading, songIds])
 
-    const handleCreateModalOk = useCallback((playlistId) => {
+    const handleCreateModalOk = (playlistId) => {
         updatePlaylistSongs(playlistId)
-    }, [updatePlaylistSongs])
+    }
 
     const onlyChildren = Children.only(children)
 

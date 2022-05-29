@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback, useRef, cloneElement, Children, memo} from 'react'
+import {useState, useEffect, useRef, cloneElement, Children, memo} from 'react'
 import {useLocation} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
@@ -20,14 +20,14 @@ function Categories(props) {
         setVisible(false)
     }, [pathname, search])
 
-    const handleDocumentClick = useCallback((e) => {
-        click(e, PLAYLIST_CATEGORY_ID, () => {
-            setVisible(false)
-        })
-    }, [])
-
     useEffect(() => {
         isMounted.current = true
+
+        const handleDocumentClick = (e) => {
+            click(e, PLAYLIST_CATEGORY_ID, () => {
+                setVisible(false)
+            })
+        }
 
         const formatResData = (data = {}) => {
             const keys = data.categories || {}
@@ -61,11 +61,11 @@ function Categories(props) {
             isMounted.current = false
             document.removeEventListener('click', handleDocumentClick)
         }
-    }, [handleDocumentClick])
+    }, [])
 
-    const toggle = useCallback(() => {
+    const toggle = () => {
         setVisible(!visible)
-    }, [visible])
+    }
 
     return (
         <div id={PLAYLIST_CATEGORY_ID} styleName="wrapper">

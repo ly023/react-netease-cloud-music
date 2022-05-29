@@ -1,11 +1,10 @@
-import {useCallback} from 'react'
 import pubsub from 'utils/pubsub'
 import './index.scss'
 
 function LoginTip() {
-    const handleLogin = useCallback(() => {
+    const handleLogin = () => {
         pubsub.publish('login')
-    }, [])
+    }
 
     return <div className="main">
         <div styleName="wrapper">

@@ -50,7 +50,7 @@ function UserHome(props) {
 
     const userId = Number(props.params?.id)
 
-    const isSelf = useMemo(() => isLogin && userInfo?.userId === userId, [isLogin, userInfo, userId])
+    const isSelf = isLogin && userInfo?.userId === userId
 
     const fetchRadios = useCallback(async () => {
         const res = await requestRadios({uid: userId})
@@ -103,11 +103,11 @@ function UserHome(props) {
         }
     }, [fetchPlaylists, more, params])
 
-    const resetData = useCallback(() => {
+    const resetData = () => {
         setMore(false)
         setCreatedPlaylists([])
         setCollectedPlaylists([])
-    }, [])
+    }
 
     useEffect(() => {
         isMounted.current = true
@@ -153,9 +153,9 @@ function UserHome(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId])
 
-    const identify = useMemo(() => userDetail?.identify, [userDetail])
+    const identify = userDetail?.identify
 
-    const profile = useMemo(() => userDetail?.profile, [userDetail])
+    const profile = userDetail?.profile
 
     const nickname = profile?.nickname || ''
 
@@ -177,7 +177,7 @@ function UserHome(props) {
 
     }, [userDetail, isSelf, profile])
 
-    const renderRadios = useCallback(() => {
+    const renderRadios = useMemo(() => {
         return <ul styleName="radios">
             {
                 radios.map((radio, index) => {
@@ -275,7 +275,7 @@ function UserHome(props) {
                 {
                     radios.length ? <div className="clearfix">
                         <SubTitle title={<span styleName="subtitle">{playlistSubtitlePrefix}创建的电台</span>}/>
-                        {renderRadios(radios)}
+                        {renderRadios}
                     </div> : null
                 }
                 {

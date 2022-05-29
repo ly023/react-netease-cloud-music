@@ -109,7 +109,7 @@ function Rank() {
                                             styleName={`item${no % 2 === 1 ? ' item-event' : ''}`}>
                                             <span
                                                 styleName={`no ${no <= 3 ? 'no-top' : ''}`}>{no}</span>
-                                            <Link to={`song/${id}`}
+                                            <Link to={`/song/${id}`}
                                                 styleName='item-name'>{name}</Link>
                                             <div styleName='item-operation'>
                                                 <Play

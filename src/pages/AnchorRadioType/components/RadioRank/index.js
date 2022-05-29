@@ -6,7 +6,7 @@ import SubTitle from 'components/SubTitle'
 import ListLoading from 'components/ListLoading'
 import Pagination from 'components/Pagination'
 import {requestCategoryHot} from 'services/radio'
-import {getThumbnail, getUrlParameter} from 'utils'
+import {getThumbnail, getUrlParameter, getUrlPage} from 'utils'
 
 import './index.scss'
 
@@ -18,19 +18,11 @@ function RadioRank(props) {
 
     const {params: urlParams} = props
 
-    const getPage = useCallback(() => {
-        const page = getUrlParameter('page')
-        if (/^\+?[1-9][0-9]*$/.test(page)) {
-            return Number(page)
-        }
-        return 1
-    }, [])
-
     const [params, setParams] = useState({
         cateId: urlParams.id,
         order: getUrlParameter('order') || undefined,
         limit: DEFAULT_LIMIT,
-        offset: (getPage() - 1) * DEFAULT_LIMIT
+        offset: (getUrlPage() - 1) * DEFAULT_LIMIT
     })
     const [current, setCurrent] = useState(0)
     const [total, setTotal] = useState(0)
@@ -50,7 +42,7 @@ function RadioRank(props) {
         const fetchCategoryHot = async () => {
             setLoading(true)
 
-            const page = getPage()
+            const page = getUrlPage()
             const offset = (page - 1) * DEFAULT_LIMIT
             const query = {
                 ...params,
@@ -75,7 +67,7 @@ function RadioRank(props) {
         }
         fetchCategoryHot()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [getPage, search])
+    }, [search])
 
     const handlePageChange = useCallback((page) => {
         setCurrent(page)

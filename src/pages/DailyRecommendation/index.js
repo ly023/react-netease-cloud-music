@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
+import {useState, useEffect, useMemo, useRef} from 'react'
 import Page from 'components/Page'
 import Add from 'components/business/Add'
 import Play from 'components/business/Play'
@@ -57,9 +57,9 @@ function DailyRecommendation() {
         }
     }, [userInfo])
 
-    const handleDislikeSuccess = useCallback((songs) => {
+    const handleDislikeSuccess = (songs) => {
         setSongs(songs || [])
-    }, [])
+    }
 
     const documentTitle = useMemo(() => `每日歌曲推荐 - ${DEFAULT_DOCUMENT_TITLE}`, [])
 

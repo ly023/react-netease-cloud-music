@@ -1,4 +1,4 @@
-import {useCallback, memo} from 'react'
+import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {PLAY_TYPE} from 'constants/music'
@@ -17,9 +17,9 @@ function Playlists(props) {
 
     const {userInfo} = useShallowEqualSelector(({user}) => ({userInfo: user.userInfo}))
 
-    const handleSubscribeSuccess = useCallback((index) => {
+    const handleSubscribeSuccess = (index) => {
         onSubscribeSuccess && onSubscribeSuccess(index)
-    }, [onSubscribeSuccess])
+    }
 
     return <div styleName="list">
         {

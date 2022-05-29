@@ -1,7 +1,7 @@
 /**
  * 歌手详情页
  */
-import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
+import {useEffect, useState, useMemo, useRef} from 'react'
 import {Link, useNavigate, useLocation} from 'react-router-dom'
 import withRouter from 'hoc/withRouter'
 import {requestDetail} from 'services/artist'
@@ -66,9 +66,9 @@ function ArtistDetail(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [artistId])
 
-    const handleTabChange = useCallback((key) => {
+    const handleTabChange = (key) => {
         navigate(`${pathname}?tab=${key}`)
-    }, [navigate, pathname])
+    }
 
     const artist = detail?.artist
 

@@ -422,3 +422,11 @@ export function getUrlPaginationParams(defaultLimit = 30, defaultOffset = 0) {
     }
     return {limit, offset}
 }
+
+export function getUrlPage() {
+    const page = getUrlParameter('page')
+    if (/^\+?[1-9][0-9]*$/.test(page)) {
+        return Number(page)
+    }
+    return 1
+}

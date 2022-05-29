@@ -1,10 +1,11 @@
-import {Component, createRef, CSSProperties, MouseEvent} from 'react'
+import {Component, createRef, CSSProperties, MouseEvent, ReactNode } from 'react'
 import {createPortal} from 'react-dom'
 import './index.scss'
 
 const EDGE = 0
 
 interface ModalProps {
+    children?: ReactNode,
     visible?: boolean,
     title?: string,
     mask?: boolean,
@@ -18,7 +19,6 @@ interface ModalState {
 }
 
 export default class Modal extends Component<ModalProps, ModalState> {
-
     // todo defaultProps checking
     static defaultProps : ModalProps = {
         visible: false,

@@ -11,7 +11,7 @@ import Pagination from 'components/Pagination'
 import PlaylistItem from 'components/business/PlaylistItem'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {requestTop} from 'services/playlist'
-import {getUrlParameter} from 'utils'
+import {getUrlParameter, getUrlPage} from 'utils'
 import Categories from './components/Categories'
 
 import './index.scss'
@@ -29,19 +29,11 @@ function Playlist() {
 
     const isMounted = useRef(false)
 
-    const getPage = () => {
-        const page = getUrlParameter('page')
-        if (/^\+?[1-9][0-9]*$/.test(page)) {
-            return Number(page)
-        }
-        return 1
-    }
-
     const [params, setParams] = useState({
         cat: getUrlParameter('cat') || undefined,
         order: getUrlParameter('order') || undefined,
         limit: DEFAULT_LIMIT,
-        offset: (getPage() - 1) * DEFAULT_LIMIT
+        offset: (getUrlPage() - 1) * DEFAULT_LIMIT
     })
 
     useEffect(() => {
@@ -56,7 +48,7 @@ function Playlist() {
         const fetchPlaylists = async () => {
             setLoading(true)
 
-            const page = getPage()
+            const page = getUrlPage()
             const offset = (page - 1) * DEFAULT_LIMIT
             const query = {
                 cat: getUrlParameter('cat') || undefined,

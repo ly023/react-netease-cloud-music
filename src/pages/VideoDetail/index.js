@@ -95,17 +95,17 @@ function VideoDetail(props) {
         }
     }, [])
 
-    const setCommentsRef = useCallback((ref) => {
+    const setCommentsRef = (ref) => {
         commentsRef.current = ref
-    }, [])
+    }
 
-    const handleLikedSuccess = useCallback((status) => {
+    const handleLikedSuccess = (status) => {
         setInfo({
             ...info,
             liked: status,
             likedCount: status ? ++info.likedCount : --info.likedCount
         })
-    }, [info])
+    }
 
     // const handleSubscribeSuccess = useCallback((status) => {
     //     setDetail({

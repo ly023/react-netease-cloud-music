@@ -127,9 +127,9 @@ function RankingList() {
         }
     }, [handleSelect, currentRank?.id])
 
-    const setCommentsRef = useCallback((ref) => {
+    const setCommentsRef = (ref) => {
         commentsRef.current = ref
-    }, [])
+    }
 
     const validateLogin = useCallback(() => {
         if (isLogin) {
@@ -139,11 +139,11 @@ function RankingList() {
         return false
     }, [isLogin])
 
-    const handleComment = useCallback(() => {
+    const handleComment = () => {
         if (validateLogin()) {
             commentsRef.current.focusEditor()
         }
-    }, [validateLogin])
+    }
 
     const songs = useMemo(() => parseSongs(detail?.tracks), [detail])
 

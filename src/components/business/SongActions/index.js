@@ -1,4 +1,3 @@
-import {useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {PLAY_TYPE} from 'constants/music'
 import Add from 'components/business/Add'
@@ -19,9 +18,9 @@ const defaultActions = Object.keys(ACTION_TYPES)
 function SongActions(props) {
     const {id, actions = defaultActions, isSelf = false} = props
 
-    const hasAction = useCallback((action) => {
+    const hasAction = (action) => {
         return actions.includes(action)
-    }, [actions])
+    }
 
     return <div styleName="actions">
         {
