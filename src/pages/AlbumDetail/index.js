@@ -266,7 +266,6 @@ class AlbumDetail extends Component {
                                     </tbody>
                                 </table>
                             </div>
-                            }
                             <Comments
                                 onRef={this.setCommentsRef}
                                 type="ALBUM"
