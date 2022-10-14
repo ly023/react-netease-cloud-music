@@ -17,8 +17,8 @@ import {getThumbnail} from 'utils'
 import './index.scss'
 
 function Rank() {
-    const [loading, setLoading] = useState([])
-    const [rankList, setRankList] = useState(Array.from(new Array(3)))
+    const [loading, setLoading] = useState(false)
+    const [rankList, setRankList] = useState([])
     const isMounted = useRef(false)
 
     useEffect(() => {

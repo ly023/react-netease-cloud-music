@@ -2,7 +2,7 @@ import config from 'config'
 
 export default {
     rankList: {
-        url: `${config.apiHost}/top/list`,
+        url: `${config.apiHost}/playlist/detail`,
         type: 'GET'
     },
     all: {

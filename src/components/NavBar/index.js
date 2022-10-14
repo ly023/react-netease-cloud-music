@@ -33,7 +33,7 @@ export default class NavBar extends Component {
 
     componentDidMount() {
         this.setNavHeight()
-        pubsub.subscribe('login', (mode = LOGIN_MODE.GUIDE.TYPE) => {
+        pubsub.subscribe('login', (msg, mode = LOGIN_MODE.GUIDE.TYPE) => {
             this.handleLogin(mode)
         })
     }

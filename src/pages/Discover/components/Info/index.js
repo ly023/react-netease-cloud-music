@@ -1,10 +1,10 @@
 import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
 import {DEFAULT_AVATAR} from 'constants'
 import pubsub from 'utils/pubsub'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {requestDetail, requestDailySignIn} from 'services/user'
-import message from 'components/Message'
 
 import './index.scss'
 
@@ -39,7 +39,7 @@ function Info() {
             })
             .catch((err) => {
                 // 未登录/重复签到
-                message.error({content: err.errorText})
+                toast.error(err.errorText)
             })
             .finally(() => {
                 if (isMounted.current) {
@@ -120,6 +120,7 @@ function Info() {
                 </Link>
             </li>
         </ul>
+        <Toaster/>
     </div>
         : <div styleName='sign-in'>
             <p styleName='sign-in-text'>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>

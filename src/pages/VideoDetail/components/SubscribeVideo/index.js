@@ -3,7 +3,7 @@
  */
 import {useState, useCallback, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
-import message from 'components/Message'
+import toast, { Toaster } from 'react-hot-toast'
 import {RESOURCE_ACTION_TYPE} from 'constants'
 import {requestSubscribe} from 'services/video'
 import pubsub from 'utils/pubsub'
@@ -37,7 +37,7 @@ function SubscribeVideo(props) {
                 .then((res) => {
                     if(res?.code === 200) {
                         const content = newStatus ? '收藏成功' : '取消收藏成功'
-                        message.success({content})
+                        toast.success(content)
                         onSuccess && onSuccess(newStatus)
                     }
                 })
@@ -49,11 +49,14 @@ function SubscribeVideo(props) {
 
     const onlyChildren = Children.only(children)
 
-    return (
-        cloneElement(onlyChildren, {
-            onClick: handleLike,
-        })
-    )
+    return <>
+        {
+            cloneElement(onlyChildren, {
+                onClick: handleLike,
+            })
+        }
+        <Toaster />
+    </>
 }
 
 SubscribeVideo.propTypes = {

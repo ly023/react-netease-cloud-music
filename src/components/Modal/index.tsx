@@ -140,7 +140,7 @@ export default class Modal extends Component<ModalProps, ModalState> {
     render() {
         const {visible, title, width, height, mask, children} = this.props
         const {positionStyle} = this.state
-        const modalRoot = document.getElementById('modal-root') as HTMLDivElement
+        const modalRoot = document.getElementById('portal') as HTMLDivElement
 
         const contentStyle = {
             width,

@@ -1,7 +1,7 @@
 import {useState, useEffect, useCallback, useRef, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
+import toast, { Toaster } from 'react-hot-toast'
 import Modal from 'components/Modal'
-import message from 'components/Message'
 import pubsub from 'utils/pubsub'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {updateUserPlaylistSongs} from 'services/playlist'
@@ -78,9 +78,9 @@ function AddToPlaylist(props) {
                 handleCreateModalCancel()
                 const code = res?.body?.code
                 if (code === 200) {
-                    message.success({content: '收藏成功'})
+                    toast.success('收藏成功')
                 } else {
-                    message.error({content: getErrorMessage(code)})
+                    toast.error( getErrorMessage(code))
                 }
             }
         }).finally(() => {
@@ -121,6 +121,7 @@ function AddToPlaylist(props) {
                 onOk={handleCreateModalOk}
                 onCancel={handleCreateModalCancel}
             />
+            <Toaster/>
         </>
     )
 }

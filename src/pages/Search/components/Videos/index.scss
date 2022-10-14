@@ -34,7 +34,7 @@
     height: 20px;
     color: #fff;
     line-height: 20px;
-    text-shadow: -2px 1px rgb(0 0 0 / 40%);
+    text-shadow: -2px 1px rgba(0, 0, 0, 0.4);
 
     @extend %mask;
   }

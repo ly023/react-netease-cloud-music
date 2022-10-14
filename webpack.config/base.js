@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin"); // 分析打包时间，各阶段loader耗时
 
 const config = require('./config');
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -121,6 +122,7 @@ module.exports = {
     },
     plugins: [
         new ProgressBarPlugin(), // 编译进度
-    ],
+        new SpeedMeasurePlugin(), // 分析打包时间
+   ],
 };
 

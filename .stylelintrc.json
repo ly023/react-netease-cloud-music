@@ -1,6 +1,6 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-rational-order"],
-  "plugins": ["stylelint-order", "stylelint-scss"],
+  "plugins": ["stylelint-scss"],
   "customSyntax": "postcss-scss",
   "rules": {
     "selector-pseudo-class-no-unknown": [
@@ -9,6 +9,8 @@
         "ignorePseudoClasses": ["global"]
       }
     ],
+    "color-function-notation": "legacy",
+    "alpha-value-notation": "number",
     "no-eol-whitespace": null,
     "no-descending-specificity": null,
     "font-family-no-missing-generic-family-keyword": null,

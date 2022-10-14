@@ -3,7 +3,7 @@
  */
 import {useState, useCallback, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
-import message from 'components/Message'
+import toast, { Toaster } from 'react-hot-toast'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import {requestSubscribe} from 'services/playlist'
 import pubsub from 'utils/pubsub'
@@ -35,7 +35,7 @@ function SubscribePlaylist(props) {
             })
                 .then(() => {
                     const content = type === PLAYLIST_COLLECTION_TYPE.OK ? '收藏成功' : '取消收藏成功'
-                    message.success({content})
+                    toast.success(content)
                     onSuccess && onSuccess()
                 })
                 .finally(() => {
@@ -46,12 +46,15 @@ function SubscribePlaylist(props) {
 
     const onlyChildren = Children.only(children)
 
-    return (
-        cloneElement(onlyChildren, {
-            onClick: handleCollect,
-            'data-loading': loading
-        })
-    )
+    return <>
+        {
+            cloneElement(onlyChildren, {
+                onClick: handleCollect,
+                'data-loading': loading
+            })
+        }
+        <Toaster/>
+    </>
 }
 
 SubscribePlaylist.propTypes = {

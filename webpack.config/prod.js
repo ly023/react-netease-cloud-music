@@ -25,7 +25,8 @@ module.exports = merge(baseConfig, {
         filename: 'js/[name].[chunkhash:8].bundle.js',
         chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
         assetModuleFilename: 'images/[hash][ext][query]',
-        publicPath: '/'
+        publicPath: '/',
+        // hashFunction: 'xxhash64',
     },
     optimization: {
         // 设置Optimization.minimizer会覆盖webpack默认的js压缩，因此需要指定js压缩插件
@@ -77,15 +78,15 @@ module.exports = merge(baseConfig, {
                     priority: -10,
                     chunks: 'initial',
                 },
-                player: {
-                    name: 'player',
-                    test: /[\\/]node_modules[\\/]xgplayer[\\/]/,
-                    chunks: 'all',
-                    priority: 20,
-                },
                 react: {
                     name: 'react',
                     test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    chunks: 'all',
+                    priority: 20,
+                },
+                player: {
+                    name: 'player',
+                    test: /[\\/]node_modules[\\/]xgplayer[\\/]/,
                     chunks: 'all',
                     priority: 20,
                 },

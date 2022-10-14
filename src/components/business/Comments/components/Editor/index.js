@@ -4,11 +4,11 @@
 import {Component, createRef} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import toast, { Toaster } from 'react-hot-toast'
 import {DOUBLE_BYTE_CHAR_PATTERN} from 'constants'
 import KEY from 'constants/keyboardEventKey'
 import {getCursorPosition} from 'utils'
 import pubsub from 'utils/pubsub'
-import message from 'components/Message'
 
 import EmojiPanel from './components/EmojiPanel'
 import AtList from './components/AtList'
@@ -138,15 +138,11 @@ export default class Editor extends Component {
         if (this.validateLogin() && !this.props.loading) {
             const {remainingWordsNumber, value} = this.state
             if (remainingWordsNumber === MAX_WORDS_NUMBER) {
-                message.error({
-                    content: '输入点内容再提交吧'
-                })
+                toast.error('输入点内容再提交吧')
                 return
             }
             if (remainingWordsNumber < 0) {
-                message.error({
-                    content: '输入不能超过140个字符'
-                })
+                toast.error('输入不能超过140个字符')
                 return
             }
             this.props.onSubmit(value)
@@ -365,6 +361,7 @@ export default class Editor extends Component {
                         onCancel={this.hideEmojiPanel}
                     />
                 </div>
+                <Toaster />
             </div>
         )
     }

@@ -5,6 +5,7 @@ import {useCallback, memo, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import {useDispatch} from 'react-redux'
 import {shuffle as _shuffle} from 'lodash'
+import toast, { Toaster } from 'react-hot-toast'
 import pubsub from 'utils/pubsub'
 import {PLAY_TYPE} from 'constants/music'
 import {setUserPlayer} from 'actions/user'
@@ -15,7 +16,6 @@ import {requestDetail as requestProgramDetail} from 'services/program'
 import {requestPrograms} from 'services/radio'
 import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
-import message from "components/Message";
 
 const types = Object.keys(PLAY_TYPE).map((key)=> PLAY_TYPE[key].TYPE)
 
@@ -77,7 +77,7 @@ function Play(props) {
                 } else {
                     emitPlay = false
                     // todo
-                    message.error({content: '没有播放权限'})
+                    toast.error('没有播放权限')
                     console.log('没有播放权限')
                 }
             }
@@ -136,6 +136,7 @@ function Play(props) {
                         newTrackQueue.push(formatTrack(item))
                     } else {
                         // todo
+                        toast.error('没有播放权限')
                         console.log('没有播放权限')
                     }
                 }
@@ -175,11 +176,14 @@ function Play(props) {
     const {children} = props
     const onlyChildren = Children.only(children)
 
-    return (
-        cloneElement(onlyChildren, {
-            onClick: handlePlay
-        })
-    )
+    return <>
+        {
+            cloneElement(onlyChildren, {
+                onClick: handlePlay
+            })
+        }
+        <Toaster/>
+    </>
 }
 
 Play.propTypes = {

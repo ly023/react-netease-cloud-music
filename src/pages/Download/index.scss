@@ -28,7 +28,7 @@
   padding: 20px 0 0 10px;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 0 10px 0 rgb(0 0 0 / 50%);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .client {
@@ -41,7 +41,7 @@
   font-size: 12px;
   font-family: PingFangSC-Regular, sans-serif;
   line-height: 45px;
-  background: rgb(0 0 0 / 8%);
+  background: rgba(0, 0, 0, 0.08);
   cursor: pointer;
 
   em {
@@ -238,7 +238,7 @@
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgb(0 0 0 / 50%);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .code {

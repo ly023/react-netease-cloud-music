@@ -6,12 +6,12 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {cloneDeep} from 'lodash'
+import toast, { Toaster } from 'react-hot-toast'
 import pubsub from 'utils/pubsub'
 import {setUserCommentInfo} from 'actions/user'
 import {DEFAULT_AVATAR, PAGINATION_LIMIT} from 'constants'
 import ListLoading from 'components/ListLoading'
 import Pagination from 'components/Pagination'
-import message from 'components/Message'
 import Confirm from 'components/Confirm'
 import {requestFollows} from 'services/user'
 import {
@@ -237,9 +237,7 @@ export default class Comments extends Component {
                         // 定位到当前评论
                         scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)), this.props.navHeight)
                         // 弹窗提示
-                        message.success({
-                            content: '评论成功'
-                        })
+                        toast.success('评论成功')
                     })
                 }
             })
@@ -283,9 +281,7 @@ export default class Comments extends Component {
                             total: commentKey === 'comments' ? prevState.total - 1 : prevState.total
                         }
                     })
-                    message.success({
-                        content: '删除成功'
-                    })
+                    toast.success('删除成功')
                 }
             })
             .finally(() => {
@@ -370,9 +366,7 @@ export default class Comments extends Component {
                         // 定位到当前评论
                         scrollIntoView(document.getElementById(this.getItemDomId(res.comment.commentId)), this.props.navHeight)
                         this.props.dispatch(setUserCommentInfo({activeCommentId: 0}))
-                        message.success({
-                            content: '回复成功'
-                        })
+                        toast.success('回复成功')
                     })
                 }
             })
@@ -582,6 +576,7 @@ export default class Comments extends Component {
                     onCancel={this.handleCancelDeleteConfirm}
                     onOk={this.handleDeleteComment}
                 />
+                <Toaster/>
             </>
         )
     }

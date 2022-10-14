@@ -14,6 +14,7 @@ import Collapse from 'components/Collapse'
 import SongTable from 'components/business/SongTable'
 import SubscribePlaylist from 'components/business/SubscribePlaylist'
 import {requestDetail} from 'services/playlist'
+import {requestDetail as requestSongDetail} from 'services/song'
 import {formatNumber, getThumbnail} from 'utils'
 import pubsub from 'utils/pubsub'
 
@@ -83,17 +84,24 @@ export default class PlaylistDetail extends Component {
             const res = await requestDetail({id})
             if (this._isMounted) {
                 const playlist = res?.playlist || {}
+                // 接口拿到的tracks不完整，但trackIds是完整的，用trackIds再请求剩余的song/detail
+                const { tracks, trackIds } = playlist;
+                const restTrackIds = trackIds.slice(tracks.length).map(v => v.id); // 剩余的trackIds
+                const songDetailRes =  await requestSongDetail({ids: restTrackIds.join(',')})
+                const { songs: restSongs, privileges: restPrivileges } = songDetailRes;
+                const songs = tracks.concat(restSongs);
+                const privileges = (res?.privileges || []).concat(restPrivileges)
                 const detail = {
                     ...playlist,
                     tracks: [],
-                    songs: this.parseTracks(playlist.tracks, res?.privileges),
+                    songs: this.parseTracks(songs, privileges),
                 }
                 this.setState({detail})
                 const {afterDetailLoaded} = this.props
                 afterDetailLoaded && afterDetailLoaded(detail)
             }
         } catch (e) {
-            
+
         } finally {
             if(this._isMounted) {
                 this.setState({detailLoading: false})

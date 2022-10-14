@@ -7,7 +7,6 @@
   width: 6px;
   background: #000;
   opacity: 0.5;
-  filter: alpha(opacity=50);
 }
 
 .thumb-vertical {
@@ -19,7 +18,6 @@
   border-radius: 5px;
   cursor: pointer;
   opacity: 0.8;
-  filter: alpha(opacity=80);
 
   span {
     position: relative;

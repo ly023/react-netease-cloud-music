@@ -3,7 +3,7 @@
  */
 import {useState, useCallback, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
-import message from 'components/Message'
+import toast, { Toaster } from 'react-hot-toast'
 import {RESOURCE_ACTION_TYPE, RESOURCE_TYPE} from 'constants'
 import {requestLike} from 'services/resource'
 import pubsub from 'utils/pubsub'
@@ -38,7 +38,7 @@ function LikeResource(props) {
                 .then((res) => {
                     if (res?.code === 200) {
                         const content = newStatus ? '点赞成功' : '取消点赞成功'
-                        message.success({content})
+                        toast.success(content)
                         onSuccess && onSuccess(newStatus)
                     }
                 })
@@ -50,11 +50,14 @@ function LikeResource(props) {
 
     const onlyChildren = Children.only(children)
 
-    return (
-        cloneElement(onlyChildren, {
-            onClick: handleLike,
-        })
-    )
+    return <>
+        {
+            cloneElement(onlyChildren, {
+                onClick: handleLike,
+            })
+        }
+        <Toaster/>
+    </>
 }
 
 LikeResource.propTypes = {
