@@ -1,6 +1,5 @@
 import {get} from 'lodash'
 import fetch from 'cross-fetch'
-import {stringify} from 'qs'
 import config from 'config'
 import {getCsrfToken} from './index'
 
@@ -25,7 +24,7 @@ const codeMessage = {
 
 function responseCatch(e) {
     return new Promise((resolve, reject) => {
-        if(!e.errorText){
+        if (!e.errorText) {
             e.errorText = get(codeMessage, e.response?.status, get(e, 'response.statusText', ''))
         }
         reject(e)
@@ -33,7 +32,7 @@ function responseCatch(e) {
 }
 
 
-function defaultGetErrorHandler(response, responseBodyJson){
+function defaultGetErrorHandler(response, responseBodyJson) {
     const errorText = get(responseBodyJson, 'msg', get(codeMessage, response.status, get(response, 'statusText', '')))
     return {
         errorText,
@@ -44,6 +43,17 @@ function defaultGetErrorHandler(response, responseBodyJson){
 
 function defaultIsSuccessResponse(response) {
     return response.status >= 200 && response.status < 300
+}
+
+function insertParams(url, params) {
+    if (url && typeof url === 'string') {
+        return Object.keys(params).reduce((acc, key) => {
+            const value = params[key];
+            return `${acc}${acc.match(/[\\?]/g) ? '&' : '?'}${key}=${value}`;
+        }, url)
+
+    }
+    return url
 }
 
 /**
@@ -66,8 +76,8 @@ export default function request(url, fetchOptions = {}, options = {}) {
     const newOptions = {...defaultFetchOptions, ...fetchOptions}
 
     options = {...defaultOptions, ...options}
-    if(newOptions.method === 'POST' || newOptions.method === 'PUT' || newOptions.method === 'DELETE') {
-        if(!(newOptions.body instanceof FormData)) {
+    if (newOptions.method === 'POST' || newOptions.method === 'PUT' || newOptions.method === 'DELETE') {
+        if (!(newOptions.body instanceof FormData)) {
             newOptions.headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json; charset=utf-8',
@@ -86,13 +96,15 @@ export default function request(url, fetchOptions = {}, options = {}) {
     const csrfToken = getCsrfToken()
     let requestUrl = url
     if (csrfToken) {
-        const vercelExtraQuery = config.isProduction ? 'realIP=185.199.110.153' : ''
-        const sp = url.indexOf('?') !== -1 ? '&' : '?'
-        requestUrl = `${url}${sp}csrf_token=${csrfToken}&${vercelExtraQuery}`
+        requestUrl = insertParams(url, {csrf_token: csrfToken})
+    }
+    // 访问Vercel部署的接口，需额外添加realIP参数（随便一个国内的ip）
+    if (config.isProduction) {
+        requestUrl = insertParams(requestUrl, {realIP: '185.199.110.153'})
     }
 
     return fetch(requestUrl, newOptions).then(function checkStatus(response) {
-        if(options.isSuccessResponse(response)) {
+        if (options.isSuccessResponse(response)) {
             return response
         }
 
@@ -101,14 +113,14 @@ export default function request(url, fetchOptions = {}, options = {}) {
                 const error = options.getErrorDelegate(response, res)
                 reject(error)
             })
-        }).catch((e)=>{
+        }).catch((e) => {
             return responseCatch(e)
         })
     }).then((response) => {
-        if(options.returnResponse) {
+        if (options.returnResponse) {
             return response
         }
-        if(response.status === 204) {
+        if (response.status === 204) {
             return response.text()
         }
         return response.json()
