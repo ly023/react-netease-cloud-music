@@ -1,5 +1,7 @@
 import {get} from 'lodash'
 import fetch from 'cross-fetch'
+import {stringify} from 'qs'
+import config from 'config'
 import {getCsrfToken} from './index'
 
 const codeMessage = {
@@ -84,8 +86,9 @@ export default function request(url, fetchOptions = {}, options = {}) {
     const csrfToken = getCsrfToken()
     let requestUrl = url
     if (csrfToken) {
+        const vercelExtraQuery = config.isProduction ? 'realIP=185.199.110.153' : ''
         const sp = url.indexOf('?') !== -1 ? '&' : '?'
-        requestUrl = `${url}${sp}csrf_token=${csrfToken}`
+        requestUrl = `${url}${sp}csrf_token=${csrfToken}&${vercelExtraQuery}`
     }
 
     return fetch(requestUrl, newOptions).then(function checkStatus(response) {
