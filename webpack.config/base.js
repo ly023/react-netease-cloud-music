@@ -29,7 +29,6 @@ module.exports = {
         // noParse: /jquery/,
         rules: [
             {
-                // 编译 js、jsx
                 // test: /\.jsx?$/,
                 // 如果项目源码中没有 jsx 文件就不要写 /\.jsx?$/，提升正则表达式性能
                 test: /\.(j|t)sx?$/,
@@ -83,11 +82,12 @@ module.exports = {
                 type: 'asset', // webpack 5新增
                 parser: {
                    dataUrlCondition: {
-                       maxSize: 8192, // 8k
+                       maxSize: 8 * 1024, // 8k
                    }
                 },
                 generator: {
-                   filename: 'images/[hash][ext][query]'
+                    // publicPath: 'https://cdn/assets', // cdn域名前缀
+                    filename: 'static/[hash][ext][query]'
                 },
             },
         ]
@@ -99,6 +99,7 @@ module.exports = {
     },
     resolve: {
         alias: {
+            // '@': resolve('src')
             actions: resolve('src/actions'),
             assets: resolve('src/assets'),
             api: resolve('src/api'),
@@ -106,6 +107,7 @@ module.exports = {
             config: resolve('src/config'),
             constants: resolve('src/constants'),
             hoc: resolve('src/hoc'),
+            hook: resolve('src/hook'),
             reducers: resolve('src/reducers'),
             router: resolve('src/router'),
             sagas: resolve('src/sagas'),

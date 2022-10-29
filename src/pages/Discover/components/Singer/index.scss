@@ -69,32 +69,4 @@
   .item-desc {
     color: $font-color;
   }
-
-  .apply {
-    @extend %button;
-
-    clear: both;
-    margin-left: 20px;
-    white-space: nowrap;
-    background-position: right -100px;
-    border-radius: 4px;
-
-    &:hover {
-      text-decoration: none;
-      background-position: right -182px;
-    }
-
-    > i {
-      @extend %button-i;
-
-      width: 170px;
-      padding: 0 15px 0 20px;
-      font-weight: 700;
-      background-position: 0 -59px;
-
-      &:hover {
-        background-position: 0 -141px;
-      }
-    }
-  }
 }

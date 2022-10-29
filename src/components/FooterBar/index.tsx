@@ -41,24 +41,6 @@ function FooterBar() {
                         styleName='link color-2'>ncm5990@163.com</a></span>
                     </p>
                 </div>
-                <ul className='fr' styleName='enter'>
-                    <li>
-                        <a styleName='logo logo-auth' href='https://music.163.com/st/userbasic#/auth' target='_blank'/>
-                        <span styleName="logo-title logo-title-auth">用户认证</span>
-                    </li>
-                    <li>
-                        <a styleName='logo logo-musician' href='//music.163.com/recruit' target='_blank'/>
-                        <span styleName="logo-title logo-title-musician">独立音乐人</span>
-                    </li>
-                    <li>
-                        <a styleName='logo logo-reward' href='//music.163.com/web/reward' target='_blank'/>
-                        <span styleName="logo-title logo-title-reward">赞赏</span>
-                    </li>
-                    <li>
-                        <a styleName='logo logo-cash' href='https://music.163.com/uservideo#/plan' target='_blank'/>
-                        <span styleName="logo-title logo-title-cash">视频奖励</span>
-                    </li>
-                </ul>
             </div>
         </div>
     )

@@ -1,11 +1,11 @@
 .info {
+  display: flex;
   overflow: hidden;
 }
 
 .cover-wrapper {
-  float: left;
   width: 206px;
-  margin-right: -226px;
+  margin-right: 20px;
 }
 
 .cover {
@@ -31,7 +31,6 @@
 }
 
 .content {
-  float: right;
   width: 414px;
 }
 
@@ -345,10 +344,6 @@
   a {
     text-decoration: underline;
   }
-}
-
-.lyric-report {
-  color: #999;
 }
 
 .lyric-user-info {

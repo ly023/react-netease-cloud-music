@@ -53,7 +53,7 @@ function AnchorRadioRecommendation() {
                         : <ul styleName="list">
                             {
                                 programs.map((item, index) => {
-                                    const {id, radio = {}} = item
+                                    const {id, name, radio = {}} = item
                                     const order = index + 1
 
                                     return <li key={id} styleName={`item ${order % 2 === 0 ? 'even' : ''}`}>
@@ -63,8 +63,8 @@ function AnchorRadioRecommendation() {
                                                 <i styleName="play-icon"/>
                                             </Play>
                                         </div>
-                                        <Link to="" className="fl" styleName="program-name">{item.name}</Link>
-                                        <Link to="" className="fl" styleName="radio-name">{radio.name}</Link>
+                                        <Link to="" className="fl" styleName="program-name" title={name}>{name}</Link>
+                                        <Link to="" className="fl" styleName="radio-name" title={radio.name}>{radio.name}</Link>
                                         <span className="fl" styleName="listener-count">播放{item.listenerCount}</span>
                                         <span className="fl" styleName="like-count">赞{item.likedCount}</span>
                                         <div className="fl" styleName="tag">

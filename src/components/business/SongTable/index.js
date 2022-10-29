@@ -7,7 +7,7 @@ import SinglePlay from 'components/business/SinglePlay'
 import SongActions from 'components/business/SongActions'
 import {formatDuration} from 'utils'
 import {getArtists} from 'utils/song'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 
 import './index.scss'
 

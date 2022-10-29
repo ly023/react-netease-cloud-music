@@ -1,7 +1,7 @@
 import {get} from 'lodash'
 import fetch from 'cross-fetch'
 import config from 'config'
-import {getCsrfToken} from './index'
+import {appendUrlParams, getCsrfToken} from './index'
 
 const codeMessage = {
     200: '操作成功',
@@ -45,17 +45,6 @@ function defaultIsSuccessResponse(response) {
     return response.status >= 200 && response.status < 300
 }
 
-function insertParams(url, params) {
-    if (url && typeof url === 'string') {
-        return Object.keys(params).reduce((acc, key) => {
-            const value = params[key];
-            return `${acc}${acc.match(/[\\?]/g) ? '&' : '?'}${key}=${value}`;
-        }, url)
-
-    }
-    return url
-}
-
 /**
  * Requests a URL, returning a promise.
  *
@@ -96,11 +85,11 @@ export default function request(url, fetchOptions = {}, options = {}) {
     const csrfToken = getCsrfToken()
     let requestUrl = url
     if (csrfToken) {
-        requestUrl = insertParams(url, {csrf_token: csrfToken})
+        requestUrl = appendUrlParams(url, {csrf_token: csrfToken})
     }
     // 访问Vercel部署的接口，需额外添加realIP参数（随便一个国内的ip）
     if (config.isProduction) {
-        requestUrl = insertParams(requestUrl, {realIP: '185.199.110.153'})
+        requestUrl = appendUrlParams(requestUrl, {realIP: '185.199.110.153'})
     }
 
     return fetch(requestUrl, newOptions).then(function checkStatus(response) {

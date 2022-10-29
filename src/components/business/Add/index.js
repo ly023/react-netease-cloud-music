@@ -13,7 +13,7 @@ import {requestDetail as requestSongDetail} from 'services/song'
 import {requestDetail as requestAlbumDetail} from 'services/album'
 import {requestDetail as requestProgramDetail} from 'services/program'
 import {setLocalStorage} from 'utils'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {hasPrivilege, isShuffleMode, formatTrack} from 'utils/song'
 
 const types = Object.keys(PLAY_TYPE).map((key) => PLAY_TYPE[key].TYPE)

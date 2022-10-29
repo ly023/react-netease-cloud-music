@@ -4,10 +4,10 @@
 import {useState, useCallback, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import toast, { Toaster } from 'react-hot-toast'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import {requestSubscribe} from 'services/playlist'
 import pubsub from 'utils/pubsub'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
 function SubscribePlaylist(props) {
     const {isLogin} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin}))
@@ -29,12 +29,13 @@ function SubscribePlaylist(props) {
         }
         if (validateLogin()) {
             setLoading(true)
+            const newType = type === PLAYLIST_COLLECTION_TYPE.OK ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK
             requestSubscribe({
                 id,
-                t: type
+                t: newType
             })
                 .then(() => {
-                    const content = type === PLAYLIST_COLLECTION_TYPE.OK ? '收藏成功' : '取消收藏成功'
+                    const content = newType === PLAYLIST_COLLECTION_TYPE.OK ? '收藏成功' : '取消收藏成功'
                     toast.success(content)
                     onSuccess && onSuccess()
                 })
@@ -50,7 +51,8 @@ function SubscribePlaylist(props) {
         {
             cloneElement(onlyChildren, {
                 onClick: handleCollect,
-                'data-loading': loading
+                title: type === PLAYLIST_COLLECTION_TYPE.OK ? '取消收藏' : '收藏',
+                'data-loading': loading,
             })
         }
         <Toaster/>

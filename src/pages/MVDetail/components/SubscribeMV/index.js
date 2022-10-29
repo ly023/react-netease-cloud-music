@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import {RESOURCE_ACTION_TYPE} from 'constants'
 import {requestSubscribe} from 'services/mv'
 import pubsub from 'utils/pubsub'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 
 function SubscribeMV(props) {
     const {isLogin} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin}))

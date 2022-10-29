@@ -2,9 +2,12 @@ import {stringify} from 'qs'
 import request from 'utils/request'
 import API from 'api/artist'
 
-/**
- * 歌手分类列表
- */
+// 热门歌手
+export async function requestTopArtist(params) {
+    return request(`${API.top.url}${stringify(params, {addQueryPrefix: true})}`)
+}
+
+// 歌手分类列表
 export async function requestArtist(params) {
     return request(`${API.list.url}${stringify(params, {addQueryPrefix: true})}`)
 }

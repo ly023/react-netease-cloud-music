@@ -20,7 +20,6 @@ import pubsub from 'utils/pubsub'
 import Collapse from 'components/Collapse'
 import SinglePlay from 'components/business/SinglePlay'
 import SongActions from 'components/business/SongActions'
-import ClientDownload from 'components/business/ClientDownload'
 import {getArtists} from 'utils/song'
 
 import './index.scss'
@@ -295,7 +294,6 @@ class AlbumDetail extends Component {
                                 }
                             </ul>
                         </div>
-                        <ClientDownload/>
                     </div>
                 </div>
             </Page>

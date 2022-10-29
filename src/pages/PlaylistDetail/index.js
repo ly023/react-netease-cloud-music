@@ -9,7 +9,6 @@ import {requestRelated} from 'services/playlist'
 import PlaylistDetail from 'components/business/PlaylistDetail'
 import SubscribedUsers from 'components/business/SubscribedUsers'
 import RelatedPlaylists from 'components/business/RelatedPlaylists'
-import ClientDownload from 'components/business/ClientDownload'
 
 import './index.scss'
 
@@ -83,7 +82,6 @@ export default class PlaylistDetailPage extends Component {
                     <div className="right-wrapper">
                         <SubscribedUsers title="喜欢这个歌单的人" list={detail?.subscribers}/>
                         <RelatedPlaylists title="相关推荐" list={related}/>
-                        <ClientDownload/>
                     </div>
                 </div>
             </Page>

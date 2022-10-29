@@ -868,7 +868,6 @@ export default class PlayBar extends PureComponent {
                                                                       onClick={this.closePanel}>{radio.name}</Link>
                                 </div> : null
                             }
-                            {id ? <Link to="/link" styleName="song-source" onClick={this.closePanel}/> : null}
                         </div>
                         <div
                             ref={this.progressRef}

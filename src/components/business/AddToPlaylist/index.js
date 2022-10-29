@@ -1,16 +1,14 @@
-import {useState, useEffect, useCallback, useRef, cloneElement, Children, lazy, Suspense } from 'react'
+import {useState, useEffect, useCallback, useRef, cloneElement, Children } from 'react'
 import PropTypes from 'prop-types'
 import toast, { Toaster } from 'react-hot-toast'
 import Modal from 'components/Modal'
 import pubsub from 'utils/pubsub'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {updateUserPlaylistSongs} from 'services/playlist'
-// import Playlist from './components/Playlist'
+import Playlist from './components/Playlist'
 import CreatePlaylistModal from './components/CreatePlaylistModal'
 
 import './index.scss'
-
-const Playlist = lazy(() => import('./components/Playlist'))
 
 function AddToPlaylist(props) {
     const {children, songIds = []} = props
@@ -110,15 +108,13 @@ function AddToPlaylist(props) {
                 height={414}
                 onCancel={handleCancel}
             >
-                <Suspense>
-                    <Playlist
-                        userId={userId}
-                        extraItem={<div styleName="create-item" onClick={showCreatePlaylistModal}>
-                            <span styleName="plus-icon"/>新建歌单
-                        </div>}
-                        onItemClick={updatePlaylistSongs}
-                    />
-                </Suspense>
+                <Playlist
+                    userId={userId}
+                    extraItem={<div styleName="create-item" onClick={showCreatePlaylistModal}>
+                        <span styleName="plus-icon"/>新建歌单
+                    </div>}
+                    onItemClick={updatePlaylistSongs}
+                />
             </Modal>
             <CreatePlaylistModal
                 visible={createModalVisible}

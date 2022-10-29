@@ -7,7 +7,6 @@ import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'servi
 import Page from 'components/Page'
 import CustomPlayer from 'components/CustomPlayer'
 import Comments from 'components/business/Comments'
-import ClientDownload from 'components/business/ClientDownload'
 import LikeResource from 'components/business/LikeResource'
 import {RESOURCE_TYPE} from 'constants'
 import {formatDuration, formatNumber, formatTimestamp, getThumbnail} from 'utils'
@@ -189,7 +188,6 @@ function VideoDetail(props) {
                     <p styleName="desc">{detail?.description}</p>
                 </div>
                 {similarVideos.length ? <><h3 styleName="title-underline">相关推荐</h3>{renderVideos}</> : null}
-                <ClientDownload/>
             </div>
         </div>
     </Page>

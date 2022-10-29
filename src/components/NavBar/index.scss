@@ -31,8 +31,7 @@ $nav-border-color: #202020;
 .logo,
 .search,
 .video-contribution,
-.login,
-.tag-hot {
+.login {
   background: url("~assets/images/topbar.png") no-repeat 0 9999px;
 }
 
@@ -85,46 +84,6 @@ $nav-border-color: #202020;
       transform: translateX(-50%);
       content: "";
     }
-  }
-}
-
-.tag-hot {
-  position: absolute;
-  top: 21px;
-  left: 100px;
-  display: block;
-  width: 28px;
-  height: 19px;
-  background-position: -190px 0;
-}
-
-.video-creator {
-  float: right;
-  box-sizing: border-box;
-  width: 90px;
-  height: 32px;
-  margin: 19px 0 0 12px;
-  line-height: 32px;
-  text-align: center;
-  text-decoration: none;
-  border: 1px solid #4f4f4f;
-  border-radius: 20px;
-
-  @include link-color;
-
-  &:hover {
-    color: #fff;
-    text-decoration: none;
-    border: 1px solid #ccc;
-  }
-}
-
-.video-contribution {
-  &:hover {
-    text-decoration: none;
-    background-position: -100px -140px;
-
-    @include link-hover-color;
   }
 }
 

@@ -190,22 +190,12 @@ export default class NavBar extends Component {
                                     </NavLink>
                                 </li>
                                 <li styleName="link-item">
-                                    <a href="https://music.163.com/store/product" target="_blank" rel="noreferrer" styleName="link">
-                                        商城
-                                    </a>
-                                </li>
-                                <li styleName="link-item">
-                                    <a href="https://music.163.com/st/musician" target="_blank" rel="noreferrer" styleName="link">
-                                        音乐人
-                                    </a>
-                                </li>
-                                <li styleName="link-item">
                                     <NavLink
                                         to='/download'
                                         className={styles['link']}
                                         activeClassName={styles['link-active']}
                                     >
-                                        下载客户端<i styleName="tag-hot"/>
+                                        下载客户端
                                     </NavLink>
                                 </li>
                             </ul>
@@ -269,8 +259,6 @@ export default class NavBar extends Component {
                                         </div>
                                     </div>
                             }
-                            <a href='https://music.163.com/login?targetUrl=%2Fst/creator' target='_blank'
-                               styleName="video-creator">创作者中心</a>
                             <SearchBar/>
                         </div>
                         <div styleName="sub-nav-wrapper">

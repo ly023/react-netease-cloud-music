@@ -9,7 +9,7 @@ export const DEFAULT_AVATAR = defaultAvatar
 export const DEFAULT_ARTIST_AVATAR = defaultArtistAvatar
 export const PAGINATION_LIMIT = 20
 
-export const DATE_FORMAT = 'YYYY-MM-DD'
+export const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss'
 
 export const TIP_TIMEOUT = 2000 // ms
 

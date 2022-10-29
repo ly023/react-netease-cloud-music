@@ -5,9 +5,9 @@ import {PLAY_TYPE} from 'constants/music'
 import Add from 'components/business/Add'
 import SinglePlay from 'components/business/SinglePlay'
 import AddToPlaylist from 'components/business/AddToPlaylist'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {formatDuration} from 'utils'
 import {getRenderKeyword} from 'utils/song'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
 import './index.scss'
 
@@ -47,7 +47,7 @@ function Songs(props) {
                             <a href={null} styleName="icon favorite-icon" title="收藏"/>
                         </AddToPlaylist>
                         <a href={null} styleName="icon share-icon" title="分享"/>
-                        <a href={null} styleName="icon download-icon" title="下载"/>
+                        {/*<a href={null} styleName="icon download-icon" title="下载"/>*/}
                     </div>
                     <span styleName="td artist">
                         {

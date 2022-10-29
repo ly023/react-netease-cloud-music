@@ -5,9 +5,9 @@ import {useState, useCallback, cloneElement, Children} from 'react'
 import PropTypes from 'prop-types'
 import toast, { Toaster } from 'react-hot-toast'
 import {RESOURCE_ACTION_TYPE} from 'constants'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {requestSubscribe} from 'services/video'
 import pubsub from 'utils/pubsub'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
 function SubscribeVideo(props) {
     const {isLogin} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin}))

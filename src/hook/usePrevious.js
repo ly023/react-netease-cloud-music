@@ -1,14 +1,11 @@
-/**
- * 自定义 Hook
- */
-import {useEffect, useRef} from 'react'
+import {useEffect, useRef } from 'react'
 
 /**
  * 获取以前的 props(属性) 或 state(状态)
  * @param value
  * @returns {any}
  */
-export function usePrevious(value) {
+export default function usePrevious(value) {
     const ref = useRef()
     useEffect(() => {
         ref.current = value

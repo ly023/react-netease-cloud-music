@@ -13,7 +13,6 @@ import Play from 'components/business/Play'
 import Comments from 'components/business/Comments'
 import RelatedPlaylists from 'components/business/RelatedPlaylists'
 import AddToPlaylist from 'components/business/AddToPlaylist'
-import ClientDownload from 'components/business/ClientDownload'
 import {requestDetail, requestLyric, requestSimilar as requestSimilarSongs} from 'services/song'
 import {requestSimilar as requestSimilarPlaylists} from 'services/playlist'
 import {getThumbnail} from 'utils'
@@ -202,7 +201,7 @@ export default class Song extends Component {
     render() {
         const {detail, lyric, isLyricFolding, similarPlaylists, similarSongs, totalComment} = this.state
         const lyricElement = this.getRenderLyric(lyric)
-        const isVip = FEE_TYPE.FEE.includes(detail?.fee)
+        const isVip = detail?.fee === FEE_TYPE.VIP
         const hasCopyright = detail?.privilege?.st === 0
 
         const alias = detail?.alia && detail.alia.length ? detail?.alia.map((v, i)=> `${v}${i !== detail?.alia.length - 1 ? '、' : ''}`) : ''
@@ -267,7 +266,7 @@ export default class Song extends Component {
                                             <a href={null} styleName="btn-add-favorite"><i>收藏</i></a>
                                         </AddToPlaylist>
                                         <a href={null} styleName="btn-share"><i>分享</i></a>
-                                        <a href={null} styleName={`btn-download${isVip ? ' btn-vip-download': ''}`}><i>下载</i></a>
+                                        {/*<a href={null} styleName={`btn-download${isVip ? ' btn-vip-download': ''}`}><i>下载</i></a>*/}
                                         <a href={null} styleName="btn-comment" onClick={this.handleComment}><i>{totalComment ? `(${totalComment})` : '评论'}</i></a>
                                     </div>
                                     <div styleName="lyric-wrapper">
@@ -281,7 +280,6 @@ export default class Song extends Component {
                                                         {isLyricFolding ? '展开' : '收起'}<i/>
                                                     </div>
                                                     <div styleName="lyric-user">
-                                                        <Link to="" styleName="lyric-report">报错</Link>
                                                         {
                                                             lyric.lyricUser || lyric.transUser ? <div styleName="lyric-user-info">
                                                                 {
@@ -341,7 +339,6 @@ export default class Song extends Component {
                                 </ul>
                             </div> : null
                         }
-                        <ClientDownload/>
                     </div>
                 </div>
             </Page>

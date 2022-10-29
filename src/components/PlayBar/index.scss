@@ -177,19 +177,6 @@
   }
 }
 
-.song-source {
-  display: inline-block;
-
-  @include size(14px, 15px);
-
-  margin: 7px 0 0 13px;
-  background-position: -110px -103px;
-
-  &:hover {
-    background-position: -130px -103px;
-  }
-}
-
 .mv {
   display: inline-block;
   float: left;

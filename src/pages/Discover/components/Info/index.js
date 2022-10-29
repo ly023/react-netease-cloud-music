@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
 import {DEFAULT_AVATAR} from 'constants'
 import pubsub from 'utils/pubsub'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {requestDetail, requestDailySignIn} from 'services/user'
 
 import './index.scss'

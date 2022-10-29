@@ -1,12 +1,12 @@
 import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import ListLoading from 'components/ListLoading'
 import SinglePlay from 'components/business/SinglePlay'
 import SongActions from 'components/business/SongActions'
 import {formatDuration, getThumbnail} from 'utils'
 import {getArtists} from 'utils/song'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
 
 import './index.scss'
 

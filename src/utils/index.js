@@ -338,6 +338,23 @@ export function replaceUrlParamVal(name, replaceWith, url) {
 }
 
 /**
+ * 追加url参数
+ * @param url
+ * @param params
+ * @returns {string|*}
+ */
+export function appendUrlParams(url, params) {
+    if (url && typeof url === 'string') {
+        return Object.keys(params).reduce((acc, key) => {
+            const value = params[key];
+            return `${acc}${acc.match(/[\\?]/g) ? '&' : '?'}${key}=${value}`;
+        }, url)
+
+    }
+    return url
+}
+
+/**
  * 获取当前页面滚动高度
  * @returns {number}
  */

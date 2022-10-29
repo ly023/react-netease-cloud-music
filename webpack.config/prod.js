@@ -1,6 +1,5 @@
 const path = require('path');
 const {merge} = require('webpack-merge');
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // js入口文件自动注入
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -21,6 +20,7 @@ module.exports = merge(baseConfig, {
         ],
     },
     output: {
+        clean: true, // 在生成文件前清空output目录，webpack 5.20.0+ 新增
         path: path.join(config.root, 'dist'),  // 所有输出文件的目标路径，必须是绝对路径
         filename: 'js/[name].[chunkhash:8].bundle.js',
         chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
@@ -66,8 +66,8 @@ module.exports = merge(baseConfig, {
         chunkIds: 'named',
         moduleIds: 'deterministic',
         runtimeChunk: { // 或runtimeChunk: true，将webpack运行时生成代码打包，为运行时代码创建一个额外的 chunk，减少 entry chunk 体积
-            // name: entrypoint => `runtime-${entrypoint.name}`,
-            name: 'manifest'
+            name: entrypoint => `runtimechunk~${entrypoint.name}`
+            // name: 'manifest'
         },
         // 分割代码块
         splitChunks: {
@@ -75,12 +75,12 @@ module.exports = merge(baseConfig, {
                 vendors: {
                     name: `vendors`,
                     test: /[\\/]node_modules[\\/]/,
-                    priority: -10,
                     chunks: 'initial',
+                    priority: -10,
                 },
                 react: {
                     name: 'react',
-                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/,
                     chunks: 'all',
                     priority: 20,
                 },
@@ -99,17 +99,13 @@ module.exports = merge(baseConfig, {
                 commons: {
                     name: 'commons',
                     chunks: 'all',
-                    priority: 1,
                     minChunks: 2,
-                    reuseExistingChunk: true,
+                    priority: 1,
                 },
             }
         },
     },
     plugins: [
-        // 清除dist文件夹
-        new CleanWebpackPlugin(),
-
         new HtmlWebpackPlugin({
             filename: path.join(config.root, 'dist/index.html'),  // 生成的html存放路径，相对于path
             template: path.join(config.root, 'index.html'), // 模板文件

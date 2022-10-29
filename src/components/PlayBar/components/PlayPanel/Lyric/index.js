@@ -3,7 +3,6 @@
  */
 import {Component, createRef} from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {requestLyric} from 'services/song'
 import VerticalScrollbar from 'components/VerticalScrollbar'
@@ -37,7 +36,6 @@ export default class Lyric extends Component {
         super(props)
         this.state = {
             lyric: {},
-            reportPopoverVisible: false
         }
         this.requestedSongId = 0
         this.requestAnimationFrameId = 0
@@ -262,24 +260,11 @@ export default class Lyric extends Component {
         return lyricElement
     }
 
-    handleClickAsk = () => {
-        this.setState((prevState) => {
-            return {
-                reportPopoverVisible: !prevState.reportPopoverVisible
-            }
-        })
-    }
-
     render() {
-        const {height, song} = this.props
-        const {reportPopoverVisible} = this.state
+        const {height} = this.props
 
         return (
             <div styleName="lyric-wrapper" style={{height: height}}>
-                {song.program ? '' : <div styleName="ask-icon" onClick={this.handleClickAsk}><span/></div>}
-                <div styleName="report-popover" style={{display: reportPopoverVisible ? 'block' : 'none'}}>
-                    <Link to="/">报错</Link>
-                </div>
                 <VerticalScrollbar ref={this.scrollbarRef}>
                     <div styleName="lyric">
                         {this.getRenderLyric()}

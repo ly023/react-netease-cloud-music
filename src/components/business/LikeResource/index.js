@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import {RESOURCE_ACTION_TYPE, RESOURCE_TYPE} from 'constants'
 import {requestLike} from 'services/resource'
 import pubsub from 'utils/pubsub'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 
 function LikeResource(props) {
     const {isLogin} = useShallowEqualSelector(({user}) => ({isLogin: user.isLogin}))

@@ -7,7 +7,6 @@ import withRouter from 'hoc/withRouter'
 import {requestDetail} from 'services/artist'
 import Page from 'components/Page'
 import Tabs from 'components/Tabs'
-import ClientDownload from 'components/business/ClientDownload'
 import {getThumbnail, getUrlParameter} from 'utils'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import Top from './components/Top'
@@ -122,9 +121,6 @@ function ArtistDetail(props) {
             </div>
             <div className="right-wrapper">
                 <SimilarArtists artistId={artistId}/>
-                <div styleName="client">
-                    <ClientDownload/>
-                </div>
             </div>
         </div>
     </Page>

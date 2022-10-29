@@ -7,7 +7,6 @@ import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'servi
 import Page from 'components/Page'
 import CustomPlayer from 'components/CustomPlayer'
 import Comments from 'components/business/Comments'
-import ClientDownload from 'components/business/ClientDownload'
 import LikeResource from 'components/business/LikeResource'
 import {RESOURCE_TYPE} from 'constants'
 import {formatDuration, getThumbnail} from 'utils'
@@ -185,7 +184,6 @@ function MVDetail() {
                     <p styleName="desc">{detail?.desc}</p>
                 </div>
                 {similarMVs.length ? <><h3 styleName="title-underline">相关推荐</h3>{renderMVs}</> : null}
-                <ClientDownload/>
             </div>
         </div>
     </Page>

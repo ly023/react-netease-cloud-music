@@ -86,11 +86,16 @@ export default class PlaylistDetail extends Component {
                 const playlist = res?.playlist || {}
                 // 接口拿到的tracks不完整，但trackIds是完整的，用trackIds再请求剩余的song/detail
                 const { tracks, trackIds } = playlist;
-                const restTrackIds = trackIds.slice(tracks.length).map(v => v.id); // 剩余的trackIds
-                const songDetailRes =  await requestSongDetail({ids: restTrackIds.join(',')})
-                const { songs: restSongs, privileges: restPrivileges } = songDetailRes;
-                const songs = tracks.concat(restSongs);
-                const privileges = (res?.privileges || []).concat(restPrivileges)
+                let songs = tracks
+                let privileges = res?.privileges || []
+                // 如果没有返回完整的歌曲列表信息
+                if(tracks.length !== trackIds.length) {
+                    const restTrackIds = trackIds.slice(tracks.length).map(v => v.id); // 剩余的trackIds
+                    const songDetailRes =  await requestSongDetail({ids: restTrackIds.join(',')})
+                    const { songs: restSongs, privileges: restPrivileges } = songDetailRes;
+                    songs = songs.concat(restSongs);
+                    privileges = privileges.concat(restPrivileges)
+                }
                 const detail = {
                     ...playlist,
                     tracks: [],
@@ -176,7 +181,7 @@ export default class PlaylistDetail extends Component {
 
                             <SubscribePlaylist
                                 id={detail.id}
-                                type={detail.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
+                                type={detail.subscribed ? PLAYLIST_COLLECTION_TYPE.OK : PLAYLIST_COLLECTION_TYPE.CANCEL}
                                 disabled={isSelf}
                                 onSuccess={this.handleSubscribeSuccess}
                             >

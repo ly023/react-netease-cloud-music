@@ -6,7 +6,7 @@ import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import Add from 'components/business/Add'
 import Play from 'components/business/Play'
 import SubscribePlaylist from 'components/business/SubscribePlaylist'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {formatNumber} from 'utils'
 import {getRenderKeyword} from 'utils/song'
 
@@ -48,7 +48,7 @@ function Playlists(props) {
                         </Add>
                         <SubscribePlaylist
                             id={id}
-                            type={item.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
+                            type={item.subscribed ? PLAYLIST_COLLECTION_TYPE.OK : PLAYLIST_COLLECTION_TYPE.CANCEL}
                             disabled={isSelf}
                             onSuccess={() => handleSubscribeSuccess(index)}
                         >

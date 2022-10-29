@@ -8,7 +8,7 @@ import SongActions from 'components/business/SongActions'
 import SubTitle from 'components/SubTitle'
 import QuestionPopover from 'components/Popover/QuestionPopover'
 import {renderArtists} from 'utils/song'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {requestListeningRankingList} from 'services/user'
 
 import './index.scss'

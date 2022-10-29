@@ -6,7 +6,7 @@ import SinglePlay from 'components/business/SinglePlay'
 import SongActions from 'components/business/SongActions'
 import Empty from 'components/Empty'
 import {formatDuration} from 'utils'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 
 import './index.scss'
 

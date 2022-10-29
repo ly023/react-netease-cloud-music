@@ -28,7 +28,7 @@
   position: relative;
   z-index: 1;
   width: 982px;
-  height: 284px;
+  //height: 284px;
   margin: 0 auto;
 
   :global {
@@ -101,59 +101,9 @@
       display: block;
     }
 
-    img {
+    .image {
+      display: inline-block;
       vertical-align: top;
-    }
-  }
-
-  .download {
-    position: absolute;
-    top: 0;
-    right: -1px;
-    z-index: 20;
-    width: 254px;
-    height: 284px;
-
-    @extend %background-download;
-
-    a {
-      display: block;
-      width: 215px;
-      height: 56px;
-      margin: 186px 0 0 19px;
-      text-indent: -9999px;
-      background-position: 0 9999px;
-
-      @extend %background-download;
-
-      &:hover {
-        background-position: 0 -290px;
-      }
-    }
-
-    p {
-      margin: 10px auto;
-      color: #8d8d8d;
-      text-align: center;
-    }
-
-    .shadow-left,
-    .shadow-right {
-      position: absolute;
-      top: 0;
-      left: -20px;
-      display: block;
-      width: 20px;
-      height: 284px;
-      background-position: -1px 0;
-
-      @extend %background-banner;
-    }
-
-    .shadow-right {
-      right: -20px;
-      left: auto;
-      background-position: -20px 0;
     }
   }
 }

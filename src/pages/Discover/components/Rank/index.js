@@ -27,12 +27,13 @@ function Rank() {
         const fetchRankList = async () => {
             try {
                 setLoading(true)
-                const {playlist: soaringRank} = await requestRankList({id: 19723756})
-                const {playlist: newRank} = await requestRankList({id: 3779629})
-                const {playlist: hotRank} = await requestRankList({id: 2884035})
+                // const {playlist: soaringRank} = await requestRankList({id: 19723756}) // 飙升榜
+                const {playlist: hotRank} = await requestRankList({id: 3778678}) // 热歌榜
+                const {playlist: newRank} = await requestRankList({id: 3779629}) // 新歌榜
+                const {playlist: originalRank} = await requestRankList({id: 2884035}) // 原创榜
 
                 if(isMounted.current) {
-                    setRankList([soaringRank, newRank, hotRank])
+                    setRankList([hotRank, newRank, originalRank])
                 }
             } finally {
                 if(isMounted.current) {
@@ -86,7 +87,7 @@ function Rank() {
                                         </Play>
                                         <SubscribePlaylist
                                             id={id}
-                                            type={rank.subscribed ? PLAYLIST_COLLECTION_TYPE.CANCEL : PLAYLIST_COLLECTION_TYPE.OK}
+                                            type={rank.subscribed ? PLAYLIST_COLLECTION_TYPE.OK : PLAYLIST_COLLECTION_TYPE.CANCEL}
                                             onSuccess={() => handleSubscribeSuccess(index)}
                                         >
                                             <a
@@ -109,8 +110,7 @@ function Rank() {
                                             styleName={`item${no % 2 === 1 ? ' item-event' : ''}`}>
                                             <span
                                                 styleName={`no ${no <= 3 ? 'no-top' : ''}`}>{no}</span>
-                                            <Link to={`/song/${id}`}
-                                                styleName='item-name'>{name}</Link>
+                                            <Link to={`/song/${id}`} styleName='item-name' title={name}>{name}</Link>
                                             <div styleName='item-operation'>
                                                 <Play
                                                     type={PLAY_TYPE.SINGLE.TYPE}
@@ -137,7 +137,7 @@ function Rank() {
                                     })
                                 }
                                 <li styleName="item-more">
-                                    <a href={`/discover/toplist?id=${id}`} styleName="item-all">查看全部></a>
+                                    <a href={`/discover/toplist?id=${id}`} styleName="item-all">查看全部&nbsp;></a>
                                 </li>
                             </ul>
                         </>

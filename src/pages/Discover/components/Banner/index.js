@@ -64,7 +64,7 @@ function Banner() {
 
     const renderImage = useCallback((item) => {
         const {targetType, targetId, imageUrl} = item
-        const image = <img src={imageUrl} alt="" style={{width: 730, height: 284}}/>
+        const image = <img src={imageUrl} alt="" styleName="image"/>
         switch (targetType) {
             case TARGET_TYPE.SONG.TYPE:
                 return <Link to={`/song/${targetId}`}>
@@ -96,12 +96,6 @@ function Banner() {
     return <section style={backgroundStyle} styleName="wrapper">
         <div styleName='banner'>
             {renderBanners}
-            <div styleName='download'>
-                <Link to='/download' hidefocus='true'>下载客户端</Link>
-                <p>PC 安卓 iPhone WP iPad Mac 六大客户端</p>
-                <span styleName='shadow-left'/>
-                <span styleName='shadow-right'/>
-            </div>
         </div>
     </section>
 }

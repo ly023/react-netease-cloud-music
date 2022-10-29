@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
 import authDecorator from 'hoc/auth'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {requestDetail as requestUserDetail} from 'services/user'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import Page from 'components/Page'

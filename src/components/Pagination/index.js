@@ -3,7 +3,7 @@
  */
 import {useCallback, useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {scrollIntoView} from 'utils'
 import {PAGINATION_LIMIT} from 'constants'
 

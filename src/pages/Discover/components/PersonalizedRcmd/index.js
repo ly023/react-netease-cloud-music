@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
 import PlaylistItem from 'components/business/PlaylistItem'
 import {requestRcmdPlaylist} from 'services/rcmd'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 
 import './index.scss'
 

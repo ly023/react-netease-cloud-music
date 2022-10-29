@@ -4,12 +4,11 @@ import Add from 'components/business/Add'
 import Play from 'components/business/Play'
 import AddToPlaylist from 'components/business/AddToPlaylist'
 import SongTable from 'components/business/SongTable'
-import ClientDownload from 'components/business/ClientDownload'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import {PLAY_TYPE} from 'constants/music'
 import {requestRcmdSongs} from 'services/rcmd'
 import {requestDetail} from 'services/user'
-import useShallowEqualSelector from 'utils/useShallowEqualSelector'
+import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {parseSongs} from 'utils/song'
 
 import './index.scss'
@@ -65,6 +64,8 @@ function DailyRecommendation() {
 
     const songIds = useMemo(() => Array.isArray(songs) ? songs.map(v => v.id) : [], [songs])
 
+    console.log('info', info)
+
     return <Page title={documentTitle}>
         <div className="main">
             <div className="left-wrapper">
@@ -115,7 +116,6 @@ function DailyRecommendation() {
                         </ul>
                         <p>你提供给云音乐的信息越多，它就越了解你的音乐喜好。</p>
                     </div>
-                    <ClientDownload/>
                 </div>
             </div>
         </div>

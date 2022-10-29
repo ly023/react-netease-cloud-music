@@ -1,6 +1,10 @@
 import config from 'config'
 
 export default {
+    // 热门歌手
+    top: {
+      url: `${config.apiHost}/top/artists`
+    },
     // 歌手分类列表
     list: {
         url: `${config.apiHost}/artist/list`,

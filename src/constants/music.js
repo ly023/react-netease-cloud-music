@@ -1,3 +1,4 @@
+// https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e6%ad%8c%e6%9b%b2%e8%af%a6%e6%83%85
 export const PLAY_TYPE = {
     SINGLE: {
         TYPE: 'single',
@@ -27,9 +28,12 @@ export const PLAY_MODE = {
     LOOP: 2, // 单曲循环
 }
 
+// fee 为 1 或 8 的歌曲均可单独购买 2 元单曲
 export const FEE_TYPE = {
-    FEE: [1, 4], // 收费
-    FREE: [0, 8], // 免费
+    FREE_OR_NO_COPYRIGHT: 0, // 免费或无版权
+    VIP: 1, // VIP歌曲
+    PURCHASE: 4, // 购买专辑
+    MEMBER: 8, // 非会员可免费播放低音质，会员可播放高音质及下载
 }
 
 export const DEFAULT_SECOND = -1

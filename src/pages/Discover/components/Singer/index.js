@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
-import {requestArtist} from 'services/artist'
+import {requestTopArtist} from 'services/artist'
 import {getThumbnail} from 'utils'
 
 import './index.scss'
@@ -11,8 +11,8 @@ function Singer() {
 
     useEffect(() => {
         const fetchArtist = async () => {
-            const params = {limit: 5, cat: 5001} // 5001：入驻歌手
-            const res = await requestArtist(params)
+            const params = {limit: 8}
+            const res = await requestTopArtist(params)
             if (isMounted.current) {
                 setArtists(res.artists)
             }
@@ -28,7 +28,7 @@ function Singer() {
 
     return <section styleName="wrapper">
         <h3 styleName="title">
-            <span className="fl">入驻歌手</span>
+            <span className="fl">热门歌手</span>
             <a href={null} styleName="more">查看全部 ></a>
         </h3>
         <ul styleName="list">
@@ -47,9 +47,6 @@ function Singer() {
                 })
             }
         </ul>
-        <a href={null} styleName="apply">
-            <i>申请成为网易云音乐人</i>
-        </a>
     </section>
 }
 
