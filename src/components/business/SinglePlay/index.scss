@@ -1,23 +1,17 @@
 .play {
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-  background-position: 0 -103px;
+  color: $font-color;
   cursor: pointer;
 
-  @extend %background-table;
-
   &:hover {
-    background-position: 0 -128px;
+    opacity: 0.8;
   }
 
   &.active {
-    background-position: -20px -128px;
+    color: $light-primary-color;
   }
 
   &.disabled,
   &.disabled:hover {
-    background-position: 0 -103px;
     cursor: default;
     opacity: 0.5;
   }

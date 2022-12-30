@@ -64,8 +64,6 @@ function DailyRecommendation() {
 
     const songIds = useMemo(() => Array.isArray(songs) ? songs.map(v => v.id) : [], [songs])
 
-    console.log('info', info)
-
     return <Page title={documentTitle}>
         <div className="main">
             <div className="left-wrapper">

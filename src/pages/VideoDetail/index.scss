@@ -87,7 +87,7 @@
   .btn {
     margin-right: 10px;
 
-    @extend %new-button;
+    @extend %button;
   }
 }
 

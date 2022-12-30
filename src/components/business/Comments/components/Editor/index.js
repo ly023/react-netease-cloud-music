@@ -5,6 +5,8 @@ import {Component, createRef} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import toast, { Toaster } from 'react-hot-toast'
+import TagFacesIcon from '@mui/icons-material/TagFaces'
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import {DOUBLE_BYTE_CHAR_PATTERN} from 'constants'
 import KEY from 'constants/keyboardEventKey'
 import {getCursorPosition} from 'utils'
@@ -351,8 +353,8 @@ export default class Editor extends Component {
                     />
                 </div>
                 <div className="clearfix" styleName="operation">
-                    <i id="comment-emoji-panel-icon" styleName="icon emoji-icon" onClick={this.showEmojiPanel}/>
-                    <i id="comment-at-list-icon" styleName="icon at-icon" onClick={this.showAtList}/>
+                    <TagFacesIcon id="comment-emoji-panel-icon" styleName="icon" onClick={this.showEmojiPanel}/>
+                    <AlternateEmailIcon id="comment-at-list-icon" styleName="icon" onClick={this.showAtList}/>
                     <a styleName={`submit${loading ? ' loading' : ''}`} onClick={this.handleSubmit}>{submitText}{loading ? '...' : ''}</a>
                     <span styleName={`count${remainingWordsNumber < 0 ? ' error' : ''}`}>{remainingWordsNumber}</span>
                     <EmojiPanel

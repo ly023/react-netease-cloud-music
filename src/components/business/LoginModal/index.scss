@@ -28,53 +28,11 @@
 
 .login-btn,
 .sign-up-btn {
-  @extend %button;
+  @extend %button-primary;
 
   width: 215px;
   margin-top: 10px;
   overflow: hidden;
-}
-
-.login-btn > i,
-.sign-up-btn > i {
-  @extend %button-i;
-
-  width: 180px;
-  padding: 0 15px 0 20px;
-  color: #fff;
-}
-
-.login-btn {
-  background-position: right -428px;
-
-  &:hover {
-    background-position: right -510px;
-
-    > i {
-      background-position: 0 -469px;
-    }
-  }
-
-  > i {
-    background-position: 0 -387px;
-  }
-}
-
-.sign-up-btn {
-  background-position: right -100px;
-
-  > i {
-    color: $font-primary-color;
-    background-position: 0 -59px;
-  }
-
-  &:hover {
-    background-position: right -182px;
-
-    > i {
-      background-position: 0 -141px;
-    }
-  }
 }
 
 .login-sign-up,

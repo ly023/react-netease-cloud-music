@@ -2,10 +2,6 @@
 .sign-in {
   height: 126px;
   padding-top: 0;
-
-  @extend %background-index;
-
-  background-position: 0 0;
 }
 
 .sign-in-text {
@@ -19,20 +15,21 @@
 .sign-in-btn {
   display: block;
   width: 100px;
-  height: 31px;
+  height: 32px;
   margin: 0 auto;
+  padding: 0;
   color: #fff;
-  line-height: 31px;
+  line-height: 32px;
   text-align: center;
   text-shadow: 0 1px 0 #8a060b;
-  background-position: 0 -195px;
+  background-color: $primary-color;
   cursor: pointer;
 
-  @extend %background-index;
+  @extend %button-base;
 
   &:hover {
     text-decoration: none;
-    background-position: -110px -195px;
+    opacity: 0.8;
   }
 }
 

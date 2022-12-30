@@ -24,25 +24,14 @@ function UserSongsRank(props) {
         isMounted.current = true
 
         const fetchUserDetail = async () => {
-            try {
-                const res = await requestUserDetail({uid: userId})
-                if (isMounted.current) {
-                    if (res?.code === -2) {
-                        navigate('/401')
-                    } else {
-                        if (res?.peopleCanSeeMyPlayRecord || (userInfo?.userId === Number(userId))) {
-                            setUserDetail(res)
-                        } else {
-                            navigate('/404')
-                        }
-                        setUserDetail(res)
-                    }
-                }
-            } catch (e) {
-                const code = e?.responseJson?.code
-                if (code === 404) {
+            const res = await requestUserDetail({uid: userId})
+            if (isMounted.current) {
+                if (res?.peopleCanSeeMyPlayRecord || (userInfo?.userId === Number(userId))) {
+                    setUserDetail(res)
+                } else {
                     navigate('/404')
                 }
+                setUserDetail(res)
             }
         }
 

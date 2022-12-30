@@ -4,6 +4,9 @@
 import {useState, useEffect, useCallback, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import {cloneDeep} from 'lodash'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
+import AddIcon from '@mui/icons-material/Add'
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import Add from 'components/business/Add'
 import Play from 'components/business/Play'
 import ListLoading from 'components/ListLoading'
@@ -81,9 +84,10 @@ function Rank() {
                                         >
                                             <a
                                                 href={null}
-                                                styleName='icon top-play-icon'
                                                 title="播放"
-                                            >播放</a>
+                                            >
+                                                <PlayCircleOutlineIcon styleName='top-play-icon'/>
+                                            </a>
                                         </Play>
                                         <SubscribePlaylist
                                             id={id}
@@ -92,10 +96,9 @@ function Rank() {
                                         >
                                             <a
                                                 href={null}
-                                                styleName='icon top-subscribe-icon'
                                                 title="收藏"
                                             >
-                                                收藏
+                                                <LibraryAddIcon styleName='top-subscribe-icon'/>
                                             </a>
                                         </SubscribePlaylist>
                                     </div>
@@ -118,19 +121,23 @@ function Rank() {
                                                 >
                                                     <a
                                                         href={null}
-                                                        title={'播放'}
-                                                        styleName='icon play-icon'
-                                                    />
+                                                        title="播放"
+                                                    >
+                                                        <PlayCircleOutlineIcon styleName='icon' />
+                                                    </a>
                                                 </Play>
                                                 <Add type={PLAY_TYPE.SINGLE.TYPE} id={id}>
                                                     <a
                                                         href={null}
-                                                        title={'添加到播放列表'}
-                                                        styleName='icon add-icon'
-                                                    />
+                                                        title="添加到播放列表"
+                                                    >
+                                                        <AddIcon styleName='icon'/>
+                                                    </a>
                                                 </Add>
                                                 <AddToPlaylist songIds={[id]}>
-                                                    <a href={null} title={'收藏'} styleName='icon subscribe-icon'/>
+                                                    <a href={null} title="收藏">
+                                                        <LibraryAddIcon styleName='icon' />
+                                                    </a>
                                                 </AddToPlaylist>
                                             </div>
                                         </li>

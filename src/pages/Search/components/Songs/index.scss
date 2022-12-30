@@ -28,17 +28,6 @@
 
     @extend %background-table;
 
-    &.mv-icon {
-      width: 23px;
-      height: 17px;
-      margin-left: 4px;
-      background-position: 0 -151px;
-
-      &:hover {
-        background-position: -30px -151px;
-      }
-    }
-
     &.add-icon {
       width: 13px;
       height: 13px;
@@ -76,6 +65,17 @@
       &:hover {
         background-position: -104px -174px;
       }
+    }
+  }
+
+  .mv-icon {
+    margin-left: 6px;
+    color: $primary-color;
+    font-size: 24px;
+    vertical-align: middle;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 

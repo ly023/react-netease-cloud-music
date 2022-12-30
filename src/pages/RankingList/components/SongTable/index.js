@@ -1,6 +1,7 @@
 import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import ListLoading from 'components/ListLoading'
 import SinglePlay from 'components/business/SinglePlay'
@@ -49,12 +50,14 @@ function SongTable(props) {
                         </td>
                         <td>
                             {isTop ? <img src={getThumbnail(album?.picUrl, 50)} styleName="album-cover" alt=""/> : null}
-                            <SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/>
+                            <span styleName="play-icon"><SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/></span>
                             <div styleName={`name ${isTop ? 'top' : ''}`}>
                                 <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>
                                 {alias && alias.length ?
                                     <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
-                                {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                {item.mv ? <Link to={`/mv/${item.mv}`} >
+                                    <MusicVideoIcon styleName="mv-icon" />
+                                </Link> : null}
                             </div>
                         </td>
                         <td>

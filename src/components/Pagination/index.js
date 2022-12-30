@@ -3,6 +3,8 @@
  */
 import {useCallback, useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {scrollIntoView} from 'utils'
 import {PAGINATION_LIMIT} from 'constants'
@@ -87,6 +89,7 @@ function Pagination(props) {
             styleName={`page prev${prevDisabled ? ' disabled' : ''}`}
             onClick={handlePrev}
         >
+            <KeyboardArrowLeftIcon styleName="arrow-icon" />
             上一页
         </span>
         {renderPages}
@@ -95,6 +98,7 @@ function Pagination(props) {
             onClick={handleNext}
         >
             下一页
+           <KeyboardArrowRightIcon styleName="arrow-icon"/>
         </span>
     </div>
 }

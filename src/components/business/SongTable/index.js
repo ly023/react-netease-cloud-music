@@ -1,6 +1,7 @@
 import {useCallback, useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import ListLoading from 'components/ListLoading'
 import Empty from 'components/Empty'
 import SinglePlay from 'components/business/SinglePlay'
@@ -63,14 +64,16 @@ function SongTable(props) {
                                styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                         <td styleName="order">
                             <span styleName="number">{order}</span>
-                            <span styleName="play"><SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/></span>
+                            <span styleName="play">
+                                <SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/>
+                            </span>
                         </td>
                         <td>
                             <div styleName="name">
                                 <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>
                                 {alias && alias.length ?
                                     <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
-                                {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                {item.mv ? <MusicVideoIcon to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
                             </div>
                         </td>
                         <td>

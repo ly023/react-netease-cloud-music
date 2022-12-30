@@ -1,6 +1,7 @@
 import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import {DEFAULT_ARTIST_AVATAR, VIDEO_TYPE} from 'constants'
 import {formatDuration, formatNumber, getThumbnail} from 'utils'
 import {getRenderKeyword} from 'utils/song'
@@ -27,7 +28,7 @@ function Videos(props) {
                         <span styleName="play-time"><span styleName="video-icon"/>{formatNumber(item.playTime, 1)}</span>
                     </div>
                     <p styleName="title">
-                        {isMV ? <span styleName="mv-icon" /> : null}
+                        {isMV ? <MusicVideoIcon styleName="mv-icon" /> : null}
                         <Link to={videoUrl} title={title}>
                             {getRenderKeyword(title, keyword)}
                         </Link>

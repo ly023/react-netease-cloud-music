@@ -49,11 +49,7 @@ function ArtistDetail(props) {
             try {
                 const res = await requestDetail({id: artistId})
                 if(isMounted.current) {
-                    if (res?.code === 200) {
-                        setDetail(res?.data)
-                    } else if (res?.code === 404) {
-                        navigate('/404')
-                    }
+                    setDetail(res?.data)
                 }
             } finally {
 

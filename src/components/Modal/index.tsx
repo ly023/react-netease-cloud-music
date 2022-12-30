@@ -156,7 +156,7 @@ export default class Modal extends Component<ModalProps, ModalState> {
                     <p styleName="popover-title">{title}</p>
                     <span styleName="popover-close" title="关闭窗体" onClick={this.close}>×</span>
                 </div>
-                <div styleName="popover-cont" style={contentStyle}>
+                <div style={contentStyle}>
                     {children}
                 </div>
             </div>

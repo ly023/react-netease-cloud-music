@@ -1,6 +1,7 @@
 import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import ListLoading from 'components/ListLoading'
 import SinglePlay from 'components/business/SinglePlay'
 import SongActions from 'components/business/SongActions'
@@ -36,7 +37,9 @@ function SongList(props) {
                                 <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>
                                 {alias && alias.length ?
                                     <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
-                                {item.mv ? <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                {item.mv ? <Link to={`/mv/${item.mv}`}>
+                                    <MusicVideoIcon styleName="mv-icon" />
+                                </Link> : null}
                             </div>
                         </td>
                         <td>

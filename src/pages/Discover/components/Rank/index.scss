@@ -16,48 +16,6 @@
   }
 }
 
-.icon {
-  display: inline-block;
-  text-indent: -9999px;
-
-  @extend %background-index;
-
-  cursor: pointer;
-}
-
-.play-icon,
-.add-icon,
-.subscribe-icon {
-  width: 17px;
-  height: 17px;
-}
-
-.play-icon {
-  background-position: -267px -268px;
-
-  &:hover {
-    background-position: -267px -288px;
-  }
-}
-
-.add-icon {
-  @extend %background-icon;
-
-  background-position: 0 -700px;
-
-  &:hover {
-    background-position: -22px -700px;
-  }
-}
-
-.subscribe-icon {
-  background-position: -297px -268px;
-
-  &:hover {
-    background-position: -297px -288px;
-  }
-}
-
 .top {
   height: 100px;
   padding: 20px 0 0 20px;
@@ -97,24 +55,12 @@
 
       .top-play-icon,
       .top-subscribe-icon {
-        width: 22px;
-        height: 22px;
         margin-right: 10px;
-      }
-
-      .top-play-icon {
-        background-position: -267px -205px;
+        font-size: 24px;
+        cursor: pointer;
 
         &:hover {
-          background-position: -267px -235px;
-        }
-      }
-
-      .top-subscribe-icon {
-        background-position: -300px -205px;
-
-        &:hover {
-          background-position: -300px -235px;
+          opacity: 0.8;
         }
       }
     }
@@ -137,6 +83,9 @@
 }
 
 .item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding-left: 20px;
   overflow: hidden;
   line-height: 32px;
@@ -145,13 +94,9 @@
     background-color: #e8e8e8;
   }
 
-  .item-operation {
-    display: none;
-  }
-
   .no {
     float: left;
-    width: 35px;
+    width: 32px;
     height: 32px;
     color: $font-color;
     font-size: 16px;
@@ -163,8 +108,7 @@
   }
 
   .item-name {
-    float: left;
-    width: 170px;
+    flex: 1;
     height: 32px;
     color: #000;
     font-size: 12px;
@@ -172,29 +116,33 @@
     @extend %text-ellipsis;
   }
 
-  &:hover {
-    .item-name {
-      width: 96px;
+  .item-operation {
+    display: none;
+    margin-right: 8px;
+    line-height: 1;
+    white-space: nowrap;
+
+    > a {
+      &:not(:last-child) {
+        margin-right: 6px;
+      }
     }
 
+    .icon {
+      display: inline-block;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &:hover {
     .item-operation {
       display: inline-block;
-
-      .play-icon,
-      .add-icon,
-      .subscribe-icon {
-        position: relative;
-        top: 4px;
-      }
-
-      .play-icon {
-        margin-right: 8px;
-      }
-
-      .add-icon {
-        top: 6px;
-        margin: 2px 8px 0 0;
-      }
     }
   }
 }

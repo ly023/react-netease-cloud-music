@@ -231,7 +231,7 @@ export default class Mobile extends Component {
                     hidefocus="true"
                     styleName="login-btn"
                     onClick={this.handleSubmit}
-                ><i>{loading ? '登录中...' : '登录'}</i></a>
+                ><span>{loading ? '登录中...' : '登录'}</span></a>
             </div>
         )
     }

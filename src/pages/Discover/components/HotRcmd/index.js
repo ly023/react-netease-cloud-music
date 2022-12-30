@@ -3,6 +3,8 @@
  */
 import {useState, useEffect, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
+import HeadsetIcon from '@mui/icons-material/Headset'
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline'
 import Play from 'components/business/Play'
 import {PLAY_TYPE} from 'constants/music'
 import ListLoading from 'components/ListLoading'
@@ -47,10 +49,10 @@ function HotRcmd() {
                             <img src={getThumbnail(item.picUrl, 140)}/>
                             <Link to={detailLink} styleName="mask"/>
                             <div styleName="bottom">
-                                <span className="fl" styleName="icon-headset"/>
-                                <span className="fl" styleName="play-num">{formatNumber(item.playCount, 1)}</span>
+                                <HeadsetIcon className="fl" styleName="icon-headset"/>
+                                <span className="fl">{formatNumber(item.playCount, 1)}</span>
                                 <Play type={PLAY_TYPE.PLAYLIST.TYPE} id={id}>
-                                    <span className="fr" styleName="icon-play"/>
+                                   <PlayCircleOutlineIcon className="fr" styleName="icon-play"/>
                                 </Play>
                             </div>
                         </div>

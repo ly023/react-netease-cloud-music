@@ -63,7 +63,7 @@
 
 .title {
   position: relative;
-  margin-top: -5px;
+  margin-top: -4px;
   margin-bottom: 14px;
   margin-left: 64px;
   font-size: 24px;
@@ -76,19 +76,19 @@
   }
 
   &.vip-title {
+    margin-top: 0;
     margin-left: 80px;
   }
 }
 
-.mv-link {
-  i {
-    display: inline-block;
-    width: 21px;
-    height: 18px;
-    margin-left: 7px;
-    background-position: 0 -18px;
+.mv-icon {
+  margin-left: 12px;
+  color: $primary-color;
+  font-size: 22px;
+  vertical-align: middle;
 
-    @extend %background-icon;
+  &:hover {
+    opacity: 0.8;
   }
 }
 
@@ -107,181 +107,68 @@
 }
 
 .operation {
+  display: flex;
+  align-items: center;
   margin: 0 -10px 25px 0;
   overflow: hidden;
   user-select: none;
 
   .vip-play {
-    float: left;
-    width: 100px;
+    @extend %button;
+
+    width: 110px;
     height: 32px;
     margin-right: 4px;
     padding: 0 5px 0 0;
+    color: #fff;
     white-space: nowrap;
-    background: url("~assets/images/vip-play.png") center;
-    background-size: 100% 100%;
-    cursor: pointer;
-    user-select: none;
+    background-color: $light-primary-color;
 
-    i {
-      @extend %button-i;
-
-      padding: 0 15px 0 30px;
-      color: #fff;
+    &:hover {
+      background-color: $light-primary-color;
     }
   }
 
   .btn-play {
-    float: left;
-    white-space: nowrap;
-    text-decoration: none;
-    background-position: right -428px;
+    @extend %button-primary;
 
-    @extend %background-button2;
+    padding: 0 8px;
+    border-right: 1px solid $border-color;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 
-    &:hover {
-      background-position: right -510px;
-
-      i {
-        background-position: 0 -469px;
-      }
-
-      em {
-        background-position: -28px -1622px;
-      }
-    }
-
-    i {
-      @extend %button-i;
-
-      padding: 0 7px 0 8px;
-      color: #fff;
-      background-position: 0 -387px;
-
-      em {
-        float: left;
-        width: 20px;
-        height: 18px;
-        margin: 6px 2px 2px 0;
-        overflow: hidden;
-        background-position: 0 -1622px;
-
-        @extend %background-button2;
-      }
+    span {
+      margin-right: 6px;
+      font-size: 12px;
     }
   }
 
   .btn-play-disabled {
-    float: left;
+    @extend %button-disabled;
+
     margin-right: 6px;
-    padding: 0 5px 0 0;
-    font-family: simsun, " \5b8b\4f53", sans-serif;
-    background-position: right -934px;
-
-    @extend %background-button2;
-
-    i {
-      @extend %u-button-i;
-
-      padding: 0 7px 0 36px;
-      color: #bebebe;
-      background-position: 0 -891px;
-      cursor: default;
-
-      @extend %background-button2;
-    }
   }
 
   .btn-add-play {
-    @extend %u-button;
+    @extend %button-primary;
 
-    margin: 0 5px 0 -3px;
-    padding: 0 8px 0 0;
-    background-position: 0 -1588px;
+    min-width: auto;
+    margin-right: 6px;
+    padding: 0 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 
-    &:hover {
-      background-position: -40px -1588px;
+    svg {
+      margin-right: 0 !important;
     }
   }
 
-  .btn-add-favorite,
-  .btn-share,
-  .btn-download,
-  .btn-comment {
-    @extend %u-button;
+  .action-btn {
+    @extend %button;
 
     margin-right: 6px;
-    padding: 0 5px 0 0;
-    background-position: right -1020px;
-
-    &:hover {
-      background-position: right -1106px;
-    }
-
-    i {
-      @extend %u-button-i;
-
-      padding: 0 2px 0 28px;
-    }
-  }
-
-  .btn-add-favorite {
-    i {
-      background-position: 0 -977px;
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -1063px;
-      }
-    }
-  }
-
-  .btn-share {
-    i {
-      background-position: 0 -1225px;
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -1268px;
-      }
-    }
-  }
-
-  .btn-download {
-    i {
-      background-position: 0 -2761px;
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -2805px;
-      }
-    }
-
-    &.btn-vip-download {
-      margin-right: 6px;
-      font-family: simsun, " \5b8b\4f53", sans-serif;
-      background: url("~assets/images/vip-download.png") no-repeat center;
-      background-size: 100% 100%;
-
-      i {
-        background: transparent;
-      }
-    }
-  }
-
-  .btn-comment {
-    i {
-      background-position: 0 -1465px;
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -1508px;
-      }
-    }
+    padding: 0 8px;
+    text-align: center;
   }
 }
 
@@ -400,12 +287,9 @@
 
   .icon {
     float: left;
-    width: 10px;
-    height: 11px;
+    font-size: 16px;
     cursor: pointer;
-    opacity: 0.9;
-
-    @extend %background-icon2;
+    opacity: 0.8;
 
     &:hover {
       opacity: 1;
@@ -413,11 +297,6 @@
   }
 
   .play-icon {
-    margin-right: 16px;
-    background-position: -69px -455px;
-  }
-
-  .add-icon {
-    background-position: -87px -454px;
+    margin-right: 12px;
   }
 }

@@ -3,6 +3,7 @@
  */
 import {useMemo} from 'react'
 import PropTypes from 'prop-types'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
 import Play from 'components/business/Play'
 import {PLAY_TYPE} from 'constants/music'
 
@@ -22,7 +23,7 @@ function SinglePlay(props) {
     }, [active, disabled])
 
     return <Play id={id} type={type}>
-        <span styleName={iconClassName}/>
+        <PlayCircleOutlineIcon styleName={iconClassName}/>
     </Play>
 }
 

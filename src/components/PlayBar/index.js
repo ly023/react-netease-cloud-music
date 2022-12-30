@@ -249,13 +249,11 @@ export default class PlayBar extends PureComponent {
         // }
         // requestSongDetail({ids: id})
         //     .then((res) => {
-        //         if (res?.code === 200) {
         //             const song = res.songs?.[0]
         //             if (song) {
         //                 this.props.dispatch(setUserPlayer({currentSong: song}))
         //                 this.cachedSongs[id] = song
         //             }
-        //         }
         //     })
     }
 

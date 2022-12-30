@@ -4,6 +4,7 @@
 import {useState, useEffect, useMemo, useRef, memo} from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
 import {PLAY_TYPE} from 'constants/music'
 import Play from 'components/business/Play'
 import {requestNewestAlbum} from 'services/album'
@@ -59,7 +60,7 @@ function NewestAlbum() {
                                         <span styleName="mask"/>
                                     </Link>
                                     <Play id={id} type={PLAY_TYPE.ALBUM.TYPE}>
-                                        <span styleName="play-icon"/>
+                                        <PlayCircleOutlineIcon styleName="play-icon"/>
                                     </Play>
                                 </div>
                                 <Link to={albumLink} styleName="title">{name}</Link>

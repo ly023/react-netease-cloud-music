@@ -47,11 +47,10 @@ function defaultIsSuccessResponse(response) {
 
 /**
  * Requests a URL, returning a promise.
- *
- * @param  {string} url       The URL cwe want to request
+ * @param {string} url       The URL cwe want to request
  * @param fetchOptions
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           An object containing either "data" or "err"
+ * @param {object} [options] The options we want to pass to "fetch"
+ * @return {object}          An object containing either "data" or "err"
  */
 export default function request(url, fetchOptions = {}, options = {}) {
     const defaultFetchOptions = {
@@ -92,27 +91,42 @@ export default function request(url, fetchOptions = {}, options = {}) {
         requestUrl = appendUrlParams(requestUrl, {realIP: '185.199.110.153'})
     }
 
-    return fetch(requestUrl, newOptions).then(function checkStatus(response) {
+    // 针对网易云接口返回接口改造
+    return fetch(requestUrl, newOptions).then((response) => {
         if (options.isSuccessResponse(response)) {
-            return response
+            if(options.returnResponse) {
+                return response
+            }
+            return response.json().then((res) => {
+                const {code} = res
+                return new Promise((resolve, reject) => {
+                    if(!code || code === 200) {
+                        resolve(res)
+                        return
+                    }
+                    if(code === 404) {
+                        window.location.href = '/404'
+                        reject()
+                        return
+                    }
+                    reject(res)
+                })
+            }).catch((e) => {
+                return responseCatch(e)
+            })
         }
-
         return response.json().then((res) => {
             return new Promise((resolve, reject) => {
-                const error = options.getErrorDelegate(response, res)
-                reject(error)
+                const {code, msg} = res
+                if(code === 404) {
+                    window.location.href = '/404'
+                    reject(res)
+                    return
+                }
+                const message = msg || codeMessage[code] || '未知错误'
+                reject({code, message})
             })
-        }).catch((e) => {
-            return responseCatch(e)
         })
-    }).then((response) => {
-        if (options.returnResponse) {
-            return response
-        }
-        if (response.status === 204) {
-            return response.text()
-        }
-        return response.json()
     }).catch((e) => {
         return Promise.reject(e)
     })

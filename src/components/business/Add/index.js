@@ -21,6 +21,8 @@ const types = Object.keys(PLAY_TYPE).map((key) => PLAY_TYPE[key].TYPE)
 function Add(props) {
     const dispatch = useDispatch()
 
+    const {type = PLAY_TYPE.SINGLE.TYPE, id, songs = []} = props
+
     const selectedState = useShallowEqualSelector(({user}) => ({
         playSetting: user.player.playSetting,
         trackQueue: user.player.trackQueue,
@@ -33,8 +35,6 @@ function Add(props) {
         const shuffle = [startIndex].concat(_shuffle(indexes))
         dispatch(setUserPlayer({shuffle}))
     }, [dispatch])
-
-    const {type = PLAY_TYPE.SINGLE.TYPE, id, songs = []} = props
 
     /**
      * 添加规则：顺序添加，随机模式下重新排列shuffle

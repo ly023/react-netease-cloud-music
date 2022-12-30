@@ -4,6 +4,8 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import RadioButtonCheckedOutlinedIcon from '@mui/icons-material/RadioButtonCheckedOutlined'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import Page from 'components/Page'
 import {requestHotCategory} from 'services/playlist'
 import Banner from './components/Banner'
@@ -61,18 +63,21 @@ export default class Discover extends Component {
                             {/* 热门推荐 */}
                             <section styleName='hot'>
                                 <div styleName='title'>
-                                    <Link className='fl' styleName='title-text' to=''>热门推荐</Link>
-                                    <div className='fl' styleName='hot-tab'>
-                                        {
-                                            hotCategories.map((item, index) => {
-                                                return <div key={index} styleName='hot-tab-item'>
-                                                    <Link key={item.id} to={`/discover/playlist?cat=${item.name}`}>{item.name}</Link>
-                                                    {index !== hotCategories.length - 1 ? <span>|</span> : null}
-                                                </div>
-                                            })
-                                        }
+                                    <div styleName="title-main">
+                                        <RadioButtonCheckedOutlinedIcon className='fl' styleName="icon" />
+                                        <Link className='fl' styleName='title-text' to=''>热门推荐</Link>
+                                        <div className='fl' styleName='hot-tab'>
+                                            {
+                                                hotCategories.map((item, index) => {
+                                                    return <div key={index} styleName='hot-tab-item'>
+                                                        <Link key={item.id} to={`/discover/playlist?cat=${item.name}`}>{item.name}</Link>
+                                                        {index !== hotCategories.length - 1 ? <span>|</span> : null}
+                                                    </div>
+                                                })
+                                            }
+                                        </div>
                                     </div>
-                                    <Link styleName='title-more' to='/discover/playlist'>更多<i/></Link>
+                                    <Link styleName='title-more' to='/discover/playlist'>更多<ArrowForwardIcon styleName="more-icon" /></Link>
                                 </div>
                                 <HotRcmd/>
                             </section>
@@ -80,7 +85,10 @@ export default class Discover extends Component {
                             {
                                 isLogin ? <section className='clearfix'>
                                     <div styleName='title'>
-                                        <Link className='fl' styleName='title-text' to='/discover/recommend/daily'>个性化推荐</Link>
+                                        <div styleName="title-main">
+                                            <RadioButtonCheckedOutlinedIcon className='fl' styleName="icon" />
+                                            <Link className='fl' styleName='title-text' to='/discover/recommend/daily'>个性化推荐</Link>
+                                        </div>
                                     </div>
                                     <PersonalizedRcmd/>
                                 </section> : null
@@ -88,16 +96,22 @@ export default class Discover extends Component {
                             {/* 新碟上架 */}
                             <section className="clearfix">
                                 <div styleName="title">
-                                    <Link className="fl" styleName="title-text" to='/discover/album'>新碟上架</Link>
-                                    <Link styleName="title-more" to='/discover/album'>更多<i/></Link>
+                                   <div styleName="title-main">
+                                       <RadioButtonCheckedOutlinedIcon  styleName="icon" />
+                                       <Link className="fl" styleName="title-text" to='/discover/album'>新碟上架</Link>
+                                   </div>
+                                    <Link styleName="title-more" to='/discover/album'>更多<ArrowForwardIcon styleName="more-icon" /></Link>
                                 </div>
                                 <NewestAlbum/>
                             </section>
                             {/* 榜单 */}
                             <section>
                                 <div styleName='title'>
-                                    <Link className='fl' styleName='title-text' to='/discover/toplist'>榜单</Link>
-                                    <Link styleName='title-more' to='/discover/toplist'>更多<i/></Link>
+                                   <div styleName="title-main">
+                                       <RadioButtonCheckedOutlinedIcon styleName="icon" />
+                                       <Link className='fl' styleName='title-text' to='/discover/toplist'>榜单</Link>
+                                   </div>
+                                    <Link styleName='title-more' to='/discover/toplist'>更多<ArrowForwardIcon styleName="more-icon" /></Link>
                                 </div>
                                 <Rank/>
                             </section>

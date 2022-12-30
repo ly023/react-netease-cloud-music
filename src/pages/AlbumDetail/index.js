@@ -5,6 +5,11 @@ import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
+import AddIcon from '@mui/icons-material/Add'
+import ShareIcon from '@mui/icons-material/Share'
+import ChatIcon from '@mui/icons-material/Chat'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import withRouter from 'hoc/withRouter'
 import Page from 'components/Page'
 import Comments from 'components/business/Comments'
@@ -148,33 +153,30 @@ class AlbumDetail extends Component {
                                     </div>
                                     <div styleName="operation">
                                         <Play id={detail.id} type={PLAY_TYPE.ALBUM.TYPE}>
-                                            <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                                            <a href={null} styleName="btn-play" title="播放">
+                                                <PlayCircleOutlineIcon/>
+                                                <span>播放</span>
+                                            </a>
                                         </Play>
                                         <Add id={detail.id} type={PLAY_TYPE.ALBUM.TYPE}>
-                                            <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                                            <a href={null} styleName="btn-add-play" title="添加到播放列表">
+                                                <AddIcon/>
+                                            </a>
                                         </Add>
                                         <AddToPlaylist
                                             songIds={Array.isArray(detail?.songs) ? detail.songs.map(v => v.id) : []}>
-                                            <a
-                                                href={null}
-                                                styleName="btn-add-favorite"
-                                            >
-                                                <i>{detail.subscribedCount ? `(${formatNumber(detail.subscribedCount)})` : '收藏'}</i>
+                                            <a href={null} styleName="action-btn">
+                                                <span data-content={detail.subscribedCount ? `(${formatNumber(detail.subscribedCount)})` : '收藏'}/>
                                             </a>
                                         </AddToPlaylist>
-                                        <a
-                                            href={null}
-                                            styleName="btn-share"
-                                        >
-                                            <i>{detail.info?.shareCount ? `(${formatNumber(detail.info?.shareCount)})` : '分享'}</i>
+                                        <a href={null} styleName="action-btn">
+                                            <ShareIcon/>
+                                            <span>{detail.info?.shareCount ? `(${formatNumber(detail.info?.shareCount)})` : '分享'}</span>
                                         </a>
-                                        <a href={null} styleName="btn-download"><i>下载</i></a>
-                                        <a
-                                            href={null}
-                                            styleName="btn-comment"
-                                            onClick={this.handleComment}
-                                        >
-                                            <i>{detail.info?.commentCount ? `(${detail.info?.commentCount})` : '评论'}</i>
+                                        {/*<a href={null} styleName="btn-download"><i>下载</i></a>*/}
+                                        <a href={null} styleName="action-btn" onClick={this.handleComment}>
+                                            <ChatIcon/>
+                                            <span>{detail.info?.commentCount ? `(${detail.info?.commentCount})` : '评论'}</span>
                                         </a>
                                     </div>
                                 </div>
@@ -222,13 +224,11 @@ class AlbumDetail extends Component {
                                                        styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
                                                 <td styleName="order">
                                                     <span styleName="number">{order}</span>
-                                                    <span styleName="play">
-                                                            <SinglePlay
-                                                                id={id}
-                                                                active={currentSong?.id === id}
-                                                                disabled={disabled}
-                                                            />
-                                                        </span>
+                                                    <SinglePlay
+                                                        id={id}
+                                                        active={currentSong?.id === id}
+                                                        disabled={disabled}
+                                                    />
                                                 </td>
                                                 <td>
                                                     <div styleName="name">
@@ -236,7 +236,9 @@ class AlbumDetail extends Component {
                                                         {alias && alias.length ? <span styleName="alias"
                                                                                        title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
                                                         {item.mv ?
-                                                            <Link to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                                            <Link to={`/mv/${item.mv}`}>
+                                                                <MusicVideoIcon styleName="mv-icon" />
+                                                            </Link> : null}
                                                     </div>
                                                 </td>
                                                 <td>

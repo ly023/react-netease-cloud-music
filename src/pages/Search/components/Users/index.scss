@@ -41,7 +41,7 @@
     margin: 0 10px;
 
     .follow {
-      @extend %new-button;
+      @extend %button;
     }
   }
 

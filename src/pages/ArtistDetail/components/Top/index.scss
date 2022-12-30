@@ -1,56 +1,35 @@
 .actions {
+  display: flex;
+  align-items: center;
   margin: 20px 0 10px;
   overflow: hidden;
+  user-select: none;
 
   .btn-play {
-    float: left;
-    white-space: nowrap;
-    text-decoration: none;
-    background-position: right -428px;
+    @extend %button-primary;
 
-    @extend %background-button2;
+    padding: 0 8px;
+    border-right: 1px solid $border-color;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 
-    &:hover {
-      background-position: right -510px;
-
-      i {
-        background-position: 0 -469px;
-      }
-
-      em {
-        background-position: -28px -1622px;
-      }
-    }
-
-    i {
-      @extend %button-i;
-
-      padding: 0 7px 0 8px;
-      color: #fff;
-      background-position: 0 -387px;
-
-      em {
-        float: left;
-        width: 20px;
-        height: 18px;
-        margin: 6px 2px 2px 0;
-        overflow: hidden;
-        background-position: 0 -1622px;
-
-        @extend %background-button2;
-      }
+    span {
+      margin-right: 6px;
+      font-size: 12px;
     }
   }
 
   .btn-add-play {
-    @extend %u-button;
+    @extend %button-primary;
 
-    margin: 0 5px 0 -3px;
-    padding: 0 8px 0 0;
-    background-position: 0 -1588px;
+    min-width: auto;
+    margin-right: 6px;
+    padding: 0 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 
-    &:hover {
-      background-position: -40px -1588px;
+    svg {
+      margin-right: 0 !important;
     }
   }
 }

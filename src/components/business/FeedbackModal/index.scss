@@ -65,8 +65,6 @@
   white-space: nowrap;
 
   > i {
-    @extend %button-i;
-
     width: 55px;
     padding: 0 15px 0 20px;
     pointer-events: none;

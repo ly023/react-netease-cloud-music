@@ -1,5 +1,7 @@
 import {useState, useEffect, useCallback, useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import ListLoading from 'components/ListLoading'
 import Confirm from 'components/Confirm'
@@ -150,13 +152,11 @@ function MyMusicSidebar(props) {
     const handleDeletePlaylist = useCallback(async () => {
         try {
             setDeleteLoading(true)
-            const res = await deleteUserPlaylist({
+            await deleteUserPlaylist({
                 id: activePlaylistId,
             })
-            if (res?.code === 200) {
-                filterPlaylists(activePlaylistId)
-                handleCancelDeleteConfirm()
-            }
+            filterPlaylists(activePlaylistId)
+            handleCancelDeleteConfirm()
         } finally {
             if (isMounted.current) {
                 setDeleteLoading(false)
@@ -178,8 +178,8 @@ function MyMusicSidebar(props) {
                             <div title={name} styleName="name">{name}</div>
                             <div styleName="count">{trackCount}首</div>
                             {specialType === DEFAULT_PLAYLIST_TYPE ? null : <div styleName="actions">
-                                <span styleName="edit"/>
-                                <span styleName="delete" onClick={(e) => handleShowDeleteConfirm(e, id)}/>
+                                <EditIcon styleName="icon"/>
+                                <DeleteIcon styleName="icon" onClick={(e) => handleShowDeleteConfirm(e, id)}/>
                             </div>}
                         </div>
                     </li>

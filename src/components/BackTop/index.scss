@@ -2,10 +2,10 @@
   position: fixed;
   bottom: 160px;
   left: 50%;
-  width: 49px;
-  height: 44px;
   margin-left: 500px;
-  text-indent: -9999px;
-  background: url("~assets/images/sprite.png") no-repeat -265px -47px;
   cursor: pointer;
+
+  .back-icon {
+    font-size: 42px;
+  }
 }

@@ -37,8 +37,8 @@ export default class Guide extends Component {
             <div className="clearfix">
                 <div className="fl" styleName="login-guide">
                     <div styleName="login-guide-platform"/>
-                    <a href={null} styleName="login-btn" onClick={() => this.changeMode(LOGIN_MODE.MOBILE.TYPE)}><i>手机号登录</i></a>
-                    <a href={null} styleName="sign-up-btn" onClick={() => this.changeMode(LOGIN_MODE.SIGN_UP.TYPE)}><i>注册</i></a>
+                    <a href={null} styleName="login-btn" onClick={() => this.changeMode(LOGIN_MODE.MOBILE.TYPE)}>手机号登录</a>
+                    <a href={null} styleName="sign-up-btn" onClick={() => this.changeMode(LOGIN_MODE.SIGN_UP.TYPE)}>注册</a>
                 </div>
                 <ul styleName="login-guide-other">
                     <li styleName="login-guide-item">

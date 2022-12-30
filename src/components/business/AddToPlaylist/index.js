@@ -1,3 +1,6 @@
+/**
+ *  收藏歌曲到歌单
+ */
 import {useState, useEffect, useCallback, useRef, cloneElement, Children } from 'react'
 import PropTypes from 'prop-types'
 import toast, { Toaster } from 'react-hot-toast'
@@ -72,17 +75,14 @@ function AddToPlaylist(props) {
             op: 'add',
             pid: playlistId,
             tracks: songIds.join(','),
-        }).then((res) => {
+        }).then(() => {
             if (isMounted.current) {
                 handleCancel()
                 handleCreateModalCancel()
-                const code = res?.body?.code
-                if (code === 200) {
-                    toast.success('收藏成功')
-                } else {
-                    toast.error( getErrorMessage(code))
-                }
+                toast.success('收藏成功')
             }
+        }).catch((err) => {
+            toast.error(getErrorMessage(err.message))
         }).finally(() => {
             setUpdateLoading(false)
         })

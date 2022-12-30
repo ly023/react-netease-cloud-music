@@ -34,25 +34,6 @@
   position: relative;
   padding-top: 10px;
 
-  .icon {
-    display: inline-block;
-    float: left;
-    width: 18px;
-    height: 18px;
-    margin: 0 10px 0 0;
-    cursor: pointer;
-
-    @extend %background-icon;
-  }
-
-  .emoji-icon {
-    background-position: -40px -490px;
-  }
-
-  .at-icon {
-    background-position: -60px -490px;
-  }
-
   .count {
     float: right;
     margin-right: 10px;
@@ -64,23 +45,31 @@
     }
   }
 
+  .icon {
+    font-size: 22px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+
   .submit {
     float: right;
-    width: 46px;
-    height: 25px;
-    color: #fff;
-    line-height: 25px;
-    text-align: center;
-    text-decoration: none;
-    background-position: -84px -64px;
-    cursor: pointer;
-    user-select: none;
 
-    @extend %background-button;
+    @extend %button-primary;
 
-    &.loading,
-    &:hover {
-      background-position: -84px -94px;
+    height: 24px !important;
+    padding: 0 2px !important;
+    font-size: 12px;
+    line-height: 24px;
+
+    &.loading {
+      @extend %button-disabled;
     }
   }
 }

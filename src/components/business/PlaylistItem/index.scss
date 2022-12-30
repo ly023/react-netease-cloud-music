@@ -30,40 +30,28 @@
   position: absolute;
   bottom: 0;
   left: 0;
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 27px;
-  color: #ccc;
-  background-position: 0 -537px;
-
-  @extend %background-cover;
+  color: #fff;
+  background-color: $bg-black-translucent;
 
   .icon-headset {
-    width: 14px;
-    height: 11px;
-    margin: 9px 5px 0 10px;
-    background-position: 0 -24px;
-
-    @extend %background-icon-all;
+    margin: 0 6px;
+    font-size: 16px;
   }
 
   .icon-play {
     position: absolute;
     right: 10px;
     bottom: 5px;
-    width: 16px;
-    height: 17px;
-    background-position: 0 0;
+    font-size: 18px;
     cursor: pointer;
 
-    @extend %background-icon-all;
-
     &:hover {
-      background-position: 0 -60px;
+      opacity: 0.8;
     }
-  }
-
-  .play-num {
-    margin: 6px 0 0;
   }
 }
 

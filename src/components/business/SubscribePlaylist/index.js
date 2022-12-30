@@ -39,6 +39,9 @@ function SubscribePlaylist(props) {
                     toast.success(content)
                     onSuccess && onSuccess()
                 })
+                .catch((err) => {
+                    toast.error(err.message)
+                })
                 .finally(() => {
                     setLoading(false)
                 })

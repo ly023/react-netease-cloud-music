@@ -4,6 +4,13 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import AddIcon from '@mui/icons-material/Add'
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
+import ShareIcon from '@mui/icons-material/Share'
+import ChatIcon from '@mui/icons-material/Chat'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import withRouter from 'hoc/withRouter'
 import Page from 'components/Page'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
@@ -228,7 +235,9 @@ export default class Song extends Component {
                                     {isVip ? <span styleName="vip-label">VIP单曲</span> : <span styleName="label"/>}
                                     <div styleName={`title${isVip ? ' vip-title' : ''}`}>
                                         <span>{detail?.name}</span>
-                                        {detail?.mv ? <Link to={`/mv/${detail?.mv}`} title="播放mv" styleName="mv-link"><i/></Link> : null}
+                                        {detail?.mv ? <Link to={`/mv/${detail?.mv}`} title="播放mv">
+                                            <MusicVideoIcon styleName="mv-icon" />
+                                        </Link> : null}
                                         {detail?.alia && detail.alia.length ? <div styleName="alias">
                                             {alias}
                                         </div> : null}
@@ -251,23 +260,40 @@ export default class Song extends Component {
                                                     title="播放"
                                                     styleName="vip-play"
                                                 >
-                                                    <i>开通VIP畅听</i>
+                                                    <PlayCircleOutlineIcon/>
+                                                    <span>开通VIP畅听</span>
                                                 </a>
                                                 : (hasCopyright ? <>
                                                     <Play id={detail?.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                        <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                                                        <a href={null} styleName="btn-play" title="播放">
+                                                            <PlayCircleOutlineIcon/>
+                                                            <span>播放</span>
+                                                        </a>
                                                     </Play>
                                                     <Add id={detail?.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                        <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                                                        <a href={null} styleName="btn-add-play" title="添加到播放列表">
+                                                            <AddIcon/>
+                                                        </a>
                                                     </Add>
-                                                </> : <a href={null} styleName="btn-play-disabled" title="播放"><i>播放</i></a>)
+                                                </> : <a href={null} styleName="btn-play-disabled" title="播放">
+                                                    <span>播放</span>
+                                                </a>)
                                         }
                                         <AddToPlaylist songIds={detail?.id ? [detail.id] : []}>
-                                            <a href={null} styleName="btn-add-favorite"><i>收藏</i></a>
+                                            <a href={null} styleName="action-btn">
+                                                <LibraryAddIcon/>
+                                                <span>收藏</span>
+                                            </a>
                                         </AddToPlaylist>
-                                        <a href={null} styleName="btn-share"><i>分享</i></a>
+                                        <a href={null} styleName="action-btn">
+                                            <ShareIcon/>
+                                            <span>分享</span>
+                                        </a>
                                         {/*<a href={null} styleName={`btn-download${isVip ? ' btn-vip-download': ''}`}><i>下载</i></a>*/}
-                                        <a href={null} styleName="btn-comment" onClick={this.handleComment}><i>{totalComment ? `(${totalComment})` : '评论'}</i></a>
+                                        <a href={null} styleName="action-btn" onClick={this.handleComment}>
+                                            <ChatIcon/>
+                                            <span>{totalComment ? `(${totalComment})` : '评论'}</span>
+                                        </a>
                                     </div>
                                     <div styleName="lyric-wrapper">
                                         <div styleName={`lyric ${isLyricFolding ? 'fold' : 'unfold'}`}>
@@ -327,10 +353,10 @@ export default class Song extends Component {
                                                 </div>
                                                 <div styleName="oper">
                                                     <Play id={item.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                        <a styleName="icon play-icon" href={null}/>
+                                                        <PlayArrowIcon styleName="icon play-icon" href={null}/>
                                                     </Play>
                                                     <Add id={item.id} type={PLAY_TYPE.SINGLE.TYPE}>
-                                                        <a styleName="icon add-icon" href={null}/>
+                                                        <AddIcon styleName="icon" href={null}/>
                                                     </Add>
                                                 </div>
                                             </li>

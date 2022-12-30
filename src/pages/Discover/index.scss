@@ -1,33 +1,39 @@
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 33px;
-  padding: 0 10px 0 34px;
-  background-position: -225px -156px;
+  padding: 0 10px 0 12px;
   border-bottom: 2px solid $primary-color;
 
-  @extend %background-index;
+  .title-main {
+    display: flex;
+    align-items: center;
 
-  .title-text {
-    color: $font-primary-color;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 28px;
-    text-decoration: none;
+    .icon {
+      color: $primary-color;
+      font-size: 18px;
+    }
+
+    .title-text {
+      margin-left: 12px;
+      color: $font-primary-color;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 28px;
+      text-decoration: none;
+    }
   }
 
   .title-more {
-    float: right;
-    margin-top: 9px;
+    display: flex;
+    align-items: center;
     color: $font-color;
 
-    > i {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-left: 4px;
-      vertical-align: middle;
-      background-position: 0 -240px;
-
-      @extend %background-index;
+    .more-icon {
+      margin-left: 8px;
+      color: $primary-color;
+      font-size: 18px;
     }
   }
 }
@@ -67,7 +73,7 @@
   overflow: hidden;
 
   .hot-tab {
-    margin: 7px 0 0 20px;
+    margin: 0 0 0 20px;
 
     .hot-tab-item {
       display: inline-block;

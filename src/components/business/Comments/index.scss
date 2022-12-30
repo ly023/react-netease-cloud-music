@@ -212,22 +212,26 @@
     user-select: none;
   }
 
+  .time {
+    float: left;
+    margin: 0;
+    color: #999;
+  }
+
   .like {
     cursor: pointer;
 
-    i {
-      display: inline-block;
-      width: 15px;
-      height: 14px;
-      margin: -4px 5px 0 0;
-      vertical-align: -2px;
-      background-position: -150px 0;
-
-      @extend %background-icon2;
+    &.liked {
+      .like-icon {
+        color: $primary-color;
+      }
     }
 
-    &.liked i {
-      background-position: -170px 0;
+    .like-icon {
+      margin-right: 6px;
+      color: #0c73c2;
+      font-size: 18px;
+      vertical-align: bottom;
     }
   }
 
@@ -252,12 +256,6 @@
     &:hover {
       text-decoration: underline;
     }
-  }
-
-  .time {
-    float: left;
-    margin: 0;
-    color: #999;
   }
 }
 

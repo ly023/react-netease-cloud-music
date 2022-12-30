@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop'
 import './index.scss'
 
 const Threshold = 10
@@ -53,8 +54,8 @@ function BackTop(props: BackTopProps) {
         }
     }, [])
 
-    return <div className={visible ? 'block' : 'hide'} styleName='back' onClick={scrollToTop}>
-        回到顶部
+    return <div className={visible ? 'block' : 'hide'} styleName='back' onClick={scrollToTop} title="回到顶部">
+        <VerticalAlignTopIcon styleName="back-icon" />
     </div>
 }
 

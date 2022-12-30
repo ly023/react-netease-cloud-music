@@ -2,7 +2,7 @@
  * 视频详情页
  */
 import {useEffect, useState, useCallback, useMemo, useRef, Fragment} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'services/video'
 import Page from 'components/Page'
 import CustomPlayer from 'components/CustomPlayer'
@@ -15,8 +15,6 @@ import {formatDuration, formatNumber, formatTimestamp, getThumbnail} from 'utils
 import './index.scss'
 
 function VideoDetail(props) {
-    const navigate = useNavigate()
-
     const videoId = props.params?.id
 
     const [detail, setDetail] = useState(null)
@@ -43,15 +41,11 @@ function VideoDetail(props) {
         const fetchDetail = async () => {
             const res = await requestDetail({id: videoId})
             if (isMounted.current) {
-                if (res?.code === 200) {
-                    const data = res?.data
-                    if (data) {
-                        setDetail(data)
-                        const definitions = data?.resolutions?.map(v => v.resolution)
-                        fetchVideoUrls(definitions)
-                    }
-                } else if (res?.code === 404) {
-                    navigate('/404')
+                const data = res?.data
+                if (data) {
+                    setDetail(data)
+                    const definitions = data?.resolutions?.map(v => v.resolution)
+                    fetchVideoUrls(definitions)
                 }
             }
         }

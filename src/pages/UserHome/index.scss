@@ -60,13 +60,13 @@
         }
 
         .btn-send {
-          @extend %new-button;
+          @extend %button;
 
           margin: 0 15px 0 20px;
         }
 
         .btn-follow {
-          @extend %new-button-primary;
+          @extend %button-primary;
 
           .plus {
             margin-right: 6px;
@@ -80,7 +80,7 @@
           float: right;
           margin-left: 20px;
 
-          @extend %new-button;
+          @extend %button;
         }
       }
 

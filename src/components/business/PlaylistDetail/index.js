@@ -5,6 +5,12 @@ import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
+import AddIcon from '@mui/icons-material/Add'
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
+import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck'
+import ShareIcon from '@mui/icons-material/Share'
+import ChatIcon from '@mui/icons-material/Chat'
 import Comments from 'components/business/Comments'
 import {DATE_FORMAT, PLAYLIST_COLLECTION_TYPE} from 'constants'
 import {PLAY_TYPE} from 'constants/music'
@@ -173,37 +179,35 @@ export default class PlaylistDetail extends Component {
                         </div>
                         <div styleName="operation">
                             <Play id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
-                                <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                                <a href={null} styleName="btn-play" title="播放">
+                                    <PlayCircleOutlineIcon />
+                                    <span>播放</span>
+                                </a>
                             </Play>
                             <Add id={detail.id} type={PLAY_TYPE.PLAYLIST.TYPE}>
-                                <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                                <a href={null} styleName="btn-add-play" title="添加到播放列表">
+                                    <AddIcon />
+                                </a>
                             </Add>
-
                             <SubscribePlaylist
                                 id={detail.id}
                                 type={detail.subscribed ? PLAYLIST_COLLECTION_TYPE.OK : PLAYLIST_COLLECTION_TYPE.CANCEL}
                                 disabled={isSelf}
                                 onSuccess={this.handleSubscribeSuccess}
                             >
-                                <a
-                                    href={null}
-                                    styleName={`btn-add-favorite ${detail.subscribed ? 'btn-add-favorite-subscribed' : ''} ${isSelf ? 'btn-add-favorite-dis' : ''}`}
-                                >
-                                    <i data-content={detail.subscribedCount ? `(${formatNumber(detail.subscribedCount)})` : '收藏'}/>
+                                <a href={null} styleName={`action-btn ${isSelf ? 'btn-add-favorite-dis' : ''}`}>
+                                    {detail.subscribed ? <LibraryAddCheckIcon  /> : <LibraryAddIcon/>}
+                                    <span data-content={detail.subscribedCount ? `(${formatNumber(detail.subscribedCount)})` : '收藏'}/>
                                 </a>
                             </SubscribePlaylist>
-                            <a
-                                href={null}
-                                styleName="btn-share"
-                            >
-                                <i>{detail.shareCount ? `(${formatNumber(detail.shareCount)})` : '分享'}</i>
+                            <a href={null} styleName="action-btn">
+                                <ShareIcon />
+                                <span>分享</span>
                             </a>
-                            <a href={null} styleName="btn-download"><i>下载</i></a>
-                            <a
-                                href={null}
-                                styleName="btn-comment"
-                                onClick={this.handleComment}>
-                                <i>({detail?.commentCount || 0})</i>
+                            {/*<a href={null} styleName="btn-download"><i>下载</i></a>*/}
+                            <a href={null} styleName="action-btn" onClick={this.handleComment}>
+                                <ChatIcon/>
+                                <span>{detail?.commentCount || 0 ? `(${detail?.commentCount || 0})` : '评论'}</span>
                             </a>
                         </div>
                         <div styleName="desc">

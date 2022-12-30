@@ -1,4 +1,9 @@
 import PropTypes from 'prop-types'
+import AddIcon from '@mui/icons-material/Add'
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
+import ShareIcon from '@mui/icons-material/Share'
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
+import DeleteIcon from '@mui/icons-material/Delete'
 import {PLAY_TYPE} from 'constants/music'
 import Add from 'components/business/Add'
 import AddToPlaylist from 'components/business/AddToPlaylist'
@@ -25,24 +30,39 @@ function SongActions(props) {
     return <div styleName="actions">
         {
             hasAction('add') ? <Add id={id} type={PLAY_TYPE.SINGLE.TYPE}>
-                <a href={null} styleName="icon add">{ACTION_TYPES.add}</a>
+                <a href={null} styleName="icon-box">
+                    <AddIcon styleName="icon"/>
+                    <span>{ACTION_TYPES.add}</span>
+                </a>
             </Add> : null
         }
         {
             hasAction('favorite')
                 ? <AddToPlaylist songIds={[id]}>
-                    <a href={null} styleName="icon favorite">{ACTION_TYPES.favorite}</a>
+                    <a href={null} styleName="icon-box">
+                        <LibraryAddIcon styleName="icon"/>
+                        <span>{ACTION_TYPES.favorite}</span>
+                    </a>
                 </AddToPlaylist>
                 : null
         }
         {
-            hasAction('share') ? <a href={null} styleName="icon share">{ACTION_TYPES.share}</a> : null
+            hasAction('share') ? <a href={null} styleName="icon-box">
+                <ShareIcon styleName="icon"/>
+                <span>{ACTION_TYPES.share}</span>
+            </a> : null
         }
         {
-            hasAction('download') ? <a href={null} styleName="icon download">{ACTION_TYPES.download}</a> : null
+            hasAction('download') ? <a href={null} styleName="icon-box">
+                <CloudDownloadIcon styleName="icon"/>
+                 <span>{ACTION_TYPES.download}</span>
+            </a> : null
         }
         {
-            hasAction('delete') && isSelf ? <a href={null} styleName="icon delete">{ACTION_TYPES.delete}</a> : null
+            hasAction('delete') && isSelf ? <a href={null} styleName="icon-box">
+                <DeleteIcon styleName="icon"/>
+                <span>{ACTION_TYPES.delete}</span>
+            </a> : null
         }
     </div>
 }

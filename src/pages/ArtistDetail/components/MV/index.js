@@ -5,6 +5,7 @@ import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {useLocation, useNavigate, Link} from 'react-router-dom'
 import {stringify} from 'qs'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
 import ListLoading from 'components/ListLoading'
 import Empty from 'components/Empty'
 import Pagination from 'components/Pagination'
@@ -84,7 +85,7 @@ function MV(props) {
                 return <div key={id} styleName="item">
                     <Link to={url} styleName="cover-box">
                         <img src={getThumbnail(imgurl, 137, 103)} alt="" styleName="cover"/>
-                        <div styleName="mask"><span styleName="icon-play"/></div>
+                        <div styleName="mask"><PlayCircleOutlineIcon styleName="icon-play"/></div>
                     </Link>
                     <Link to={url} styleName="name" title={name}>{name}</Link>
                 </div>

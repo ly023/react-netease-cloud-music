@@ -10,8 +10,6 @@ import PlaylistDetail from 'components/business/PlaylistDetail'
 import SubscribedUsers from 'components/business/SubscribedUsers'
 import RelatedPlaylists from 'components/business/RelatedPlaylists'
 
-import './index.scss'
-
 @withRouter
 export default class PlaylistDetailPage extends Component {
     constructor(props) {

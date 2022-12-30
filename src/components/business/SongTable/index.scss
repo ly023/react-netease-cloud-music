@@ -58,9 +58,7 @@
   }
 
   .even {
-    td {
-      background-color: $bg-color;
-    }
+    background-color: $bg-color;
   }
 
   .track {
@@ -103,10 +101,13 @@
     }
 
     .order {
+      display: inline-flex;
+      align-items: center;
       color: #999;
 
       .number {
-        margin-left: 5px;
+        width: 25px;
+        margin: 0 8px 0 5px;
       }
 
       .new {
@@ -121,9 +122,12 @@
       }
 
       .play {
-        float: right;
-        height: 17px;
-        line-height: 15px;
+        width: 20px;
+        height: 20px;
+
+        svg {
+          font-size: 20px;
+        }
       }
     }
 
@@ -137,18 +141,13 @@
       }
 
       .mv-icon {
-        display: inline-block;
-        width: 23px;
-        height: 17px;
-        margin: 0 0 0 4px;
+        margin-left: 6px;
+        color: $primary-color;
+        font-size: 20px;
         vertical-align: middle;
-        background-position: 0 -151px;
-        cursor: pointer;
-
-        @extend %background-table;
 
         &:hover {
-          background-position: -30px -151px;
+          opacity: 0.8;
         }
       }
     }

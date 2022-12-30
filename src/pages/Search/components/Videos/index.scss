@@ -35,8 +35,6 @@
     color: #fff;
     line-height: 20px;
     text-shadow: -2px 1px rgba(0, 0, 0, 0.4);
-
-    @extend %mask;
   }
 
   .time {
@@ -79,14 +77,10 @@
   font-size: 14px;
 
   .mv-icon {
-    display: inline-block;
-    width: 26px;
-    height: 16px;
-    margin: -2px 4px 0 0;
+    margin-right: 6px;
+    color: $primary-color;
+    font-size: 24px;
     vertical-align: middle;
-    background-position: -270px -480px;
-
-    @extend %background-icon2;
   }
 }
 

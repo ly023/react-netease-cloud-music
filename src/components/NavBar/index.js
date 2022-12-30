@@ -1,6 +1,12 @@
 import {Component, createRef} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import PersonIcon from '@mui/icons-material/Person'
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
+import CardMembershipIcon from '@mui/icons-material/CardMembership'
+import SettingsIcon from '@mui/icons-material/Settings'
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 import withRouter from 'hoc/withRouter'
 import NavLink from 'components/NavLink'
 import pubsub from 'utils/pubsub'
@@ -68,14 +74,11 @@ export default class NavBar extends Component {
     }
 
     handleLogout = () => {
-        requestLogout()
-            .then((res) => {
-                if (res.code === 200) {
-                    // 删除自定义的cookie
-                    deleteCookie('CSRF')
-                    window.location.href = '/'
-                }
-            })
+        requestLogout().then(() => {
+            // 删除自定义的cookie
+            deleteCookie('CSRF')
+            window.location.href = '/'
+        })
     }
 
     isBelongToDiscover = () => {
@@ -177,7 +180,8 @@ export default class NavBar extends Component {
                                     <NavLink
                                         to='/my/music'
                                         className={styles['link']}
-                                        activeClassName={styles['link-active']}                                   >
+                                        activeClassName={styles['link-active']}
+                                    >
                                         我的音乐
                                     </NavLink>
                                 </li>
@@ -185,7 +189,8 @@ export default class NavBar extends Component {
                                     <NavLink
                                         to='/friend'
                                         className={styles['link']}
-                                        activeClassName={styles['link-active']}                                   >
+                                        activeClassName={styles['link-active']}
+                                    >
                                         关注
                                     </NavLink>
                                 </li>
@@ -210,50 +215,55 @@ export default class NavBar extends Component {
                                             <i styleName="arrow"/>
                                             <ul styleName="login-list">
                                                 <li styleName="login-item">
-                                                    <i styleName="login-icon login-icon-home"/>
+                                                    <PersonIcon styleName="icon"/>
                                                     <Link to={`/user/home/${userInfo?.userId}`} href={null}>我的主页</Link>
                                                 </li>
                                                 <li styleName="login-item">
-                                                    <i styleName="login-icon login-icon-msg"/>
-                                                    <a href={null}>我的消息{unreadCount ?
-                                                        <span styleName="login-badge">{unreadCount}</span> : null}</a>
+                                                    <MailOutlineIcon styleName="icon"/>
+                                                    <a href={null}>我的消息{unreadCount ? <span styleName="login-badge">{unreadCount}</span> : null}</a>
                                                 </li>
                                                 <li styleName="login-item">
-                                                    <i styleName="login-icon login-icon-level"/><a href={null}>我的等级</a>
+                                                    <CardMembershipIcon styleName="icon"/><a href={null}>我的等级</a>
                                                 </li>
                                                 <li styleName="login-item">
-                                                    <i styleName="login-icon login-icon-member"/><a href={null}>VIP会员</a>
+                                                    <CardMembershipIcon styleName="icon"/><a href={null}>VIP会员</a>
                                                 </li>
                                             </ul>
                                             <ul styleName="login-list">
                                                 <li styleName="login-item">
-                                                    <i styleName="login-icon login-icon-setting"/><a href={null}>个人设置</a>
+                                                    <SettingsIcon styleName="icon"/><a href={null}>个人设置</a>
                                                 </li>
                                                 <li styleName="login-item">
-                                                    <i styleName="login-icon login-icon-verify"/><a href={null}>实名认证</a>
+                                                    <VerifiedUserIcon styleName="icon"/><a href={null}>实名认证</a>
                                                 </li>
                                             </ul>
                                             <ul styleName="login-list">
                                                 <li styleName="login-item" onClick={this.handleLogout}>
-                                                    <i styleName="login-icon login-icon-logout"/>退出
+                                                    <PowerSettingsNewIcon styleName="icon"/>退出
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                     : <div styleName="login">
-                                        <span className="link" styleName="login-status login-text"
-                                              onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}>登录</span>
+                                        <span
+                                            className="link" styleName="login-status login-text"
+                                            onClick={() => this.handleLogin(LOGIN_MODE.GUIDE.TYPE)}
+                                        >登录</span>
                                         <div styleName="login-cont">
                                             <i styleName="arrow"/>
                                             <ul styleName="login-list">
-                                                <li styleName="login-item"
-                                                    onClick={() => this.handleLogin(LOGIN_MODE.MOBILE.TYPE)}>手机号登录
+                                                <li
+                                                    styleName="login-item"
+                                                    onClick={() => this.handleLogin(LOGIN_MODE.MOBILE.TYPE)}
+                                                >手机号登录
                                                 </li>
                                                 <li styleName="login-item"><a href={null}>微信登录</a></li>
                                                 <li styleName="login-item"><a href={null}>QQ登录</a></li>
                                                 <li styleName="login-item"><a href={null}>新浪微博登录</a></li>
-                                                <li styleName="login-item"
-                                                    onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}>网易邮箱账号登录
+                                                <li
+                                                    styleName="login-item"
+                                                    onClick={() => this.handleLogin(LOGIN_MODE.EMAIL163.TYPE)}
+                                                >网易邮箱账号登录
                                                 </li>
                                             </ul>
                                         </div>

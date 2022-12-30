@@ -103,10 +103,17 @@
       vertical-align: middle;
     }
 
+    .play-icon {
+      display: inline-block;
+      line-height: 1;
+      vertical-align: middle;
+    }
+
     .name {
       display: inline-block;
       max-width: 90%;
       margin-left: 8px;
+      vertical-align: middle;
 
       &.top {
         display: inline-block;
@@ -120,18 +127,13 @@
       }
 
       .mv-icon {
-        display: inline-block;
-        width: 23px;
-        height: 17px;
-        margin: 0 0 0 4px;
+        margin-left: 6px;
+        color: $primary-color;
+        font-size: 20px;
         vertical-align: middle;
-        background-position: 0 -151px;
-        cursor: pointer;
-
-        @extend %background-table;
 
         &:hover {
-          background-position: -30px -151px;
+          opacity: 0.8;
         }
       }
     }

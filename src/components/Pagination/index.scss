@@ -25,10 +25,8 @@
   }
 
   &.active {
-    @extend %background-button;
-
     color: #fff;
-    background-position: 0 -650px;
+    background-color: $primary-color;
     border-color: #a2161b;
     cursor: default;
   }
@@ -36,50 +34,29 @@
 
 .prev,
 .next {
-  width: 69px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
   height: 24px;
   padding: 0;
   line-height: 24px;
 
-  @extend %background-button;
+  .arrow-icon {
+    font-size: 18px;
+  }
 
   &:hover {
     border-color: #ccc;
+
+    .arrow-icon {
+      color: #ccc;
+    }
   }
 
   &.disabled,
   &.disabled:hover {
     color: #cacaca;
     cursor: default;
-  }
-}
-
-.prev {
-  width: 47px;
-  padding-left: 22px;
-  background-position: 0 -560px;
-
-  &:hover {
-    background-position: 0 -590px;
-  }
-
-  &.disabled,
-  &.disabled:hover {
-    background-position: 0 -620px;
-  }
-}
-
-.next {
-  width: 57px;
-  padding-left: 12px;
-  background-position: -75px -560px;
-
-  &:hover {
-    background-position: -75px -590px;
-  }
-
-  &.disabled,
-  &.disabled:hover {
-    background-position: -75px -620px;
   }
 }

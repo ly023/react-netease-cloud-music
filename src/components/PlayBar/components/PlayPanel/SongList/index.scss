@@ -1,7 +1,4 @@
 .list {
-  -ms-overflow-style: none;
-  overflow-y: -moz-scrollbars-none;
-
   &::-webkit-scrollbar {
     width: 0 !important;
   }

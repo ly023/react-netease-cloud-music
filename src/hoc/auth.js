@@ -26,9 +26,7 @@ const authDecorator = () => {
                     requestLoginStatus()
                         .then((res) => {
                             const data = res?.data
-                            if (data?.code === 200) {
-                                this.props.dispatch(setUserInfo(data))
-                            }
+                            this.props.dispatch(setUserInfo(data))
                         })
                         .finally(() => {
                             this.setState({loading: false})

@@ -75,8 +75,6 @@
     }
 
     i {
-      @extend %button-i;
-
       padding: 0 7px 0 8px;
       color: #fff;
       background-position: 0 -387px;
@@ -95,7 +93,7 @@
   }
 
   .btn-add-play {
-    @extend %u-button;
+    @extend %button-base;
 
     margin: 0 8px 0 -3px;
     padding: 0 8px 0 0;
@@ -107,26 +105,10 @@
   }
 
   .btn-subscribe {
-    @extend %u-button;
+    @extend %button-base;
 
     margin-right: 6px;
     padding: 0 5px 0 0;
-    background-position: right -1020px;
-
-    &:hover {
-      background-position: right -1106px;
-
-      i {
-        background-position: 0 -1063px;
-      }
-    }
-
-    i {
-      @extend %u-button-i;
-
-      padding: 0 2px 0 28px;
-      background-position: 0 -977px;
-    }
   }
 }
 

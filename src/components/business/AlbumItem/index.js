@@ -2,6 +2,7 @@ import {memo} from 'react'
 import Proptypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline'
 import Play from 'components/business/Play'
 import {PLAY_TYPE} from 'constants/music'
 import {getThumbnail} from 'utils'
@@ -23,7 +24,7 @@ function AlbumItem(props) {
                 <span styleName={`mask${smallSize ? ' small' : ''}`}/>
             </Link>
             <Play id={id} type={PLAY_TYPE.ALBUM.TYPE}>
-                <span styleName="play-icon"/>
+                <PlayCircleOutlineIcon styleName="play-icon"/>
             </Play>
         </div>
         <Link to={albumLink} styleName="title" title={name}>{name}</Link>

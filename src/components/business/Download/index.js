@@ -11,12 +11,10 @@ function Download(props) {
     const fetchSongUrl = (id) => {
         requestResource({id})
             .then((res) => {
-                if (res && res.code === 200) {
-                    const song = res.data?.[0] || {}
-                    const url = song.url
-                    if (url) {
-                        window.open(url)
-                    }
+                const song = res.data?.[0] || {}
+                const url = song.url
+                if (url) {
+                    window.open(url)
                 }
             })
     }

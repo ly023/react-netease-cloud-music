@@ -1,6 +1,8 @@
 import {useMemo, memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import HeadsetIcon from '@mui/icons-material/Headset'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
 import Play from 'components/business/Play'
 import {PLAY_TYPE} from 'constants/music'
 import {formatNumber, getThumbnail} from 'utils'
@@ -18,10 +20,10 @@ function PlaylistItem(props) {
                 <img src={getThumbnail(item.coverUrl, 140)} alt="歌单封面"/>
             </Link>
             <div styleName="bottom">
-                <i className="fl" styleName="icon-headset"/>
-                <span className="fl" styleName="play-num">{formatNumber(item.playCount, 1)}</span>
+                <HeadsetIcon className="fl" styleName="icon-headset"/>
+                <span className="fl">{formatNumber(item.playCount, 1)}</span>
                 <Play type={PLAY_TYPE.PLAYLIST.TYPE} id={id}>
-                    <i className="fr" styleName="icon-play"/>
+                    <PlayCircleOutlineIcon className="fr" styleName="icon-play"/>
                 </Play>
             </div>
         </div>

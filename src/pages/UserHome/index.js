@@ -2,7 +2,7 @@
  * 用户主页
  */
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {throttle} from 'lodash'
 import withRouter from 'hoc/withRouter'
 import useShallowEqualSelector from 'hook/useShallowEqualSelector'
@@ -29,8 +29,6 @@ function getDefaultParams() {
 }
 
 function UserHome(props) {
-    const navigate = useNavigate()
-
     const {isLogin, userInfo} = useShallowEqualSelector(({user}) => ({
         isLogin: user.isLogin,
         userInfo: user.userInfo,
@@ -99,7 +97,7 @@ function UserHome(props) {
                 ...params,
                 offset: params.offset + params.limit
             }
-            fetchPlaylists(query)
+            void fetchPlaylists(query)
         }
     }, [fetchPlaylists, more, params])
 
@@ -129,26 +127,19 @@ function UserHome(props) {
 
     useEffect(() => {
         const fetchUserDetail = async () => {
-            try {
-                resetData()
-                const res = await requestUserDetail({uid: userId})
-                if (isMounted.current) {
-                    setUserDetail(res)
-                    // 用户创建的电台
-                    fetchRadios()
-                    // 用户歌单
-                    fetchPlaylists(getDefaultParams())
-                }
-            } catch (e) {
-                const code = e?.responseJson?.code
-                if (code === 404) {
-                    navigate('/404')
-                }
+            resetData()
+            const res = await requestUserDetail({uid: userId})
+            if (isMounted.current) {
+                setUserDetail(res)
+                // 用户创建的电台
+                fetchRadios()
+                // 用户歌单
+                fetchPlaylists(getDefaultParams())
             }
         }
 
         if (userId) {
-            fetchUserDetail()
+            void fetchUserDetail()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId])

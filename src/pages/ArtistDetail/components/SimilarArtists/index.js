@@ -33,7 +33,10 @@ function SimilarArtists(props) {
                     const data = res?.artists || []
                     setArtists(data.slice(0, 12))
                 }
-            } finally {
+            } catch (error) {
+                console.log(error)
+            }
+            finally {
                 if (isMounted.current) {
                     setLoading(false)
                 }

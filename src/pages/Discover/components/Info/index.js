@@ -39,11 +39,10 @@ function Info() {
             })
             .catch((err) => {
                 // 未登录/重复签到
-                toast.error(err.errorText)
+                toast.error(err.message)
             })
             .finally(() => {
                 if (isMounted.current) {
-
                     setTimeout(()=>{
                         setDailySignInLoading(false)
                     }, 2000)

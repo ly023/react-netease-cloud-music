@@ -3,6 +3,8 @@
  */
 import {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
+import AddIcon from '@mui/icons-material/Add'
 import Add from 'components/business/Add'
 import Play from 'components/business/Play'
 import {PLAY_TYPE} from 'constants/music'
@@ -54,10 +56,15 @@ function Top(props) {
             songs.length ? <div styleName="actions">
                 <div className="fl">
                     <Play type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
-                        <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                        <a href={null} styleName="btn-play" title="播放">
+                            <PlayCircleOutlineIcon/>
+                            <span>播放</span>
+                        </a>
                     </Play>
                     <Add type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
-                        <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                        <a href={null} styleName="btn-add-play" title="添加到播放列表">
+                            <AddIcon/>
+                        </a>
                     </Add>
                 </div>
                 <div className="fr"/>

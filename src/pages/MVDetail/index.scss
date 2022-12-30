@@ -1,68 +1,26 @@
 .title-wrapper {
+  display: flex;
+  align-items: center;
   margin-bottom: 8px;
+
+  .mv-icon {
+    margin-right: 8px;
+    color: $primary-color;
+    font-size: 30px;
+    vertical-align: middle;
+  }
 
   .title {
     max-width: 100%;
-    margin: -10px 0 0;
     font-weight: 400;
     font-size: 24px;
-    line-height: 32px;
+    line-height: 1;
   }
 }
 
 .player {
   width: 640px;
   height: 360px;
-}
-
-.icon {
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer;
-
-  &.mv-icon {
-    width: 29px;
-    height: 18px;
-    margin: -10px 5px 0 0;
-
-    @extend %background-icon2;
-
-    background-position: -230px -480px;
-  }
-
-  &.like-icon {
-    width: 17px;
-    height: 15px;
-    margin: -2px 6px 0 0;
-
-    @extend %background-button2;
-
-    background-position: 0 -95px;
-
-    &.liked {
-      background-position: -30px -95px;
-    }
-  }
-
-  &.subscribe-icon {
-    width: 23px;
-    height: 30px;
-    margin-right: 6px;
-
-    @extend %background-icon2;
-
-    background-position: -108px -14px;
-  }
-
-  &.share-icon {
-    width: 23px;
-    height: 30px;
-    margin-right: 6px;
-
-    @extend %background-icon2;
-
-    background-position: -87px -14px;
-  }
 }
 
 .artist-name {
@@ -89,12 +47,18 @@
 }
 
 .actions {
+  display: flex;
+  align-items: center;
   margin: 12px 0 45px;
 
   .btn {
     margin-right: 10px;
 
-    @extend %new-button;
+    @extend %button;
+
+    .liked {
+      color: $light-primary-color;
+    }
   }
 }
 
@@ -127,15 +91,14 @@
         text-align: right;
         background-color: rgba(0, 0, 0, 0.4);
 
-        .icon {
-          display: inline-block;
-          width: 15px;
-          height: 10px;
-          margin: -2px 2px 0 0;
+        .count {
+          display: inline-flex;
+          align-items: center;
 
-          @extend %background-icon2;
-
-          background-position: -60px -310px;
+          .video-icon {
+            font-size: 18px;
+            vertical-align: middle;
+          }
         }
       }
     }
@@ -170,8 +133,4 @@
       }
     }
   }
-}
-
-.client {
-  margin: 20px 0;
 }

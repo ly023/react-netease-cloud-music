@@ -1,6 +1,7 @@
 import {memo} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import {PLAY_TYPE} from 'constants/music'
 import Add from 'components/business/Add'
 import SinglePlay from 'components/business/SinglePlay'
@@ -37,7 +38,9 @@ function Songs(props) {
                                 <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span>
                                 : ''
                         }
-                        {item.mvid ? <Link to={`/mv/${item.mvid}`} styleName="icon mv-icon"/> : null}
+                        {item.mvid ? <Link to={`/mv/${item.mvid}`}>
+                            <MusicVideoIcon styleName="mv-icon" />
+                        </Link> : null}
                     </div>
                     <div styleName="td operation">
                         <Add id={id} type={PLAY_TYPE.SINGLE.TYPE}>

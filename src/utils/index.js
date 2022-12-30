@@ -226,7 +226,7 @@ export function click(e, id, callback) {
     let elem = e.target
 
     // 删除元素时特殊处理
-    if (elem.className.indexOf('delete') !== -1) {
+    if (typeof elem.className === 'string' && elem.className.indexOf('delete') !== -1) {
         return
     }
 

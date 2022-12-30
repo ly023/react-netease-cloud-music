@@ -1,6 +1,7 @@
 import {useState, useCallback, useMemo} from 'react'
 import PropTypes from 'prop-types'
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import './index.scss'
 
 function Collapse(props) {
@@ -32,8 +33,8 @@ function Collapse(props) {
         {cont}
         {
             showFold ?
-                <div styleName={`fold-ctrl ellipsis ${isFolding ? 'fold' : 'unfold'}`} onClick={ctrlFold}>
-                    {isFolding ? '展开' : '收起'}<i/>
+                <div styleName="fold-ctrl ellipsis" onClick={ctrlFold}>
+                    {isFolding ? <>展开 <KeyboardArrowDownIcon styleName="arrow"/></> : <>收起 <KeyboardArrowUpIcon styleName="arrow"/></>}
                 </div> : null
         }
     </>

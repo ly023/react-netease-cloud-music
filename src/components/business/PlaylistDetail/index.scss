@@ -114,131 +114,66 @@
 }
 
 .operation {
+  display: flex;
+  align-items: center;
   margin: 0 -10px 25px 0;
   overflow: hidden;
   user-select: none;
 
   .btn-play {
-    float: left;
-    white-space: nowrap;
-    text-decoration: none;
-    background-position: right -428px;
+    @extend %button-primary;
 
-    @extend %background-button2;
+    padding: 0 8px;
+    border-right: 1px solid $border-color;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 
-    &:hover {
-      background-position: right -510px;
-
-      i {
-        background-position: 0 -469px;
-      }
-
-      em {
-        background-position: -28px -1622px;
-      }
-    }
-
-    i {
-      @extend %button-i;
-
-      padding: 0 7px 0 8px;
-      color: #fff;
-      background-position: 0 -387px;
-
-      em {
-        float: left;
-        width: 20px;
-        height: 18px;
-        margin: 6px 2px 2px 0;
-        overflow: hidden;
-        background-position: 0 -1622px;
-
-        @extend %background-button2;
-      }
+    span {
+      margin-right: 6px;
+      font-size: 12px;
     }
   }
 
   .btn-play-disabled {
-    float: left;
+    @extend %button-disabled;
+
     margin-right: 6px;
-    padding: 0 5px 0 0;
-    font-family: simsun, " \5b8b\4f53", sans-serif;
-    background-position: right -934px;
-
-    @extend %background-button2;
-
-    i {
-      @extend %u-button-i;
-
-      padding: 0 7px 0 36px;
-      color: #bebebe;
-      background-position: 0 -891px;
-      cursor: default;
-
-      @extend %background-button2;
-    }
   }
 
   .btn-add-play {
-    @extend %u-button;
+    @extend %button-primary;
 
-    margin: 0 5px 0 -3px;
-    padding: 0 8px 0 0;
-    background-position: 0 -1588px;
-
-    &:hover {
-      background-position: -40px -1588px;
-    }
-  }
-
-  .btn-add-favorite,
-  .btn-share,
-  .btn-download,
-  .btn-comment {
-    @extend %u-button;
-
+    min-width: auto;
     margin-right: 6px;
-    padding: 0 5px 0 0;
-    background-position: right -1020px;
+    padding: 0 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 
-    &:hover {
-      background-position: right -1106px;
-    }
-
-    i {
-      @extend %u-button-i;
-
-      padding: 0 2px 0 28px;
+    svg {
+      margin-right: 0 !important;
+      font-size: 20px;
     }
   }
 
-  .btn-add-favorite {
-    &.btn-add-favorite-subscribed,
-    &.btn-add-favorite-dis {
-      background-position: right -1192px;
+  .action-btn {
+    @extend %button;
 
-      &:hover i,
-      i {
-        color: #bebebe;
-        background-position: 0 -1149px;
-      }
-    }
+    position: relative;
+    margin-right: 6px;
+    padding: 0 8px;
+    text-align: center;
 
     &.btn-add-favorite-dis {
       cursor: default;
 
-      &:hover i,
-      i {
+      &:hover span,
+      span {
         cursor: default;
       }
     }
 
     &[data-loading="true"] {
-      i {
-        cursor: default;
-      }
-
-      i::after {
+      span::after {
         width: 14px;
         height: 14px;
         margin: 8px 0 0 6px;
@@ -249,56 +184,12 @@
       }
     }
 
-    i {
+    span {
       position: relative;
-      background-position: 0 -977px;
 
       &::after {
         display: inline-block;
         content: attr(data-content);
-      }
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -1063px;
-      }
-    }
-  }
-
-  .btn-share {
-    i {
-      background-position: 0 -1225px;
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -1268px;
-      }
-    }
-  }
-
-  .btn-download {
-    i {
-      background-position: 0 -2761px;
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -2805px;
-      }
-    }
-  }
-
-  .btn-comment {
-    i {
-      line-height: 28px;
-      background-position: 0 -1465px;
-    }
-
-    &:hover {
-      i {
-        background-position: 0 -1508px;
       }
     }
   }

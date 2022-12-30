@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {cloneDeep} from 'lodash'
 import toast, { Toaster } from 'react-hot-toast'
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined'
 import pubsub from 'utils/pubsub'
 import {setUserCommentInfo} from 'actions/user'
 import {DEFAULT_AVATAR, PAGINATION_LIMIT} from 'constants'
@@ -102,7 +103,7 @@ export default class Comments extends Component {
         this._isMounted = true
         this.props.onRef(this)
         this.requestFunc = COMMENT_TYPES[this.props.type].REQUEST
-        if(Number.isNaN(this.props.id)) {
+        if(!this.props.id || Number.isNaN(this.props.id)) {
             return
         }
         this.fetchFollows()
@@ -225,7 +226,7 @@ export default class Comments extends Component {
         this.setState({commentLoading: true})
         comment(body)
             .then((res) => {
-                if (this._isMounted && res.code === 200) {
+                if (this._isMounted) {
                     this.setState((prevState) => {
                         return {
                             total: prevState.total + 1,
@@ -271,8 +272,8 @@ export default class Comments extends Component {
         }
         this.setState({deleteLoading: true})
         comment(body)
-            .then((res) => {
-                if (this._isMounted && res.code === 200) {
+            .then(() => {
+                if (this._isMounted) {
                     this.setState((prevState) => {
                         const commentKey = this.getCommentKey(commentId)
                         return {
@@ -303,8 +304,8 @@ export default class Comments extends Component {
             }
             this.setState({likeLoading: true})
             like(body)
-                .then((res) => {
-                    if (this._isMounted && res.code === 200) {
+                .then(() => {
+                    if (this._isMounted) {
                         const commentKey = this.getCommentKey(commentId)
                         const comments = cloneDeep(this.state[commentKey])
                         const comment = comments.find(v => v.commentId === commentId)
@@ -355,7 +356,7 @@ export default class Comments extends Component {
         this.setState({replyLoading: true})
         comment(body)
             .then((res) => {
-                if (this._isMounted && res.code === 200) {
+                if (this._isMounted) {
                     this.setState((prevState) => {
                         return {
                             replyVisible: false, // 关闭回复
@@ -480,7 +481,7 @@ export default class Comments extends Component {
                                     <span styleName="space">|</span></> : null}
                                 <span styleName={`like${item?.liked ? ' liked' : ''}`}
                                       onClick={() => this.handleLikeComment(item.commentId, item?.liked)}>
-                                    <i/>
+                                    <ThumbUpAltOutlinedIcon styleName="like-icon" />
                                     {item?.likedCount ? `(${formatNumber(item.likedCount, 1)})` : null}
                                 </span>
                                 <span styleName="space">|</span>

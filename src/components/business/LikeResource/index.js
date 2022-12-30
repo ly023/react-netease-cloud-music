@@ -35,12 +35,10 @@ function LikeResource(props) {
                 id,
                 t: newStatus,
             })
-                .then((res) => {
-                    if (res?.code === 200) {
-                        const content = newStatus ? '点赞成功' : '取消点赞成功'
-                        toast.success(content)
-                        onSuccess && onSuccess(newStatus)
-                    }
+                .then(() => {
+                    const content = newStatus ? '点赞成功' : '取消点赞成功'
+                    toast.success(content)
+                    onSuccess && onSuccess(newStatus)
                 })
                 .finally(() => {
                     setLoading(false)

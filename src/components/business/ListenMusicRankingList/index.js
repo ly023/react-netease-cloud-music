@@ -1,6 +1,6 @@
 import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import ListLoading from 'components/ListLoading'
 import Empty from 'components/Empty'
 import SinglePlay from 'components/business/SinglePlay'
@@ -25,8 +25,6 @@ const ORDER_TYPES = {
 }
 
 function ListenMusicRankingList(props) {
-    const navigate = useNavigate()
-
     const {userId, listenSongs, limit} = props
 
     const {currentSong} = useShallowEqualSelector(({user}) => ({
@@ -56,27 +54,20 @@ function ListenMusicRankingList(props) {
             const res = await requestListeningRankingList({uid: userId, type})
             if (isMounted.current) {
                 const dataKey = type === ORDER_TYPES.LAST_WEEK.TYPE ? 'weekData' : 'allData'
-                const code = res?.code
-                if(code === 200) {
-                    const data = res?.[dataKey] || []
-                    setOriginRankingList(data)
-                    setRankingList(limit ? data.slice(0, limit) : data)
-                } else if(code === -2){
-                    if(!limit) {
-                        navigate('/404')
-                    }
-                }
+                const data = res?.[dataKey] || []
+                setOriginRankingList(data)
+                setRankingList(limit ? data.slice(0, limit) : data)
             }
         } finally {
             if(isMounted.current) {
                 setLoading(false)
             }
         }
-    }, [userId, limit, navigate])
+    }, [userId, limit])
 
     const handleChangeOrderType = useCallback((type) => {
         setOrderType(type)
-        fetchListeningRankingList(type)
+        void fetchListeningRankingList(type)
     }, [fetchListeningRankingList])
 
     const renderOrderTypes = useMemo(() => {

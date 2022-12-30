@@ -111,32 +111,16 @@
       bottom: 0;
       visibility: hidden;
 
-      .edit {
-        display: inline-block;
-        width: 13px;
-        height: 13px;
-        margin-right: 10px;
-        background-position: 0 -270px;
+      .icon {
+        font-size: 18px;
         cursor: pointer;
 
-        @extend %background-icon;
-
-        &:hover {
-          background-position: -20px -270px;
+        + .icon {
+          margin-left: 10px;
         }
-      }
-
-      .delete {
-        display: inline-block;
-        width: 13px;
-        height: 14px;
-        background-position: 0 -284px;
-        cursor: pointer;
-
-        @extend %background-icon;
 
         &:hover {
-          background-position: -20px -284px;
+          opacity: 0.8;
         }
       }
     }

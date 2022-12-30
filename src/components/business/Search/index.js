@@ -4,6 +4,7 @@
 import {Component, createRef} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import SearchIcon from '@mui/icons-material/Search'
 import withRouter from 'hoc/withRouter'
 import {SEARCH_TYPE} from 'constants'
 import KEY from 'constants/keyboardEventKey'
@@ -275,6 +276,7 @@ export default class Search extends Component {
 
     getNavSearchInput = () => {
         return <div styleName="nav-search-bar">
+            <SearchIcon styleName="search-icon" />
             <input
                 ref={this.inputRef}
                 placeholder="音乐/视频/电台/用户"

@@ -39,30 +39,23 @@
 }
 
 .nav-search-bar {
-  position: relative;
-  padding: 6px 10px 0 30px;
+  display: flex;
+  padding: 6px 10px 0 6px;
 
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 24px;
-    height: 24px;
-    background: url("~assets/images/topbar.png") no-repeat 0 -99px;
-    content: "";
+  .search-icon {
+    font-size: 24px;
   }
-}
 
-.nav-search-input {
-  display: inline-block;
-  width: 100%;
-  line-height: 18px;
-  background-color: transparent;
-  border: none;
-  outline: none;
+  .nav-search-input {
+    flex: 1;
+    line-height: 18px;
+    background-color: transparent;
+    border: none;
+    outline: none;
 
-  &::placeholder {
-    color: #9b9b9b;
+    &::placeholder {
+      color: #9b9b9b;
+    }
   }
 }
 

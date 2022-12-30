@@ -1,68 +1,26 @@
 .actions {
   height: 18px;
   white-space: nowrap;
-}
 
-.icon {
-  display: inline-block;
-  width: 18px;
-  height: 16px;
-  margin: 0 0 0 4px;
-  text-indent: -9999px;
-  vertical-align: middle;
-  cursor: pointer;
-}
+  .icon-box {
+    display: inline-block;
 
-.add {
-  width: 13px;
-  height: 13px;
-  margin-left: 0;
+    &:not(:last-child) {
+      margin-right: 6px;
+    }
 
-  @extend %background-icon;
+    .icon {
+      color: $font-color;
+      font-size: 16px;
 
-  background-position: 0 -700px;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
 
-  &:hover {
-    background-position: -22px -700px;
-  }
-}
-
-.favorite {
-  @extend %background-table;
-
-  background-position: 0 -174px;
-
-  &:hover {
-    background-position: -20px -174px;
-  }
-}
-
-.share {
-  @extend %background-table;
-
-  background-position: 0 -195px;
-
-  &:hover {
-    background-position: -20px -195px;
-  }
-}
-
-.download {
-  @extend %background-table;
-
-  background-position: -81px -174px;
-
-  &:hover {
-    background-position: -104px -174px;
-  }
-}
-
-.delete {
-  @extend %background-table;
-
-  background-position: 0 -217px;
-
-  &:hover {
-    background-position: -20px -217px;
+    > span {
+      display: inline-block;
+      text-indent: -9999px;
+    }
   }
 }

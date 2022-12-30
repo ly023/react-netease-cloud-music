@@ -91,12 +91,9 @@
         right: 24px;
         bottom: 6px;
         display: none;
-        width: 22px;
-        height: 22px;
-        background-position: 0 -85px;
+        color: #fff;
+        font-size: 22px;
         cursor: pointer;
-
-        @extend %background-icon-all;
       }
 
       &:hover {
@@ -104,7 +101,7 @@
           display: inline-block;
 
           &:hover {
-            background-position: 0 -110px;
+            opacity: 0.8;
           }
         }
       }

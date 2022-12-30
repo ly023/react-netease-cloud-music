@@ -5,6 +5,7 @@ import {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import {Link, useNavigate, useLocation} from 'react-router-dom'
 import dayjs from 'dayjs'
 import {stringify} from 'qs'
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline'
 import withRouter from 'hoc/withRouter'
 import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 import {requestDetail, requestPrograms} from 'services/radio'
@@ -75,11 +76,7 @@ function RadioDetail(props) {
         const fetchDetail = async () => {
             const res = await requestDetail({rid: radioId})
             if (isMounted.current) {
-                if (res?.code === 200) {
-                    setDetail(res?.data)
-                } else if (res?.code === 404) {
-                    navigate('/404')
-                }
+                setDetail(res?.data)
             }
         }
 
@@ -189,7 +186,7 @@ function RadioDetail(props) {
                                         href={null}
                                         styleName="btn-play"
                                     >
-                                        <i styleName="play-icon"/><span>播放全部</span>
+                                        <PlayCircleOutlineIcon styleName="play-icon"/><span>播放全部</span>
                                     </a>
                                 </Play>
                                 <a

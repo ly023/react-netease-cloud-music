@@ -2,7 +2,12 @@
  * MV详情页
  */
 import {useEffect, useState, useMemo, useRef} from 'react'
-import {Link, useNavigate, useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
+import ShareIcon from '@mui/icons-material/Share'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
+import VideocamIcon from '@mui/icons-material/Videocam'
 import {requestDetail, requestVideoUrl, requestInfo, requestSimilar} from 'services/mv'
 import Page from 'components/Page'
 import CustomPlayer from 'components/CustomPlayer'
@@ -15,7 +20,6 @@ import SubscribeMV from './components/SubscribeMV'
 import './index.scss'
 
 function MVDetail() {
-    const navigate = useNavigate()
     const urlParams = useParams()
 
     const mvId = Number(urlParams?.id)
@@ -45,18 +49,14 @@ function MVDetail() {
         const fetchDetail = async () => {
             const res = await requestDetail({mvid: mvId})
             if (isMounted.current) {
-                if (res?.code === 200) {
-                    const data = res?.data
-                    if (data) {
-                        setDetail({
-                            ...data,
-                            subed: res?.subed
-                        })
-                        const definitions = data?.brs?.map(v => v.br)
-                        fetchVideoUrls(definitions)
-                    }
-                } else if (res?.code === 404) {
-                    navigate('/404')
+                const data = res?.data
+                if (data) {
+                    setDetail({
+                        ...data,
+                        subed: res?.subed
+                    })
+                    const definitions = data?.brs?.map(v => v.br)
+                    fetchVideoUrls(definitions)
                 }
             }
         }
@@ -129,7 +129,9 @@ function MVDetail() {
                         <Link to={mvUrl} styleName="cover">
                             <img src={getThumbnail(cover, 96, 54)} alt=""/>
                             <div styleName="mask">
-                                <span styleName="icon"/>{playCount}
+                               <div styleName="count">
+                                   <VideocamIcon styleName="video-icon"/><span>{playCount}</span>
+                               </div>
                             </div>
                         </Link>
                         <div styleName="meta">
@@ -148,7 +150,7 @@ function MVDetail() {
             <div className="left-wrapper">
                 <div className="left">
                     <div styleName="title-wrapper">
-                        <span styleName="icon mv-icon"/><span styleName="title">{detail?.name}</span>
+                        <MusicVideoIcon styleName="mv-icon"/><span styleName="title">{detail?.name}</span>
                         <Link to={`/artist/${detail?.artistId}`} styleName="artist-name">{detail?.artistName}</Link>
                     </div>
                     <div styleName="player">
@@ -157,16 +159,19 @@ function MVDetail() {
                     <div styleName="actions">
                         <LikeResource type={RESOURCE_TYPE.MV.TYPE} id={mvId} status={!!info?.liked} onSuccess={handleLikedSuccess}>
                             <button styleName="btn">
-                                <span styleName={`icon like-icon ${info?.liked ? 'liked' : ''}`}/>({info?.likedCount || 0})
+                                <ThumbUpIcon styleName={info?.liked ? 'liked' : ''} />
+                                <span>({info?.likedCount || 0})</span>
                             </button>
                         </LikeResource>
                         <SubscribeMV id={mvId} status={!!detail?.subed} onSuccess={handleSubscribeSuccess}>
                             <button styleName="btn">
-                                <span styleName="icon subscribe-icon"/>({detail?.subCount || 0})
+                                <LibraryAddIcon />
+                                <span>({detail?.subCount || 0})</span>
                             </button>
                         </SubscribeMV>
                         <button styleName="btn">
-                            <span styleName="icon share-icon"/>({info?.shareCount || 0})
+                            <ShareIcon/>
+                            <span>({info?.shareCount || 0})</span>
                         </button>
                     </div>
                     <Comments

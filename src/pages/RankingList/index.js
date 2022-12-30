@@ -1,6 +1,11 @@
 import {useState, useEffect, useCallback, useMemo, useRef} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import dayjs from 'dayjs'
+import HistoryIcon from '@mui/icons-material/History'
+import PlayCircleOutlineIcon  from '@mui/icons-material/PlayCircleOutline'
+import AddIcon from '@mui/icons-material/Add'
+import ShareIcon from '@mui/icons-material/Share'
+import ChatIcon from '@mui/icons-material/Chat'
 import Page from 'components/Page'
 import {DEFAULT_DOCUMENT_TITLE} from 'constants'
 import useShallowEqualSelector from 'hook/useShallowEqualSelector'
@@ -152,17 +157,6 @@ function RankingList() {
         return `${name ? `${name} - ` : ''}排行榜 - ${DEFAULT_DOCUMENT_TITLE}`
     }, [currentRank?.name])
 
-    const renderGuide = useMemo(() => {
-        if (songs?.length < detail?.trackCount) {
-            return <div styleName="guide">
-                <div styleName="text">查看更多内容，请下载客户端</div>
-                <Link to="/download" styleName="download">
-                    立即下载
-                </Link>
-            </div>
-        }
-    }, [songs, detail])
-
     const isSelf = detail?.creator?.userId === userInfo?.userId
 
     const currentId = currentRank?.id
@@ -196,28 +190,35 @@ function RankingList() {
                                     </div>
                                     <div styleName="content">
                                         <h2 styleName="title">{currentRank?.name}</h2>
-                                        <div styleName="time"><span
-                                            styleName="clock-icon"/>最近更新：{dayjs(detail?.trackNumberUpdateTime).format('MM-DD')}<span
-                                            styleName="status">（{currentRank?.updateFrequency}）</span></div>
+                                        <div styleName="time">
+                                            <HistoryIcon styleName="clock-icon"/>
+                                            最近更新：{dayjs(detail?.trackNumberUpdateTime).format('MM-DD')}
+                                            <span styleName="status">（{currentRank?.updateFrequency}）</span></div>
                                         <div styleName="operation">
                                             <Play id={currentId} type={PLAY_TYPE.PLAYLIST.TYPE}>
-                                                <a href={null} styleName="btn-play" title="播放"><i><em/>播放</i></a>
+                                                <a href={null} styleName="btn-play" title="播放">
+                                                    <PlayCircleOutlineIcon/>
+                                                    <span>播放</span>
+                                                </a>
                                             </Play>
                                             <Add id={currentId} type={PLAY_TYPE.PLAYLIST.TYPE}>
-                                                <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                                                <a href={null} styleName="btn-add-play" title="添加到播放列表">
+                                                    <AddIcon/>
+                                                </a>
                                             </Add>
                                             <a
                                                 href={null}
-                                                styleName="btn-share"
+                                                styleName="action-btn"
                                             >
-                                                <i>{detail?.shareCount ? `(${formatNumber(detail.shareCount)})` : '分享'}</i>
+                                                <ShareIcon/>
+                                                <span>{detail?.shareCount ? `(${formatNumber(detail.shareCount)})` : '分享'}</span>
                                             </a>
-                                            <a href={null} styleName="btn-download"><i>下载</i></a>
+                                            {/*<a href={null} styleName="btn-download"><span>下载</span></a>*/}
                                             <a
                                                 href={null}
-                                                styleName="btn-comment"
+                                                styleName="action-btn"
                                                 onClick={handleComment}>
-                                                <i>({detail?.commentCount || 0})</i>
+                                                <ChatIcon/><span>({detail?.commentCount || 0})</span>
                                             </a>
                                         </div>
                                     </div>
@@ -235,7 +236,6 @@ function RankingList() {
                                         songs={songs}
                                         isSelf={isSelf}
                                     />
-                                    {renderGuide}
                                 </div>
                                 <Comments
                                     type="PLAYLIST"
