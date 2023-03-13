@@ -13,6 +13,28 @@ export function getCookie(name) {
     return cookies[name]
 }
 
+/** 写入cookie */
+export function setCookie({key, value, expires, path, domain}) {
+    if (!key || /^(?:expires|max\-age|path|domain)$/i.test(key)) {
+        return
+    }
+    let expiresStr = ''
+    if (expires) {
+        switch (expires.constructor) {
+            case Number:
+                expiresStr = expires === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + expires
+                break
+            case String:
+                expiresStr = "; expires=" + expires
+                break
+            case Date:
+                expiresStr = "; expires=" + expires.toString()
+                break;
+        }
+    }
+    document.cookie = encodeURIComponent(key) + "=" + encodeURIComponent(value) + expiresStr + (domain ? "; domain=" + domain : "") + (path ? "; path=" + path : "")
+}
+
 /**
  * 删除cookie
  * @param name

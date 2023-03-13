@@ -1,10 +1,13 @@
 import {Component} from 'react'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import {createForm, formShape} from 'rc-form'
 import FormItem from 'components/FormItem'
 import KEY from 'constants/keyboardEventKey'
 import {isValidMobileNumber} from 'utils'
+import {requestMobileLogin} from 'actions/user'
 import {requestCountryCodeList} from 'services/constants'
+import {setAuthCooKie} from '../../util'
 
 import styles from '../../index.scss'
 
@@ -19,11 +22,11 @@ function parseCountryCodeList(data) {
     return []
 }
 
+@connect()
 @createForm()
 export default class Mobile extends Component {
     static propTypes = {
         form: formShape,
-        onLogin: PropTypes.func,
         afterLogin: PropTypes.func,
     }
 
@@ -95,19 +98,22 @@ export default class Mobile extends Component {
         }
     }
 
-    setAuthCooKie = (cookieStr) => {
-        if(typeof cookieStr === 'string') {
-            const cookies = cookieStr.split(';;')
-            let csrfCookie = cookies.find(s => s.startsWith('__csrf'))
-            if(csrfCookie) {
-                csrfCookie = csrfCookie.replace('__csrf', 'CSRF')
-               document.cookie = csrfCookie
-            }
-        }
+    onSuccess = (res) => {
+        const {afterLogin} = this.props
+        this.setState({loading: false})
+        setAuthCooKie(res?.cookie)
+        afterLogin && afterLogin()
+    }
+
+    onFail = (error) => {
+        this.setState({loading: false})
+        this.setState({
+            responseError: error?.message
+        })
     }
 
     handleSubmit = () => {
-        const {form, onLogin, afterLogin} = this.props
+        const {form} = this.props
         form.validateFields({first: true}, (errors, values) => {
 
             if (!errors) {
@@ -121,19 +127,7 @@ export default class Mobile extends Component {
                 }
 
                 this.setState({loading: true})
-
-                onLogin && onLogin(payload,
-                    (res) => {
-                        this.setAuthCooKie(res?.cookie)
-                        this.setState({loading: false})
-                        afterLogin && afterLogin()
-                    },
-                    (error) => {
-                        this.setState({loading: false})
-                        this.setState({
-                            responseError: error?.responseJson?.message
-                        })
-                    })
+                this.props.dispatch(requestMobileLogin(payload, this.onSuccess, this.onFail))
             }
         })
     }
@@ -164,7 +158,7 @@ export default class Mobile extends Component {
                                 validateTrigger: false
                             })(
                                 <input
-                                    autoComplete="off"
+                                    // autoComplete="off"
                                     type="number"
                                     placeholder="请输入手机号"
                                     styleName="login-input login-phone-number"
@@ -200,7 +194,7 @@ export default class Mobile extends Component {
                             validateTrigger: false
                         })(
                             <input
-                                autoComplete="off"
+                                // autoComplete="off"
                                 type="password"
                                 styleName="login-input"
                                 placeholder="请输入密码"

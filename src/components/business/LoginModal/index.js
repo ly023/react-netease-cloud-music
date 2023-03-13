@@ -2,11 +2,13 @@ import {Component} from 'react'
 import PropTypes from 'prop-types'
 import withRouter from 'hoc/withRouter'
 import {connect} from 'react-redux'
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
 import Modal from 'components/Modal'
 import {LOGIN_MODE} from 'constants/login'
-import {requestMobileLogin} from 'actions/user'
 import Guide from './components/Guide'
+import Code from './components/Code'
 import Mobile from './components/Mobile'
+
 
 import './index.scss'
 
@@ -36,21 +38,22 @@ class LoginModal extends Component {
         this.setState({mode})
     }
 
-    mobileLogin = (payload, success, fail) => {
-        this.props.dispatch(requestMobileLogin(payload, success, fail))
-    }
 
     afterLogin = () => {
         this.props.onCancel?.()
         this.props.navigate(0)
     }
 
+
+
     getRenderMode = (mode) => {
         switch (mode) {
             case LOGIN_MODE.GUIDE.TYPE:
                 return <Guide {...this.props} changeMode={this.changeMode}/>
+            case LOGIN_MODE.CODE.TYPE:
+                return <Code {...this.props} changeMode={this.changeMode} afterLogin={this.afterLogin}/>
             case LOGIN_MODE.MOBILE.TYPE:
-                return <Mobile {...this.props} onLogin={this.mobileLogin} afterLogin={this.afterLogin}/>
+                return <Mobile {...this.props} afterLogin={this.afterLogin}/>
             default:
         }
     }
@@ -96,11 +99,15 @@ class LoginModal extends Component {
         const {mode} = this.state
 
         return (
-            // <Modal {...this.props} title={this.getTitle(mode)}>
-            <Modal {...this.props}>
+            <Modal {...this.props} title={this.getTitle(mode)}>
                 <div styleName="cont">
                     {this.getRenderMode(mode)}
                     {this.getRenderModeTip(mode)}
+                    {
+                        mode === LOGIN_MODE.GUIDE.TYPE ? <div styleName="scan-guide" title="扫码登录">
+                            <QrCodeScannerIcon styleName="scan-guide-icon" onClick={() => this.changeMode(LOGIN_MODE.CODE.TYPE)} />
+                        </div> : null
+                    }
                 </div>
             </Modal>
         )

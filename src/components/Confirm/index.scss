@@ -19,12 +19,10 @@
   }
 
   .ok {
-    @extend %button;
+    @extend %button-primary;
   }
 
   .cancel {
-    @extend %button;
-
-    color: $font-primary-color;
+    @extend %button-base;
   }
 }

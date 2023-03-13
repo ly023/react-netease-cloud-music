@@ -10,7 +10,7 @@ import {TIP_TIMEOUT} from 'constants'
 import {PLAY_MODE} from 'constants/music'
 import KEY from 'constants/keyboardEventKey'
 import {setUserPlayer} from 'actions/user'
-// import {requestDetail as requestSongDetail} from 'services/song'
+import {requestResource as requestSongResource} from 'services/song'
 import {
     setLocalStorage,
     getLocalStorage,
@@ -71,7 +71,7 @@ export default class PlayBar extends PureComponent {
         this.autoPlay = false
 
         this.audio = new Audio()
-        // this.cachedSongs = {} // {id: {song}}
+        this.cachedSongs = {} // {id: {song}}
 
         this.isDragVolume = false
         this.startVolumeY = 0
@@ -90,7 +90,7 @@ export default class PlayBar extends PureComponent {
     componentDidMount() {
         document.addEventListener('click', this.handleDocumentClick)
 
-        this.getInitialSetting()
+        void this.getInitialSetting()
 
         this.playSubscribeId = pubsub.subscribe('play', this.emitterOnPlay)
         this.addSubscribeId = pubsub.subscribe('add', this.emitterOnAdd)
@@ -122,7 +122,7 @@ export default class PlayBar extends PureComponent {
         })
     }
 
-    getInitialSetting = () => {
+    getInitialSetting = async () => {
         let playSetting
         let trackQueue
         const localPlaySetting = getLocalStorage('playSetting')
@@ -146,7 +146,7 @@ export default class PlayBar extends PureComponent {
         const song = trackQueue[playSetting.index]
         if (song) {
             const {id} = song
-            this.fetchSongUrl(id)
+            await this.fetchSongUrl(id)
         }
 
         // 随机播放模式，初始化随机播放索引
@@ -230,31 +230,36 @@ export default class PlayBar extends PureComponent {
             const song = trackQueue[index]
             if (song) {
                 const {id} = song
-                this.fetchSongUrl(id)
+                void this.fetchSongUrl(id)
             }
         }
     }
 
-    getSongUrlById = (id) => {
-        if (id) {
-            return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-        }
-    }
-
     fetchSongUrl = (id) => {
-        this.audio.src = this.getSongUrlById(id)
-        // const cachedSong = this.cachedSongs[id]
-        // if (cachedSong) {
-        //     return
-        // }
-        // requestSongDetail({ids: id})
-        //     .then((res) => {
-        //             const song = res.songs?.[0]
-        //             if (song) {
-        //                 this.props.dispatch(setUserPlayer({currentSong: song}))
-        //                 this.cachedSongs[id] = song
-        //             }
-        //     })
+        // 旧版
+        // this.audio.src = id ? `https://music.163.com/song/media/outer/url?id=${id}.mp3` : ''
+        // 新版
+       return new Promise((resolve, reject) => {
+           const cachedSong = this.cachedSongs[id]
+           if (cachedSong) {
+               this.audio.src = cachedSong.url
+               resolve()
+               return
+           }
+           // level: standard => 标准，higher => 较高， exhigh=>极高，lossless=>无损，hires=>Hi-Res，不满足条件则返回standard
+           // TODO 切换音质
+           requestSongResource({id, level: 'higher'}).then((res) => {
+               const song = res?.data?.[0]
+               this.audio.src = song?.url
+               if (song) {
+                   this.props.dispatch(setUserPlayer({currentSong: song}))
+                   this.cachedSongs[id] = song
+               }
+               resolve()
+           }).catch(() => {
+               reject()
+           })
+       })
     }
 
     playAudio = () => {

@@ -1,4 +1,5 @@
 .cont {
+  position: relative;
   padding: 40px 0;
 }
 
@@ -155,5 +156,18 @@
   input {
     margin: 0 12px 0 0;
     vertical-align: middle;
+  }
+}
+
+.scan-guide {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+
+  .scan-guide-icon {
+    position: relative;
+    font-size: 52px;
+    cursor: pointer;
   }
 }

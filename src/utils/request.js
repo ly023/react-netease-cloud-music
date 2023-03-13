@@ -1,4 +1,3 @@
-import {get} from 'lodash'
 import fetch from 'cross-fetch'
 import config from 'config'
 import {appendUrlParams, getCsrfToken} from './index'
@@ -24,22 +23,10 @@ const codeMessage = {
 
 function responseCatch(e) {
     return new Promise((resolve, reject) => {
-        if (!e.errorText) {
-            e.errorText = get(codeMessage, e.response?.status, get(e, 'response.statusText', ''))
-        }
         reject(e)
     })
 }
 
-
-function defaultGetErrorHandler(response, responseBodyJson) {
-    const errorText = get(responseBodyJson, 'msg', get(codeMessage, response.status, get(response, 'statusText', '')))
-    return {
-        errorText,
-        response,
-        responseJson: responseBodyJson,
-    }
-}
 
 function defaultIsSuccessResponse(response) {
     return response.status >= 200 && response.status < 300
@@ -59,7 +46,6 @@ export default function request(url, fetchOptions = {}, options = {}) {
     const defaultOptions = {
         returnResponse: false,
         isSuccessResponse: defaultIsSuccessResponse,
-        getErrorDelegate: defaultGetErrorHandler
     }
     const newOptions = {...defaultFetchOptions, ...fetchOptions}
 
@@ -109,7 +95,8 @@ export default function request(url, fetchOptions = {}, options = {}) {
                         reject()
                         return
                     }
-                    reject(res)
+                    // reject(res)
+                    resolve(res)
                 })
             }).catch((e) => {
                 return responseCatch(e)
@@ -128,6 +115,6 @@ export default function request(url, fetchOptions = {}, options = {}) {
             })
         })
     }).catch((e) => {
-        return Promise.reject(e)
+        return responseCatch(e)
     })
 }

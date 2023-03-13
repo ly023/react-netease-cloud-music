@@ -2,6 +2,35 @@ import {stringify} from 'qs'
 import request from 'utils/request'
 import API from 'api/user'
 
+/**
+ * 扫码登录
+ * 二维码登录涉及到3个接口，调用务必带上时间戳，防止缓存
+ */
+// 二维码 key 生成接口
+export async function requestQrKey() {
+    const timestamp = new Date().getTime()
+    return request(`${API.qrKey.url}${stringify({t: timestamp}, {addQueryPrefix: true})}`)
+}
+
+// 二维码生成接口，/login/qr/create?key=xxx
+export async function requestCreateQr(params) {
+    const timestamp = new Date().getTime()
+    return request(`${API.createQr.url}${stringify({
+        ...params,
+        t: timestamp
+    }, {addQueryPrefix: true})}`)
+}
+
+// 二维码检测扫码状态接口
+// /login/qr/check?key=xxx
+export async function requestCheckQr(params) {
+    const timestamp = new Date().getTime()
+    return request(`${API.checkQr.url}${stringify({
+        ...params,
+        t: timestamp
+    }, {addQueryPrefix: true})}`)
+}
+
 export async function requestMobileLogin(body) {
     return request(API.mobileLogin.url, {
         method: API.mobileLogin.type,

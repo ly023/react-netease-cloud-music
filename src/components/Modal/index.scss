@@ -42,14 +42,10 @@
 
 .popover-close {
   position: absolute;
-  top: 16px;
-  right: 20px;
+  top: 8px;
+  right: 16px;
   z-index: 20;
-  width: 10px;
-  height: 10px;
-  overflow: hidden;
-  text-indent: -9999px;
-  background: url("~assets/images/layer.png") no-repeat 0 -95px;
+  color: #fff;
   cursor: pointer;
 }
 

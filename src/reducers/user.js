@@ -32,10 +32,11 @@ export default function user(state = initialState, action) {
     switch (action.type) {
         case SET_USER_INFO:
             const {userInfo = {}} = action
+            const profile = userInfo.profile
             return {
                 ...state,
-                isLogin: !!userInfo.profile,
-                userInfo: userInfo.profile || {}
+                isLogin: !!profile,
+                userInfo: profile || {}
             }
         case SET_USER_PLAYER:
             return {

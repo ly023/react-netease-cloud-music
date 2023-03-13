@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import toast, { Toaster } from 'react-hot-toast'
 import TagFacesIcon from '@mui/icons-material/TagFaces'
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import {DOUBLE_BYTE_CHAR_PATTERN} from 'constants'
 import KEY from 'constants/keyboardEventKey'
 import {getCursorPosition} from 'utils'

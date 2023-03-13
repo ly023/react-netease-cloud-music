@@ -1,6 +1,18 @@
 import config from 'config'
 
 export default {
+    qrKey: {
+        url: `${config.apiHost}/login/qr/key`,
+        type: 'GET'
+    },
+    createQr: {
+        url: `${config.apiHost}/login/qr/create`,
+        type: 'GET'
+    },
+    checkQr: {
+        url: `${config.apiHost}/login/qr/check`,
+        type: 'GET'
+    },
     mobileLogin: {
         url: `${config.apiHost}/login/cellphone`,
         type: 'POST'

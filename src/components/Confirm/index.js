@@ -10,8 +10,8 @@ function Confirm(props) {
        <div styleName="body">
            <div styleName="content">{content}</div>
            <div styleName="buttons">
-               <button styleName="ok" disabled={confirmLoading} onClick={onOk}><i>{okText}</i></button>
-               <button styleName="cancel" onClick={onCancel}><i>{cancelText}</i></button>
+               <button styleName="ok" disabled={confirmLoading} onClick={onOk}>{okText}</button>
+               <button styleName="cancel" onClick={onCancel}>{cancelText}</button>
            </div>
        </div>
     </Modal>

@@ -1,5 +1,6 @@
 import {Component, createRef, CSSProperties, MouseEvent, ReactNode } from 'react'
 import {createPortal} from 'react-dom'
+import CloseIcon from '@mui/icons-material/Close'
 import './index.scss'
 
 const EDGE = 0
@@ -154,7 +155,7 @@ export default class Modal extends Component<ModalProps, ModalState> {
                     onMouseDown={this.handleMouseDown}
                 >
                     <p styleName="popover-title">{title}</p>
-                    <span styleName="popover-close" title="关闭窗体" onClick={this.close}>×</span>
+                    <span title="关闭窗口"><CloseIcon styleName="popover-close" onClick={this.close} /></span>
                 </div>
                 <div style={contentStyle}>
                     {children}

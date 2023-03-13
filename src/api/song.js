@@ -8,7 +8,12 @@ export default {
     },
     // 获取音乐url
     resource: {
-        url: `${config.apiHost}/song/url`,
+        url: `${config.apiHost}/song/url/v1`,
+        type: 'GET'
+    },
+    // 获取客户端歌曲下载 url
+    download: {
+        url: `${config.apiHost}/song/download/url`,
         type: 'GET'
     },
     // 歌词

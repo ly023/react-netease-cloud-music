@@ -10,6 +10,11 @@ export const LOGIN_MODE = {
         TEXT: '手机号注册',
         TITLE: '手机号注册'
     },
+    CODE: {
+        TYPE: 'CODE',
+        TEXT: '扫码登录',
+        TITLE: '扫码登录'
+    },
     MOBILE: {
         TYPE: 'MOBILE',
         TEXT: '手机号登录',
