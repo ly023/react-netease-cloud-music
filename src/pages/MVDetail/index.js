@@ -129,15 +129,17 @@ function MVDetail() {
                         <Link to={mvUrl} styleName="cover">
                             <img src={getThumbnail(cover, 96, 54)} alt=""/>
                             <div styleName="mask">
-                               <div styleName="count">
-                                   <VideocamIcon styleName="video-icon"/><span>{playCount}</span>
-                               </div>
+                                <div styleName="count">
+                                    <VideocamIcon styleName="video-icon"/><span>{playCount}</span>
+                                </div>
                             </div>
                         </Link>
                         <div styleName="meta">
                             <Link to={mvUrl} styleName="name" title={name}>{name}</Link>
                             <p styleName="duration">{formatDuration(duration)}</p>
-                            <p styleName="artist">by <Link to={`/artist/${artistId}`} title={artistName}>{artistName}</Link></p>
+                            <p styleName="artist">by <Link
+                                to={`/artist/${artistId}`} title={artistName}
+                            >{artistName}</Link></p>
                         </div>
                     </li>
                 })
@@ -149,23 +151,35 @@ function MVDetail() {
         <div className="main">
             <div className="left-wrapper">
                 <div className="left">
-                    <div styleName="title-wrapper">
+                    <div styleName="title-box">
                         <MusicVideoIcon styleName="mv-icon"/><span styleName="title">{detail?.name}</span>
-                        <Link to={`/artist/${detail?.artistId}`} styleName="artist-name">{detail?.artistName}</Link>
                     </div>
+                    <span styleName="artists">
+                        {
+                            detail?.artists.map((artist, index) => {
+                                const {id, name} = artist
+                                return <span key={id} >
+                                        <Link to={`/artist/${id}`} styleName="artist-name">{name}</Link>
+                                    {index !== detail.artists.length - 1 ? ' / ' : ''}
+                                    </span>
+                            })
+                        }
+                    </span>
                     <div styleName="player">
                         <CustomPlayer urls={resources}/>
                     </div>
                     <div styleName="actions">
-                        <LikeResource type={RESOURCE_TYPE.MV.TYPE} id={mvId} status={!!info?.liked} onSuccess={handleLikedSuccess}>
+                        <LikeResource
+                            type={RESOURCE_TYPE.MV.TYPE} id={mvId} status={!!info?.liked} onSuccess={handleLikedSuccess}
+                        >
                             <button styleName="btn">
-                                <ThumbUpIcon styleName={info?.liked ? 'liked' : ''} />
+                                <ThumbUpIcon styleName={info?.liked ? 'liked' : ''}/>
                                 <span>({info?.likedCount || 0})</span>
                             </button>
                         </LikeResource>
                         <SubscribeMV id={mvId} status={!!detail?.subed} onSuccess={handleSubscribeSuccess}>
                             <button styleName="btn">
-                                <LibraryAddIcon />
+                                <LibraryAddIcon/>
                                 <span>({detail?.subCount || 0})</span>
                             </button>
                         </SubscribeMV>

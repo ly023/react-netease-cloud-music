@@ -1,4 +1,6 @@
 import {useState, useEffect, useMemo, useRef} from 'react'
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline'
+import AddIcon from '@mui/icons-material/Add'
 import Page from 'components/Page'
 import Add from 'components/business/Add'
 import Play from 'components/business/Play'
@@ -75,15 +77,19 @@ function DailyRecommendation() {
                             <div styleName="date-mask"/>
                         </div>
                     </div>
-                    <div styleName="actions">
+                    <div styleName="operation">
                         <Play type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
-                            <a href={null} styleName="btn-play" title="播放"><i><em/>播放全部</i></a>
+                            <a href={null} styleName="btn-play" title="播放">
+                                <PlayCircleOutlineIcon styleName="play-icon"/><span>播放全部</span>
+                            </a>
                         </Play>
                         <Add type={PLAY_TYPE.PLAYLIST.TYPE} songs={songs}>
-                            <a href={null} styleName="btn-add-play" title="添加到播放列表"/>
+                            <a href={null} styleName="btn-add-play" title="添加到播放列表">
+                                <AddIcon />
+                            </a>
                         </Add>
                         <AddToPlaylist songIds={songIds}>
-                            <a href={null} styleName="btn-subscribe" title="播放"><i><em/>收藏全部</i></a>
+                            <a href={null} styleName="action-btn" title="播放">收藏全部</a>
                         </AddToPlaylist>
                     </div>
                     <div styleName="table-title">

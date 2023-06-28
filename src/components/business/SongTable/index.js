@@ -60,12 +60,15 @@ function SongTable(props) {
                     const order = index + 1
                     const {id, alia: alias} = item
                     const disabled = false // todo 没有播放权限
-                    return <tr key={id}
-                               styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''}`}>
+                    const active = currentSong?.id === id
+                    return <tr
+                        key={id}
+                        styleName={`track${disabled ? ' disabled' : ''} ${order % 2 ? ' even' : ''} ${active ? ' active' : '' }`}
+                    >
                         <td styleName="order">
                             <span styleName="number">{order}</span>
                             <span styleName="play">
-                                <SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/>
+                                <SinglePlay id={id} active={active} disabled={disabled}/>
                             </span>
                         </td>
                         <td>
@@ -73,7 +76,7 @@ function SongTable(props) {
                                 <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>
                                 {alias && alias.length ?
                                     <span styleName="alias" title={alias.join('、')}> - ({alias.join('、')})</span> : ''}
-                                {item.mv ? <MusicVideoIcon to={`/mv/${item.mv}`} styleName="mv-icon"/> : null}
+                                {item.mv ? <Link to={`/mv/${item.mv}`}><MusicVideoIcon styleName="mv-icon"/></Link> : null}
                             </div>
                         </td>
                         <td>

@@ -80,8 +80,11 @@
       @extend %text-ellipsis;
 
       .alias {
+        display: inline-block;
+        overflow: hidden;
         color: #aeaeae;
-        white-space: pre-wrap;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       .mv-icon {

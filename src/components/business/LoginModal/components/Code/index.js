@@ -126,7 +126,7 @@ function ScanQRCode({changeMode, afterLogin}) {
             <div styleName="qr-code">
                 <h3>扫码登录</h3>
                 <div styleName="code-box">
-                    <img src={qrCode?.url} alt="二维码" styleName="code"/>
+                    {qrCode?.url ? <img src={qrCode?.url} alt="二维码" styleName="code"/> : null}
                     {renderQrCodeStatus()}
                 </div>
                 <p styleName="scan-tip">使用<strong> 网易云音乐App </strong>扫码登录</p>

@@ -1,5 +1,4 @@
 .head-box {
-  margin: -8px 0 0;
   overflow: hidden;
 
   .nickname {
@@ -18,8 +17,11 @@
 
   .cover-box {
     position: relative;
-    width: 640px;
-    height: 300px;
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
 
     .mask {
       position: absolute;
@@ -27,7 +29,6 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background: url("~assets/images/ban-mask.png") no-repeat;
 
       .head-bottom {
         position: absolute;

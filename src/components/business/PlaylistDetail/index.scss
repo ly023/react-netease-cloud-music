@@ -134,12 +134,6 @@
     }
   }
 
-  .btn-play-disabled {
-    @extend %button-disabled;
-
-    margin-right: 6px;
-  }
-
   .btn-add-play {
     @extend %button-primary;
 
