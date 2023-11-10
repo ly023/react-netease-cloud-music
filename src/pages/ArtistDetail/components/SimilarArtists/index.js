@@ -53,7 +53,7 @@ function SimilarArtists(props) {
                 const {id, name, picUrl} = item
                 return <li key={id} styleName="item">
                     <Link to={`/artist/${id}`} title={name}>
-                        <img src={getThumbnail(picUrl, 50, 50)} styleName="avatar" alt=""/>
+                        <img src={getThumbnail(picUrl, 80)} styleName="avatar" alt=""/>
                         <p styleName="name">{name}</p>
                     </Link>
                 </li>

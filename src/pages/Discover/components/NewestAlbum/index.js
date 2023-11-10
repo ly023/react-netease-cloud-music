@@ -54,7 +54,7 @@ function NewestAlbum() {
                                 <div styleName="cover">
                                     <Link to={albumLink}>
                                         <img
-                                            src={getThumbnail(item.picUrl, 100)}
+                                            src={getThumbnail(item.picUrl)}
                                             alt={name}
                                         />
                                         <span styleName="mask"/>

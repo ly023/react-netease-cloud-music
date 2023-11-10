@@ -18,6 +18,7 @@ import {getThumbnail, deleteCookie} from 'utils'
 import SearchBar from './components/SearchBar'
 
 import styles from './index.scss'
+import {requestCount} from "services/message";
 
 const MAX_HEIGHT = 103
 
@@ -32,7 +33,8 @@ export default class NavBar extends Component {
         this.state = {
             style: {},
             loginVisible: false,
-            loginMode: LOGIN_MODE.GUIDE.TYPE
+            loginMode: LOGIN_MODE.GUIDE.TYPE,
+            messageCount: 0
         }
         this.navRef = createRef()
     }
@@ -41,6 +43,14 @@ export default class NavBar extends Component {
         this.setNavHeight()
         pubsub.subscribe('login', (msg, mode = LOGIN_MODE.GUIDE.TYPE) => {
             this.handleLogin(mode)
+        })
+        setInterval(() => {
+
+        }, 5000)
+        requestCount().then(({msg}) => {
+           this.setState({
+               messageCount: msg
+           })
         })
     }
 
@@ -152,11 +162,8 @@ export default class NavBar extends Component {
     }
 
     render() {
-        const {style, loginVisible, loginMode} = this.state
+        const {style, loginVisible, loginMode, messageCount} = this.state
         const {isLogin, userInfo} = this.props
-
-        // todo 未读通知数
-        const unreadCount = 0
 
         return (
             <>
@@ -209,7 +216,7 @@ export default class NavBar extends Component {
                                     ? <div styleName="login">
                                         <div styleName="login-status avatar">
                                             <img src={getThumbnail(userInfo?.avatarUrl, 30)} alt="头像"/>
-                                            {unreadCount ? <i styleName="login-badge">{unreadCount}</i> : null}
+                                            {messageCount ? <span styleName="login-badge">{messageCount}</span> : null}
                                         </div>
                                         <div styleName="login-cont">
                                             <i styleName="arrow"/>
@@ -220,7 +227,7 @@ export default class NavBar extends Component {
                                                 </li>
                                                 <li styleName="login-item">
                                                     <MailOutlineIcon styleName="icon"/>
-                                                    <a href={null}>我的消息{unreadCount ? <span styleName="login-badge">{unreadCount}</span> : null}</a>
+                                                    <a href={null}>我的消息{messageCount ? <span styleName="login-badge">{messageCount}</span> : null}</a>
                                                 </li>
                                                 <li styleName="login-item">
                                                     <CardMembershipIcon styleName="icon"/><a href={null}>我的等级</a>

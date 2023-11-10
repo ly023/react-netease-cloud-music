@@ -18,7 +18,8 @@ function AlbumItem(props) {
         <div styleName="cover">
             <Link to={albumLink}>
                 <img
-                    src={getThumbnail(item.picUrl, smallSize ? 120 : 130)}
+                    src={getThumbnail(item.picUrl, smallSize ? 200 : 256)}
+                    style={{width: smallSize ? 120 : 130 }}
                     alt={name}
                 />
                 <span styleName={`mask${smallSize ? ' small' : ''}`}/>

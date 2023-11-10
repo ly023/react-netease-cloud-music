@@ -226,7 +226,7 @@ export default class Song extends Component {
                                 <div styleName="cover-wrapper">
                                     <div styleName="cover">
                                         <img
-                                            src={getThumbnail(detail?.al?.picUrl, 130)}
+                                            src={getThumbnail(detail?.al?.picUrl)}
                                             alt="封面"
                                         />
                                     </div>

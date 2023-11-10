@@ -43,7 +43,7 @@ function RecommendedProgram() {
                     const {id, name, radio = {}} = item
                     return <li key={id} styleName={`item ${(index + 1) % 2 === 0 ? 'even' : ''}`}>
                         <div styleName="cover">
-                            <img src={getThumbnail(radio?.picUrl, 40)} alt="封面"/>
+                            <img src={getThumbnail(radio?.picUrl, 80)} alt="封面"/>
                             <Play id={id} type={PLAY_TYPE.PROGRAM.TYPE}>
                                 <i styleName="play-icon"/>
                             </Play>

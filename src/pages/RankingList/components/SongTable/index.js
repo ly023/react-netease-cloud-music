@@ -49,7 +49,7 @@ function SongTable(props) {
                             <span styleName="number">{order}</span>
                         </td>
                         <td>
-                            {isTop ? <img src={getThumbnail(album?.picUrl, 50)} styleName="album-cover" alt=""/> : null}
+                            {isTop ? <img src={getThumbnail(album?.picUrl, 100)} styleName="album-cover" alt=""/> : null}
                             <span styleName="play-icon"><SinglePlay id={id} active={currentSong?.id === id} disabled={disabled}/></span>
                             <div styleName={`name ${isTop ? 'top' : ''}`}>
                                 <Link to={`/song/${id}`} title={item.name}>{item.name}</Link>

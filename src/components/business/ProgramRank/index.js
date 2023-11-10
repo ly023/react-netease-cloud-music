@@ -78,7 +78,7 @@ function ProgramRank(props) {
                             </div>
                         </div>
                         <div className="fl" styleName="cover">
-                            <img src={getThumbnail(program.coverUrl, 40)} alt=""/>
+                            <img src={getThumbnail(program.coverUrl, 80)} alt=""/>
                             <Play id={id} type={PLAY_TYPE.PROGRAM.TYPE}>
                                 <i styleName="play-icon"/>
                             </Play>

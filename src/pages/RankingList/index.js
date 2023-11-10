@@ -184,7 +184,7 @@ function RankingList() {
                                 <div styleName="info">
                                     <div styleName="cover">
                                         <img
-                                            src={getThumbnail(currentRank?.coverImgUrl, 200)}
+                                            src={getThumbnail(currentRank?.coverImgUrl, 512)}
                                             alt="封面"
                                         />
                                     </div>

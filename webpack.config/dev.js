@@ -34,11 +34,11 @@ module.exports = merge(baseConfig, {
         onBeforeSetupMiddleware: function ({app}) {
             apiMocker(app, path.resolve('src/mock/index.js'))
         },
-        proxy: {
+        proxy: { // webpack-dev-server反向代理，基于Node代理中间件http-proxy-middleware实现
             '/base': {
-                target: 'http://localhost:' + config.proxyPort,
+                target: 'http://localhost:' + config.proxyPort,  // 反向代理的目标服务
                 pathRewrite: {'^/base': ''},
-                changeOrigin: true,     // target是域名的话，需要这个参数，
+                changeOrigin: true,     // target是域名的话，需要这个参数，开启后会虚拟一个请求头Origin
                 secure: false,          // 设置支持https协议的代理
             },
         },

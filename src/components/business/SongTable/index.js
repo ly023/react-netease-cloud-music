@@ -11,6 +11,7 @@ import {getArtists} from 'utils/song'
 import useShallowEqualSelector from 'hook/useShallowEqualSelector'
 
 import './index.scss'
+import {dislikeSong} from "services/common";
 
 function SongTable(props) {
     const {loading = false, songs = [], isSelf = false, showDislike = false, onDislikeSuccess} = props
@@ -19,8 +20,13 @@ function SongTable(props) {
     }))
 
     const handleDislike = useCallback((id) => {
-        // todo 歌曲不感兴趣
-        onDislikeSuccess && onDislikeSuccess(songs.filter(v => v.id !== id))
+        // 歌曲不感兴趣，同时返回新的歌曲
+        dislikeSong({id}).then(({data: newSong}) => {
+            const index = songs.findIndex(v => v.id === id)
+            const newSongs = [...songs]
+            newSongs.splice(index, 1, newSong)
+            onDislikeSuccess && onDislikeSuccess(newSongs)
+        })
     }, [songs, onDislikeSuccess])
 
     const renderTip = useMemo(() => {

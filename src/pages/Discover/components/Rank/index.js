@@ -14,7 +14,7 @@ import SubscribePlaylist from 'components/business/SubscribePlaylist'
 import AddToPlaylist from 'components/business/AddToPlaylist'
 import {PLAYLIST_COLLECTION_TYPE} from 'constants'
 import {PLAY_TYPE} from 'constants/music'
-import {requestRankList} from 'services/toplist'
+import {requestDetail as requestPlaylistDetail} from "services/playlist"
 import {getThumbnail} from 'utils'
 
 import './index.scss'
@@ -31,9 +31,13 @@ function Rank() {
             try {
                 setLoading(true)
                 // const {playlist: soaringRank} = await requestRankList({id: 19723756}) // 飙升榜
-                const {playlist: hotRank} = await requestRankList({id: 3778678}) // 热歌榜
-                const {playlist: newRank} = await requestRankList({id: 3779629}) // 新歌榜
-                const {playlist: originalRank} = await requestRankList({id: 2884035}) // 原创榜
+                const {playlist: hotRank} = await requestPlaylistDetail({id: 3778678}) // 热歌榜
+                const {playlist: newRank} = await requestPlaylistDetail({id: 3779629}) // 新歌榜
+                const {playlist: originalRank} = await requestPlaylistDetail({id: 2884035}) // 原创榜
+
+                console.log('hotRank', hotRank)
+                console.log('newRank', newRank)
+                console.log('originalRank', originalRank)
 
                 if(isMounted.current) {
                     setRankList([hotRank, newRank, originalRank])
@@ -71,7 +75,7 @@ function Rank() {
                             <div styleName='top'>
                                 <Link to={link} styleName='cover'>
                                     <img className='fl'
-                                        src={getThumbnail(rank.coverImgUrl, 100)}
+                                        src={getThumbnail(rank.coverImgUrl)}
                                         alt={rank.name}
                                     />
                                 </Link>

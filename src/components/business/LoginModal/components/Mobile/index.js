@@ -6,7 +6,7 @@ import FormItem from 'components/FormItem'
 import KEY from 'constants/keyboardEventKey'
 import {isValidMobileNumber} from 'utils'
 import {requestMobileLogin} from 'actions/user'
-import {requestCountryCodeList} from 'services/constants'
+import {requestCountryCodeList} from 'services/common'
 import {setAuthCooKie} from '../../util'
 
 import styles from '../../index.scss'

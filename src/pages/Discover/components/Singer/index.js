@@ -37,7 +37,7 @@ function Singer() {
                     const {id, accountId, name, alias, picUrl} = item
                     return <li key={id} styleName="item">
                         <Link to={`/user/home/${accountId}`}>
-                            <img src={getThumbnail(picUrl, 62)} styleName="item-avatar" alt="头像"/>
+                            <img src={getThumbnail(picUrl, 100)} styleName="item-avatar" alt="头像"/>
                             <div styleName="item-info">
                                 <h4 styleName="item-nickname">{name}{alias?.[0]}</h4>
                                 <p styleName="item-desc">暂无描述</p>

@@ -46,7 +46,7 @@ function HotRcmd() {
                     const detailLink = `/playlist/${id}`
                     return <li key={id} styleName="item">
                         <div styleName="cover">
-                            <img src={getThumbnail(item.picUrl, 140)}/>
+                            <img src={getThumbnail(item.picUrl)}/>
                             <Link to={detailLink} styleName="mask"/>
                             <div styleName="bottom">
                                 <HeadsetIcon className="fl" styleName="icon-headset"/>

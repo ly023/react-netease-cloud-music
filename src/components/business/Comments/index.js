@@ -457,7 +457,7 @@ export default class Comments extends Component {
                 return <div key={item.commentId} id={this.getItemDomId(item.commentId)} styleName="item">
                     <img
                         styleName="item-avatar"
-                        src={getThumbnail(item?.user?.avatarUrl, 50)}
+                        src={getThumbnail(item?.user?.avatarUrl, 100)}
                         alt="头像"
                         onError={(e) => {
                             e.target.scr = DEFAULT_AVATAR

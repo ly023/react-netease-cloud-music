@@ -94,6 +94,7 @@ module.exports = {
     },
     cache: {
         type: 'filesystem', // 使用文件缓存 webpack 5
+        allowCollectingMemory: true
         // cacheDirectory 默认路径是 node_modules/.cache/webpack
         // cacheDirectory: path.resolve(__dirname, './temp_cache') // 本地目录
     },

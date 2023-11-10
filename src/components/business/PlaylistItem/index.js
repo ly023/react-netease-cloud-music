@@ -17,7 +17,7 @@ function PlaylistItem(props) {
     return <>
         <div styleName="cover-wrapper">
             <Link to={detailLink} styleName="cover">
-                <img src={getThumbnail(item.coverUrl, 140)} alt="歌单封面"/>
+                <img src={getThumbnail(item.coverUrl)} alt="歌单封面"/>
             </Link>
             <div styleName="bottom">
                 <HeadsetIcon className="fl" styleName="icon-headset"/>

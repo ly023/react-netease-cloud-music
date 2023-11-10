@@ -19,7 +19,7 @@ function Albums(props) {
                 return <li key={id} styleName="item">
                     <div styleName="cover">
                         <Link to={albumUrl}>
-                            <img src={getThumbnail(item.picUrl, 180)} onError={(e) => {
+                            <img src={getThumbnail(item.picUrl)} onError={(e) => {
                                 e.target.src = DEFAULT_ARTIST_AVATAR
                             }} alt="封面"/>
                             <div styleName="mask"/>

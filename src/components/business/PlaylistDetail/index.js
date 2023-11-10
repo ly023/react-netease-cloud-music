@@ -161,7 +161,7 @@ export default class PlaylistDetail extends Component {
                 <div className="clearfix" styleName="info">
                     <div styleName="cover">
                         <img
-                            src={getThumbnail(detail.coverImgUrl, 200)}
+                            src={getThumbnail(detail.coverImgUrl)}
                             alt="封面"
                         />
                     </div>

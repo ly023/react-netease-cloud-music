@@ -129,7 +129,7 @@ class AlbumDetail extends Component {
                             <div className="clearfix">
                                 <div styleName="cover">
                                     <img
-                                        src={getThumbnail(detail.picUrl, 200)}
+                                        src={getThumbnail(detail.picUrl, 640)}
                                         alt="封面"
                                     />
                                 </div>
@@ -284,7 +284,7 @@ class AlbumDetail extends Component {
                                         const albumLink = `/album/${item.id}`
                                         return <li key={item.id} styleName="album-item">
                                             <Link to={albumLink} title={item.name} styleName="album-cover">
-                                                <img src={item.picUrl} alt="cover"/>
+                                                <img src={getThumbnail(item.picUrl, 120)} alt="cover"/>
                                             </Link>
                                             <div styleName="album-meta">
                                                 <p styleName="album-name"><Link to={albumLink}
