@@ -1,16 +1,21 @@
-import {forwardRef} from 'react'
+import { forwardRef } from 'react'
 import Scrollbar from 'components/CustomScrollbar'
 
-import './index.scss'
+import styles from './index.scss'
 
+// eslint-disable-next-line react/display-name
 const VerticalScrollbar = forwardRef((props, ref) => {
     return (
         <Scrollbar
             ref={ref}
             {...props}
-            renderTrackVertical={() => <div styleName="track-vertical" />}
-            renderThumbVertical={() => <div styleName="thumb-vertical" ><span/></div>}
-            renderTrackHorizontal={() => <div styleName="track-horizontal" />}
+            renderTrackVertical={() => <div className={styles['track-vertical']} />}
+            renderThumbVertical={() => (
+                <div className={styles['thumb-vertical']}>
+                    <span />
+                </div>
+            )}
+            renderTrackHorizontal={() => <div className={styles['track-horizontal']} />}
             autoHeight
             hideTracksWhenNotNeeded
         >

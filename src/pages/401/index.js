@@ -2,16 +2,16 @@
  * 401
  */
 import Page from 'components/Page'
-import './index.scss'
+import styles from './index.scss'
 
 const Forbidden = () => (
-    <Page showBackTop={false}>
-        <div styleName="wrapper">
-            <div styleName="forbidden">
-                <p styleName="note">无权限访问</p>
-            </div>
-        </div>
-    </Page>
+  <Page showBackTop={false}>
+    <div className={styles.wrapper}>
+      <div className={styles.forbidden}>
+        <p className={styles.note}>无权限访问</p>
+      </div>
+    </div>
+  </Page>
 )
 
 export default Forbidden

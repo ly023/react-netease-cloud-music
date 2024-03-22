@@ -3,10 +3,14 @@
  */
 import Editor from '../Editor'
 
-import './index.scss'
+import styles from './index.scss'
 
-export default function (props) {
-    return <div styleName="wrapper">
-        <Editor {...props} submitText="回复" />
+const ReplyEditor = function (props) {
+  return (
+    <div className={styles.wrapper}>
+      <Editor {...props} submitText="回复" />
     </div>
+  )
 }
+
+export default ReplyEditor

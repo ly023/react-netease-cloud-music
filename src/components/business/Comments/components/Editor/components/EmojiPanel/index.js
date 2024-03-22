@@ -1,110 +1,111 @@
-import {PureComponent} from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import {click} from 'utils'
-import {EMOJI, EMOJI_PREFIX_URL} from '../../constants'
+import { click } from 'utils'
+import { EMOJI, EMOJI_PREFIX_URL } from '../../constants'
 
-import './index.scss'
+import styles from './index.scss'
 
 const LIMIT = 50
 const DOM_ID = 'emoji-panel'
 
 export default class EmojiPanel extends PureComponent {
+  static propTypes = {
+    visible: PropTypes.bool,
+    onChange: PropTypes.func,
+    onCancel: PropTypes.func
+  }
 
-    static propTypes = {
-        visible: PropTypes.bool,
-        onChange: PropTypes.func,
-        onCancel: PropTypes.func,
+  static defaultProps = {
+    visible: false
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      emojiList: [],
+      offset: 0,
+      total: 0
     }
+  }
 
-    static defaultProps = {
-        visible: false
-    }
+  componentDidMount() {
+    document.addEventListener('click', this.handleDocumentClick)
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            emojiList: [],
-            offset: 0,
-            total: 0,
-        }
-    }
+    let emojiList = []
+    EMOJI.forEach((emojiId, emojiText) => {
+      emojiList.push(
+        <span
+          key={emojiId}
+          className={styles.item}
+          title={emojiText}
+          onClick={() => this.handleSelect(emojiText)}
+        >
+          <img src={EMOJI_PREFIX_URL.replace('{id}', emojiId)} alt="" />
+        </span>
+      )
+    })
+    this.setState({
+      emojiList,
+      total: emojiList.length
+    })
+  }
 
-    componentDidMount() {
-        document.addEventListener('click', this.handleDocumentClick)
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClick)
+  }
 
-        let emojiList = []
-        EMOJI.forEach((emojiId, emojiText) => {
-            emojiList.push(<span
-                key={emojiId}
-                styleName="item"
-                title={emojiText}
-                onClick={() => this.handleSelect(emojiText)}
-            >
-                <img src={EMOJI_PREFIX_URL.replace("{id}", emojiId)} alt=""/>
-            </span>)
-        })
-        this.setState({
-            emojiList,
-            total: emojiList.length
-        })
-    }
+  handleDocumentClick = (e) => {
+    click(e, DOM_ID, this.props.onCancel)
+  }
 
-    componentWillUnmount() {
-        document.removeEventListener('click', this.handleDocumentClick)
-    }
+  handleSelect = (emojiText) => {
+    const { onChange } = this.props
+    onChange && onChange(`[${emojiText}]`)
+  }
 
-    handleDocumentClick = (e) => {
-        click(e, DOM_ID, this.props.onCancel)
-    }
+  handlePrev = () => {
+    this.setState((prevState) => {
+      return {
+        offset: prevState.offset - LIMIT
+      }
+    })
+  }
 
-    handleSelect = (emojiText) => {
-        const {onChange} = this.props
-        onChange && onChange(`[${emojiText}]`)
-    }
+  handleNext = () => {
+    this.setState((prevState) => {
+      return {
+        offset: prevState.offset + LIMIT
+      }
+    })
+  }
 
-    handlePrev = () => {
-        this.setState((prevState) => {
-            return {
-                offset: prevState.offset - LIMIT
-            }
-        })
-    }
+  getRenderEmojiList = (offset) => {
+    return this.state.emojiList.slice(offset, offset + LIMIT)
+  }
 
-    handleNext = () => {
-        this.setState((prevState) => {
-            return {
-                offset: prevState.offset + LIMIT
-            }
-        })
-    }
+  render() {
+    const { visible } = this.props
+    const { offset, total } = this.state
+    const prevDisabled = offset === 0
+    const nextDisabled = offset >= total - LIMIT
 
-    getRenderEmojiList = (offset) => {
-        return this.state.emojiList.slice(offset, offset + LIMIT)
-    }
-
-    render() {
-        const {visible} = this.props
-        const {offset, total} = this.state
-        const prevDisabled = offset === 0
-        const nextDisabled = offset >= total - LIMIT
-
-        return <div id={DOM_ID} styleName="wrapper" className={visible ? '' : 'hide'}>
-            <div styleName="list">
-                {this.getRenderEmojiList(offset)}
-            </div>
-            <div styleName="pagination">
-                <span
-                    styleName={`prev${prevDisabled ? ' disabled' : ''}`}
-                    onClick={prevDisabled ? () => {
-                    } : this.handlePrev}
-                />
-                <em>{offset / LIMIT + 1}/{Math.ceil(total / LIMIT)}</em>
-                <span
-                    styleName={`next${nextDisabled ? ' disabled' : ''}`}
-                    onClick={nextDisabled ? () => {
-                    } : this.handleNext}
-                />
-            </div>
+    return (
+      <div id={DOM_ID} className={`${styles.wrapper} ${visible ? '' : 'hide'}`}>
+        <div className={styles.list}>{this.getRenderEmojiList(offset)}</div>
+        <div className={styles.pagination}>
+          <span
+            className={`${styles.prev} ${prevDisabled ? styles.disabled : ''}`}
+            onClick={prevDisabled ? () => {} : this.handlePrev}
+          />
+          <em>
+            {offset / LIMIT + 1}/{Math.ceil(total / LIMIT)}
+          </em>
+          <span
+            className={`${styles.next} ${nextDisabled ? styles.disabled : ''}`}
+            onClick={nextDisabled ? () => {} : this.handleNext}
+          />
         </div>
-    }
+      </div>
+    )
+  }
 }

@@ -13,7 +13,8 @@ const baseConfig = require('./base');
 
 module.exports = merge(baseConfig, {
     mode: 'production',
-    devtool: 'source-map',
+    // devtool: 'source-map',
+    devtool: false,
     entry: {
         main: [
             './src/index.js'
@@ -65,15 +66,12 @@ module.exports = merge(baseConfig, {
         ],
         chunkIds: 'named',
         moduleIds: 'deterministic',
-        runtimeChunk: { // 或runtimeChunk: true，将webpack运行时生成代码打包，为运行时代码创建一个额外的 chunk，减少 entry chunk 体积
-            name: entrypoint => `runtimechunk~${entrypoint.name}`
-            // name: 'manifest'
-        },
+        runtimeChunk: 'single',  // 将webpack运行时生成代码打包，为运行时代码创建一个额外的 chunk，减少 entry chunk 体积
         // 分割代码块
         splitChunks: {
             cacheGroups: {
                 vendors: {
-                    name: `vendors`,
+                    name: 'vendors',
                     test: /[\\/]node_modules[\\/]/,
                     chunks: 'initial',
                     priority: -10,
@@ -88,19 +86,20 @@ module.exports = merge(baseConfig, {
                     name: 'player',
                     test: /[\\/]node_modules[\\/]xgplayer[\\/]/,
                     chunks: 'all',
-                    priority: 20,
+                    priority: 15,
                 },
                 virtualized: {
                     name: 'virtualized',
                     test: /[\\/]node_modules[\\/](react-window|react-virtualized-auto-sizer)[\\/]/,
                     chunks: 'all',
-                    priority: 20,
+                    priority: 10,
                 },
                 commons: {
                     name: 'commons',
                     chunks: 'all',
                     minChunks: 2,
                     priority: 1,
+                    reuseExistingChunk: true // 如果该chunk中引用了已经被抽取的chunk，直接引用该chunk，不会重复打包代码
                 },
             }
         },
@@ -127,11 +126,12 @@ module.exports = merge(baseConfig, {
             chunkFilename: 'css/[name].[contenthash:8].chunk.css',
             ignoreOrder: true, // Conflicting order
         }),
-        // 开启 gzip
-        // 如果服务端没有开启gzip，或者没有开启静态gzip,前端没必要gzip压缩
+        // 开启 gzip，如果服务端没有开启gzip，或者没有开启静态gzip，前端没必要gzip压缩
         new CompressionPlugin({
+            algorithm: 'gzip', // 使用gzip压缩
             test: /\.(js|html|css)$/,
-            threshold: 10240, // 只处理比这个值大的资源。按字节计算
+            // filename: '[path][base].gz', // 压缩后的文件名(保持原文件名，后缀加.gz)
+            threshold: 10240, // 只处理比这个值大的资源，按字节计算
             minRatio: 0.8 // 只有压缩率比这个值小的资源才会被处理
         }),
 

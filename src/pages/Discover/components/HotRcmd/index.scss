@@ -1,19 +1,21 @@
+$size: 120px;
+
 .list {
-  margin: 20px 0 0 -42px;
+  margin: 20px 0 0 -20px;
 }
 
 .item {
   position: relative;
   float: left;
-  width: 140px;
-  height: 204px;
-  margin: 0 0 30px 42px;
+  width: $size;
+  height: 180px;
+  margin: 0 0 20px 20px;
 }
 
 .cover {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: $size;
+  height: $size;
   color: #ccc;
 
   .mask {

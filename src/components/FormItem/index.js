@@ -1,11 +1,14 @@
-import './index.scss'
-
+import styles from './index.scss'
 const FormItem = (props) => {
-    const {error, children, classname} = props
+  const { error, children, classname } = props
 
-    return <div className={classname} styleName={`field ${error ? "has-error" : ''}`}>
-        {children}
+  return (
+    <div
+      className={`${classname} ${styles.field} ${error ? styles['has-error'] : ''}`}
+    >
+      {children}
     </div>
+  )
 }
 
 export default FormItem

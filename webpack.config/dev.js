@@ -31,20 +31,40 @@ module.exports = merge(baseConfig, {
         hot: true,
         port: config.port,
         historyApiFallback: true,
-        onBeforeSetupMiddleware: function ({app}) {
-            apiMocker(app, path.resolve('src/mock/index.js'))
-        },
-        proxy: { // webpack-dev-server反向代理，基于Node代理中间件http-proxy-middleware实现
-            '/base': {
-                target: 'http://localhost:' + config.proxyPort,  // 反向代理的目标服务
+        proxy: [
+            {
+                context: ['/base'],
+                target: 'http://localhost:5023',  // 反向代理的目标服务，这里是本地跑的另一个接口地址
                 pathRewrite: {'^/base': ''},
                 changeOrigin: true,     // target是域名的话，需要这个参数，开启后会虚拟一个请求头Origin
                 secure: false,          // 设置支持https协议的代理
             },
-        },
-        onAfterSetupMiddleware: function () {
+        ],
+        setupMiddlewares: (middlewares, devServer) => {
+            if (!devServer) {
+                throw new Error('webpack-dev-server is not defined')
+            }
+
+            apiMocker(devServer.app, path.resolve('src/mock/index.js'))
+
             openBrowser && openBrowser('http://localhost:' + config.port);
+
+            return middlewares;
         },
+        // proxy: { // webpack-dev-server反向代理，基于Node代理中间件http-proxy-middleware实现
+        //     '/base': {
+        //         target: 'http://localhost:5023',  // 反向代理的目标服务，这里是本地跑的另一个接口地址
+        //         pathRewrite: {'^/base': ''},
+        //         changeOrigin: true,     // target是域名的话，需要这个参数，开启后会虚拟一个请求头Origin
+        //         secure: false,          // 设置支持https协议的代理
+        //     },
+        // },
+        // onBeforeSetupMiddleware: function ({app}) {
+        //     apiMocker(app, path.resolve('src/mock/index.js'))
+        // },
+        // onAfterSetupMiddleware: function () {
+        //     openBrowser && openBrowser('http://localhost:' + config.port);
+        // },
     },
     watchOptions: {
         ignored: /node_modules/, // 不监听node_modules目录下的文件

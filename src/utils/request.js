@@ -95,8 +95,8 @@ export default function request(url, fetchOptions = {}, options = {}) {
                         reject()
                         return
                     }
-                    // reject(res)
-                    resolve(res)
+                    reject(res)
+                    // resolve(res)
                 })
             }).catch((e) => {
                 return responseCatch(e)

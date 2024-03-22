@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {throttle} from 'lodash'
+import {throttle} from 'lodash-es'
 import {HEADER_HEIGHT} from 'constants'
 
 export default function useWindowSize() {
