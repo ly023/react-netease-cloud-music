@@ -4,7 +4,7 @@
 
 ### API
 
-接口使用[网易云音乐 NodeJS 版 API](https://binaryify.github.io/NeteaseCloudMusicApi/#/)
+接口使用[网易云音乐 NodeJS 版 API](https://gitlab.com/Binaryify/neteasecloudmusicapi)
 
 ### Build Setup
 
