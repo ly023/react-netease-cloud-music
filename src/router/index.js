@@ -11,7 +11,6 @@ function RouterConfig() {
             config.map(({path, component: Component, routes = [], meta = {}}, key) => {
                 const {requiresAuth} = meta
                 const option = {
-                    key,
                     path,
                     routes,
                     navigate,
@@ -20,8 +19,9 @@ function RouterConfig() {
 
                 // 分普通路由和需要登录验证的路由
                 return <Route
+                    key={key}
                     {...option}
-                    element={requiresAuth ? <Private component={Component} {...option}/> : <Component {...option} />}
+                    element={requiresAuth ? <Private component={Component} key={key} {...option}/> : <Component key={key} {...option} />}
                 />
             })
         }
