@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/ly023/react-netease-cloud-music#readme",
   "engines": {
-    "node": ">=18.x"
+    "node": ">=16.x"
   },
   "dependencies": {
     "@babel/plugin-transform-class-properties": "^7.24.7",
